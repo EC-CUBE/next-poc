@@ -2,9 +2,9 @@ name: Deny check for EC-CUBE
 on:
   push:
     branches:
-      - '*'
+      - '**'
     tags:
-      - '*'
+      - '**'
     paths:
       - '**'
       - '!*.md'

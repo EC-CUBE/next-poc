@@ -2,9 +2,9 @@ name: E2E test for EC-CUBE
 on:
   push:
     branches:
-      - '*'
+      - '**'
     tags:
-      - '*'
+      - '**'
     paths:
       - '**'
       - '!*.md'
