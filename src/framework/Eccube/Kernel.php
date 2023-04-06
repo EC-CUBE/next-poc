@@ -269,7 +269,7 @@ class Kernel extends BaseKernel
         $projectDir = $container->getParameter('kernel.project_dir');
 
         // Eccube
-        $paths = ['%kernel.project_dir%/src/framework/Eccube/Entity'];
+        $paths = ['%kernel.project_dir%/src/application/Eccube/Entity'];
         $namespaces = ['Eccube\\Entity'];
         $reader = new Reference('annotation_reader');
         $driver = new Definition(AnnotationDriver::class, [$reader, $paths]);

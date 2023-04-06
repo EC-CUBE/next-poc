@@ -128,7 +128,7 @@
         "psr-4": {
             "Eccube\\Entity\\": "app/proxy/entity",
             "Customize\\": "app/Customize",
-            "Eccube\\": "src/framework/Eccube",
+            "Eccube\\": ["src/framework/Eccube", "src/application/Eccube"],
             "Plugin\\": "app/Plugin"
         },
         "exclude-from-classmap": [

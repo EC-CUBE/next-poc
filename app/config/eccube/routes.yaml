@@ -1,6 +1,6 @@
 
 controllers:
-    resource: ../../../src/framework/Eccube/Controller
+    resource: ../../../src/application/Eccube/Controller
     type: annotation
 customize_controllers:
     resource: ../../../app/Customize/Controller
