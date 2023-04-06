@@ -91,7 +91,7 @@ class ReloadSafeAnnotationDriver extends AnnotationDriver
                     }
                 }
 
-                $projectDir = realpath(__DIR__.'/../../../../../../');
+                $projectDir = realpath(__DIR__.'/../../../../../../../');
                 if ('\\' === DIRECTORY_SEPARATOR) {
                     $path = str_replace('\\', '/', $path);
                     $this->trait_proxies_directory = str_replace('\\', '/', $this->trait_proxies_directory);

@@ -49,10 +49,11 @@ class GenerateProxyCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        // アノテーションを読み込めるように設定.
-        AnnotationRegistry::registerAutoloadNamespace('Eccube\Annotation', __DIR__.'/../../../src');
-
         $projectDir = $this->container->getParameter('kernel.project_dir');
+
+        // アノテーションを読み込めるように設定.
+        AnnotationRegistry::registerAutoloadNamespace('Eccube\Annotation', $projectDir.'/src/framework');
+
         $includeDirs = [$projectDir.'/app/Customize/Entity'];
 
         $enabledPlugins = $this->container->getParameter('eccube.plugins.enabled');

@@ -190,7 +190,7 @@ abstract class AbstractCommandTest extends EccubeTestCase
         // Migration
         if (!$app->offsetExists('db.migrations.path')) {
             $app->register(new \Dbtlr\MigrationProvider\Provider\MigrationServiceProvider(), [
-                'db.migrations.path' => __DIR__.'/../../../../src/Eccube/Resource/doctrine/migration',
+                'db.migrations.path' => __DIR__.'/../../../../src/framework/Eccube/Resource/doctrine/migration',
             ]);
         }
         $app->boot();

@@ -19,8 +19,8 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Yaml;
 
 define('PROJECT_DIR', realpath(__DIR__.'/../'));
-define('LOCALE_DIR', realpath(PROJECT_DIR.'/src/Eccube/Resource/locale'));
-define('TEMPLATE_DIR', realpath(PROJECT_DIR.'/src/Eccube/Resource/template'));
+define('LOCALE_DIR', realpath(PROJECT_DIR.'/src/framework/Eccube/Resource/locale'));
+define('TEMPLATE_DIR', realpath(PROJECT_DIR.'/src/framework/Eccube/Resource/template'));
 
 $messagesFile = LOCALE_DIR.'/messages.ja.yaml';
 $messages = Yaml::parse(file_get_contents($messagesFile));
