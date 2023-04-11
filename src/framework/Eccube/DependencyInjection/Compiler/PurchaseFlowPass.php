@@ -50,7 +50,7 @@ class PurchaseFlowPass implements CompilerPassInterface
             self::PURCHASE_PROCESSOR_TAG => 'addPurchaseProcessor',
         ];
 
-        AnnotationRegistry::registerAutoloadNamespace('Eccube\Annotation', __DIR__.'/../../../../src');
+        AnnotationRegistry::registerAutoloadNamespace('Eccube\Annotation', __DIR__.'/../../../../../src/framework');
         $reader = new AnnotationReader();
 
         foreach ($processorTags as $tag => $methodName) {

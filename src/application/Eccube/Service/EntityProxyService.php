@@ -120,7 +120,7 @@ class EntityProxyService
 
         if (preg_match('/\AEccube\\\\Entity\\\\(.+)\z/', $entityClassName, $matches)) {
             $pathToEntity = str_replace('\\', '/', $matches[1]);
-            $originalPath = sprintf('%s/src/Eccube/Entity/%s.php', $projectDir, $pathToEntity);
+            $originalPath = sprintf('%s/src/application/Eccube/Entity/%s.php', $projectDir, $pathToEntity);
         } elseif (preg_match('/\ACustomize\\\\Entity\\\\(.+)\z/', $entityClassName, $matches)) {
             $pathToEntity = str_replace('\\', '/', $matches[1]);
             $originalPath = sprintf('%s/app/Customize/Entity/%s.php', $projectDir, $pathToEntity);

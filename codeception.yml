@@ -16,7 +16,8 @@ coverage:
     enabled: true
     whitelist:
         include:
-            - src/Eccube/*
+            - src/application/Eccube/*
+            - src/framework/Eccube/*
         exclude:
-            - src/Eccube/Resource/*
-            - src/Eccube/Command/*
+            - src/framework/Eccube/Resource/*
+            - src/framework/Eccube/Command/*

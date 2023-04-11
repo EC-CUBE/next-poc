@@ -155,12 +155,12 @@ class Kernel extends BaseKernel
         $loader->load($confDir.'/services_'.$this->environment.self::CONFIG_EXTS, 'glob');
 
         // プラグインのservices.phpをロードする.
-        $dir = dirname(__DIR__).'/../app/Plugin/*/Resource/config';
+        $dir = $this->getProjectDir().'/app/Plugin/*/Resource/config';
         $loader->load($dir.'/services'.self::CONFIG_EXTS, 'glob');
         $loader->load($dir.'/services_'.$this->environment.self::CONFIG_EXTS, 'glob');
 
         // カスタマイズディレクトリのservices.phpをロードする.
-        $dir = dirname(__DIR__).'/../app/Customize/Resource/config';
+        $dir = $this->getProjectDir().'/app/Customize/Resource/config';
         $loader->load($dir.'/services'.self::CONFIG_EXTS, 'glob');
         $loader->load($dir.'/services_'.$this->environment.self::CONFIG_EXTS, 'glob');
     }
@@ -269,7 +269,7 @@ class Kernel extends BaseKernel
         $projectDir = $container->getParameter('kernel.project_dir');
 
         // Eccube
-        $paths = ['%kernel.project_dir%/src/Eccube/Entity'];
+        $paths = ['%kernel.project_dir%/src/application/Eccube/Entity'];
         $namespaces = ['Eccube\\Entity'];
         $reader = new Reference('annotation_reader');
         $driver = new Definition(AnnotationDriver::class, [$reader, $paths]);
@@ -314,7 +314,7 @@ class Kernel extends BaseKernel
         }
 
         $files = Finder::create()
-            ->in(__DIR__.'/../../app/proxy/entity/')
+            ->in($this->getProjectDir().'/app/proxy/entity/')
             ->name('*.php')
             ->files();
         foreach ($files as $file) {

@@ -2,9 +2,9 @@ name: Coverage
 on:
   push:
     branches:
-      - '*'
+      - '**'
     tags:
-      - '*'
+      - '**'
     paths:
       - '**'
       - '!*.md'

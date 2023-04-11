@@ -465,7 +465,7 @@ class InstallController extends AbstractController
         } elseif ($forceSSL === true) {
             $forceSSL = '1';
         }
-        $env = file_get_contents(__DIR__.'/../../../../.env.dist');
+        $env = file_get_contents($this->getParameter('kernel.project_dir').'/.env.dist');
         $replacement = [
             'APP_ENV' => 'prod',
             'APP_DEBUG' => '0',
@@ -486,7 +486,7 @@ class InstallController extends AbstractController
         $env = StringUtil::replaceOrAddEnv($env, $replacement);
 
         if ($this->getParameter('kernel.environment') === 'install') {
-            file_put_contents(__DIR__.'/../../../../.env', $env);
+            file_put_contents($this->getParameter('kernel.project_dir').'/.env', $env);
         }
         $host = $request->getSchemeAndHttpHost();
         $basePath = $request->getBasePath();
@@ -586,7 +586,7 @@ class InstallController extends AbstractController
     protected function createEntityManager(Connection $conn)
     {
         $paths = [
-            $this->getParameter('kernel.project_dir').'/src/Eccube/Entity',
+            $this->getParameter('kernel.project_dir').'/src/application/Eccube/Entity',
             $this->getParameter('kernel.project_dir').'/app/Customize/Entity',
         ];
         $config = Setup::createConfiguration(true);
@@ -813,7 +813,7 @@ class InstallController extends AbstractController
         $localeDir = is_null($locales) ? 'ja' : $locales['language'];
 
         $loader = new \Eccube\Doctrine\Common\CsvDataFixtures\Loader();
-        $loader->loadFromDirectory($this->getParameter('kernel.project_dir').'/src/Eccube/Resource/doctrine/import_csv/'.$localeDir);
+        $loader->loadFromDirectory($this->getParameter('kernel.project_dir').'/src/framework/Eccube/Resource/doctrine/import_csv/'.$localeDir);
         $executer = new \Eccube\Doctrine\Common\CsvDataFixtures\Executor\DbalExecutor($em);
         $fixtures = $loader->getFixtures();
         $executer->execute($fixtures);
