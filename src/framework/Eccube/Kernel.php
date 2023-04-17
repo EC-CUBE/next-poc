@@ -22,6 +22,7 @@ use Eccube\DependencyInjection\Compiler\PaymentMethodPass;
 use Eccube\DependencyInjection\Compiler\PluginPass;
 use Eccube\DependencyInjection\Compiler\PurchaseFlowPass;
 use Eccube\DependencyInjection\Compiler\QueryCustomizerPass;
+use Eccube\DependencyInjection\Compiler\RouteAnnotationPass;
 use Eccube\DependencyInjection\Compiler\TwigBlockPass;
 use Eccube\DependencyInjection\Compiler\TwigExtensionPass;
 use Eccube\DependencyInjection\Compiler\WebServerDocumentRootPass;
@@ -262,6 +263,9 @@ class Kernel extends BaseKernel
         $container->registerForAutoconfiguration(PurchaseProcessor::class)
             ->addTag(PurchaseFlowPass::PURCHASE_PROCESSOR_TAG);
         $container->addCompilerPass(new PurchaseFlowPass());
+
+        // Routeアノテーション差し替え
+        $container->addCompilerPass(new RouteAnnotationPass());
     }
 
     protected function addEntityExtensionPass(ContainerBuilder $container)
