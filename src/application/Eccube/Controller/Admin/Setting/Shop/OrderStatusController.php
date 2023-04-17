@@ -21,7 +21,7 @@ use Eccube\Repository\Master\OrderStatusRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Eccube\Annotation\Route;
 
 class OrderStatusController extends AbstractController
 {

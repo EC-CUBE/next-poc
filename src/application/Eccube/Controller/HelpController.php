@@ -14,7 +14,7 @@
 namespace Eccube\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\Routing\Annotation\Route;
+use Eccube\Annotation\Route;
 
 class HelpController extends AbstractController
 {

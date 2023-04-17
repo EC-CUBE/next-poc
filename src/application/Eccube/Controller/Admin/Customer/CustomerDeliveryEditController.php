@@ -24,7 +24,7 @@ use Eccube\Repository\CustomerAddressRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Eccube\Annotation\Route;
 
 class CustomerDeliveryEditController extends AbstractController
 {

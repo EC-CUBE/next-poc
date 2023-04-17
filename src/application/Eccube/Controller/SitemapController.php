@@ -25,7 +25,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Eccube\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
 class SitemapController extends AbstractController
