@@ -16,12 +16,13 @@ namespace Eccube\EventListener;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Member;
 use Eccube\Request\Context;
+use Eccube\Routing\Router;
 use Eccube\Service\TwoFactorAuthService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Eccube\Routing\Generator\UrlGeneratorInterface;
 
 class TwoFactorAuthListener implements EventSubscriberInterface
 {
@@ -59,7 +60,7 @@ class TwoFactorAuthListener implements EventSubscriberInterface
     public function __construct(
         EccubeConfig $eccubeConfig,
         Context $requestContext,
-        UrlGeneratorInterface $router,
+        Router $router,
         TwoFactorAuthService $twoFactorAuthService
     ) {
         $this->eccubeConfig = $eccubeConfig;
