@@ -11,7 +11,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Eccube\Annotation;
+namespace Eccube\Routing\Annotation;
 
 use Symfony\Component\Routing\Annotation\Route as BaseRoute;
 

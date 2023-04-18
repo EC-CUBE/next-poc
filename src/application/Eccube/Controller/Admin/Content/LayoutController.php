@@ -32,7 +32,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Annotation\Route;
+use Eccube\Routing\Annotation\Route;
 use Twig\Environment as Twig;
 
 class LayoutController extends AbstractController

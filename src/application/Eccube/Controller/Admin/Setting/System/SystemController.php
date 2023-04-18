@@ -18,7 +18,7 @@ use Eccube\Service\SystemService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Eccube\Annotation\Route;
+use Eccube\Routing\Annotation\Route;
 
 class SystemController
 {

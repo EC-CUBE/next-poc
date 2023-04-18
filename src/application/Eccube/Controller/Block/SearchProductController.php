@@ -20,7 +20,7 @@ use Eccube\Form\Type\SearchProductBlockType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Eccube\Annotation\Route;
+use Eccube\Routing\Annotation\Route;
 
 class SearchProductController extends AbstractController
 {

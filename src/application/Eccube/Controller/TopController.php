@@ -14,7 +14,7 @@
 namespace Eccube\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Eccube\Annotation\Route;
+use Eccube\Routing\Annotation\Route;
 
 class TopController extends AbstractController
 {

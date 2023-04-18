@@ -22,7 +22,7 @@ use Eccube\Repository\Master\CsvTypeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Annotation\Route;
+use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

@@ -22,7 +22,7 @@ use Eccube\Service\CsvImportService;
 use Eccube\Service\OrderStateMachine;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Annotation\Route;
+use Eccube\Routing\Annotation\Route;
 
 class CsvImportController extends AbstractCsvImportController
 {

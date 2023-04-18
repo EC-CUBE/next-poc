@@ -21,7 +21,7 @@ use Eccube\Repository\TradeLawRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Annotation\Route;
+use Eccube\Routing\Annotation\Route;
 
 class TradeLawController extends AbstractController
 {

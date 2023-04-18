@@ -15,7 +15,7 @@ namespace Eccube\Controller;
 
 use Eccube\Repository\TradeLawRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Eccube\Annotation\Route;
+use Eccube\Routing\Annotation\Route;
 
 class TradeLawController extends AbstractController
 {

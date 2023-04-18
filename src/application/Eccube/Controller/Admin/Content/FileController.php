@@ -29,7 +29,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
-use Eccube\Annotation\Route;
+use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class FileController extends AbstractController

@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Eccube\Annotation\Route;
+use Eccube\Routing\Annotation\Route;
 
 class TemplateController extends AbstractController
 {

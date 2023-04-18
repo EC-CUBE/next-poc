@@ -18,7 +18,7 @@ use Eccube\Controller\AbstractController;
 use Eccube\Repository\CalendarRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Annotation\Route;
+use Eccube\Routing\Annotation\Route;
 
 class CalendarController extends AbstractController
 {
