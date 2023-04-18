@@ -24,6 +24,7 @@ use Eccube\Form\Type\Admin\PluginLocalInstallType;
 use Eccube\Form\Type\Admin\PluginManagementType;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\PluginRepository;
+use Eccube\Routing\Exception\RoutingException;
 use Eccube\Service\Composer\ComposerServiceInterface;
 use Eccube\Service\PluginApiService;
 use Eccube\Service\PluginService;
@@ -39,7 +40,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PluginController extends AbstractController
@@ -126,7 +126,7 @@ class PluginController extends AbstractController
                 $code = $unregisteredPlugin['code'];
                 // プラグイン用設定画面があれば表示(プラグイン用のサービスプロバイダーに定義されているか)
                 $unregisteredPluginsConfigPages[$code] = $this->generateUrl('plugin_'.$code.'_config');
-            } catch (RouteNotFoundException $e) {
+            } catch (RoutingException $e) {
                 // プラグインで設定画面のルートが定義されていない場合は無視
             }
         }
