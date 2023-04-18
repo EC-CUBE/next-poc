@@ -20,7 +20,7 @@ use Eccube\Form\Type\Admin\LogType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\Routing\Annotation\Route;
+use Eccube\Routing\Annotation\Route;
 
 class LogController extends AbstractController
 {
