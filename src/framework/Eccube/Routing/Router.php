@@ -13,6 +13,8 @@
 
 namespace Eccube\Routing;
 
+use Eccube\Routing\Exception\RoutingException;
+use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class Router
@@ -22,6 +24,15 @@ class Router
     public function __construct(RouterInterface $router)
     {
         $this->router = $router;
+    }
+
+    public function generate(string $name, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): string
+    {
+        try {
+            return $this->router->generate($name, $parameters, $referenceType);
+        } catch (\Exception $e) {
+            throw new RoutingException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     private function match(string $path): array
