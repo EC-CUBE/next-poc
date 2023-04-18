@@ -21,12 +21,12 @@ class Route
 
     public function __construct(BaseRoute $route)
     {
-        $this->route = $route->compile();
+        $this->route = $route;
     }
 
     public function getPathVariables(): array
     {
-        return $this->route->getPathVariables();
+        return $this->route->compile()->getPathVariables();
     }
 
     public function hasPathVariables(): bool
