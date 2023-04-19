@@ -14,6 +14,7 @@
 namespace Eccube\Tests\DependencyInjection\Compiler;
 
 use Eccube\DependencyInjection\Compiler\TwigExtensionPass;
+use Eccube\Routing\Router;
 use Eccube\Twig\Extension\IgnoreRoutingNotFoundExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -21,6 +22,7 @@ use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
+use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\LoaderInterface;
@@ -41,6 +43,9 @@ class TwigExtensionPassTest extends TestCase
         $this->containerBuilder->register(IgnoreRoutingNotFoundExtension::class)
             ->setAutowired(true);
         $this->containerBuilder->register(LoaderInterface::class, ArrayLoader::class);
+        $this->containerBuilder->register(RouterInterface::class, MockRouter::class);
+        $this->containerBuilder->register(Router::class)
+            ->setAutowired(true);
         $this->containerBuilder->register('twig', Environment::class)
             ->setPublic(true)
             ->setAutowired(true);
@@ -59,5 +64,28 @@ class TwigExtensionPassTest extends TestCase
             IgnoreRoutingNotFoundExtension::class,
             $twig->getExtension(IgnoreRoutingNotFoundExtension::class)
         );
+    }
+}
+
+class MockRouter implements RouterInterface
+{
+    public function setContext(RequestContext $context)
+    {
+    }
+
+    public function getContext()
+    {
+    }
+
+    public function getRouteCollection()
+    {
+    }
+
+    public function generate(string $name, array $parameters = [], int $referenceType = self::ABSOLUTE_PATH)
+    {
+    }
+
+    public function match(string $pathinfo)
+    {
     }
 }
