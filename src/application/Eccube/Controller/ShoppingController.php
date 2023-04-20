@@ -174,7 +174,7 @@ class ShoppingController extends AbstractShoppingController
 
         $activeTradeLaws = $this->tradeLawRepository->findBy(['displayOrderScreen' => true], ['sortNo' => 'ASC']);
 
-        $form = $this->createForm(OrderType::class, $Order);
+        $form = $this->formFactory->create(OrderType::class, $Order);
 
         return [
             'form' => $form->createView(),
@@ -220,7 +220,7 @@ class ShoppingController extends AbstractShoppingController
             return $this->redirectToRoute('shopping_error');
         }
 
-        $form = $this->createForm(OrderType::class, $Order);
+        $form = $this->formFactory->create(OrderType::class, $Order);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -297,7 +297,7 @@ class ShoppingController extends AbstractShoppingController
         }
 
         $activeTradeLaws = $this->tradeLawRepository->findBy(['displayOrderScreen' => true], ['sortNo' => 'ASC']);
-        $form = $this->createForm(OrderType::class, $Order);
+        $form = $this->formFactory->create(OrderType::class, $Order);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -405,7 +405,7 @@ class ShoppingController extends AbstractShoppingController
         }
 
         // フォームの生成.
-        $form = $this->createForm(OrderType::class, $Order, [
+        $form = $this->formFactory->create(OrderType::class, $Order, [
             // 確認画面から注文処理へ遷移する場合は, Orderエンティティで値を引き回すためフォーム項目の定義をスキップする.
             'skip_add_form' => true,
         ]);
