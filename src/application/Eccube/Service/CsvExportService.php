@@ -19,6 +19,7 @@ use Doctrine\ORM\QueryBuilder;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Csv;
 use Eccube\Entity\Master\CsvType;
+use Eccube\Form\Form;
 use Eccube\Form\Type\Admin\SearchCustomerType;
 use Eccube\Form\Type\Admin\SearchOrderType;
 use Eccube\Form\Type\Admin\SearchProductType;
@@ -30,7 +31,6 @@ use Eccube\Repository\ProductRepository;
 use Eccube\Repository\ShippingRepository;
 use Eccube\Util\FormUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class CsvExportService
@@ -105,11 +105,6 @@ class CsvExportService
      */
     protected $productRepository;
 
-    /**
-     * @var FormFactoryInterface
-     */
-    protected $formFactory;
-
     /** @var PaginatorInterface */
     protected $paginator;
 
@@ -124,7 +119,6 @@ class CsvExportService
      * @param CustomerRepository $customerRepository
      * @param ProductRepository $productRepository
      * @param EccubeConfig $eccubeConfig
-     * @param FormFactoryInterface $formFactory
      * @param PaginatorInterface $paginator
      */
     public function __construct(
@@ -136,7 +130,6 @@ class CsvExportService
         CustomerRepository $customerRepository,
         ProductRepository $productRepository,
         EccubeConfig $eccubeConfig,
-        FormFactoryInterface $formFactory,
         PaginatorInterface $paginator
     ) {
         $this->entityManager = $entityManager;
@@ -147,7 +140,6 @@ class CsvExportService
         $this->customerRepository = $customerRepository;
         $this->eccubeConfig = $eccubeConfig;
         $this->productRepository = $productRepository;
-        $this->formFactory = $formFactory;
         $this->paginator = $paginator;
     }
 
@@ -406,12 +398,9 @@ class CsvExportService
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getOrderQueryBuilder(Request $request)
+    public function getOrderQueryBuilder(Request $request, Form $searchForm)
     {
         $session = $request->getSession();
-        $builder = $this->formFactory
-            ->createBuilder(SearchOrderType::class);
-        $searchForm = $builder->getForm();
 
         $viewData = $session->get('eccube.admin.order.search', []);
         $searchData = FormUtil::submitAndGetData($searchForm, $viewData);
@@ -430,12 +419,9 @@ class CsvExportService
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getCustomerQueryBuilder(Request $request)
+    public function getCustomerQueryBuilder(Request $request, $searchForm)
     {
         $session = $request->getSession();
-        $builder = $this->formFactory
-            ->createBuilder(SearchCustomerType::class);
-        $searchForm = $builder->getForm();
 
         $viewData = $session->get('eccube.admin.customer.search', []);
         $searchData = FormUtil::submitAndGetData($searchForm, $viewData);
@@ -454,12 +440,9 @@ class CsvExportService
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getProductQueryBuilder(Request $request)
+    public function getProductQueryBuilder(Request $request, $searchForm)
     {
         $session = $request->getSession();
-        $builder = $this->formFactory
-            ->createBuilder(SearchProductType::class);
-        $searchForm = $builder->getForm();
 
         $viewData = $session->get('eccube.admin.product.search', []);
         $searchData = FormUtil::submitAndGetData($searchForm, $viewData);

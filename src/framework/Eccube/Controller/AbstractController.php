@@ -16,9 +16,13 @@ namespace Eccube\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\Constant;
 use Eccube\Common\EccubeConfig;
+use Eccube\Form\FormFactory;
+use Eccube\Form\FormView;
 use Eccube\Routing\Exception\RoutingException;
+use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -26,6 +30,7 @@ use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -33,11 +38,17 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
-use Eccube\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Contracts\Service\ServiceSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
-class AbstractController
+class AbstractController implements ServiceSubscriberInterface
 {
     /**
      * @var ContainerInterface
@@ -60,7 +71,7 @@ class AbstractController
     protected $translator;
 
     /**
-     * @var FormFactoryInterface
+     * @var FormFactory
      */
     protected $formFactory;
 
@@ -125,7 +136,7 @@ class AbstractController
      */
     public function setFormFactory(FormFactoryInterface $formFactory)
     {
-        $this->formFactory = $formFactory;
+        $this->formFactory = new FormFactory($formFactory);
     }
 
     /**
@@ -378,6 +389,10 @@ class AbstractController
 
     protected function render(string $view, array $parameters = [], Response $response = null): Response
     {
+        if (isset($parameters['form']) && $parameters['form'] instanceof FormView) {
+            $parameters['form'] = $parameters['form']->getFormView();
+        }
+
         $content = $this->renderView($view, $parameters);
 
         if (null === $response) {
@@ -397,4 +412,19 @@ class AbstractController
         return $response;
     }
 
+    public static function getSubscribedServices()
+    {
+        return [
+            'router' => '?'.RouterInterface::class,
+            'request_stack' => '?'.RequestStack::class,
+            'http_kernel' => '?'.HttpKernelInterface::class,
+            'serializer' => '?'.SerializerInterface::class,
+            'session' => '?'.SessionInterface::class,
+            'security.authorization_checker' => '?'.AuthorizationCheckerInterface::class,
+            'twig' => '?'.Environment::class,
+            'security.token_storage' => '?'.TokenStorageInterface::class,
+            'security.csrf.token_manager' => '?'.CsrfTokenManagerInterface::class,
+            'parameter_bag' => '?'.ContainerBagInterface::class,
+        ];
+    }
 }

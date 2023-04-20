@@ -294,7 +294,7 @@ class CustomerController extends AbstractController
 
             // 会員データ検索用のクエリビルダを取得.
             $qb = $this->csvExportService
-                ->getCustomerQueryBuilder($request);
+                ->getCustomerQueryBuilder($request, $this->formFactory->create(SearchCustomerType::class));
 
             // ヘッダ行の出力.
             $this->csvExportService->exportHeader();

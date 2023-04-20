@@ -15,10 +15,10 @@ namespace Eccube\Tests\Web\Install;
 
 use Eccube\Common\Constant;
 use Eccube\Controller\Install\InstallController;
+use Eccube\Form\FormView;
 use Eccube\Security\Core\Encoder\PasswordEncoder;
 use Eccube\Tests\Web\AbstractWebTestCase;
 use Eccube\Util\CacheUtil;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;

@@ -14,8 +14,8 @@
 namespace Eccube\Service\Payment\Method;
 
 use Eccube\Entity\Order;
+use Eccube\Form\Form;
 use Eccube\Service\Payment\PaymentMethodInterface;
-use Symfony\Component\Form\FormInterface;
 
 /**
  * クレジットカード払いの基底クラス.
@@ -47,7 +47,7 @@ abstract class CreditCard implements PaymentMethodInterface
     /**
      * {@inheritdoc}
      */
-    abstract public function setFormType(FormInterface $form);
+    abstract public function setFormType(Form $form);
 
     /**
      * {@inheritdoc}

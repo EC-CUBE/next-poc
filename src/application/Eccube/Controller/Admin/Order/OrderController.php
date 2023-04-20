@@ -410,7 +410,7 @@ class OrderController extends AbstractController
 
             // 受注データ検索用のクエリビルダを取得.
             $qb = $this->csvExportService
-                ->getOrderQueryBuilder($request);
+                ->getOrderQueryBuilder($request, $this->formFactory->create(SearchOrderType::class));
 
             // ヘッダ行の出力.
             $this->csvExportService->exportHeader();

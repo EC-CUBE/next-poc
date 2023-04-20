@@ -966,7 +966,7 @@ class ProductController extends AbstractController
 
             // 商品データ検索用のクエリビルダを取得.
             $qb = $this->csvExportService
-                ->getProductQueryBuilder($request);
+                ->getProductQueryBuilder($request, $this->formFactory->create(SearchProductType::class));
 
             // ヘッダ行の出力.
             $this->csvExportService->exportHeader();
