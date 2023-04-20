@@ -39,6 +39,7 @@ use Eccube\Repository\ProductImageRepository;
 use Eccube\Repository\ProductRepository;
 use Eccube\Repository\TagRepository;
 use Eccube\Repository\TaxRuleRepository;
+use Eccube\Routing\Router;
 use Eccube\Service\CsvExportService;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\FormUtil;
@@ -55,7 +56,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\Routing\RouterInterface;
 
 class ProductController extends AbstractController
 {
@@ -425,7 +425,7 @@ class ProductController extends AbstractController
      * @Route("/%eccube_admin_route%/product/product/{id}/edit", requirements={"id" = "\d+"}, name="admin_product_product_edit", methods={"GET", "POST"})
      * @Template("@admin/Product/product.twig")
      */
-    public function edit(Request $request, RouterInterface $router, CacheUtil $cacheUtil, $id = null)
+    public function edit(Request $request, Router $router, CacheUtil $cacheUtil, $id = null)
     {
         $has_class = false;
         if (is_null($id)) {
@@ -687,14 +687,11 @@ class ProductController extends AbstractController
                         // $returnLinkはpathの形式で渡される. pathが存在するかをルータでチェックする.
                         $pattern = '/^'.preg_quote($request->getBasePath(), '/').'/';
                         $returnLink = preg_replace($pattern, '', $returnLink);
-                        $result = $router->match($returnLink);
-                        // パラメータのみ抽出
-                        $params = array_filter($result, function ($key) {
-                            return 0 !== \strpos($key, '_');
-                        }, ARRAY_FILTER_USE_KEY);
+                        $route = $router->matchRoute($returnLink);
+                        $params = $router->matchParams($returnLink);
 
                         // pathからurlを再構築してリダイレクト.
-                        return $this->redirectToRoute($result['_route'], $params);
+                        return $this->redirectToRoute($route, $params);
                     } catch (\Exception $e) {
                         // マッチしない場合はログ出力してスキップ.
                         log_warning('URLの形式が不正です。');

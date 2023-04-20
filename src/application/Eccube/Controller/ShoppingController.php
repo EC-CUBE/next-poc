@@ -33,6 +33,7 @@ use Eccube\Service\Payment\PaymentDispatcher;
 use Eccube\Service\Payment\PaymentMethodInterface;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
+use Eccube\Routing\Router;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormInterface;
@@ -41,7 +42,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ShoppingController extends AbstractShoppingController
@@ -202,7 +202,7 @@ class ShoppingController extends AbstractShoppingController
      * @Route("/shopping/redirect_to", name="shopping_redirect_to", methods={"POST"})
      * @Template("Shopping/index.twig")
      */
-    public function redirectTo(Request $request, RouterInterface $router)
+    public function redirectTo(Request $request, Router $router)
     {
         // ログイン状態のチェック.
         if ($this->orderHelper->isLoginRequired()) {
@@ -243,16 +243,13 @@ class ShoppingController extends AbstractShoppingController
                 // リダイレクト先のチェック.
                 $pattern = '/^'.preg_quote($request->getBasePath(), '/').'/';
                 $redirectTo = preg_replace($pattern, '', $redirectTo);
-                $result = $router->match($redirectTo);
-                // パラメータのみ抽出
-                $params = array_filter($result, function ($key) {
-                    return 0 !== \strpos($key, '_');
-                }, ARRAY_FILTER_USE_KEY);
+                $route = $router->matchRoute($redirectTo);
+                $params = $router->matchParams($redirectTo);
 
-                log_info('[リダイレクト] リダイレクトを実行します.', [$result['_route'], $params]);
+                log_info('[リダイレクト] リダイレクトを実行します.', [$route, $params]);
 
                 // pathからurlを再構築してリダイレクト.
-                return $this->redirectToRoute($result['_route'], $params);
+                return $this->redirectToRoute($route, $params);
             } catch (\Exception $e) {
                 log_info('[リダイレクト] URLの形式が不正です', [$redirectTo, $e->getMessage()]);
 

@@ -22,13 +22,13 @@ use Eccube\Form\Type\Admin\MainEditType;
 use Eccube\Repository\Master\DeviceTypeRepository;
 use Eccube\Repository\PageLayoutRepository;
 use Eccube\Repository\PageRepository;
+use Eccube\Routing\Router;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\Routing\RouterInterface;
 use Twig\Environment;
 
 class PageController extends AbstractController
@@ -68,7 +68,7 @@ class PageController extends AbstractController
      * @Route("/%eccube_admin_route%/content/page", name="admin_content_page", methods={"GET"})
      * @Template("@admin/Content/page.twig")
      */
-    public function index(Request $request, RouterInterface $router)
+    public function index(Request $request, Router $router)
     {
         $Pages = $this->pageRepository->getPageList();
 
@@ -91,7 +91,7 @@ class PageController extends AbstractController
      * @Route("/%eccube_admin_route%/content/page/{id}/edit", requirements={"id" = "\d+"}, name="admin_content_page_edit", methods={"GET", "POST"})
      * @Template("@admin/Content/page_edit.twig")
      */
-    public function edit(Request $request, Environment $twig, RouterInterface $router, CacheUtil $cacheUtil, $id = null)
+    public function edit(Request $request, Environment $twig, Router $router, CacheUtil $cacheUtil, $id = null)
     {
         $this->addInfoOnce('admin.common.restrict_file_upload_info', 'admin');
 
@@ -238,7 +238,7 @@ class PageController extends AbstractController
             $url = '';
         } else {
             $templatePath = $this->getParameter('eccube_theme_front_dir');
-            $url = $router->getRouteCollection()->get($PrevPage->getUrl())->getPath();
+            $url = $router->get($PrevPage->getUrl())->getPath();
         }
         $projectDir = $this->getParameter('kernel.project_dir');
         $templatePath = str_replace($projectDir.'/', '', $templatePath);

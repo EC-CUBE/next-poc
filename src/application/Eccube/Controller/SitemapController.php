@@ -20,13 +20,13 @@ use Eccube\Repository\CategoryRepository;
 use Eccube\Repository\Master\ProductListOrderByRepository;
 use Eccube\Repository\PageRepository;
 use Eccube\Repository\ProductRepository;
+use Eccube\Routing\Router;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\Routing\RouterInterface;
 
 class SitemapController extends AbstractController
 {
@@ -51,11 +51,6 @@ class SitemapController extends AbstractController
     private $productRepository;
 
     /**
-     * @var RouterInterface
-     */
-    private $router;
-
-    /**
      * @var BaseInfo
      */
     protected $BaseInfo;
@@ -68,14 +63,12 @@ class SitemapController extends AbstractController
         PageRepository $pageRepository,
         ProductListOrderByRepository $productListOrderByRepository,
         ProductRepository $productRepository,
-        RouterInterface $router,
         BaseInfoRepository $baseInfoRepository
     ) {
         $this->categoryRepository = $categoryRepository;
         $this->pageRepository = $pageRepository;
         $this->productListOrderByRepository = $productListOrderByRepository;
         $this->productRepository = $productRepository;
-        $this->router = $router;
         $this->BaseInfo = $baseInfoRepository->get();
     }
 
@@ -174,23 +167,25 @@ class SitemapController extends AbstractController
      *
      * @Route("/sitemap_page.xml", name="sitemap_page_xml", methods={"GET"})
      */
-    public function page()
+    public function page(Router $router)
     {
         $Pages = $this->pageRepository->getPageList("((p.meta_robots not like '%noindex%' and p.meta_robots not like '%none%') or p.meta_robots IS NULL)");
 
         // URL に変数が含まれる場合は URL の生成ができないためここで除外する
-        $DefaultPages = array_filter($Pages, function (Page $Page) {
+        $DefaultPages = array_filter($Pages, function (Page $Page) use ($router){
             // 管理画面から作成されたページは除外
             if ($Page->getEditType() === Page::EDIT_TYPE_USER) {
                 return false;
             }
 
-            $route = $this->router->getRouteCollection()->get($Page->getUrl());
-            if (is_null($route)) {
+            $route = $router->get($Page->getUrl());
+
+            if (null === $route) {
                 return false;
             }
 
-            return count($route->compile()->getPathVariables()) < 1;
+            //  URL に変数が含まれる場合は除外
+            return !$route->hasPathVariables();
         });
 
         // 管理画面から作成されたページ
