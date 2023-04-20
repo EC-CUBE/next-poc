@@ -13,8 +13,9 @@
 
 namespace Eccube\Twig\Extension;
 
+use Eccube\Routing\Router;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\Node\Expression\ArrayExpression;
 use Twig\Node\Expression\ConstantExpression;
@@ -27,10 +28,9 @@ use Twig\TwigFunction;
  */
 class IgnoreRoutingNotFoundExtension extends AbstractExtension
 {
-    /** @var UrlGeneratorInterface */
-    private $generator;
+    private Router $generator;
 
-    public function __construct(UrlGeneratorInterface $generator)
+    public function __construct(Router $generator)
     {
         $this->generator = $generator;
     }

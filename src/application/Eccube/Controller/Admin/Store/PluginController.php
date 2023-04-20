@@ -40,7 +40,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Eccube\Routing\Generator\UrlGeneratorInterface;
 
 class PluginController extends AbstractController
 {
