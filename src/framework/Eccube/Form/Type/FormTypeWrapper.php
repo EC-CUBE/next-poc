@@ -13,7 +13,6 @@
 namespace Eccube\Form\Type;
 
 use Eccube\Form\FormBuilder;
-use Eccube\Form\Type\Front\EntryType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -25,7 +24,7 @@ class FormTypeWrapper implements FormTypeInterface
 {
     private AbstractType $type;
 
-    public function __construct(EntryType $type)
+    public function __construct(AbstractType $type)
     {
         $this->type = $type;
     }
