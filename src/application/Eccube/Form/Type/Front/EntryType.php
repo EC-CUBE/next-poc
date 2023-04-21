@@ -16,6 +16,8 @@ namespace Eccube\Form\Type\Front;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Customer;
 use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
 use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\AddressType;
 use Eccube\Form\Type\KanaType;
@@ -29,9 +31,6 @@ use Eccube\Form\Type\RepeatedPasswordType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -97,7 +96,7 @@ class EntryType extends AbstractType
                 'required' => false,
             ]);
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->onPreSetData(function (FormEvent $event) {
             $Customer = $event->getData();
             if ($Customer instanceof Customer && !$Customer->getId()) {
                 $form = $event->getForm();
@@ -114,7 +113,7 @@ class EntryType extends AbstractType
         }
         );
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             $form = $event->getForm();
             /** @var Customer $Customer */
             $Customer = $event->getData();

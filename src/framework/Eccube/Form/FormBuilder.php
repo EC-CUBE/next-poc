@@ -13,6 +13,7 @@
 namespace Eccube\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 
 class FormBuilder
 {
@@ -52,13 +53,39 @@ class FormBuilder
         return $this;
     }
 
-    public function addEventListener(string $eventName, callable $listener, int $priority = 0)
+    /**
+     * TODO 削除
+     * @param string $eventName
+     * @param callable $listener
+     * @param int $priority
+     * @return $this
+     */
+    public function addEventListener(string $eventName, callable $listener, int $priority = 0): self
     {
         $this->formBuilder->addEventListener($eventName, $listener, $priority);
         return $this;
     }
 
-    public function remove(string $name)
+    public function onPreSetData(callable $listener, int $priority = 0): self
+    {
+        $this->formBuilder->addEventListener(FormEvents::PRE_SET_DATA, $this->wrapEventListener($listener), $priority);
+        return $this;
+    }
+
+    public function onPostSubmit(callable $listener, int $priority = 0): self
+    {
+        $this->formBuilder->addEventListener(FormEvents::POST_SUBMIT, $this->wrapEventListener($listener), $priority);
+        return $this;
+    }
+
+    private function wrapEventListener(callable $listener): callable
+    {
+        return function (\Symfony\Component\Form\FormEvent $formEvent) use ($listener) {
+            $listener(new FormEvent($formEvent));
+        };
+    }
+
+    public function remove(string $name): self
     {
         $this->formBuilder->remove($name);
         return $this;
