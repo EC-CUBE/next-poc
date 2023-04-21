@@ -59,10 +59,11 @@ class FormRegistry implements FormRegistryInterface
                 $typeExtensions[] = $extension->getTypeExtensions($name);
             }
 
+            $parentType = $type->getParent();
             return $this->resolvedFormTypeFactory->createResolvedType(
                 new FormTypeWrapper($type),
                 array_merge([], ...$typeExtensions),
-                $this->getType(FormType::class)
+                $parentType ? $this->getType($parentType) : null
             );
         } finally {
 //            unset($this->checkedTypes[$fqcn]);

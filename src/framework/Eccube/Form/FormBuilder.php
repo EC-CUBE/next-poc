@@ -12,6 +12,7 @@
 
 namespace Eccube\Form;
 
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 
@@ -66,6 +67,12 @@ class FormBuilder
         return $this;
     }
 
+    public function addEventSubscriber(EventSubscriberInterface $subscriber): self
+    {
+        $this->formBuilder->addEventSubscriber($subscriber);
+        return $this;
+    }
+
     public function onPreSetData(callable $listener, int $priority = 0): self
     {
         $this->formBuilder->addEventListener(FormEvents::PRE_SET_DATA, $this->wrapEventListener($listener), $priority);
@@ -88,6 +95,17 @@ class FormBuilder
     public function remove(string $name): self
     {
         $this->formBuilder->remove($name);
+        return $this;
+    }
+
+    public function getName(): string
+    {
+        return $this->formBuilder->getName();
+    }
+
+    public function setAttribute(string $name, $value): self
+    {
+        $this->formBuilder->setAttribute($name, $value);
         return $this;
     }
 }
