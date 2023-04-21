@@ -12,6 +12,7 @@
 
 namespace Eccube\Form;
 
+use Eccube\Form\Type\FormTypeWrapper;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormRegistryInterface;
 use Symfony\Component\Form\FormTypeInterface;

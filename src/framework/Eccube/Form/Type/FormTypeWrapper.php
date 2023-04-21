@@ -10,8 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Eccube\Form;
+namespace Eccube\Form\Type;
 
+use Eccube\Form\FormBuilder;
 use Eccube\Form\Type\Front\EntryType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,7 +32,7 @@ class FormTypeWrapper implements FormTypeInterface
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->type->buildForm($builder, $options);
+        $this->type->buildForm(new FormBuilder($builder), $options);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)

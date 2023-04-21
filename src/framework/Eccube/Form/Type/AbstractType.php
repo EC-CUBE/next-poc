@@ -12,8 +12,8 @@
 
 namespace Eccube\Form\Type;
 
+use Eccube\Form\FormBuilder;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Util\StringUtil;
@@ -21,7 +21,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractType
 {
-    public abstract function buildForm(FormBuilderInterface $builder, array $options);
+    public abstract function buildForm(FormBuilder $builder, array $options);
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
