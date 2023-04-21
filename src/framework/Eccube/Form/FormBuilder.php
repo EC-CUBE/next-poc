@@ -12,6 +12,7 @@
 
 namespace Eccube\Form;
 
+use Eccube\Form\Validator\Constraint;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
@@ -39,6 +40,11 @@ class FormBuilder
 
     public function add($child, string $type = null, array $options = [])
     {
+        if (isset($options['constraints'])) {
+            $options['constraints'] = array_map(function ($c) {
+                return $c instanceof Constraint ? $c->getConstraint() : $c;
+            }, $options['constraints']);
+        }
         $this->formBuilder->add($child, $type, $options);
         return $this;
     }

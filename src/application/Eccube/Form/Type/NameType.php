@@ -15,6 +15,7 @@ namespace Eccube\Form\Type;
 
 use Eccube\Common\EccubeConfig;
 use Eccube\Form\FormBuilder;
+use Eccube\Form\Validator\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -50,7 +51,7 @@ class NameType extends AbstractType
         // required の場合は NotBlank も追加する
         if ($options['required']) {
             $options['lastname_options']['constraints'] = array_merge([
-                new Assert\NotBlank(),
+                new NotBlank(),
             ], $options['lastname_options']['constraints']);
 
             $options['firstname_options']['constraints'] = array_merge([
