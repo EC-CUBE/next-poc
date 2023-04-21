@@ -230,3 +230,8 @@ services:
 
     Eccube\Form\FormRegistry:
         decorates: form.registry
+
+    Eccube\Form\Type\FormTypeWrapper:
+        shared: false
+        autowire: false
+        autoconfigure: false
