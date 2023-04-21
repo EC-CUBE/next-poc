@@ -12,11 +12,18 @@
 
 namespace Eccube\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\SubmitButton;
 
 class Form implements \ArrayAccess, \IteratorAggregate, \Countable
 {
+    public const CheckBox = CheckboxType::class;
+    public const Text = TextType::class;
+    public const Birthday = BirthdayType::class;
+
     private FormInterface $form;
 
     public function __construct(FormInterface $form)

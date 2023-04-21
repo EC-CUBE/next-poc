@@ -15,6 +15,7 @@ namespace Eccube\Form\Type\Front;
 
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Customer;
+use Eccube\Form\Form;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\FormError;
 use Eccube\Form\FormEvent;
@@ -28,9 +29,6 @@ use Eccube\Form\Type\PhoneNumberType;
 use Eccube\Form\Type\PostalType;
 use Eccube\Form\Type\RepeatedEmailType;
 use Eccube\Form\Type\RepeatedPasswordType;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -61,7 +59,7 @@ class EntryType extends AbstractType
                 'required' => true,
             ])
             ->add('kana', KanaType::class, [])
-            ->add('company_name', TextType::class, [
+            ->add('company_name', Form::Text, [
                 'required' => false,
                 'constraints' => [
                     new Assert\Length([
@@ -76,7 +74,7 @@ class EntryType extends AbstractType
             ])
             ->add('email', RepeatedEmailType::class)
             ->add('plain_password', RepeatedPasswordType::class)
-            ->add('birth', BirthdayType::class, [
+            ->add('birth', Form::Birthday, [
                 'required' => false,
                 'input' => 'datetime',
                 'years' => range(date('Y'), date('Y') - $this->eccubeConfig['eccube_birth_max']),
@@ -101,7 +99,7 @@ class EntryType extends AbstractType
             if ($Customer instanceof Customer && !$Customer->getId()) {
                 $form = $event->getForm();
 
-                $form->add('user_policy_check', CheckboxType::class, [
+                $form->add('user_policy_check', Form::CheckBox, [
                         'required' => true,
                         'label' => null,
                         'mapped' => false,
