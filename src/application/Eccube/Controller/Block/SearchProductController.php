@@ -18,8 +18,8 @@ use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\SearchProductBlockType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Eccube\HttpFoundation\Request;
+use Eccube\HttpFoundation\RequestStack;
 use Eccube\Routing\Annotation\Route;
 
 class SearchProductController extends AbstractController
@@ -45,14 +45,15 @@ class SearchProductController extends AbstractController
             ->createNamedBuilder('', SearchProductBlockType::class)
             ->setMethod('GET');
 
-        $event = new EventArgs(
-            [
-                'builder' => $builder,
-            ],
-            $request
-        );
-
-        $this->eventDispatcher->dispatch($event, EccubeEvents::FRONT_BLOCK_SEARCH_PRODUCT_INDEX_INITIALIZE);
+// todo
+//        $event = new EventArgs(
+//            [
+//                'builder' => $builder,
+//            ],
+//            $request
+//        );
+//
+//        $this->eventDispatcher->dispatch($event, EccubeEvents::FRONT_BLOCK_SEARCH_PRODUCT_INDEX_INITIALIZE);
 
         $request = $this->requestStack->getMainRequest();
 
