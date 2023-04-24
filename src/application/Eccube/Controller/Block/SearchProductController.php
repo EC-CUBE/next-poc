@@ -18,8 +18,8 @@ use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\SearchProductBlockType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Eccube\HttpFoundation\Request;
+use Eccube\HttpFoundation\RequestStack;
 use Eccube\Routing\Annotation\Route;
 
 class SearchProductController extends AbstractController
@@ -45,19 +45,23 @@ class SearchProductController extends AbstractController
             ->createNamedBuilder('', SearchProductBlockType::class)
             ->setMethod('GET');
 
-        $event = new EventArgs(
-            [
-                'builder' => $builder,
-            ],
-            $request
-        );
-
-        $this->eventDispatcher->dispatch($event, EccubeEvents::FRONT_BLOCK_SEARCH_PRODUCT_INDEX_INITIALIZE);
+//        $event = new EventArgs(
+//            [
+//                'builder' => $builder,
+//            ],
+//            $request
+//        );
+//
+//        $this->eventDispatcher->dispatch($event, EccubeEvents::FRONT_BLOCK_SEARCH_PRODUCT_INDEX_INITIALIZE);
 
         $request = $this->requestStack->getMainRequest();
 
         $form = $builder->getForm();
-        $form->handleRequest($request);
+//      $form->handleRequest($request);
+//      handleRequestでエラー
+//      An exception has been thrown during the rendering of a template ("Expected argument of type "Symfony\Component\HttpFoundation\Request", "Eccube\HttpFoundation\Request" given").
+//      Block/header.twig:14
+//      {{ render(path('block_search_product')) }}
 
         return [
             'form' => $form->createView(),
