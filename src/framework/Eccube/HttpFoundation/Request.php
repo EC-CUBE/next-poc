@@ -17,7 +17,12 @@ class Request
         $this->request = $requestStack->getMainRequest();
     }
 
-    public function setRequest(BaseRequest $request)
+    public function getRequest(): BaseRequest
+    {
+        return $this->request;
+    }
+
+    public function setRequest(BaseRequest $request): self
     {
         $this->request = $request;
 

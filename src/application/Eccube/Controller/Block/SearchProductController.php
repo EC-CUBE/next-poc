@@ -45,6 +45,7 @@ class SearchProductController extends AbstractController
             ->createNamedBuilder('', SearchProductBlockType::class)
             ->setMethod('GET');
 
+// todo
 //        $event = new EventArgs(
 //            [
 //                'builder' => $builder,
@@ -57,11 +58,7 @@ class SearchProductController extends AbstractController
         $request = $this->requestStack->getMainRequest();
 
         $form = $builder->getForm();
-//      $form->handleRequest($request);
-//      handleRequestでエラー
-//      An exception has been thrown during the rendering of a template ("Expected argument of type "Symfony\Component\HttpFoundation\Request", "Eccube\HttpFoundation\Request" given").
-//      Block/header.twig:14
-//      {{ render(path('block_search_product')) }}
+        $form->handleRequest($request);
 
         return [
             'form' => $form->createView(),
