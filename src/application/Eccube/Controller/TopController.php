@@ -13,8 +13,10 @@
 
 namespace Eccube\Controller;
 
+use Nyholm\Psr7\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Eccube\Routing\Annotation\Route;
+use Psr\Http\Message\ServerRequestInterface;
 
 class TopController extends AbstractController
 {
@@ -25,5 +27,15 @@ class TopController extends AbstractController
     public function index()
     {
         return [];
+    }
+
+    /**
+     * @Route("/psr7")
+     */
+    public function psr7(ServerRequestInterface $request)
+    {
+        $response = new Response(200, [], 'hello');
+
+        return $response;
     }
 }
