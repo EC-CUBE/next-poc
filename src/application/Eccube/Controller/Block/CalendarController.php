@@ -16,7 +16,7 @@ namespace Eccube\Controller\Block;
 use Carbon\Carbon;
 use Eccube\Controller\AbstractController;
 use Eccube\Repository\CalendarRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
 

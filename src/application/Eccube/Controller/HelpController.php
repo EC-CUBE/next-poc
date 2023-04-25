@@ -13,7 +13,7 @@
 
 namespace Eccube\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Eccube\Routing\Annotation\Route;
 
 class HelpController extends AbstractController

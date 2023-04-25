@@ -31,7 +31,7 @@ use Eccube\Repository\Master\PrefRepository;
 use Eccube\Repository\Master\SaleTypeRepository;
 use Eccube\Repository\PaymentOptionRepository;
 use Eccube\Twig\Extension\EccubeExtension;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

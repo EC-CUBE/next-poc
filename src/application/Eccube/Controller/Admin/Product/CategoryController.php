@@ -22,7 +22,7 @@ use Eccube\Form\Type\Admin\CategoryType;
 use Eccube\Repository\CategoryRepository;
 use Eccube\Service\CsvExportService;
 use Eccube\Util\CacheUtil;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
