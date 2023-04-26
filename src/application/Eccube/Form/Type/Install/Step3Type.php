@@ -15,6 +15,7 @@ namespace Eccube\Form\Type\Install;
 
 use Eccube\Common\EccubeConfig;
 use Eccube\Form\Validator\Email;
+use Eccube\Validator\Validator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -25,7 +26,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Step3Type extends AbstractType
 {
@@ -35,11 +35,11 @@ class Step3Type extends AbstractType
     protected $eccubeConfig;
 
     /**
-     * @var ValidatorInterface
+     * @var Validator
      */
     protected $validator;
 
-    public function __construct(ValidatorInterface $validator, EccubeConfig $eccubeConfig)
+    public function __construct(Validator $validator, EccubeConfig $eccubeConfig)
     {
         $this->validator = $validator;
         $this->eccubeConfig = $eccubeConfig;

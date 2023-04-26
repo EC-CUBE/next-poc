@@ -33,12 +33,14 @@ use Eccube\Repository\OrderPdfRepository;
 use Eccube\Repository\OrderRepository;
 use Eccube\Repository\PaymentRepository;
 use Eccube\Repository\ProductStockRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Service\CsvExportService;
 use Eccube\Service\MailService;
 use Eccube\Service\OrderPdfService;
 use Eccube\Service\OrderStateMachine;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Eccube\Util\FormUtil;
+use Eccube\Validator\Validator;
 use Knp\Component\Pager\PaginatorInterface;
 use Eccube\Controller\Annotation\Template;
 use Symfony\Component\Form\FormBuilder;
@@ -46,9 +48,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class OrderController extends AbstractController
 {
@@ -109,7 +109,7 @@ class OrderController extends AbstractController
     protected $orderPdfService;
 
     /**
-     * @var ValidatorInterface
+     * @var Validator
      */
     protected $validator;
 
@@ -137,7 +137,7 @@ class OrderController extends AbstractController
      * @param ProductStockRepository $productStockRepository
      * @param OrderRepository $orderRepository
      * @param OrderPdfRepository $orderPdfRepository
-     * @param ValidatorInterface $validator
+     * @param Validator $validator
      * @param OrderStateMachine $orderStateMachine ;
      */
     public function __construct(
@@ -152,7 +152,7 @@ class OrderController extends AbstractController
         ProductStockRepository $productStockRepository,
         OrderRepository $orderRepository,
         OrderPdfRepository $orderPdfRepository,
-        ValidatorInterface $validator,
+        Validator $validator,
         OrderStateMachine $orderStateMachine,
         MailService $mailService
     ) {
@@ -582,7 +582,6 @@ class OrderController extends AbstractController
         }
 
         $trackingNumber = mb_convert_kana($request->get('tracking_number'), 'a', 'utf-8');
-        /** @var \Symfony\Component\Validator\ConstraintViolationListInterface $errors */
         $errors = $this->validator->validate(
             $trackingNumber,
             [
@@ -596,7 +595,6 @@ class OrderController extends AbstractController
         if ($errors->count() != 0) {
             log_info('送り状番号入力チェックエラー');
             $messages = [];
-            /** @var \Symfony\Component\Validator\ConstraintViolationInterface $error */
             foreach ($errors as $error) {
                 $messages[] = $error->getMessage();
             }

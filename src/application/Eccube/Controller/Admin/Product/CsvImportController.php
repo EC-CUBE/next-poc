@@ -35,12 +35,14 @@ use Eccube\Repository\ProductImageRepository;
 use Eccube\Repository\ProductRepository;
 use Eccube\Repository\TagRepository;
 use Eccube\Repository\TaxRuleRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Service\CsvImportService;
 use Eccube\Stream\Filter\ConvertLineFeedFilter;
 use Eccube\Stream\Filter\SjisToUtf8EncodingFilter;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
 use Eccube\Controller\Annotation\Template;
+use Eccube\Validator\Validator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\FormInterface;
@@ -49,10 +51,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CsvImportController extends AbstractCsvImportController
 {
@@ -107,7 +107,7 @@ class CsvImportController extends AbstractCsvImportController
     protected $BaseInfo;
 
     /**
-     * @var ValidatorInterface
+     * @var Validator
      */
     protected $validator;
 
@@ -132,7 +132,7 @@ class CsvImportController extends AbstractCsvImportController
      * @param ProductRepository $productRepository
      * @param TaxRuleRepository $taxRuleRepository
      * @param BaseInfoRepository $baseInfoRepository
-     * @param ValidatorInterface $validator
+     * @param Validator $validator
      *
      * @throws \Exception
      */
@@ -147,7 +147,7 @@ class CsvImportController extends AbstractCsvImportController
         ProductRepository $productRepository,
         TaxRuleRepository $taxRuleRepository,
         BaseInfoRepository $baseInfoRepository,
-        ValidatorInterface $validator
+        Validator $validator
     ) {
         $this->deliveryDurationRepository = $deliveryDurationRepository;
         $this->saleTypeRepository = $saleTypeRepository;

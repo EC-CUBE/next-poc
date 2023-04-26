@@ -18,18 +18,18 @@ use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Front\NonMemberType;
 use Eccube\Form\Validator\Email;
 use Eccube\Repository\Master\PrefRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Service\CartService;
 use Eccube\Service\OrderHelper;
 use Eccube\Controller\Annotation\Template;
+use Eccube\Validator\Validator;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class NonMemberShoppingController extends AbstractShoppingController
 {
     /**
-     * @var ValidatorInterface
+     * @var Validator
      */
     protected $validator;
 
@@ -51,13 +51,13 @@ class NonMemberShoppingController extends AbstractShoppingController
     /**
      * NonMemberShoppingController constructor.
      *
-     * @param ValidatorInterface $validator
+     * @param Validator $validator
      * @param PrefRepository $prefRepository
      * @param OrderHelper $orderHelper
      * @param CartService $cartService
      */
     public function __construct(
-        ValidatorInterface $validator,
+        Validator $validator,
         PrefRepository $prefRepository,
         OrderHelper $orderHelper,
         CartService $cartService

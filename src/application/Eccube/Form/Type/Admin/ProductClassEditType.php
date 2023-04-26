@@ -22,6 +22,8 @@ use Eccube\Form\Type\Master\DeliveryDurationType;
 use Eccube\Form\Type\Master\SaleTypeType;
 use Eccube\Form\Type\PriceType;
 use Eccube\Repository\BaseInfoRepository;
+use Eccube\Validator\ConstraintViolationList;
+use Eccube\Validator\Validator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -35,8 +37,6 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProductClassEditType extends AbstractType
 {
@@ -46,7 +46,7 @@ class ProductClassEditType extends AbstractType
     protected $entityManager;
 
     /**
-     * @var ValidatorInterface
+     * @var Validator
      */
     protected $validator;
 
@@ -64,12 +64,12 @@ class ProductClassEditType extends AbstractType
      * ProductClassEditType constructor.
      *
      * @param EntityManagerInterface $entityManager
-     * @param ValidatorInterface $validator
+     * @param Validator $validator
      * @param BaseInfoRepository $baseInfoRepository
      */
     public function __construct(
         EntityManagerInterface $entityManager,
-        ValidatorInterface $validator,
+        Validator $validator,
         BaseInfoRepository $baseInfoRepository,
         EccubeConfig $eccubeConfig
     ) {
@@ -270,7 +270,7 @@ class ProductClassEditType extends AbstractType
         });
     }
 
-    protected function addErrors($key, FormInterface $form, ConstraintViolationListInterface $errors)
+    protected function addErrors($key, FormInterface $form, ConstraintViolationList $errors)
     {
         foreach ($errors as $error) {
             $form[$key]->addError(new FormError($error->getMessage()));
