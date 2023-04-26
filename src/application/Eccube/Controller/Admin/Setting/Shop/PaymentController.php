@@ -21,7 +21,7 @@ use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\PaymentRegisterType;
 use Eccube\Repository\PaymentRepository;
 use Eccube\Service\Payment\Method\Cash;
-use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

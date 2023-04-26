@@ -21,7 +21,7 @@ use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Front\CustomerAddressType;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\CustomerAddressRepository;
-use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

@@ -17,7 +17,7 @@ use Eccube\Controller\AbstractController;
 use Eccube\Form\Type\Admin\TwoFactorAuthType;
 use Eccube\Repository\MemberRepository;
 use Eccube\Service\TwoFactorAuthService;
-use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;

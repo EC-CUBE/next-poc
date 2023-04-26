@@ -25,7 +25,7 @@ use Eccube\Repository\PageRepository;
 use Eccube\Routing\Router;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
-use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;

@@ -19,7 +19,7 @@ use Eccube\Repository\LoginHistoryRepository;
 use Eccube\Repository\Master\PageMaxRepository;
 use Eccube\Util\FormUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
 

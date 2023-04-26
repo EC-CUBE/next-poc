@@ -19,7 +19,7 @@ use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\ShopMasterType;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Util\CacheUtil;
-use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
 use Twig\Environment;

@@ -17,7 +17,7 @@ use Eccube\Controller\AbstractController;
 use Eccube\Form\Type\Admin\SecurityType;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
-use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

@@ -15,7 +15,7 @@ namespace Eccube\Controller\Admin\Content;
 
 use Eccube\Controller\AbstractController;
 use Eccube\Util\FilesystemUtil;
-use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;

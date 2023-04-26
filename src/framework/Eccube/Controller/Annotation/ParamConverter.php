@@ -11,14 +11,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration;
+namespace Eccube\Controller\Annotation;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template as BaseTemplate;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as BaseParamConverter;
 
 /**
  * @Annotation
  */
-#[\Attribute(\Attribute::TARGET_METHOD)]
-class Template extends BaseTemplate
+#[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
+class ParamConverter extends BaseParamConverter
 {
 }

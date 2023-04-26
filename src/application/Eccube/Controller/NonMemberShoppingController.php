@@ -20,7 +20,7 @@ use Eccube\Form\Validator\Email;
 use Eccube\Repository\Master\PrefRepository;
 use Eccube\Service\CartService;
 use Eccube\Service\OrderHelper;
-use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;

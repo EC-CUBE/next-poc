@@ -24,7 +24,7 @@ use Eccube\Repository\Master\CustomerStatusRepository;
 use Eccube\Repository\PageRepository;
 use Eccube\Service\CartService;
 use Eccube\Service\MailService;
-use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception as HttpException;
 use Eccube\Routing\Annotation\Route;

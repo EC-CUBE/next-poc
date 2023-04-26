@@ -40,7 +40,7 @@ use Eccube\Stream\Filter\ConvertLineFeedFilter;
 use Eccube\Stream\Filter\SjisToUtf8EncodingFilter;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
-use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Form\FormInterface;

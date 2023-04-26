@@ -19,7 +19,7 @@ use Eccube\Form\Type\Front\ForgotType;
 use Eccube\Form\Type\Front\PasswordResetType;
 use Eccube\Repository\CustomerRepository;
 use Eccube\Service\MailService;
-use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception as HttpException;
 use Eccube\Routing\Annotation\Route;

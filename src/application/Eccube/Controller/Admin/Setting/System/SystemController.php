@@ -15,7 +15,7 @@ namespace Eccube\Controller\Admin\Setting\System;
 
 use Eccube\Common\Constant;
 use Eccube\Service\SystemService;
-use Eccube\Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Eccube\Routing\Annotation\Route;
