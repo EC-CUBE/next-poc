@@ -21,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Validator\Constraints as Assert;
+use Eccube\Validator\Constraints as Assert;
 
 class LogType extends AbstractType
 {

@@ -20,7 +20,7 @@ use Symfony\Component\Form\Extension\Core\DataTransformer\ValueToDuplicatesTrans
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
+use Eccube\Validator\Constraints as Assert;
 
 /**
  * Class RepeatedPasswordType

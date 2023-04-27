@@ -20,8 +20,8 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Intl\Currencies;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Range;
+use Eccube\Validator\Constraints\NotBlank;
+use Eccube\Validator\Constraints\Range;
 
 class PriceType extends AbstractType
 {

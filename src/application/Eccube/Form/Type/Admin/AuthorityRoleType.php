@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Regex;
+use Eccube\Validator\Constraints\Regex;
 
 class AuthorityRoleType extends AbstractType
 {

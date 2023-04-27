@@ -33,7 +33,7 @@ use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Validator\Constraints as Assert;
+use Eccube\Validator\Constraints as Assert;
 
 class EntryController extends AbstractController
 {

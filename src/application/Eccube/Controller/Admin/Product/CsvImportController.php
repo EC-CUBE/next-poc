@@ -52,7 +52,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Eccube\Validator\Constraints\GreaterThanOrEqual;
 
 class CsvImportController extends AbstractCsvImportController
 {

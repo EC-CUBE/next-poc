@@ -33,9 +33,9 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Regex;
+use Eccube\Validator\Constraints\Length;
+use Eccube\Validator\Constraints\NotBlank;
+use Eccube\Validator\Constraints\Regex;
 
 class OrderType extends AbstractType
 {
