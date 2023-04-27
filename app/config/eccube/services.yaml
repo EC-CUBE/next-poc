@@ -227,3 +227,11 @@ services:
 
     Eccube\EventListener\RateLimiterListener:
         arguments: [ !tagged_locator { tag: 'eccube_rate_limiter' } ]
+
+    Eccube\Form\FormRegistry:
+        decorates: form.registry
+
+    Eccube\Form\Type\FormTypeWrapper:
+        shared: false
+        autowire: false
+        autoconfigure: false
