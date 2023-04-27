@@ -63,7 +63,7 @@ class CsvController extends AbstractController
      */
     public function index(Request $request, CsvType $CsvType)
     {
-        $builder = $this->createFormBuilder();
+        $builder = $this->formFactory->createBuilder();
 
         $builder->add(
             'csv_type',

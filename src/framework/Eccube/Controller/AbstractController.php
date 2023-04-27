@@ -14,22 +14,35 @@
 namespace Eccube\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Eccube\Common\Constant;
 use Eccube\Common\EccubeConfig;
+use Eccube\Form\FormFactory;
 use Eccube\Routing\Exception\RoutingException;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
+use Eccube\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
-use Eccube\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Contracts\Service\ServiceSubscriberInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
-class AbstractController extends Controller
+class AbstractController implements ServiceSubscriberInterface
 {
+    use SymfonyControllerTrait;
+
     /**
      * @var EccubeConfig
      */
@@ -46,7 +59,7 @@ class AbstractController extends Controller
     protected $translator;
 
     /**
-     * @var FormFactoryInterface
+     * @var FormFactory
      */
     protected $formFactory;
 
@@ -97,10 +110,10 @@ class AbstractController extends Controller
     }
 
     /**
-     * @param FormFactoryInterface $formFactory
+     * @param FormFactory $formFactory
      * @required
      */
-    public function setFormFactory(FormFactoryInterface $formFactory)
+    public function setFormFactory(FormFactory $formFactory)
     {
         $this->formFactory = $formFactory;
     }
@@ -197,13 +210,10 @@ class AbstractController extends Controller
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function addFlash(string $type, $message): void
     {
         try {
-            parent::addFlash($type, $message);
+            $this->container->get('request_stack')->getSession()->getFlashBag()->add($type, $message);
         } catch (\LogicException $e) {
             // fallback session
             $this->session->getFlashBag()->add($type, $message);
@@ -266,16 +276,33 @@ class AbstractController extends Controller
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws RoutingException
      */
     public function generateUrl(string $route, array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): string
     {
         try {
-            return parent::generateUrl($route, $parameters, $referenceType);
+            return $this->container->get('router')->generate($route, $parameters, $referenceType);
         } catch (\Exception $e) {
             throw new RoutingException($e->getMessage(), $e->getCode(), $e);
         }
     }
+
+    public static function getSubscribedServices()
+    {
+        return [
+            'router' => '?'.RouterInterface::class,
+            'request_stack' => '?'.RequestStack::class,
+            'http_kernel' => '?'.HttpKernelInterface::class,
+            'serializer' => '?'.SerializerInterface::class,
+            'session' => '?'.SessionInterface::class,
+            'security.authorization_checker' => '?'.AuthorizationCheckerInterface::class,
+            'twig' => '?'.Environment::class,
+            'doctrine' => '?'.ManagerRegistry::class, // to be removed in 6.0
+            'form.factory' => '?'.FormFactoryInterface::class,
+            'security.token_storage' => '?'.TokenStorageInterface::class,
+            'security.csrf.token_manager' => '?'.CsrfTokenManagerInterface::class,
+            'parameter_bag' => '?'.ContainerBagInterface::class,
+        ];
+    }
+
 }

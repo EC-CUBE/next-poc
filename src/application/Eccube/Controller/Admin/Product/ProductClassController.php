@@ -181,7 +181,7 @@ class ProductClassController extends AbstractController
         return [
             'Product' => $Product,
             'form' => $form->createView(),
-            'clearForm' => $this->createForm(FormType::class)->createView(),
+            'clearForm' => $this->formFactory->create(),
             'ClassName1' => $ClassName1,
             'ClassName2' => $ClassName2,
             'return_product_list' => $request->get('return_product_list') ? true : false,
@@ -199,7 +199,7 @@ class ProductClassController extends AbstractController
             return $this->redirectToRoute('admin_product_product_class', ['id' => $Product->getId()]);
         }
 
-        $form = $this->createForm(FormType::class);
+        $form = $this->formFactory->create();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
