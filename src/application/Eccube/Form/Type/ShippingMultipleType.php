@@ -14,9 +14,9 @@
 namespace Eccube\Form\Type;
 
 use Eccube\Repository\ShippingRepository;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Eccube\Form\FormBuilder;
 use Symfony\Component\Form\FormEvents;
 
 class ShippingMultipleType extends AbstractType
@@ -39,7 +39,7 @@ class ShippingMultipleType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->addEventListener(FormEvents::POST_SET_DATA, function ($event) {

@@ -14,7 +14,7 @@
 namespace Eccube\Form\Type\Master;
 
 use Eccube\Form\Type\MasterType;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\Type\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RoundingTypeType extends AbstractType

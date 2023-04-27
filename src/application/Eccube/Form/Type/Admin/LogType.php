@@ -16,11 +16,11 @@ namespace Eccube\Form\Type\Admin;
 use Eccube\Common\EccubeConfig;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Eccube\Form\FormBuilder;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 class LogType extends AbstractType
@@ -50,7 +50,7 @@ class LogType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $files = [];
         $finder = new Finder();

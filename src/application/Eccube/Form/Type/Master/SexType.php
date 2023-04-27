@@ -14,8 +14,8 @@
 namespace Eccube\Form\Type\Master;
 
 use Eccube\Form\Type\MasterType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Form\FormBuilder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SexType extends AbstractType
@@ -23,7 +23,7 @@ class SexType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $options['sex_options']['required'] = $options['required'];
     }

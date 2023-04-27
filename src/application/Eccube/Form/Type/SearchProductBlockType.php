@@ -15,9 +15,9 @@ namespace Eccube\Form\Type;
 
 use Eccube\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Eccube\Form\FormBuilder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchProductBlockType extends AbstractType
@@ -35,7 +35,7 @@ class SearchProductBlockType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $Categories = $this->categoryRepository
             ->getList(null, true);

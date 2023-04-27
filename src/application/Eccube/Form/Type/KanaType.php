@@ -15,8 +15,8 @@ namespace Eccube\Form\Type;
 
 use Eccube\Common\EccubeConfig;
 use Eccube\Validator\Constraints as Assert;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Form\FormBuilder;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class KanaType extends AbstractType
@@ -39,7 +39,7 @@ class KanaType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         // ひらがなをカタカナに変換する
         // 引数はmb_convert_kanaのもの

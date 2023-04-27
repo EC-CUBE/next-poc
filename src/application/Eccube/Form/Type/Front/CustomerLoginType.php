@@ -16,11 +16,11 @@ namespace Eccube\Form\Type\Front;
 use Eccube\Common\EccubeConfig;
 use Eccube\Form\Validator\Email;
 use Eccube\Validator\Constraints as Assert;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Eccube\Form\FormBuilder;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class CustomerLoginType extends AbstractType
@@ -44,7 +44,7 @@ class CustomerLoginType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder->add('login_email', EmailType::class, [
             'attr' => [

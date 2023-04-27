@@ -16,7 +16,7 @@ namespace Eccube\Form\Type\Master;
 use Eccube\Entity\Master\OrderStatus;
 use Eccube\Form\Type\MasterType;
 use Eccube\Repository\OrderRepository;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;

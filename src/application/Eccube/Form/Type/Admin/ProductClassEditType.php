@@ -25,13 +25,13 @@ use Eccube\Repository\BaseInfoRepository;
 use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\ConstraintViolationList;
 use Eccube\Validator\Validator;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
+use Eccube\Form\FormBuilder;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -82,7 +82,7 @@ class ProductClassEditType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('checked', CheckboxType::class, [
@@ -161,9 +161,9 @@ class ProductClassEditType extends AbstractType
     /**
      * 各行の個別税率設定の制御.
      *
-     * @param FormBuilderInterface $builder
+     * @param FormBuilder $builder
      */
-    protected function setTaxRate(FormBuilderInterface $builder)
+    protected function setTaxRate(FormBuilder $builder)
     {
         if (!$this->baseInfoRepository->get()->isOptionProductTaxRule()) {
             return;
@@ -183,9 +183,9 @@ class ProductClassEditType extends AbstractType
     /**
      * 各行の登録チェックボックスの制御.
      *
-     * @param FormBuilderInterface $builder
+     * @param FormBuilder $builder
      */
-    protected function setCheckbox(FormBuilderInterface $builder)
+    protected function setCheckbox(FormBuilder $builder)
     {
         $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
             $data = $event->getData();
@@ -205,7 +205,7 @@ class ProductClassEditType extends AbstractType
         });
     }
 
-    protected function addValidations(FormBuilderInterface $builder)
+    protected function addValidations(FormBuilder $builder)
     {
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
             $form = $event->getForm();

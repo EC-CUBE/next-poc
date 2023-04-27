@@ -65,7 +65,7 @@ class ChangeController extends AbstractController
         $Customer = $this->getUser();
         $Customer->setPlainPassword($this->eccubeConfig['eccube_default_password']);
 
-        /* @var $builder \Symfony\Component\Form\FormBuilderInterface */
+        /* @var $builder \Eccube\Form\FormBuilder */
         $builder = $this->formFactory->createBuilder(EntryType::class, $Customer);
 
         $event = new EventArgs(

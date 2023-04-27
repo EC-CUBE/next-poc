@@ -16,7 +16,7 @@ namespace Eccube\Form\Type;
 use Eccube\Common\EccubeConfig;
 use Eccube\Form\Validator\Email;
 use Eccube\Validator\Constraints as Assert;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\OptionsResolver\Options;

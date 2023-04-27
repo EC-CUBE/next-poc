@@ -181,7 +181,7 @@ class ProductClassController extends AbstractController
         return [
             'Product' => $Product,
             'form' => $form->createView(),
-            'clearForm' => $this->formFactory->create(),
+            'clearForm' => $this->formFactory->create()->createView(),
             'ClassName1' => $ClassName1,
             'ClassName2' => $ClassName2,
             'return_product_list' => $request->get('return_product_list') ? true : false,

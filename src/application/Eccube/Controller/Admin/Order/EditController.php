@@ -625,7 +625,7 @@ class EditController extends AbstractController
 
             $forms = [];
             foreach ($Products as $Product) {
-                /* @var $builder \Symfony\Component\Form\FormBuilderInterface */
+                /* @var $builder \Eccube\Form\FormBuilder */
                 $builder = $this->formFactory->createNamedBuilder('', AddCartType::class, null, [
                     'product' => $Product,
                 ]);

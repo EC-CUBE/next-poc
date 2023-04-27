@@ -124,7 +124,7 @@ class ProductController extends AbstractController
         }
 
         // searchForm
-        /* @var $builder \Symfony\Component\Form\FormBuilderInterface */
+        /* @var $builder \Eccube\Form\FormBuilder */
         $builder = $this->formFactory->createNamedBuilder('', SearchProductType::class);
 
         if ($request->getMethod() === 'GET') {
@@ -177,7 +177,7 @@ class ProductController extends AbstractController
         // addCart form
         $forms = [];
         foreach ($pagination as $Product) {
-            /* @var $builder \Symfony\Component\Form\FormBuilderInterface */
+            /* @var $builder \Eccube\Form\FormBuilder */
             $builder = $this->formFactory->createNamedBuilder(
                 '',
                 AddCartType::class,

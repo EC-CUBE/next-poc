@@ -19,6 +19,7 @@ use Doctrine\ORM\QueryBuilder;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Csv;
 use Eccube\Entity\Master\CsvType;
+use Eccube\Form\FormFactory;
 use Eccube\Form\Type\Admin\SearchCustomerType;
 use Eccube\Form\Type\Admin\SearchOrderType;
 use Eccube\Form\Type\Admin\SearchProductType;
@@ -30,7 +31,6 @@ use Eccube\Repository\ProductRepository;
 use Eccube\Repository\ShippingRepository;
 use Eccube\Util\FormUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class CsvExportService
@@ -106,7 +106,7 @@ class CsvExportService
     protected $productRepository;
 
     /**
-     * @var FormFactoryInterface
+     * @var FormFactory
      */
     protected $formFactory;
 
@@ -124,7 +124,7 @@ class CsvExportService
      * @param CustomerRepository $customerRepository
      * @param ProductRepository $productRepository
      * @param EccubeConfig $eccubeConfig
-     * @param FormFactoryInterface $formFactory
+     * @param FormFactory $formFactory
      * @param PaginatorInterface $paginator
      */
     public function __construct(
@@ -136,7 +136,7 @@ class CsvExportService
         CustomerRepository $customerRepository,
         ProductRepository $productRepository,
         EccubeConfig $eccubeConfig,
-        FormFactoryInterface $formFactory,
+        FormFactory $formFactory,
         PaginatorInterface $paginator
     ) {
         $this->entityManager = $entityManager;
