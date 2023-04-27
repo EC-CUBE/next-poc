@@ -19,7 +19,7 @@ use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Front\ContactType;
 use Eccube\Repository\PageRepository;
 use Eccube\Service\MailService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
 

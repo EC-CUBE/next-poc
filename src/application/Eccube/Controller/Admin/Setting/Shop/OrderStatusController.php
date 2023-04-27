@@ -18,7 +18,7 @@ use Eccube\Form\Type\Admin\OrderStatusSettingType;
 use Eccube\Repository\Master\CustomerOrderStatusRepository;
 use Eccube\Repository\Master\OrderStatusColorRepository;
 use Eccube\Repository\Master\OrderStatusRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;

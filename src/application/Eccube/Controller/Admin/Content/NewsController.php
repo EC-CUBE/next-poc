@@ -21,7 +21,7 @@ use Eccube\Form\Type\Admin\NewsType;
 use Eccube\Repository\NewsRepository;
 use Eccube\Util\CacheUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Eccube\Routing\Annotation\Route;
