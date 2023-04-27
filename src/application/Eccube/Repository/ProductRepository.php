@@ -23,7 +23,6 @@ use Eccube\Entity\Master\ProductListOrderBy;
 use Eccube\Entity\Master\ProductStatus;
 use Eccube\Entity\Product;
 use Eccube\Entity\ProductStock;
-use Eccube\Entity\Tag;
 use Eccube\Util\StringUtil;
 
 /**

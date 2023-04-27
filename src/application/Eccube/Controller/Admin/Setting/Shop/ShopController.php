@@ -14,14 +14,14 @@
 namespace Eccube\Controller\Admin\Setting\Shop;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\ShopMasterType;
 use Eccube\Repository\BaseInfoRepository;
-use Eccube\Util\CacheUtil;
-use Eccube\Controller\Annotation\Template;
-use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
+use Eccube\Util\CacheUtil;
+use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
 
 /**

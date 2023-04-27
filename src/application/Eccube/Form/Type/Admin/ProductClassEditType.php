@@ -22,6 +22,7 @@ use Eccube\Form\Type\Master\DeliveryDurationType;
 use Eccube\Form\Type\Master\SaleTypeType;
 use Eccube\Form\Type\PriceType;
 use Eccube\Repository\BaseInfoRepository;
+use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\ConstraintViolationList;
 use Eccube\Validator\Validator;
 use Symfony\Component\Form\AbstractType;
@@ -36,7 +37,6 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Eccube\Validator\Constraints as Assert;
 
 class ProductClassEditType extends AbstractType
 {

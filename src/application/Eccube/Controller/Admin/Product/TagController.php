@@ -14,16 +14,16 @@
 namespace Eccube\Controller\Admin\Product;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Tag;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\ProductTag;
 use Eccube\Repository\TagRepository;
-use Eccube\Controller\Annotation\Template;
+use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Eccube\Routing\Annotation\Route;
 
 class TagController extends AbstractController
 {

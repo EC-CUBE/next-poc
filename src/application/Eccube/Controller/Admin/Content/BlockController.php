@@ -14,6 +14,7 @@
 namespace Eccube\Controller\Admin\Content;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Block;
 use Eccube\Entity\Master\DeviceType;
 use Eccube\Event\EccubeEvents;
@@ -21,13 +22,12 @@ use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\BlockType;
 use Eccube\Repository\BlockRepository;
 use Eccube\Repository\Master\DeviceTypeRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Routing\Annotation\Route;
 use Twig\Environment;
 
 class BlockController extends AbstractController

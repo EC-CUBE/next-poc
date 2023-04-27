@@ -13,6 +13,7 @@
 
 namespace Eccube\Controller;
 
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\BaseInfo;
 use Eccube\Entity\Master\CustomerStatus;
 use Eccube\Event\EccubeEvents;
@@ -22,18 +23,16 @@ use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\CustomerRepository;
 use Eccube\Repository\Master\CustomerStatusRepository;
 use Eccube\Repository\PageRepository;
+use Eccube\Routing\Annotation\Route;
+use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Eccube\Service\CartService;
 use Eccube\Service\MailService;
-use Eccube\Controller\Annotation\Template;
+use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception as HttpException;
-use Eccube\Routing\Annotation\Route;
-use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Eccube\Validator\Constraints as Assert;
 
 class EntryController extends AbstractController
 {

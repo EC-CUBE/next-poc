@@ -14,16 +14,16 @@
 namespace Eccube\Controller\Admin\Setting\Shop;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Master\CsvType;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Repository\CsvRepository;
 use Eccube\Repository\Master\CsvTypeRepository;
-use Eccube\Controller\Annotation\Template;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class CsvController

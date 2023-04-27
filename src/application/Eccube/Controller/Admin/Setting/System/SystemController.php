@@ -14,11 +14,11 @@
 namespace Eccube\Controller\Admin\Setting\System;
 
 use Eccube\Common\Constant;
-use Eccube\Service\SystemService;
 use Eccube\Controller\Annotation\Template;
+use Eccube\Routing\Annotation\Route;
+use Eccube\Service\SystemService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Eccube\Routing\Annotation\Route;
 
 class SystemController
 {

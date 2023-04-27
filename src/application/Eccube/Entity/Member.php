@@ -14,8 +14,8 @@
 namespace Eccube\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Eccube\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 if (!class_exists('\Eccube\Entity\Member')) {
     /**

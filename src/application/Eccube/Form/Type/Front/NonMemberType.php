@@ -20,10 +20,10 @@ use Eccube\Form\Type\NameType;
 use Eccube\Form\Type\PhoneNumberType;
 use Eccube\Form\Type\PostalType;
 use Eccube\Form\Type\RepeatedEmailType;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Eccube\Validator\Constraints as Assert;
 
 class NonMemberType extends AbstractType
 {

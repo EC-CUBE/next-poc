@@ -17,7 +17,6 @@ use Eccube\Entity\BaseInfo;
 use Eccube\Entity\ItemHolderInterface;
 use Eccube\Entity\ItemInterface;
 use Eccube\Entity\Order;
-use Eccube\Entity\OrderItem;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Service\PurchaseFlow\ItemHolderPostValidator;
 use Eccube\Service\PurchaseFlow\PurchaseContext;

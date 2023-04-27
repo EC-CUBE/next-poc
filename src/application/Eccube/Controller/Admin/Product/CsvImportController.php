@@ -16,6 +16,7 @@ namespace Eccube\Controller\Admin\Product;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Eccube\Common\Constant;
 use Eccube\Controller\Admin\AbstractCsvImportController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\BaseInfo;
 use Eccube\Entity\Category;
 use Eccube\Entity\Product;
@@ -41,7 +42,7 @@ use Eccube\Stream\Filter\ConvertLineFeedFilter;
 use Eccube\Stream\Filter\SjisToUtf8EncodingFilter;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
-use Eccube\Controller\Annotation\Template;
+use Eccube\Validator\Constraints\GreaterThanOrEqual;
 use Eccube\Validator\Validator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -52,7 +53,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-use Eccube\Validator\Constraints\GreaterThanOrEqual;
 
 class CsvImportController extends AbstractCsvImportController
 {

@@ -14,18 +14,18 @@
 namespace Eccube\Controller\Mypage;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Master\CustomerStatus;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Repository\Master\CustomerStatusRepository;
 use Eccube\Repository\PageRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Service\CartService;
 use Eccube\Service\MailService;
 use Eccube\Service\OrderHelper;
 use Eccube\Util\StringUtil;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 

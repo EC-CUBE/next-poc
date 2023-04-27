@@ -20,10 +20,10 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Eccube\Entity\Master\CustomerOrderStatus;
 use Eccube\Entity\Master\OrderStatus;
 use Eccube\Entity\Master\OrderStatusColor;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Eccube\Validator\Constraints as Assert;
 
 /**
  * Class MasterdataType

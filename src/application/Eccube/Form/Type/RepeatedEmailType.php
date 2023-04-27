@@ -15,12 +15,12 @@ namespace Eccube\Form\Type;
 
 use Eccube\Common\EccubeConfig;
 use Eccube\Form\Validator\Email;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Eccube\Validator\Constraints as Assert;
 
 class RepeatedEmailType extends AbstractType
 {

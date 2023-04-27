@@ -21,6 +21,7 @@ use Eccube\Form\Type\PostalType;
 use Eccube\Form\Type\PriceType;
 use Eccube\Form\Type\ToggleSwitchType;
 use Eccube\Form\Validator\Email;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -29,7 +30,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Eccube\Validator\Constraints as Assert;
 
 /**
  * Class ShopMasterType

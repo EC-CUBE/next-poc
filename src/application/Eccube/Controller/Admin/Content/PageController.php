@@ -14,6 +14,7 @@
 namespace Eccube\Controller\Admin\Content;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Page;
 use Eccube\Entity\PageLayout;
 use Eccube\Event\EccubeEvents;
@@ -22,13 +23,12 @@ use Eccube\Form\Type\Admin\MainEditType;
 use Eccube\Repository\Master\DeviceTypeRepository;
 use Eccube\Repository\PageLayoutRepository;
 use Eccube\Repository\PageRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Routing\Router;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Routing\Annotation\Route;
 use Twig\Environment;
 
 class PageController extends AbstractController

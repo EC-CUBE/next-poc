@@ -13,15 +13,15 @@
 
 namespace Eccube\Controller;
 
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Customer;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Front\ContactType;
 use Eccube\Repository\PageRepository;
-use Eccube\Service\MailService;
-use Eccube\Controller\Annotation\Template;
-use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
+use Eccube\Service\MailService;
+use Symfony\Component\HttpFoundation\Request;
 
 class ContactController extends AbstractController
 {

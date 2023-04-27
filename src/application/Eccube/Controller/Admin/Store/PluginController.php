@@ -15,6 +15,7 @@ namespace Eccube\Controller\Admin\Store;
 
 use Eccube\Common\Constant;
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\BaseInfo;
 use Eccube\Entity\Plugin;
 use Eccube\Exception\PluginApiException;
@@ -24,14 +25,15 @@ use Eccube\Form\Type\Admin\PluginLocalInstallType;
 use Eccube\Form\Type\Admin\PluginManagementType;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\PluginRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Routing\Exception\RoutingException;
+use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Eccube\Service\Composer\ComposerServiceInterface;
 use Eccube\Service\PluginApiService;
 use Eccube\Service\PluginService;
 use Eccube\Service\SystemService;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -39,8 +41,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Routing\Annotation\Route;
-use Eccube\Routing\Generator\UrlGeneratorInterface;
 
 class PluginController extends AbstractController
 {

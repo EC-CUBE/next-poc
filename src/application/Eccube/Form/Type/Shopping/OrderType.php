@@ -22,6 +22,9 @@ use Eccube\Repository\DeliveryRepository;
 use Eccube\Repository\OrderRepository;
 use Eccube\Repository\PaymentRepository;
 use Eccube\Request\Context;
+use Eccube\Validator\Constraints\Length;
+use Eccube\Validator\Constraints\NotBlank;
+use Eccube\Validator\Constraints\Regex;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -33,9 +36,6 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Eccube\Validator\Constraints\Length;
-use Eccube\Validator\Constraints\NotBlank;
-use Eccube\Validator\Constraints\Regex;
 
 class OrderType extends AbstractType
 {

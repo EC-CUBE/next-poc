@@ -14,15 +14,15 @@
 namespace Eccube\Controller\Admin\Order;
 
 use Eccube\Controller\Admin\AbstractCsvImportController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Master\OrderStatus;
 use Eccube\Entity\Shipping;
 use Eccube\Form\Type\Admin\CsvImportType;
 use Eccube\Repository\ShippingRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Service\CsvImportService;
 use Eccube\Service\OrderStateMachine;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Routing\Annotation\Route;
 
 class CsvImportController extends AbstractCsvImportController
 {

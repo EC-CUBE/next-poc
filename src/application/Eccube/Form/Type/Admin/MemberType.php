@@ -20,6 +20,7 @@ use Eccube\Entity\Member;
 use Eccube\Form\Type\RepeatedPasswordType;
 use Eccube\Form\Type\ToggleSwitchType;
 use Eccube\Repository\MemberRepository;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -28,7 +29,6 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Eccube\Validator\Constraints as Assert;
 
 class MemberType extends AbstractType
 {

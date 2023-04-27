@@ -28,6 +28,7 @@ use Eccube\Repository\OrderItemRepository;
 use Eccube\Repository\ProductClassRepository;
 use Eccube\Repository\TaxRuleRepository;
 use Eccube\Util\StringUtil;
+use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\ConstraintViolationList;
 use Eccube\Validator\Validator;
 use Symfony\Component\Form\AbstractType;
@@ -40,7 +41,6 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Eccube\Validator\Constraints as Assert;
 
 class OrderItemType extends AbstractType
 {

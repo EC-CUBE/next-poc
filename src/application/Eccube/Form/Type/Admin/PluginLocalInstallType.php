@@ -13,10 +13,10 @@
 
 namespace Eccube\Form\Type\Admin;
 
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Eccube\Validator\Constraints as Assert;
 
 class PluginLocalInstallType extends AbstractType
 {

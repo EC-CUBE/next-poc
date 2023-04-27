@@ -26,6 +26,7 @@ use Eccube\Form\Type\PostalType;
 use Eccube\Form\Type\RepeatedPasswordType;
 use Eccube\Form\Validator\Email;
 use Eccube\Repository\CustomerRepository;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -37,7 +38,6 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Eccube\Validator\Constraints as Assert;
 
 class CustomerType extends AbstractType
 {

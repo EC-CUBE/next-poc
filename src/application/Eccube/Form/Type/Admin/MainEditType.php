@@ -21,6 +21,7 @@ use Eccube\Entity\Master\DeviceType;
 use Eccube\Entity\Page;
 use Eccube\Form\Validator\TwigLint;
 use Eccube\Repository\Master\DeviceTypeRepository;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -30,7 +31,6 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Eccube\Validator\Constraints as Assert;
 
 class MainEditType extends AbstractType
 {

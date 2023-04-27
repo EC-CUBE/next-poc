@@ -15,10 +15,10 @@ namespace Eccube\Controller\Block;
 
 use Carbon\Carbon;
 use Eccube\Controller\AbstractController;
-use Eccube\Repository\CalendarRepository;
 use Eccube\Controller\Annotation\Template;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Repository\CalendarRepository;
 use Eccube\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class CalendarController extends AbstractController
 {

@@ -14,12 +14,12 @@
 namespace Eccube\Controller\Admin\Content;
 
 use Eccube\Controller\AbstractController;
-use Eccube\Service\SystemService;
 use Eccube\Controller\Annotation\Template;
+use Eccube\Routing\Annotation\Route;
+use Eccube\Service\SystemService;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Eccube\Routing\Annotation\Route;
 
 class MaintenanceController extends AbstractController
 {

@@ -14,14 +14,14 @@
 namespace Eccube\Controller\Admin\Setting\System;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Form\Type\Admin\SearchLoginHistoryType;
 use Eccube\Repository\LoginHistoryRepository;
 use Eccube\Repository\Master\PageMaxRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Util\FormUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Routing\Annotation\Route;
 
 /**
  * Class LoginHistoryController

@@ -20,6 +20,7 @@ use Eccube\Form\Type\Master\PrefType;
 use Eccube\Form\Type\Master\SexType;
 use Eccube\Form\Type\PriceType;
 use Eccube\Repository\Master\CustomerStatusRepository;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -29,7 +30,6 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Eccube\Validator\Constraints as Assert;
 
 class SearchCustomerType extends AbstractType
 {

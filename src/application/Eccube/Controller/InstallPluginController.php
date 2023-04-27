@@ -17,6 +17,7 @@ use Eccube\Controller\Install\InstallController;
 use Eccube\Entity\Plugin;
 use Eccube\Exception\PluginException;
 use Eccube\Repository\PluginRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Service\Composer\ComposerApiService;
 use Eccube\Service\PluginService;
 use Eccube\Service\SystemService;
@@ -29,7 +30,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Eccube\Routing\Annotation\Route;
 
 class InstallPluginController extends InstallController
 {

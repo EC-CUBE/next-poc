@@ -13,6 +13,7 @@
 
 namespace Eccube\Form\Type\Install;
 
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -21,7 +22,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContext;
 
 class Step4Type extends AbstractType

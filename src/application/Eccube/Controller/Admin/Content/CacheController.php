@@ -14,12 +14,12 @@
 namespace Eccube\Controller\Admin\Content;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Service\SystemService;
 use Eccube\Util\CacheUtil;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Routing\Annotation\Route;
 
 class CacheController extends AbstractController
 {

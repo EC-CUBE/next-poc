@@ -14,8 +14,10 @@
 namespace Eccube\Controller\Admin\Content;
 
 use Eccube\Controller\AbstractController;
-use Eccube\Util\FilesystemUtil;
 use Eccube\Controller\Annotation\Template;
+use Eccube\Routing\Annotation\Route;
+use Eccube\Util\FilesystemUtil;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -29,8 +31,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
-use Eccube\Routing\Annotation\Route;
-use Eccube\Validator\Constraints as Assert;
 
 class FileController extends AbstractController
 {
