@@ -21,8 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Eccube\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Eccube\Routing\Generator\UrlGeneratorInterface;
@@ -88,10 +87,10 @@ class AbstractController extends Controller
     }
 
     /**
-     * @param SessionInterface $session
+     * @param Session $session
      * @required
      */
-    public function setSession(SessionInterface $session)
+    public function setSession(Session $session)
     {
         $this->session = $session;
     }
