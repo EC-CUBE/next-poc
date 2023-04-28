@@ -46,7 +46,7 @@ class FormTypeWrapper implements FormTypeInterface
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $this->type->configureOptions($resolver);
+        $this->type->configureOptions(new \Eccube\OptionsResolver\OptionsResolver($resolver));
     }
 
     public function getBlockPrefix()

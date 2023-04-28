@@ -13,11 +13,11 @@
 namespace Eccube\Form\Type;
 
 use Eccube\Form\FormBuilder;
+use Eccube\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Util\StringUtil;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractType
 {

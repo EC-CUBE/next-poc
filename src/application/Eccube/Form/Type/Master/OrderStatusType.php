@@ -19,7 +19,7 @@ use Eccube\Repository\OrderRepository;
 use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Eccube\OptionsResolver\OptionsResolver;
 
 class OrderStatusType extends AbstractType
 {

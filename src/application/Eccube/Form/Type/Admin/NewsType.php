@@ -23,7 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Eccube\OptionsResolver\OptionsResolver;
 
 class NewsType extends AbstractType
 {

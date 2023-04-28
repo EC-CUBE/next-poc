@@ -29,7 +29,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Eccube\OptionsResolver\OptionsResolver;
 
 /**
  * Class ShopMasterType

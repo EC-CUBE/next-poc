@@ -20,7 +20,7 @@ use Eccube\Validator\Constraints\NotBlank;
 use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Eccube\OptionsResolver\OptionsResolver;
 
 class CustomerAddressType extends AbstractType
 {

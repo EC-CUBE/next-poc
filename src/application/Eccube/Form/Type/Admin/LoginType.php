@@ -20,7 +20,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Eccube\OptionsResolver\OptionsResolver;
 
 class LoginType extends AbstractType
 {

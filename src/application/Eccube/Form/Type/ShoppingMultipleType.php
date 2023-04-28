@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Eccube\OptionsResolver\OptionsResolver;
 
 class ShoppingMultipleType extends AbstractType
 {

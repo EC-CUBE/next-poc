@@ -15,6 +15,7 @@ namespace Eccube\Form\Type\Admin;
 
 use Doctrine\ORM\EntityRepository;
 use Eccube\Entity\ClassName;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Validator\Constraints\Callback;
 use Eccube\Validator\Constraints\NotBlank;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -25,7 +26,6 @@ use Eccube\Form\FormBuilder;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class ProductClassMatrixType extends AbstractType

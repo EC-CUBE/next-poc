@@ -23,7 +23,7 @@ use Eccube\Validator\Constraints as Assert;
 use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Eccube\OptionsResolver\OptionsResolver;
 
 class CustomerAddressType extends AbstractType
 {

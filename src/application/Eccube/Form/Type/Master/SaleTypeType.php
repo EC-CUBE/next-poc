@@ -15,7 +15,7 @@ namespace Eccube\Form\Type\Master;
 
 use Eccube\Form\Type\MasterType;
 use Eccube\Form\Type\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Eccube\OptionsResolver\OptionsResolver;
 
 /**
  * Class SaleTypeType

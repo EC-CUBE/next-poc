@@ -15,7 +15,7 @@ namespace Eccube\Form\Type\Front;
 
 use Eccube\Form\Type\AbstractType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Eccube\OptionsResolver\OptionsResolver;
 
 class ShoppingShippingType extends AbstractType
 {

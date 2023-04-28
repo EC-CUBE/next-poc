@@ -24,7 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Form\FormBuilder;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Eccube\OptionsResolver\OptionsResolver;
 
 class PaymentRegisterType extends AbstractType
 {

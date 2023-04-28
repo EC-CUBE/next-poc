@@ -16,7 +16,7 @@ namespace Eccube\Form\Type;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Eccube\Form\Type\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Eccube\OptionsResolver\OptionsResolver;
 
 class MasterType extends AbstractType
 {
