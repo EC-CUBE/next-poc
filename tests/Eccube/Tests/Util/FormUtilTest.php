@@ -13,6 +13,7 @@
 
 namespace Eccube\Tests\Util;
 
+use Eccube\Form\FormFactory;
 use Eccube\Form\Type\AddressType;
 use Eccube\Form\Type\Master\PrefType;
 use Eccube\Form\Type\Master\SexType;
@@ -21,14 +22,13 @@ use Eccube\Util\FormUtil;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormFactoryInterface;
 
 class FormUtilTest extends EccubeTestCase
 {
     protected $form;
 
     /**
-     * @var FormFactoryInterface
+     * @var FormFactory
      */
     protected $formFactory;
 
@@ -41,7 +41,7 @@ class FormUtilTest extends EccubeTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->formFactory = static::getContainer()->get('form.factory');
+        $this->formFactory = static::getContainer()->get(FormFactory::class);
         $this->form = $this->formFactory
             ->createBuilder(
                 FormType::class,

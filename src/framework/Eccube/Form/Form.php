@@ -172,4 +172,9 @@ class Form implements \ArrayAccess, \IteratorAggregate, \Countable
         }
         return null;
     }
+
+    public function getRoot(): ?self
+    {
+        return new Form($this->adaptee->getRoot());
+    }
 }

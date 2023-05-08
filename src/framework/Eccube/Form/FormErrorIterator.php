@@ -89,4 +89,9 @@ class FormErrorIterator implements \RecursiveIterator, \SeekableIterator, \Array
     {
         $this->adaptee->seek($offset);
     }
+
+    public function __toString()
+    {
+        return $this->adaptee->__toString();
+    }
 }

@@ -36,4 +36,9 @@ class FormEvent extends Event
     {
         return $this->formEvent->getData();
     }
+
+    public function setData($data)
+    {
+        $this->formEvent->setData($data);
+    }
 }

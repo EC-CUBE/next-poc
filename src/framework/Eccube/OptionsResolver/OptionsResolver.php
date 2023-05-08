@@ -49,4 +49,10 @@ class OptionsResolver
         }
         return $this;
     }
+
+    public function setRequired($optionNames): self
+    {
+        $this->adaptee->setRequired($optionNames);
+        return $this;
+    }
 }

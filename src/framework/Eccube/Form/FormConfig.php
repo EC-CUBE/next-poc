@@ -32,4 +32,14 @@ class FormConfig
     {
         return $this->adaptee->getOption($name, $default);
     }
+
+    public function getOptions()
+    {
+        return $this->adaptee->getOptions();
+    }
+
+    public function getAttribute(string $name, $default = null)
+    {
+        return $this->adaptee->getAttribute($name, $default);
+    }
 }
