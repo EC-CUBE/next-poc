@@ -18,9 +18,15 @@ class FormError
 {
     private Adaptee $adaptee;
 
-    public function __construct(Adaptee $adaptee)
+    public function __construct()
     {
-        $this->adaptee = $adaptee;
+        $args = func_get_args();
+        $num = func_num_args();
+        if ($num == 1 && $args[0] instanceof Adaptee) {
+            $this->adaptee = $args[0];
+        } else {
+            $this->adaptee = new Adaptee(...$args);
+        }
     }
 
     public function getAdaptee()

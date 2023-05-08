@@ -18,7 +18,7 @@ use Eccube\Validator\Constraints as Assert;
 use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\Form\FormError;
+use Eccube\Form\FormError;
 use Eccube\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 

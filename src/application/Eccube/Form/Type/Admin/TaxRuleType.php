@@ -21,7 +21,7 @@ use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\Form\FormError;
+use Eccube\Form\FormError;
 use Eccube\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Eccube\OptionsResolver\OptionsResolver;

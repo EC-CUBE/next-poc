@@ -24,7 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\Form\FormError;
+use Eccube\Form\FormError;
 use Symfony\Component\Form\FormEvents;
 
 class Step3Type extends AbstractType
