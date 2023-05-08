@@ -13,12 +13,14 @@
 
 namespace Eccube\Tests\Web\Install;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\Constant;
 use Eccube\Controller\Install\InstallController;
+use Eccube\Form\FormFactory;
+use Eccube\Form\FormView;
 use Eccube\Security\Core\Encoder\PasswordEncoder;
 use Eccube\Tests\Web\AbstractWebTestCase;
 use Eccube\Util\CacheUtil;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -69,7 +71,7 @@ class InstallControllerTest extends AbstractWebTestCase
             unlink($favicon);
         }
 
-        $formFactory = static::getContainer()->get('form.factory');
+        $formFactory = static::getContainer()->get(FormFactory::class);
         $encoder = static::getContainer()->get(PasswordEncoder::class);
         $cacheUtil = static::getContainer()->get(CacheUtil::class);
 
@@ -77,6 +79,7 @@ class InstallControllerTest extends AbstractWebTestCase
         $this->controller = new InstallController($encoder, $cacheUtil);
         $this->controller->setFormFactory($formFactory);
         $this->controller->setSession($this->session);
+        $this->controller->setEntityManager(static::getContainer()->get(EntityManagerInterface::class));
 
         $reflectionClass = new \ReflectionClass($this->controller);
         $propContainer = $reflectionClass->getProperty('container');
