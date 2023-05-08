@@ -37,7 +37,7 @@ use Eccube\Service\Payment\PaymentMethodInterface;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Form\FormInterface;
+use Eccube\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
@@ -729,7 +729,7 @@ class ShoppingController extends AbstractShoppingController
             return $this->redirectToRoute('shopping');
         }
 
-        /* @var $form \Symfony\Component\Form\FormInterface */
+        /* @var $form \Eccube\Form\Form */
         $builder = $this->formFactory->createNamedBuilder('', CustomerLoginType::class);
 
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
@@ -788,11 +788,11 @@ class ShoppingController extends AbstractShoppingController
      * PaymentMethodをコンテナから取得する.
      *
      * @param Order $Order
-     * @param FormInterface $form
+     * @param Form $form
      *
      * @return PaymentMethodInterface
      */
-    private function createPaymentMethod(Order $Order, FormInterface $form)
+    private function createPaymentMethod(Order $Order, Form $form)
     {
         $PaymentMethod = $this->serviceContainer->get($Order->getPayment()->getMethodClass());
         $PaymentMethod->setOrder($Order);

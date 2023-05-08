@@ -21,7 +21,7 @@ use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\ProductTag;
 use Eccube\Repository\TagRepository;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\Form\FormInterface;
+use Eccube\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -175,7 +175,7 @@ class TagController extends AbstractController
         return new Response();
     }
 
-    protected function dispatchComplete(Request $request, FormInterface $form, Tag $Tag)
+    protected function dispatchComplete(Request $request, Form $form, Tag $Tag)
     {
         $event = new EventArgs(
             [

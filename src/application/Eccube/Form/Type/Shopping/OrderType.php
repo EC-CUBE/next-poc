@@ -34,7 +34,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
+use Eccube\Form\Form;
 use Eccube\OptionsResolver\OptionsResolver;
 
 class OrderType extends AbstractType
@@ -194,7 +194,7 @@ class OrderType extends AbstractType
         return '_shopping_order';
     }
 
-    private function addPaymentForm(FormInterface $form, array $choices, Payment $data = null)
+    private function addPaymentForm(Form $form, array $choices, Payment $data = null)
     {
         $message = trans('front.shopping.payment_method_unselected');
 

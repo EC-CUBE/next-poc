@@ -31,7 +31,7 @@ use Eccube\Form\FormBuilder;
 use Eccube\Form\FormError;
 use Eccube\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
+use Eccube\Form\Form;
 use Eccube\OptionsResolver\OptionsResolver;
 
 /**
@@ -185,7 +185,7 @@ class ProductType extends AbstractType
         ;
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-            /** @var FormInterface $form */
+            /** @var Form $form */
             $form = $event->getForm();
             $saveImgDir = $this->eccubeConfig['eccube_save_image_dir'];
             $tempImgDir = $this->eccubeConfig['eccube_temp_image_dir'];
@@ -197,7 +197,7 @@ class ProductType extends AbstractType
     /**
      * 指定された複数ディレクトリのうち、いずれかのディレクトリ以下にファイルが存在するかを確認。
      *
-     * @param $form FormInterface
+     * @param $form Form
      * @param $dirs array
      */
     private function validateFilePath($form, $dirs)

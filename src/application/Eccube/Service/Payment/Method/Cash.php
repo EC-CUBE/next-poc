@@ -18,7 +18,7 @@ use Eccube\Service\Payment\PaymentMethodInterface;
 use Eccube\Service\Payment\PaymentResult;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
-use Symfony\Component\Form\FormInterface;
+use Eccube\Form\Form;
 
 /**
  * 銀行振込, 代金引き換えなど, 主に現金を扱う支払い方法を扱うクラス.
@@ -28,7 +28,7 @@ class Cash implements PaymentMethodInterface
     /** @var Order */
     private $Order;
 
-    /** @var FormInterface */
+    /** @var Form */
     private $form;
 
     /** @var */
@@ -74,7 +74,7 @@ class Cash implements PaymentMethodInterface
     /**
      * {@inheritdoc}
      */
-    public function setFormType(FormInterface $form)
+    public function setFormType(Form $form)
     {
         $this->form = $form;
 

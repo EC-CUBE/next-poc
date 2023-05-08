@@ -39,7 +39,7 @@ use Eccube\Form\FormBuilder;
 use Eccube\Form\FormError;
 use Eccube\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
+use Eccube\Form\Form;
 use Eccube\OptionsResolver\OptionsResolver;
 
 class OrderItemType extends AbstractType
@@ -316,10 +316,10 @@ class OrderItemType extends AbstractType
     }
 
     /**
-     * @param FormInterface $form
+     * @param Form $form
      * @param ConstraintViolationList $errors
      */
-    protected function addErrorsIfExists(FormInterface $form, ConstraintViolationList $errors)
+    protected function addErrorsIfExists(Form $form, ConstraintViolationList $errors)
     {
         if (count($errors) < 1) {
             return;

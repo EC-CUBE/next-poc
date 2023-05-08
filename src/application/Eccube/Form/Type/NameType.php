@@ -18,7 +18,7 @@ use Eccube\Validator\Constraints as Assert;
 use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\Form\FormInterface;
+use Eccube\Form\Form;
 use Symfony\Component\Form\FormView;
 use Eccube\OptionsResolver\OptionsResolver;
 
@@ -82,7 +82,7 @@ class NameType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, Form $form, array $options)
     {
         $builder = $form->getConfig();
         $view->vars['lastname_name'] = $builder->getAttribute('lastname_name');

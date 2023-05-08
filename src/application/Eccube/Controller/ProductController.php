@@ -139,7 +139,7 @@ class ProductController extends AbstractController
         );
         $this->eventDispatcher->dispatch($event, EccubeEvents::FRONT_PRODUCT_INDEX_INITIALIZE);
 
-        /* @var $searchForm \Symfony\Component\Form\FormInterface */
+        /* @var $searchForm \Eccube\Form\Form */
         $searchForm = $builder->getForm();
 
         $searchForm->handleRequest($request);
@@ -336,7 +336,7 @@ class ProductController extends AbstractController
         );
         $this->eventDispatcher->dispatch($event, EccubeEvents::FRONT_PRODUCT_CART_ADD_INITIALIZE);
 
-        /* @var $form \Symfony\Component\Form\FormInterface */
+        /* @var $form \Eccube\Form\Form */
         $form = $builder->getForm();
         $form->handleRequest($request);
 

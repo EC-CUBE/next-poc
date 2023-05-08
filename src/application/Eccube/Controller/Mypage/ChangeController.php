@@ -77,7 +77,7 @@ class ChangeController extends AbstractController
         );
         $this->eventDispatcher->dispatch($event, EccubeEvents::FRONT_MYPAGE_CHANGE_INDEX_INITIALIZE);
 
-        /* @var $form \Symfony\Component\Form\FormInterface */
+        /* @var $form \Eccube\Form\Form */
         $form = $builder->getForm();
         $form->handleRequest($request);
 

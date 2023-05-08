@@ -12,10 +12,10 @@
 
 namespace Eccube\Form\Type;
 
+use Eccube\Form\Form;
 use Eccube\Form\FormBuilder;
 use Eccube\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Util\StringUtil;
 
@@ -25,12 +25,12 @@ abstract class AbstractType
     {
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, Form $form, array $options)
     {
         // TODO: Implement buildView() method.
     }
 
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, Form $form, array $options)
     {
         // TODO: Implement finishView() method.
     }

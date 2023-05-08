@@ -135,7 +135,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin_homepage');
         }
 
-        /* @var $form \Symfony\Component\Form\FormInterface */
+        /* @var $form \Eccube\Form\Form */
         $builder = $this->formFactory->createNamedBuilder('', LoginType::class);
 
         $event = new EventArgs(

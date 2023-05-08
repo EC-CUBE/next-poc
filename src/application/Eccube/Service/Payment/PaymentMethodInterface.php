@@ -14,7 +14,7 @@
 namespace Eccube\Service\Payment;
 
 use Eccube\Entity\Order;
-use Symfony\Component\Form\FormInterface;
+use Eccube\Form\Form;
 
 /**
  * PaymentMethodInterface
@@ -51,13 +51,13 @@ interface PaymentMethodInterface
     public function apply();
 
     /**
-     * PaymentMethod の処理に必要な FormInterface を設定します.
+     * PaymentMethod の処理に必要な Form を設定します.
      *
-     * @param FormInterface
+     * @param Form
      *
      * @return PaymentMethod
      */
-    public function setFormType(FormInterface $form);
+    public function setFormType(Form $form);
 
     /**
      * この決済を使用する Order を設定します.

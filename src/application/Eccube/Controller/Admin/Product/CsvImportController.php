@@ -46,7 +46,7 @@ use Eccube\Validator\Constraints\GreaterThanOrEqual;
 use Eccube\Validator\Validator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Form\FormInterface;
+use Eccube\Form\Form;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -870,7 +870,7 @@ class CsvImportController extends AbstractCsvImportController
     /**
      * 登録、更新時のエラー画面表示
      *
-     * @param FormInterface $form
+     * @param Form $form
      * @param array $headers
      * @param bool $rollback
      *

@@ -106,7 +106,7 @@ class MypageController extends AbstractController
             return $this->redirectToRoute('mypage');
         }
 
-        /* @var $form \Symfony\Component\Form\FormInterface */
+        /* @var $form \Eccube\Form\Form */
         $builder = $this->formFactory
             ->createNamedBuilder('', CustomerLoginType::class);
 

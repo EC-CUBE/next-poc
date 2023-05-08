@@ -28,7 +28,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
+use Eccube\Form\Form;
 use Symfony\Component\Form\FormView;
 use Eccube\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Context\ExecutionContext;
@@ -172,7 +172,7 @@ class AddCartType extends AbstractType
     /*
      * {@inheritdoc}
      */
-    public function finishView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, Form $form, array $options)
     {
         if ($options['id_add_product_id']) {
             foreach ($view->vars['form']->children as $child) {

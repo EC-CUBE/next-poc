@@ -415,7 +415,7 @@ class ProductClassController extends AbstractController
      * @param ClassName|null $ClassName2
      * @param array $options
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Eccube\Form\Form
      */
     protected function createMatrixForm(
         $ProductClasses = [],

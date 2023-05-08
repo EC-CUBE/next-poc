@@ -35,7 +35,7 @@ use Eccube\Form\FormBuilder;
 use Eccube\Form\FormError;
 use Eccube\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
+use Eccube\Form\Form;
 use Eccube\OptionsResolver\OptionsResolver;
 
 class ProductClassEditType extends AbstractType
@@ -270,7 +270,7 @@ class ProductClassEditType extends AbstractType
         });
     }
 
-    protected function addErrors($key, FormInterface $form, ConstraintViolationList $errors)
+    protected function addErrors($key, Form $form, ConstraintViolationList $errors)
     {
         foreach ($errors as $error) {
             $form[$key]->addError(new FormError($error->getMessage()));
