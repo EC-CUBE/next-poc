@@ -21,7 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\Form\FormEvent;
+use Eccube\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Eccube\OptionsResolver\OptionsResolver;
 

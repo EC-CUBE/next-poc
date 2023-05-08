@@ -32,7 +32,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\Form\FormEvent;
+use Eccube\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Eccube\OptionsResolver\OptionsResolver;

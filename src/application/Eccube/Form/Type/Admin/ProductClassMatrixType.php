@@ -24,7 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Eccube\Form\FormBuilder;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
+use Eccube\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 

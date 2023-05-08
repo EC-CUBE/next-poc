@@ -19,7 +19,7 @@ use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Form\FormBuilder;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
+use Eccube\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
 /**

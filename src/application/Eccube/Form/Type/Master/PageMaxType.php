@@ -18,7 +18,7 @@ use Eccube\Entity\Master\PageMax;
 use Eccube\Form\Type\MasterType;
 use Eccube\Form\Type\AbstractType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\Form\FormEvent;
+use Eccube\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Eccube\OptionsResolver\OptionsResolver;
 
