@@ -27,4 +27,9 @@ class FormConfig
     {
         return $this->adaptee->hasOption($name);
     }
+
+    public function getOption(string $name, $default = null)
+    {
+        return $this->adaptee->getOption($name, $default);
+    }
 }
