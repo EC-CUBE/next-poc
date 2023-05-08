@@ -27,22 +27,26 @@ class OptionsResolver
 
     public function setDefaults(array $defaults): self
     {
-        if (isset($defaults['constraints'])) {
-            $c = $defaults['constraints'];
-            if ($c instanceof \Closure) {
-                // TODO adapt Options
-                $defaults['constraints'] = function(Options $options) use ($c) {
-                    $result = $c($options);
-                    if (is_array($result)) {
-                        $result = array_map(function($r) {
-                            return ($r instanceof Constraint) ? $r->getConstraint() : $r;
-                        }, $result);
-                    }
-                    return ($result instanceof Constraint) ? $result->getConstraint() : $result;
-                };
-            }
-        }
+        Constraint::convertConstraints($defaults);
         $this->adaptee->setDefaults($defaults);
+        return $this;
+    }
+
+    /**
+     * TODO adapt
+     */
+    public function setNormalizer(string $option, \Closure $normalizer): self
+    {
+        if ($option === 'constraints') {
+            $this->adaptee->setNormalizer($option, function (Options $options, $value) use ($normalizer) {
+                $result = $normalizer($options, $value);
+                $constraints = ['constraints' => $result];
+                Constraint::convertConstraints($constraints);
+                return $constraints['constraints'];
+            });
+        } else {
+            $this->adaptee->setNormalizer($option, $normalizer);
+        }
         return $this;
     }
 }

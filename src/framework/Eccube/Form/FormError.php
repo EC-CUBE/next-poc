@@ -18,13 +18,18 @@ class FormError
 {
     private Adaptee $adaptee;
 
-    public function __construct(string $message, string $messageTemplate = null, array $messageParameters = [], int $messagePluralization = null, $cause = null)
+    public function __construct(Adaptee $adaptee)
     {
-        $this->adaptee = new Adaptee($message, $messageTemplate, $messageParameters, $messagePluralization, $cause);
+        $this->adaptee = $adaptee;
     }
 
     public function getAdaptee()
     {
         return $this->adaptee;
+    }
+
+    public function getMessage(): string
+    {
+        return $this->adaptee->getMessage();
     }
 }

@@ -30,6 +30,8 @@ class Validator
      */
     public function validate($value, $constants): ConstraintViolationList
     {
-        return new ConstraintViolationList($this->validator->validate($value, array_map(function ($c) { return $c instanceof Constraint ? $c->getConstraint() : $c; }, $constants)));
+        $array = ['constraints' => $constants];
+        Constraint::convertConstraints($array);
+        return new ConstraintViolationList($this->validator->validate($value, $array['constraints']));
     }
 }

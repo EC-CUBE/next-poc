@@ -12,6 +12,7 @@
 
 namespace Eccube\Form;
 
+use Eccube\Validator\Constraint;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -85,6 +86,7 @@ class Form implements \ArrayAccess, \IteratorAggregate, \Countable
 
     public function add($child, string $type = null, array $options = [])
     {
+        Constraint::convertConstraints($options);
         $this->adaptee->add($child, $type, $options);
         return $this;
     }
@@ -149,5 +151,10 @@ class Form implements \ArrayAccess, \IteratorAggregate, \Countable
     public function getIterator()
     {
         return new \ArrayIterator($this->all());
+    }
+
+    public function getName(): string
+    {
+        return $this->adaptee->getName();
     }
 }

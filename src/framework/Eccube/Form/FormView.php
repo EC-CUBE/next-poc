@@ -27,4 +27,12 @@ class FormView
     {
         return $this->adaptee;
     }
+
+    public function __get(string $name)
+    {
+        if ($name === 'vars') {
+            return $this->adaptee->vars;
+        }
+        throw new \InvalidArgumentException($name);
+    }
 }

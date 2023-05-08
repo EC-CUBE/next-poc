@@ -41,15 +41,7 @@ class FormBuilder
 
     public function add($child, string $type = null, array $options = [])
     {
-        if (isset($options['constraints'])) {
-            if (is_array($options['constraints'])) {
-                $options['constraints'] = array_map(function ($c) {
-                    return $c instanceof Constraint ? $c->getConstraint() : $c;
-                }, $options['constraints']);
-            } elseif ($options['constraints'] instanceof Constraint) {
-                $options['constraints'] = $options['constraints']->getConstraint();
-            }
-        }
+        Constraint::convertConstraints($options);
         if ($child instanceof FormBuilder) {
             $this->adaptee->add($child->adaptee, $type, $options);
         } else {
@@ -78,7 +70,7 @@ class FormBuilder
      */
     public function addEventListener(string $eventName, callable $listener, int $priority = 0): self
     {
-        $this->adaptee->addEventListener($eventName, $listener, $priority);
+        $this->adaptee->addEventListener($eventName, $this->wrapEventListener($listener), $priority);
         return $this;
     }
 
@@ -126,6 +118,7 @@ class FormBuilder
 
     public function create(string $name, string $type = null, array $options = []): self
     {
+        Constraint::convertConstraints($options);
         return new FormBuilder($this->adaptee->create($name, $type, $options));
     }
 
