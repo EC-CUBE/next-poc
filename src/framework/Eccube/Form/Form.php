@@ -157,4 +157,19 @@ class Form implements \ArrayAccess, \IteratorAggregate, \Countable
     {
         return $this->adaptee->getName();
     }
+
+    public function remove(string $name): self
+    {
+        $this->adaptee->remove($name);
+        return $this;
+    }
+
+    public function getParent(): ?self
+    {
+        $parent = $this->adaptee->getParent();
+        if ($parent) {
+            return new Form($parent);
+        }
+        return null;
+    }
 }
