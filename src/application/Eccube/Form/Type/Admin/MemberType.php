@@ -165,6 +165,15 @@ class MemberType extends AbstractType
                     $form['Work']->addError(new FormError(trans('admin.setting.system.member.work_can_not_change')));
                 }
             }
+
+            // login_idの重複をチェック。編集時はlogin_id変更不可のため、新規登録時のみチェックする。
+            if ($Member->getId() === null) {
+                $exist = $this->memberRepository->findOneBy(['login_id' => $Member->getLoginId()]);
+                if ($exist) {
+                    $form = $event->getForm();
+                    $form['login_id']->addError(new FormError(trans('form_error.member_already_exists', [], 'validators')));
+                }
+            }
         });
     }
 

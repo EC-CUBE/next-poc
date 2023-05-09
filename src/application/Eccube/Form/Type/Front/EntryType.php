@@ -24,6 +24,7 @@ use Eccube\Form\Type\PhoneNumberType;
 use Eccube\Form\Type\PostalType;
 use Eccube\Form\Type\RepeatedEmailType;
 use Eccube\Form\Type\RepeatedPasswordType;
+use Eccube\Repository\CustomerRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -42,14 +43,17 @@ class EntryType extends AbstractType
      */
     protected $eccubeConfig;
 
+    private CustomerRepository $customerRepository;
+
     /**
      * EntryType constructor.
      *
      * @param EccubeConfig $eccubeConfig
      */
-    public function __construct(EccubeConfig $eccubeConfig)
+    public function __construct(EccubeConfig $eccubeConfig, CustomerRepository $customerRepository)
     {
         $this->eccubeConfig = $eccubeConfig;
+        $this->customerRepository = $customerRepository;
     }
 
     /**
@@ -120,6 +124,11 @@ class EntryType extends AbstractType
             $Customer = $event->getData();
             if ($Customer->getPlainPassword() != '' && $Customer->getPlainPassword() == $Customer->getEmail()) {
                 $form['plain_password']['first']->addError(new FormError(trans('common.password_eq_email')));
+            }
+            $exists = $this->customerRepository->getNonWithdrawingCustomers(['email' => $Customer->getEmail()]);
+            $exists = array_filter($exists, fn ($e) => $e->getId() !== $Customer->getId());
+            if (count($exists) > 0) {
+                $form['email']['first']->addError(new FormError(trans('form_error.customer_already_exists', [], 'validators')));
             }
         });
     }
