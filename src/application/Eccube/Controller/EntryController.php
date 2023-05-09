@@ -25,6 +25,7 @@ use Eccube\Repository\PageRepository;
 use Eccube\Service\CartService;
 use Eccube\Service\MailService;
 use Eccube\Controller\Annotation\Template;
+use Eccube\Validator\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception as HttpException;
 use Eccube\Routing\Annotation\Route;
@@ -33,7 +34,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class EntryController extends AbstractController
 {
@@ -43,9 +43,9 @@ class EntryController extends AbstractController
     protected $customerStatusRepository;
 
     /**
-     * @var ValidatorInterface
+     * @var Validator
      */
-    protected $recursiveValidator;
+    protected $validator;
 
     /**
      * @var MailService
@@ -91,26 +91,26 @@ class EntryController extends AbstractController
      * @param BaseInfoRepository $baseInfoRepository
      * @param CustomerRepository $customerRepository
      * @param EncoderFactoryInterface $encoderFactory
-     * @param ValidatorInterface $validatorInterface
+     * @param Validator $validator
      * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
-        CartService $cartService,
+        CartService              $cartService,
         CustomerStatusRepository $customerStatusRepository,
-        MailService $mailService,
-        BaseInfoRepository $baseInfoRepository,
-        CustomerRepository $customerRepository,
-        EncoderFactoryInterface $encoderFactory,
-        ValidatorInterface $validatorInterface,
-        TokenStorageInterface $tokenStorage,
-        PageRepository $pageRepository
+        MailService              $mailService,
+        BaseInfoRepository       $baseInfoRepository,
+        CustomerRepository       $customerRepository,
+        EncoderFactoryInterface  $encoderFactory,
+        Validator                $validator,
+        TokenStorageInterface    $tokenStorage,
+        PageRepository           $pageRepository
     ) {
         $this->customerStatusRepository = $customerStatusRepository;
         $this->mailService = $mailService;
         $this->BaseInfo = $baseInfoRepository->get();
         $this->customerRepository = $customerRepository;
         $this->encoderFactory = $encoderFactory;
-        $this->recursiveValidator = $validatorInterface;
+        $this->validator = $validator;
         $this->tokenStorage = $tokenStorage;
         $this->cartService = $cartService;
         $this->pageRepository = $pageRepository;
@@ -246,7 +246,7 @@ class EntryController extends AbstractController
      */
     public function activate(Request $request, $secret_key, $qtyInCart = null)
     {
-        $errors = $this->recursiveValidator->validate(
+        $errors = $this->validator->validate(
             $secret_key,
             [
                 new Assert\NotBlank(),

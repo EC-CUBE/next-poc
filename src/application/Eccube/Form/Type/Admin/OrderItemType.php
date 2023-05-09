@@ -28,6 +28,8 @@ use Eccube\Repository\OrderItemRepository;
 use Eccube\Repository\ProductClassRepository;
 use Eccube\Repository\TaxRuleRepository;
 use Eccube\Util\StringUtil;
+use Eccube\Validator\ConstraintViolationList;
+use Eccube\Validator\Validator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -39,8 +41,6 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class OrderItemType extends AbstractType
 {
@@ -80,7 +80,7 @@ class OrderItemType extends AbstractType
     protected $taxRuleRepository;
 
     /**
-     * @var ValidatorInterface
+     * @var Validator
      */
     protected $validator;
 
@@ -94,7 +94,7 @@ class OrderItemType extends AbstractType
      * @param OrderItemRepository $orderItemRepository
      * @param OrderItemTypeRepository $orderItemTypeRepository
      * @param TaxRuleRepository $taxRuleRepository
-     * @param ValidatorInterface $validator
+     * @param Validator $validator
      *
      * @throws \Exception
      */
@@ -106,7 +106,7 @@ class OrderItemType extends AbstractType
         OrderItemRepository $orderItemRepository,
         OrderItemTypeRepository $orderItemTypeRepository,
         TaxRuleRepository $taxRuleRepository,
-        ValidatorInterface $validator
+        Validator $validator
     ) {
         $this->entityManager = $entityManager;
         $this->eccubeConfig = $eccubeConfig;
@@ -317,9 +317,9 @@ class OrderItemType extends AbstractType
 
     /**
      * @param FormInterface $form
-     * @param ConstraintViolationListInterface $errors
+     * @param ConstraintViolationList $errors
      */
-    protected function addErrorsIfExists(FormInterface $form, ConstraintViolationListInterface $errors)
+    protected function addErrorsIfExists(FormInterface $form, ConstraintViolationList $errors)
     {
         if (count($errors) < 1) {
             return;

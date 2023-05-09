@@ -20,18 +20,18 @@ use Eccube\Form\Type\Front\PasswordResetType;
 use Eccube\Repository\CustomerRepository;
 use Eccube\Service\MailService;
 use Eccube\Controller\Annotation\Template;
+use Eccube\Validator\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception as HttpException;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ForgotController extends AbstractController
 {
     /**
-     * @var ValidatorInterface
+     * @var Validator
      */
     protected $validator;
 
@@ -53,13 +53,13 @@ class ForgotController extends AbstractController
     /**
      * ForgotController constructor.
      *
-     * @param ValidatorInterface $validator
+     * @param Validator $validator
      * @param MailService $mailService
      * @param CustomerRepository $customerRepository
      * @param EncoderFactoryInterface $encoderFactory
      */
     public function __construct(
-        ValidatorInterface $validator,
+        Validator $validator,
         MailService $mailService,
         CustomerRepository $customerRepository,
         EncoderFactoryInterface $encoderFactory

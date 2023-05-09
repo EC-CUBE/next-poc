@@ -16,6 +16,7 @@ namespace Eccube\Form\Type\Admin;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Calendar;
 use Eccube\Repository\CalendarRepository;
+use Eccube\Validator\Validator;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,7 +26,6 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class CalendarType
@@ -43,14 +43,14 @@ class CalendarType extends AbstractType
     protected $calendarRepository;
 
     /**
-     * @var ValidatorInterface
+     * @var Validator
      */
     protected $validator;
 
     /**
      * CalendarType constructor.
      */
-    public function __construct(EccubeConfig $eccubeConfig, ValidatorInterface $validator, CalendarRepository $calendarRepository)
+    public function __construct(EccubeConfig $eccubeConfig, Validator $validator, CalendarRepository $calendarRepository)
     {
         $this->eccubeConfig = $eccubeConfig;
         $this->calendarRepository = $calendarRepository;
