@@ -227,3 +227,7 @@ services:
 
     Eccube\EventListener\RateLimiterListener:
         arguments: [ !tagged_locator { tag: 'eccube_rate_limiter' } ]
+
+    Eccube\EventDispatcher\EventDispatcher:
+        decorates: event_dispatcher
+        decoration_priority: -10 # debug時にTraceableEventDispatcherをラップできるようにpriorityを下げる
