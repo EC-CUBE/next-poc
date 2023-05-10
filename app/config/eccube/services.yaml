@@ -48,6 +48,10 @@ services:
 
     Eccube\Form\:
         resource: '../../../src/application/Eccube/Form'
+
+    Eccube\EventListener\:
+        resource: '../../../src/application/Eccube/EventListener'
+
     Eccube\Common\EccubeConfig:
         public: true
 
