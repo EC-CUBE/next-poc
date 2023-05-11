@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\CustomerRepository" name="Eccube\Entity\Customer" table="dtb_customer" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="customer" class="Eccube\Entity\Customer"/>
+    </discriminator-map>
+    <indexes>
+      <index name="dtb_customer_buy_times_idx" columns="buy_times"/>
+      <index name="dtb_customer_buy_total_idx" columns="buy_total"/>
+      <index name="dtb_customer_create_date_idx" columns="create_date"/>
+      <index name="dtb_customer_update_date_idx" columns="update_date"/>
+      <index name="dtb_customer_last_buy_date_idx" columns="last_buy_date"/>
+      <index name="dtb_customer_email_idx" columns="email"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="secret_key" columns="secret_key"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name01" type="string" column="name01" length="255" nullable="false"/>
+    <field name="name02" type="string" column="name02" length="255" nullable="false"/>
+    <field name="kana01" type="string" column="kana01" length="255" nullable="true"/>
+    <field name="kana02" type="string" column="kana02" length="255" nullable="true"/>
+    <field name="company_name" type="string" column="company_name" length="255" nullable="true"/>
+    <field name="postal_code" type="string" column="postal_code" length="8" nullable="true"/>
+    <field name="addr01" type="string" column="addr01" length="255" nullable="true"/>
+    <field name="addr02" type="string" column="addr02" length="255" nullable="true"/>
+    <field name="email" type="string" column="email" length="255" nullable="false"/>
+    <field name="phone_number" type="string" column="phone_number" length="14" nullable="true"/>
+    <field name="birth" type="datetimetz" column="birth" nullable="true"/>
+    <field name="password" type="string" column="password" length="255" nullable="false"/>
+    <field name="salt" type="string" column="salt" length="255" nullable="true"/>
+    <field name="secret_key" type="string" column="secret_key" length="255" nullable="false"/>
+    <field name="first_buy_date" type="datetimetz" column="first_buy_date" nullable="true"/>
+    <field name="last_buy_date" type="datetimetz" column="last_buy_date" nullable="true"/>
+    <field name="buy_times" type="decimal" column="buy_times" precision="10" scale="0" nullable="true">
+      <options>
+        <option name="unsigned">1</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="buy_total" type="decimal" column="buy_total" precision="12" scale="2" nullable="true">
+      <options>
+        <option name="unsigned">1</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="note" type="string" column="note" length="4000" nullable="true"/>
+    <field name="reset_key" type="string" column="reset_key" length="255" nullable="true"/>
+    <field name="reset_expire" type="datetimetz" column="reset_expire" nullable="true"/>
+    <field name="point" type="decimal" column="point" precision="12" scale="0" nullable="false">
+      <options>
+        <option name="unsigned"/>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>
+    <field name="update_date" type="datetimetz" column="update_date" nullable="false"/>
+    <one-to-many field="CustomerFavoriteProducts" target-entity="Eccube\Entity\CustomerFavoriteProduct" mapped-by="Customer" fetch="LAZY">
+      <cascade>
+        <cascade-remove/>
+      </cascade>
+    </one-to-many>
+    <one-to-many field="CustomerAddresses" target-entity="Eccube\Entity\CustomerAddress" mapped-by="Customer" fetch="LAZY">
+      <cascade>
+        <cascade-remove/>
+      </cascade>
+      <order-by>
+        <order-by-field name="id" direction="ASC"/>
+      </order-by>
+    </one-to-many>
+    <one-to-many field="Orders" target-entity="Eccube\Entity\Order" mapped-by="Customer" fetch="LAZY"/>
+    <many-to-one field="Status" target-entity="Eccube\Entity\Master\CustomerStatus" fetch="LAZY">
+      <join-columns>
+        <join-column name="customer_status_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Sex" target-entity="Eccube\Entity\Master\Sex" fetch="LAZY">
+      <join-columns>
+        <join-column name="sex_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Job" target-entity="Eccube\Entity\Master\Job" fetch="LAZY">
+      <join-columns>
+        <join-column name="job_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Country" target-entity="Eccube\Entity\Master\Country" fetch="LAZY">
+      <join-columns>
+        <join-column name="country_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Pref" target-entity="Eccube\Entity\Master\Pref" fetch="LAZY">
+      <join-columns>
+        <join-column name="pref_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

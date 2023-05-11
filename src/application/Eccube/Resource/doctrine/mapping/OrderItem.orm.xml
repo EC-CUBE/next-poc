@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\OrderItemRepository" name="Eccube\Entity\OrderItem" table="dtb_order_item" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="orderitem" class="Eccube\Entity\OrderItem"/>
+    </discriminator-map>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="product_name" type="string" column="product_name" length="255" nullable="false"/>
+    <field name="product_code" type="string" column="product_code" length="255" nullable="true"/>
+    <field name="class_name1" type="string" column="class_name1" length="255" nullable="true"/>
+    <field name="class_name2" type="string" column="class_name2" length="255" nullable="true"/>
+    <field name="class_category_name1" type="string" column="class_category_name1" length="255" nullable="true"/>
+    <field name="class_category_name2" type="string" column="class_category_name2" length="255" nullable="true"/>
+    <field name="price" type="decimal" column="price" precision="12" scale="2" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="quantity" type="decimal" column="quantity" precision="10" scale="0" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="tax" type="decimal" column="tax" precision="10" scale="0" nullable="false">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="tax_rate" type="decimal" column="tax_rate" precision="10" scale="0" nullable="false">
+      <options>
+        <option name="unsigned">1</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="tax_adjust" type="decimal" column="tax_adjust" precision="10" scale="0" nullable="false">
+      <options>
+        <option name="unsigned">1</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="tax_rule_id" type="smallint" column="tax_rule_id" nullable="true">
+      <options>
+        <option name="unsigned">1</option>
+      </options>
+    </field>
+    <field name="currency_code" type="string" column="currency_code" nullable="true"/>
+    <field name="processor_name" type="string" column="processor_name" nullable="true"/>
+    <field name="point_rate" type="decimal" column="point_rate" precision="10" scale="0" nullable="true">
+      <options>
+        <option name="unsigned">1</option>
+      </options>
+    </field>
+    <many-to-one field="Order" target-entity="Eccube\Entity\Order" inversed-by="OrderItems" fetch="LAZY">
+      <join-columns>
+        <join-column name="order_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Product" target-entity="Eccube\Entity\Product" fetch="LAZY">
+      <join-columns>
+        <join-column name="product_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="ProductClass" target-entity="Eccube\Entity\ProductClass" fetch="LAZY">
+      <join-columns>
+        <join-column name="product_class_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Shipping" target-entity="Eccube\Entity\Shipping" inversed-by="OrderItems" fetch="LAZY">
+      <join-columns>
+        <join-column name="shipping_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="RoundingType" target-entity="Eccube\Entity\Master\RoundingType" fetch="LAZY">
+      <join-columns>
+        <join-column name="rounding_type_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="TaxType" target-entity="Eccube\Entity\Master\TaxType" fetch="LAZY">
+      <join-columns>
+        <join-column name="tax_type_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="TaxDisplayType" target-entity="Eccube\Entity\Master\TaxDisplayType" fetch="LAZY">
+      <join-columns>
+        <join-column name="tax_display_type_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="OrderItemType" target-entity="Eccube\Entity\Master\OrderItemType" fetch="LAZY">
+      <join-columns>
+        <join-column name="order_item_type_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

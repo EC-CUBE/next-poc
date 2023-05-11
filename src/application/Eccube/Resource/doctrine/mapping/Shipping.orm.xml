@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\ShippingRepository" name="Eccube\Entity\Shipping" table="dtb_shipping" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="shipping" class="Eccube\Entity\Shipping"/>
+    </discriminator-map>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name01" type="string" column="name01" length="255" nullable="false"/>
+    <field name="name02" type="string" column="name02" length="255" nullable="false"/>
+    <field name="kana01" type="string" column="kana01" length="255" nullable="true"/>
+    <field name="kana02" type="string" column="kana02" length="255" nullable="true"/>
+    <field name="company_name" type="string" column="company_name" length="255" nullable="true"/>
+    <field name="phone_number" type="string" column="phone_number" length="14" nullable="true"/>
+    <field name="postal_code" type="string" column="postal_code" length="8" nullable="true"/>
+    <field name="addr01" type="string" column="addr01" length="255" nullable="true"/>
+    <field name="addr02" type="string" column="addr02" length="255" nullable="true"/>
+    <field name="shipping_delivery_name" type="string" column="delivery_name" length="255" nullable="true"/>
+    <field name="time_id" type="integer" column="time_id" nullable="true">
+      <options>
+        <option name="unsigned">1</option>
+      </options>
+    </field>
+    <field name="shipping_delivery_time" type="string" column="delivery_time" length="255" nullable="true"/>
+    <field name="shipping_delivery_date" type="datetimetz" column="delivery_date" nullable="true"/>
+    <field name="shipping_date" type="datetimetz" column="shipping_date" nullable="true"/>
+    <field name="tracking_number" type="string" column="tracking_number" length="255" nullable="true"/>
+    <field name="note" type="string" column="note" length="4000" nullable="true"/>
+    <field name="sort_no" type="smallint" column="sort_no" nullable="true">
+      <options>
+        <option name="unsigned">1</option>
+      </options>
+    </field>
+    <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>
+    <field name="update_date" type="datetimetz" column="update_date" nullable="false"/>
+    <field name="mail_send_date" type="datetimetz" column="mail_send_date" nullable="true"/>
+    <one-to-many field="OrderItems" target-entity="Eccube\Entity\OrderItem" mapped-by="Shipping" fetch="LAZY">
+      <cascade>
+        <cascade-persist/>
+      </cascade>
+    </one-to-many>
+    <many-to-one field="Order" target-entity="Eccube\Entity\Order" inversed-by="Shippings" fetch="LAZY">
+      <cascade>
+        <cascade-persist/>
+      </cascade>
+      <join-columns>
+        <join-column name="order_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Country" target-entity="Eccube\Entity\Master\Country" fetch="LAZY">
+      <join-columns>
+        <join-column name="country_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Pref" target-entity="Eccube\Entity\Master\Pref" fetch="LAZY">
+      <join-columns>
+        <join-column name="pref_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Delivery" target-entity="Eccube\Entity\Delivery" fetch="LAZY">
+      <join-columns>
+        <join-column name="delivery_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Creator" target-entity="Eccube\Entity\Member" fetch="LAZY">
+      <join-columns>
+        <join-column name="creator_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

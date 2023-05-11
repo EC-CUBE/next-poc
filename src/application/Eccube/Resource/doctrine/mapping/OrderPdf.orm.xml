@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\OrderPdfRepository" name="Eccube\Entity\OrderPdf" table="dtb_order_pdf" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="orderpdf" class="Eccube\Entity\OrderPdf"/>
+    </discriminator-map>
+    <id name="member_id" type="integer" column="member_id"/>
+    <field name="title" type="string" column="title" nullable="true"/>
+    <field name="message1" type="string" column="message1" nullable="true"/>
+    <field name="message2" type="string" column="message2" nullable="true"/>
+    <field name="message3" type="string" column="message3" nullable="true"/>
+    <field name="note1" type="string" column="note1" nullable="true"/>
+    <field name="note2" type="string" column="note2" nullable="true"/>
+    <field name="note3" type="string" column="note3" nullable="true"/>
+    <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>
+    <field name="update_date" type="datetimetz" column="update_date" nullable="false"/>
+    <field name="visible" type="boolean" column="visible" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

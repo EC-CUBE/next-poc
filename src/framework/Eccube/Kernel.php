@@ -272,13 +272,9 @@ class Kernel extends BaseKernel
     {
         $projectDir = $container->getParameter('kernel.project_dir');
 
-        // Eccube
-        $paths = ['%kernel.project_dir%/src/application/Eccube/Entity'];
-        $namespaces = ['Eccube\\Entity'];
-        $reader = new Reference('annotation_reader');
-        $driver = new Definition(AnnotationDriver::class, [$reader, $paths]);
-        $driver->addMethodCall('setTraitProxiesDirectory', [$projectDir.'/app/proxy/entity']);
-        $container->addCompilerPass(new DoctrineOrmMappingsPass($driver, $namespaces, []));
+        $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver([
+            '%kernel.project_dir%/src/application/Eccube/Resource/doctrine/mapping' => 'Eccube\\Entity',
+        ]));
 
         // Customize
         $container->addCompilerPass(DoctrineOrmMappingsPass::createAnnotationMappingDriver(

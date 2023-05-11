@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\BlockPositionRepository" name="Eccube\Entity\BlockPosition" table="dtb_block_position" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="blockposition" class="Eccube\Entity\BlockPosition"/>
+    </discriminator-map>
+    <id name="section" type="integer" column="section"/>
+    <id name="block_id" type="integer" column="block_id"/>
+    <id name="layout_id" type="integer" column="layout_id"/>
+    <field name="block_row" type="integer" column="block_row" nullable="true">
+      <options>
+        <option name="unsigned">1</option>
+      </options>
+    </field>
+    <many-to-one field="Block" target-entity="Eccube\Entity\Block" inversed-by="BlockPositions" fetch="LAZY">
+      <join-columns>
+        <join-column name="block_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Layout" target-entity="Eccube\Entity\Layout" inversed-by="BlockPositions" fetch="LAZY">
+      <join-columns>
+        <join-column name="layout_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

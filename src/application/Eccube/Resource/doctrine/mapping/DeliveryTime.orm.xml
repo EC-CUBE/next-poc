@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\DeliveryTimeRepository" name="Eccube\Entity\DeliveryTime" table="dtb_delivery_time" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="deliverytime" class="Eccube\Entity\DeliveryTime"/>
+    </discriminator-map>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="delivery_time" type="string" column="delivery_time" length="255" nullable="false"/>
+    <field name="sort_no" type="smallint" column="sort_no" nullable="false">
+      <options>
+        <option name="unsigned">1</option>
+      </options>
+    </field>
+    <field name="visible" type="boolean" column="visible" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>
+    <field name="update_date" type="datetimetz" column="update_date" nullable="false"/>
+    <many-to-one field="Delivery" target-entity="Eccube\Entity\Delivery" inversed-by="DeliveryTimes" fetch="LAZY">
+      <join-columns>
+        <join-column name="delivery_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

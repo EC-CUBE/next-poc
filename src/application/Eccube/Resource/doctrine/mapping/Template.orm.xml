@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\TemplateRepository" name="Eccube\Entity\Template" table="dtb_template" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="template" class="Eccube\Entity\Template"/>
+    </discriminator-map>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="code" type="string" column="template_code" length="255" nullable="false"/>
+    <field name="name" type="string" column="template_name" length="255" nullable="false"/>
+    <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>
+    <field name="update_date" type="datetimetz" column="update_date" nullable="false"/>
+    <many-to-one field="DeviceType" target-entity="Eccube\Entity\Master\DeviceType" fetch="LAZY">
+      <join-columns>
+        <join-column name="device_type_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\PluginRepository" name="Eccube\Entity\Plugin" table="dtb_plugin" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="plugin" class="Eccube\Entity\Plugin"/>
+    </discriminator-map>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name" type="string" column="name" length="255" nullable="false"/>
+    <field name="code" type="string" column="code" length="255" nullable="false"/>
+    <field name="enabled" type="boolean" column="enabled" nullable="false">
+      <options>
+        <option name="default"/>
+      </options>
+    </field>
+    <field name="version" type="string" column="version" length="255" nullable="false"/>
+    <field name="source" type="string" column="source" length="255" nullable="false"/>
+    <field name="initialized" type="boolean" column="initialized" nullable="false">
+      <options>
+        <option name="default"/>
+      </options>
+    </field>
+    <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>
+    <field name="update_date" type="datetimetz" column="update_date" nullable="false"/>
+  </entity>
+</doctrine-mapping>

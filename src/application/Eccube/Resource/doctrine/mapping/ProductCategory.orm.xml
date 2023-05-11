@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\ProductCategoryRepository" name="Eccube\Entity\ProductCategory" table="dtb_product_category" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="productcategory" class="Eccube\Entity\ProductCategory"/>
+    </discriminator-map>
+    <id name="product_id" type="integer" column="product_id"/>
+    <id name="category_id" type="integer" column="category_id"/>
+    <many-to-one field="Product" target-entity="Eccube\Entity\Product" inversed-by="ProductCategories" fetch="LAZY">
+      <join-columns>
+        <join-column name="product_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Category" target-entity="Eccube\Entity\Category" inversed-by="ProductCategories" fetch="LAZY">
+      <join-columns>
+        <join-column name="category_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

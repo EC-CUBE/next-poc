@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\PageLayoutRepository" name="Eccube\Entity\PageLayout" table="dtb_page_layout" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="pagelayout" class="Eccube\Entity\PageLayout"/>
+    </discriminator-map>
+    <id name="page_id" type="integer" column="page_id"/>
+    <id name="layout_id" type="integer" column="layout_id"/>
+    <field name="sort_no" type="smallint" column="sort_no" nullable="false">
+      <options>
+        <option name="unsigned">1</option>
+      </options>
+    </field>
+    <many-to-one field="Page" target-entity="Eccube\Entity\Page" inversed-by="PageLayouts" fetch="LAZY">
+      <join-columns>
+        <join-column name="page_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Layout" target-entity="Eccube\Entity\Layout" inversed-by="PageLayouts" fetch="LAZY">
+      <join-columns>
+        <join-column name="layout_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

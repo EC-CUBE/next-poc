@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\CustomerAddressRepository" name="Eccube\Entity\CustomerAddress" table="dtb_customer_address" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="customeraddress" class="Eccube\Entity\CustomerAddress"/>
+    </discriminator-map>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name01" type="string" column="name01" length="255" nullable="false"/>
+    <field name="name02" type="string" column="name02" length="255" nullable="false"/>
+    <field name="kana01" type="string" column="kana01" length="255" nullable="true"/>
+    <field name="kana02" type="string" column="kana02" length="255" nullable="true"/>
+    <field name="company_name" type="string" column="company_name" length="255" nullable="true"/>
+    <field name="postal_code" type="string" column="postal_code" length="8" nullable="true"/>
+    <field name="addr01" type="string" column="addr01" length="255" nullable="true"/>
+    <field name="addr02" type="string" column="addr02" length="255" nullable="true"/>
+    <field name="phone_number" type="string" column="phone_number" length="14" nullable="true"/>
+    <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>
+    <field name="update_date" type="datetimetz" column="update_date" nullable="false"/>
+    <many-to-one field="Customer" target-entity="Eccube\Entity\Customer" inversed-by="CustomerAddresses" fetch="LAZY">
+      <join-columns>
+        <join-column name="customer_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Country" target-entity="Eccube\Entity\Master\Country" fetch="LAZY">
+      <join-columns>
+        <join-column name="country_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Pref" target-entity="Eccube\Entity\Master\Pref" fetch="LAZY">
+      <join-columns>
+        <join-column name="pref_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

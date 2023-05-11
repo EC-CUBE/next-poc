@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\ProductStockRepository" name="Eccube\Entity\ProductStock" table="dtb_product_stock" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="productstock" class="Eccube\Entity\ProductStock"/>
+    </discriminator-map>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="stock" type="decimal" column="stock" precision="10" scale="0" nullable="true"/>
+    <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>
+    <field name="update_date" type="datetimetz" column="update_date" nullable="false"/>
+    <one-to-one field="ProductClass" target-entity="Eccube\Entity\ProductClass" inversed-by="ProductStock" fetch="LAZY">
+      <join-columns>
+        <join-column name="product_class_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </one-to-one>
+    <many-to-one field="Creator" target-entity="Eccube\Entity\Member" fetch="LAZY">
+      <join-columns>
+        <join-column name="creator_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

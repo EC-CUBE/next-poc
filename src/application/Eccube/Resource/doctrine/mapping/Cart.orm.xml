@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\CartRepository" name="Eccube\Entity\Cart" table="dtb_cart" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="cart" class="Eccube\Entity\Cart"/>
+    </discriminator-map>
+    <indexes>
+      <index name="dtb_cart_update_date_idx" columns="update_date"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="dtb_cart_pre_order_id_idx" columns="pre_order_id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="cart_key" type="string" column="cart_key" nullable="true"/>
+    <field name="pre_order_id" type="string" column="pre_order_id" length="255" nullable="true"/>
+    <field name="total_price" type="decimal" column="total_price" precision="12" scale="2" nullable="false">
+      <options>
+        <option name="unsigned">1</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="delivery_fee_total" type="decimal" column="delivery_fee_total" precision="12" scale="2" nullable="false">
+      <options>
+        <option name="unsigned">1</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="sort_no" type="smallint" column="sort_no" nullable="true">
+      <options>
+        <option name="unsigned">1</option>
+      </options>
+    </field>
+    <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>
+    <field name="update_date" type="datetimetz" column="update_date" nullable="false"/>
+    <field name="add_point" type="decimal" column="add_point" precision="12" scale="0" nullable="false">
+      <options>
+        <option name="unsigned">1</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="use_point" type="decimal" column="use_point" precision="12" scale="0" nullable="false">
+      <options>
+        <option name="unsigned">1</option>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <one-to-many field="CartItems" target-entity="Eccube\Entity\CartItem" mapped-by="Cart" fetch="LAZY">
+      <cascade>
+        <cascade-persist/>
+      </cascade>
+      <order-by>
+        <order-by-field name="id" direction="ASC"/>
+      </order-by>
+    </one-to-many>
+    <many-to-one field="Customer" target-entity="Eccube\Entity\Customer" fetch="LAZY">
+      <join-columns>
+        <join-column name="customer_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

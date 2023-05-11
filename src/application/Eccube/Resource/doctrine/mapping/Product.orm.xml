@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\ProductRepository" name="Eccube\Entity\Product" table="dtb_product" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="product" class="Eccube\Entity\Product"/>
+    </discriminator-map>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name" type="string" column="name" length="255" nullable="false"/>
+    <field name="note" type="text" column="note" nullable="true"/>
+    <field name="description_list" type="text" column="description_list" nullable="true"/>
+    <field name="description_detail" type="text" column="description_detail" nullable="true"/>
+    <field name="search_word" type="text" column="search_word" nullable="true"/>
+    <field name="free_area" type="text" column="free_area" nullable="true"/>
+    <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>
+    <field name="update_date" type="datetimetz" column="update_date" nullable="false"/>
+    <one-to-many field="ProductCategories" target-entity="Eccube\Entity\ProductCategory" mapped-by="Product" fetch="LAZY">
+      <cascade>
+        <cascade-remove/>
+        <cascade-persist/>
+      </cascade>
+    </one-to-many>
+    <one-to-many field="ProductClasses" target-entity="Eccube\Entity\ProductClass" mapped-by="Product" fetch="LAZY">
+      <cascade>
+        <cascade-remove/>
+        <cascade-persist/>
+      </cascade>
+    </one-to-many>
+    <one-to-many field="ProductImage" target-entity="Eccube\Entity\ProductImage" mapped-by="Product" fetch="LAZY">
+      <cascade>
+        <cascade-remove/>
+      </cascade>
+      <order-by>
+        <order-by-field name="sort_no" direction="ASC"/>
+      </order-by>
+    </one-to-many>
+    <one-to-many field="ProductTag" target-entity="Eccube\Entity\ProductTag" mapped-by="Product" fetch="LAZY">
+      <cascade>
+        <cascade-remove/>
+      </cascade>
+    </one-to-many>
+    <one-to-many field="CustomerFavoriteProducts" target-entity="Eccube\Entity\CustomerFavoriteProduct" mapped-by="Product" fetch="LAZY"/>
+    <many-to-one field="Creator" target-entity="Eccube\Entity\Member" fetch="LAZY">
+      <join-columns>
+        <join-column name="creator_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Status" target-entity="Eccube\Entity\Master\ProductStatus" fetch="LAZY">
+      <join-columns>
+        <join-column name="product_status_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

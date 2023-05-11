@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="Eccube\Repository\CsvRepository" name="Eccube\Entity\Csv" table="dtb_csv" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="csv" class="Eccube\Entity\Csv"/>
+    </discriminator-map>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="entity_name" type="string" column="entity_name" length="255" nullable="false"/>
+    <field name="field_name" type="string" column="field_name" length="255" nullable="false"/>
+    <field name="reference_field_name" type="string" column="reference_field_name" length="255" nullable="true"/>
+    <field name="disp_name" type="string" column="disp_name" length="255" nullable="false"/>
+    <field name="sort_no" type="smallint" column="sort_no" nullable="false">
+      <options>
+        <option name="unsigned">1</option>
+      </options>
+    </field>
+    <field name="enabled" type="boolean" column="enabled" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>
+    <field name="update_date" type="datetimetz" column="update_date" nullable="false"/>
+    <many-to-one field="CsvType" target-entity="Eccube\Entity\Master\CsvType" fetch="LAZY">
+      <join-columns>
+        <join-column name="csv_type_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="Creator" target-entity="Eccube\Entity\Member" fetch="LAZY">
+      <join-columns>
+        <join-column name="creator_id" referenced-column-name="id" nullable="true"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
