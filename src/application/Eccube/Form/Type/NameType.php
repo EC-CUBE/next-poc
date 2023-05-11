@@ -19,7 +19,7 @@ use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\Form;
-use Symfony\Component\Form\FormView;
+use Eccube\Form\FormView;
 use Eccube\OptionsResolver\OptionsResolver;
 
 class NameType extends AbstractType

@@ -18,9 +18,12 @@ class FormView
 {
     private Adaptee $adaptee;
 
+    public array $vars;
+
     public function __construct(Adaptee $adaptee)
     {
         $this->adaptee = $adaptee;
+        $this->vars = $adaptee->vars;
     }
 
     public function getAdaptee()
@@ -30,9 +33,6 @@ class FormView
 
     public function __get(string $name)
     {
-        if ($name === 'vars') {
-            return $this->adaptee->vars;
-        }
         throw new \InvalidArgumentException($name);
     }
 }

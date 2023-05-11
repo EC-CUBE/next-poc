@@ -12,6 +12,7 @@
 
 namespace Eccube\Form\Type;
 
+use Eccube\Form\Form;
 use Eccube\Form\FormBuilder;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,12 +37,18 @@ class FormTypeWrapper implements FormTypeInterface
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        // TODO: Implement buildView() method.
+        $adapter = new \Eccube\Form\FormView($view);
+        $adapter->vars = $view->vars;
+        $this->type->buildView($adapter, new Form($form), $options);
+        $view->vars = array_merge($view->vars, $adapter->vars);
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
-        // TODO: Implement finishView() method.
+        $adapter = new \Eccube\Form\FormView($view);
+        $adapter->vars = $view->vars;
+        $this->type->finishView($adapter, new Form($form), $options);
+        $view->vars = array_merge($view->vars, $adapter->vars);
     }
 
     public function configureOptions(OptionsResolver $resolver)

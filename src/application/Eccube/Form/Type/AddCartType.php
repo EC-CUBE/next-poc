@@ -29,7 +29,7 @@ use Eccube\Form\FormBuilder;
 use Eccube\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Eccube\Form\Form;
-use Symfony\Component\Form\FormView;
+use Eccube\Form\FormView;
 use Eccube\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Context\ExecutionContext;
 
