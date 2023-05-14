@@ -16,7 +16,7 @@
     <field name="stock" type="decimal" column="stock" precision="10" scale="0" nullable="true"/>
     <field name="stock_unlimited" type="boolean" column="stock_unlimited" nullable="false">
       <options>
-        <option name="default"/>
+        <option name="default">false</option>
       </options>
     </field>
     <field name="sale_limit" type="decimal" column="sale_limit" precision="10" scale="0" nullable="true">

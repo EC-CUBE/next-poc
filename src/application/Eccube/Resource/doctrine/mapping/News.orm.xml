@@ -14,7 +14,7 @@
     <field name="url" type="string" column="url" length="4000" nullable="true"/>
     <field name="link_method" type="boolean" column="link_method" nullable="false">
       <options>
-        <option name="default"/>
+        <option name="default">false</option>
       </options>
     </field>
     <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>

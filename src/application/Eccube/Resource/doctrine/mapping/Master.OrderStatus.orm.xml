@@ -8,7 +8,7 @@
     <id name="id" type="smallint" column="id"/>
     <field name="display_order_count" type="boolean" column="display_order_count" nullable="false">
       <options>
-        <option name="default"/>
+        <option name="default">false</option>
       </options>
     </field>
     <field name="name" type="string" column="name" length="255" nullable="false"/>

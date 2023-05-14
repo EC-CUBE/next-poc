@@ -42,7 +42,7 @@
     </field>
     <field name="option_nostock_hidden" type="boolean" column="option_nostock_hidden" nullable="false">
       <options>
-        <option name="default"/>
+        <option name="default">false</option>
       </options>
     </field>
     <field name="option_favorite_product" type="boolean" column="option_favorite_product" nullable="false">
@@ -52,13 +52,13 @@
     </field>
     <field name="option_product_delivery_fee" type="boolean" column="option_product_delivery_fee" nullable="false">
       <options>
-        <option name="default"/>
+        <option name="default">false</option>
       </options>
     </field>
     <field name="invoice_registration_number" type="string" column="invoice_registration_number" length="255" nullable="true"/>
     <field name="option_product_tax_rule" type="boolean" column="option_product_tax_rule" nullable="false">
       <options>
-        <option name="default"/>
+        <option name="default">false</option>
       </options>
     </field>
     <field name="option_customer_activate" type="boolean" column="option_customer_activate" nullable="false">

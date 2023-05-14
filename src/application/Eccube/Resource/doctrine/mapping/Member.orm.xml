@@ -25,7 +25,7 @@
     </field>
     <field name="two_factor_auth_enabled" type="boolean" column="two_factor_auth_enabled" nullable="false">
       <options>
-        <option name="default"/>
+        <option name="default">false</option>
       </options>
     </field>
     <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>

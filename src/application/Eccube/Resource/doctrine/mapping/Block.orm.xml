@@ -15,7 +15,7 @@
     <field name="file_name" type="string" column="file_name" length="255" nullable="false"/>
     <field name="use_controller" type="boolean" column="use_controller" nullable="false">
       <options>
-        <option name="default"/>
+        <option name="default">false</option>
       </options>
     </field>
     <field name="deletable" type="boolean" column="deletable" nullable="false">

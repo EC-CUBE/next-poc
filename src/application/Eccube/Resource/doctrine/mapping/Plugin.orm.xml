@@ -12,14 +12,14 @@
     <field name="code" type="string" column="code" length="255" nullable="false"/>
     <field name="enabled" type="boolean" column="enabled" nullable="false">
       <options>
-        <option name="default"/>
+        <option name="default">false</option>
       </options>
     </field>
     <field name="version" type="string" column="version" length="255" nullable="false"/>
     <field name="source" type="string" column="source" length="255" nullable="false"/>
     <field name="initialized" type="boolean" column="initialized" nullable="false">
       <options>
-        <option name="default"/>
+        <option name="default">false</option>
       </options>
     </field>
     <field name="create_date" type="datetimetz" column="create_date" nullable="false"/>
