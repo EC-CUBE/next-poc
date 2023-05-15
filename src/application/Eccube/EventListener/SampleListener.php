@@ -13,6 +13,7 @@
 
 namespace Eccube\EventListener;
 
+use Eccube\Event\EccubeEvents;
 use Eccube\EventDispatcher\Event;
 use Eccube\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -25,8 +26,16 @@ class SampleListener implements EventSubscriberInterface
         // exit;
     }
 
+    public function onContact(Event $event)
+    {
+        // dump($event);
+        // exit;
+    }
+
     public static function getSubscribedEvents()
     {
-        return [KernelEvents::REQUEST => 'onRequest'];
+        return [
+            KernelEvents::REQUEST => 'onRequest',
+            EccubeEvents::FRONT_CONTACT_INDEX_INITIALIZE => 'onContact'];
     }
 }
