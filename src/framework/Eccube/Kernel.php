@@ -301,6 +301,7 @@ EOL;
         foreach ($files as $file) {
             $xmlDocument = \DOMDocument::loadXML($file->getContents());
             $transformed = $xsltProcessor->transformToXML($xmlDocument);
+            $transformed = str_replace('<entity xmlns=""', '<entity', $transformed);
             file_put_contents($projectDir.'/app/mapping/eccube/'.$file->getBasename(), $transformed);
         }
 
