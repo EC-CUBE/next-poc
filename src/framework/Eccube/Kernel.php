@@ -31,7 +31,6 @@ use Eccube\DependencyInjection\Facade\LoggerFacade;
 use Eccube\DependencyInjection\Facade\TranslatorFacade;
 use Eccube\Doctrine\DBAL\Types\UTCDateTimeType;
 use Eccube\Doctrine\DBAL\Types\UTCDateTimeTzType;
-use Eccube\Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Eccube\Doctrine\Query\QueryCustomizer;
 use Eccube\Form\Type\AbstractType;
 use Eccube\Service\Payment\PaymentMethodInterface;
@@ -271,13 +270,74 @@ class Kernel extends BaseKernel
 
     protected function addEntityExtensionPass(ContainerBuilder $container)
     {
+        $namespaces = [];
         $projectDir = $container->getParameter('kernel.project_dir');
 
+        // 本体
+        $src = $projectDir.'/src/application/Eccube/Resource/doctrine/mapping';
+        $dist = $projectDir.'/app/mapping/eccube';
+        $namespaces[$dist] = 'Eccube\\Entity';
+        $this->transformXslt($src, $dist);
+
+        // カスタマイズ
+        $src = $projectDir.'/app/Customize/Resource/doctrine/mapping';
+        $dist = $projectDir.'/app/mapping/customize';
+        $namespaces[$dist] = 'Customize\\Entity';
+        $this->transformXslt($src, $dist);
+
+        // プラグイン
+        $dirs = (new Finder())
+            ->in($projectDir.'/app/Plugin')
+            ->sortByName()
+            ->depth(0)
+            ->directories();
+
+        foreach ($dirs as $dir) {
+            $code = $dir->getBasename();
+            $src = $dir->getRealPath();
+            $dist = $projectDir.'/app/mapping/plugin/'.$code;
+            $namespaces[$dist] = 'Plugin\\'.$code.'\\Entity';
+            $this->transformXslt($src, $dist);
+        }
+
+        $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($namespaces));
+    }
+
+    protected function loadEntityProxies()
+    {
+        // see https://github.com/EC-CUBE/ec-cube/issues/4727
+        // キャッシュクリアなど、コード内でコマンドを利用している場合に2回実行されてしまう
+        if (true === $this->booted) {
+            return;
+        }
+
+        $files = Finder::create()
+            ->in($this->getProjectDir().'/app/proxy/entity/')
+            ->name('*.php')
+            ->files();
+        foreach ($files as $file) {
+            require_once $file->getRealPath();
+        }
+    }
+
+    private function transformXslt($src, $dist)
+    {
+        $processor = $this->createXsltProcessor();
         $files = (new Finder())
-            ->in([$projectDir.'/src/application/Eccube/Resource/doctrine/mapping'])
+            ->in($src)
             ->name('*.orm.xml')
             ->files();
+        (new Filesystem())->mkdir($dist);
+        foreach ($files as $file) {
+            $xmlDocument = \DOMDocument::loadXML($file->getContents());
+            $transformed = $processor->transformToXML($xmlDocument);
+            $transformed = str_replace('<entity xmlns=""', '<entity', $transformed);
+            file_put_contents($dist.'/'.$file->getBasename(), $transformed);
+        }
+    }
 
+    private function createXsltProcessor(): \XSLTProcessor
+    {
         $xsl = <<<EOL
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
@@ -296,62 +356,6 @@ EOL;
         $xsltProcessor = new \XSLTProcessor();
         $xsltProcessor->importStyleSheet($xslDocument);
 
-        (new Filesystem())->mkdir($projectDir.'/app/mapping/eccube');
-
-        foreach ($files as $file) {
-            $xmlDocument = \DOMDocument::loadXML($file->getContents());
-            $transformed = $xsltProcessor->transformToXML($xmlDocument);
-            $transformed = str_replace('<entity xmlns=""', '<entity', $transformed);
-            file_put_contents($projectDir.'/app/mapping/eccube/'.$file->getBasename(), $transformed);
-        }
-
-        $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver([
-            '%kernel.project_dir%/app/mapping/eccube' => 'Eccube\\Entity',
-        ]));
-
-        // Customize
-        $container->addCompilerPass(DoctrineOrmMappingsPass::createAnnotationMappingDriver(
-            ['Customize\\Entity'],
-            ['%kernel.project_dir%/app/Customize/Entity']
-        ));
-
-        // Plugin
-        $pluginDir = $projectDir.'/app/Plugin';
-        $finder = (new Finder())
-            ->in($pluginDir)
-            ->sortByName()
-            ->depth(0)
-            ->directories();
-        $plugins = array_map(function ($dir) {
-            return $dir->getBaseName();
-        }, iterator_to_array($finder));
-
-        foreach ($plugins as $code) {
-            if (file_exists($pluginDir.'/'.$code.'/Entity')) {
-                $paths = ['%kernel.project_dir%/app/Plugin/'.$code.'/Entity'];
-                $namespaces = ['Plugin\\'.$code.'\\Entity'];
-                $reader = new Reference('annotation_reader');
-                $driver = new Definition(AnnotationDriver::class, [$reader, $paths]);
-                $driver->addMethodCall('setTraitProxiesDirectory', [$projectDir.'/app/proxy/entity']);
-                $container->addCompilerPass(new DoctrineOrmMappingsPass($driver, $namespaces, []));
-            }
-        }
-    }
-
-    protected function loadEntityProxies()
-    {
-        // see https://github.com/EC-CUBE/ec-cube/issues/4727
-        // キャッシュクリアなど、コード内でコマンドを利用している場合に2回実行されてしまう
-        if (true === $this->booted) {
-            return;
-        }
-
-        $files = Finder::create()
-            ->in($this->getProjectDir().'/app/proxy/entity/')
-            ->name('*.php')
-            ->files();
-        foreach ($files as $file) {
-            require_once $file->getRealPath();
-        }
+        return $xsltProcessor;
     }
 }
