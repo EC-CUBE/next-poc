@@ -48,6 +48,7 @@ use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
@@ -272,8 +273,39 @@ class Kernel extends BaseKernel
     {
         $projectDir = $container->getParameter('kernel.project_dir');
 
+        $files = (new Finder())
+            ->in([$projectDir.'/src/application/Eccube/Resource/doctrine/mapping'])
+            ->name('*.orm.xml')
+            ->files();
+
+        $xsl = <<<EOL
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+    <xsl:output method="xml" version="1.0" encoding="utf-8" indent="yes"/>
+    <xsl:template match="/">
+        <xsl:apply-templates select="mapping/entity"/>
+    </xsl:template>
+    <xsl:template match="mapping/entity">
+        <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+            <xsl:copy-of select="."/>
+        </doctrine-mapping>
+    </xsl:template>
+</xsl:stylesheet>
+EOL;
+        $xslDocument = \DOMDocument::loadXML($xsl);
+        $xsltProcessor = new \XSLTProcessor();
+        $xsltProcessor->importStyleSheet($xslDocument);
+
+        (new Filesystem())->mkdir($projectDir.'/app/mapping/eccube');
+
+        foreach ($files as $file) {
+            $xmlDocument = \DOMDocument::loadXML($file->getContents());
+            $transformed = $xsltProcessor->transformToXML($xmlDocument);
+            file_put_contents($projectDir.'/app/mapping/eccube/'.$file->getBasename(), $transformed);
+        }
+
         $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver([
-            '%kernel.project_dir%/src/application/Eccube/Resource/doctrine/mapping' => 'Eccube\\Entity',
+            '%kernel.project_dir%/app/mapping/eccube' => 'Eccube\\Entity',
         ]));
 
         // Customize
