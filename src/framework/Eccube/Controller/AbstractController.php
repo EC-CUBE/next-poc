@@ -16,8 +16,8 @@ namespace Eccube\Controller;
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\Constant;
 use Eccube\Common\EccubeConfig;
+use Eccube\EventDispatcher\EventDispatcherAdapter;
 use Eccube\Routing\Exception\RoutingException;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as Controller;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,9 +51,9 @@ class AbstractController extends Controller
     protected $formFactory;
 
     /**
-     * @var EventDispatcherInterface
+     * @var EventDispatcherAdapter
      */
-    protected $eventDispatcher;
+    protected EventDispatcherAdapter $eventDispatcher;
 
     /**
      * @var Session
@@ -106,10 +106,10 @@ class AbstractController extends Controller
     }
 
     /**
-     * @param EventDispatcherInterface $eventDispatcher
+     * @param EventDispatcherAdapter $eventDispatcher
      * @required
      */
-    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher)
+    public function setEventDispatcher(EventDispatcherAdapter $eventDispatcher)
     {
         $this->eventDispatcher = $eventDispatcher;
     }

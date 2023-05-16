@@ -39,14 +39,10 @@ class InstallPluginController extends InstallController
     /** @var PluginRepository */
     protected $pluginReposigoty;
 
-    /** @var EventDispatcherInterface */
-    protected $eventDispatcher;
-
-    public function __construct(CacheUtil $cacheUtil, PluginRepository $pluginRespository, EventDispatcherInterface $eventDispatcher)
+    public function __construct(CacheUtil $cacheUtil, PluginRepository $pluginRespository)
     {
         $this->cacheUtil = $cacheUtil;
         $this->pluginReposigoty = $pluginRespository;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
