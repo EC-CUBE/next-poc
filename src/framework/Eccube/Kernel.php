@@ -294,10 +294,12 @@ class Kernel extends BaseKernel
 
         foreach ($dirs as $dir) {
             $code = $dir->getBasename();
-            $src = $dir->getRealPath();
-            $dist = $projectDir.'/app/mapping/plugin/'.$code;
-            $namespaces[$dist] = 'Plugin\\'.$code.'\\Entity';
-            $this->transformXslt($src, $dist);
+            $src = $dir->getRealPath().'/Resource/doctrine/mapping';
+            if (file_exists($src)) {
+                $dist = $projectDir.'/app/mapping/plugin/'.$code;
+                $namespaces[$dist] = 'Plugin\\'.$code.'\\Entity';
+                $this->transformXslt($src, $dist);
+            }
         }
 
         $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($namespaces));
