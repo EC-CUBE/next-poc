@@ -331,8 +331,9 @@ class Kernel extends BaseKernel
             ->files();
         (new Filesystem())->mkdir($dist);
         foreach ($files as $file) {
-            $xmlDocument = \DOMDocument::loadXML($file->getContents());
-            $transformed = $processor->transformToXML($xmlDocument);
+            $document = new \DOMDocument();
+            $document->loadXML($file->getContents());
+            $transformed = $processor->transformToXML($document);
             $transformed = str_replace('<entity xmlns=""', '<entity', $transformed);
             file_put_contents($dist.'/'.$file->getBasename(), $transformed);
         }
@@ -354,9 +355,10 @@ class Kernel extends BaseKernel
     </xsl:template>
 </xsl:stylesheet>
 EOL;
-        $xslDocument = \DOMDocument::loadXML($xsl);
+        $document = new \DOMDocument();
+        $document->loadXML($xsl);
         $xsltProcessor = new \XSLTProcessor();
-        $xsltProcessor->importStyleSheet($xslDocument);
+        $xsltProcessor->importStyleSheet($document);
 
         return $xsltProcessor;
     }
