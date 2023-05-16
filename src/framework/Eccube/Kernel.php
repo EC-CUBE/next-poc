@@ -14,6 +14,7 @@
 namespace Eccube;
 
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
+use Doctrine\Persistence\Mapping\Driver\SymfonyFileLocator;
 use Eccube\Common\EccubeNav;
 use Eccube\Common\EccubeTwigBlock;
 use Eccube\DependencyInjection\Compiler\AutoConfigurationTagPass;
@@ -286,13 +287,13 @@ class Kernel extends BaseKernel
         $this->transformXslt($src, $dist);
 
         // プラグイン
-        $dirs = (new Finder())
+        $pluginDirs = (new Finder())
             ->in($projectDir.'/app/Plugin')
             ->sortByName()
             ->depth(0)
             ->directories();
 
-        foreach ($dirs as $dir) {
+        foreach ($pluginDirs as $dir) {
             $code = $dir->getBasename();
             $src = $dir->getRealPath().'/Resource/doctrine/mapping';
             if (file_exists($src)) {
@@ -303,6 +304,22 @@ class Kernel extends BaseKernel
         }
 
         $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($namespaces));
+
+        $locator = new SymfonyFileLocator($namespaces, '.orm.xml');
+
+        // Entity拡張：プラグイン
+        foreach ($pluginDirs as $dir) {
+            $extensionXml = $dir->getRealPath().'/Resource/doctrine/entity_extension.xml';
+            if (file_exists($extensionXml)) {
+                $this->mergeEntityExtensionXml($extensionXml, $locator);
+            }
+        }
+
+        // Entity拡張：カスタマイズ
+        $extensionXml = $projectDir.'/app/Customize/Resource/doctrine/entity_extension.xml';
+        if (file_exists($extensionXml)) {
+            $this->mergeEntityExtensionXml($extensionXml, $locator);
+        }
     }
 
     protected function loadEntityProxies()
@@ -361,5 +378,24 @@ EOL;
         $xsltProcessor->importStyleSheet($document);
 
         return $xsltProcessor;
+    }
+
+    private function mergeEntityExtensionXml($path, $locator)
+    {
+        $ext = new \DOMDocument();
+        $ext->loadXML(file_get_contents($path));
+        $entities = $ext->getElementsByTagName('entity');
+        foreach ($entities as $entity) {
+            if ($entity->attributes['target']->value) {
+                $path = $locator->findMappingFile($entity->attributes['target']->value);
+                $target = new \DOMDocument();
+                $target->loadXML(file_get_contents($path));
+                foreach ($entity->childNodes as $child) {
+                    $child = $target->importNode($child, true);
+                    $target->getElementsByTagName('entity')->item(0)->appendChild($child);
+                }
+                file_put_contents($path, $target->saveXML());
+            }
+        }
     }
 }
