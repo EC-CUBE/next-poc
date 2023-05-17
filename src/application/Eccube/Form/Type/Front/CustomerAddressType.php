@@ -14,16 +14,16 @@
 namespace Eccube\Form\Type\Front;
 
 use Eccube\Common\EccubeConfig;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\AddressType;
 use Eccube\Form\Type\KanaType;
 use Eccube\Form\Type\NameType;
 use Eccube\Form\Type\PhoneNumberType;
 use Eccube\Form\Type\PostalType;
-use Eccube\Validator\Constraints as Assert;
-use Eccube\Form\Type\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Eccube\Form\FormBuilder;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class CustomerAddressType extends AbstractType
 {

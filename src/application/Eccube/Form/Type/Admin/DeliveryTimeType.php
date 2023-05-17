@@ -15,15 +15,14 @@ namespace Eccube\Form\Type\Admin;
 
 use Doctrine\ORM\EntityRepository;
 use Eccube\Entity\DeliveryTime;
-use Eccube\Validator\Constraints as Assert;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormEvent;
 use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Eccube\Form\FormBuilder;
-use Eccube\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Eccube\OptionsResolver\OptionsResolver;
 
 class DeliveryTimeType extends AbstractType
 {

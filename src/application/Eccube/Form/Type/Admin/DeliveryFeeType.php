@@ -13,9 +13,9 @@
 
 namespace Eccube\Form\Type\Admin;
 
-use Eccube\Form\Type\PriceType;
-use Eccube\Form\Type\AbstractType;
 use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Form\Type\PriceType;
 use Eccube\OptionsResolver\OptionsResolver;
 
 class DeliveryFeeType extends AbstractType

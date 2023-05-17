@@ -17,6 +17,8 @@ use Eccube\Entity\Category;
 use Eccube\Entity\Master\ProductStatus;
 use Eccube\Entity\ProductStock;
 use Eccube\Entity\Tag;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\Master\CategoryType as MasterCategoryType;
 use Eccube\Form\Type\Master\ProductStatusType;
 use Eccube\Repository\CategoryRepository;
@@ -24,13 +26,11 @@ use Eccube\Repository\Master\ProductStatusRepository;
 use Eccube\Repository\TagRepository;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Eccube\Form\FormBuilder;
 
 class SearchProductType extends AbstractType
 {

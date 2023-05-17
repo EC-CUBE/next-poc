@@ -14,12 +14,12 @@
 namespace Eccube\Form\Type\Admin;
 
 use Eccube\Common\EccubeConfig;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\Master\LoginHistoryStatusType;
 use Eccube\Validator\Constraints as Assert;
-use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Eccube\Form\FormBuilder;
 
 class SearchLoginHistoryType extends AbstractType
 {

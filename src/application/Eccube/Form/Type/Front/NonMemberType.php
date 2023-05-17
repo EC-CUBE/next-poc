@@ -14,6 +14,8 @@
 namespace Eccube\Form\Type\Front;
 
 use Eccube\Common\EccubeConfig;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\AddressType;
 use Eccube\Form\Type\KanaType;
 use Eccube\Form\Type\NameType;
@@ -21,9 +23,7 @@ use Eccube\Form\Type\PhoneNumberType;
 use Eccube\Form\Type\PostalType;
 use Eccube\Form\Type\RepeatedEmailType;
 use Eccube\Validator\Constraints as Assert;
-use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Eccube\Form\FormBuilder;
 
 class NonMemberType extends AbstractType
 {

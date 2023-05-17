@@ -14,12 +14,12 @@
 namespace Eccube\Form\Type\Admin;
 
 use Eccube\Entity\Master\PageMax;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\FormBuilder;
 use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
-use Eccube\Form\FormBuilder;
-use Eccube\OptionsResolver\OptionsResolver;
 
 class SearchPluginApiType extends AbstractType
 {

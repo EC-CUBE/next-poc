@@ -13,9 +13,9 @@
 
 namespace Eccube\Form\Type\Master;
 
-use Eccube\Form\Type\MasterType;
-use Eccube\Form\Type\AbstractType;
 use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Form\Type\MasterType;
 use Eccube\OptionsResolver\OptionsResolver;
 
 class CustomerStatusType extends AbstractType

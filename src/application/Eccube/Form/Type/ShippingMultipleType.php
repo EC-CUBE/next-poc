@@ -13,11 +13,9 @@
 
 namespace Eccube\Form\Type;
 
-use Eccube\Repository\ShippingRepository;
-use Eccube\Form\Type\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Eccube\Form\FormBuilder;
-use Symfony\Component\Form\FormEvents;
+use Eccube\Repository\ShippingRepository;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ShippingMultipleType extends AbstractType
 {

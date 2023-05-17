@@ -18,10 +18,10 @@ use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Tag;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
+use Eccube\Form\Form;
 use Eccube\Form\Type\Admin\ProductTag;
 use Eccube\Repository\TagRepository;
 use Eccube\Routing\Annotation\Route;
-use Eccube\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

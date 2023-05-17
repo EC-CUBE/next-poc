@@ -15,13 +15,13 @@ namespace Eccube\Form\Type\Admin;
 
 use Doctrine\ORM\EntityRepository;
 use Eccube\Common\EccubeConfig;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\Master\MailTemplateType;
 use Eccube\Form\Validator\TwigLint;
 use Eccube\Validator\Constraints as Assert;
-use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Eccube\Form\FormBuilder;
 
 class OrderMailType extends AbstractType
 {

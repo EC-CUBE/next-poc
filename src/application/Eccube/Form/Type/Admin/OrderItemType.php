@@ -21,7 +21,13 @@ use Eccube\Entity\Master\TaxType;
 use Eccube\Entity\OrderItem;
 use Eccube\Entity\ProductClass;
 use Eccube\Form\DataTransformer;
+use Eccube\Form\Form;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\PriceType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\Master\OrderItemTypeRepository;
 use Eccube\Repository\OrderItemRepository;
@@ -31,16 +37,9 @@ use Eccube\Util\StringUtil;
 use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\ConstraintViolationList;
 use Eccube\Validator\Validator;
-use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Eccube\Form\FormBuilder;
-use Eccube\Form\FormError;
-use Eccube\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Eccube\Form\Form;
-use Eccube\OptionsResolver\OptionsResolver;
 
 class OrderItemType extends AbstractType
 {

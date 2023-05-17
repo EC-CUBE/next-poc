@@ -14,13 +14,12 @@
 namespace Eccube\Form\Type;
 
 use Eccube\Common\EccubeConfig;
-use Eccube\Validator\Constraints as Assert;
-use Eccube\Form\Type\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Eccube\Form\FormBuilder;
 use Eccube\Form\Form;
+use Eccube\Form\FormBuilder;
 use Eccube\Form\FormView;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class NameType extends AbstractType
 {

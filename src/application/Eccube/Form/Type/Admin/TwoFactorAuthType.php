@@ -13,11 +13,11 @@
 
 namespace Eccube\Form\Type\Admin;
 
-use Eccube\Validator\Constraints as Assert;
+use Eccube\Form\FormBuilder;
 use Eccube\Form\Type\AbstractType;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Eccube\Form\FormBuilder;
 
 class TwoFactorAuthType extends AbstractType
 {

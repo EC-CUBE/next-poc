@@ -15,11 +15,10 @@ namespace Eccube\Form\Type\Master;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\Master\PageMax;
-use Eccube\Form\Type\MasterType;
-use Eccube\Form\Type\AbstractType;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Form\Type\MasterType;
 use Eccube\OptionsResolver\OptionsResolver;
 
 class PageMaxType extends AbstractType

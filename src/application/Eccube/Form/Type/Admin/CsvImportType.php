@@ -14,12 +14,12 @@
 namespace Eccube\Form\Type\Admin;
 
 use Eccube\Common\EccubeConfig;
-use Eccube\Validator\Constraints as Assert;
+use Eccube\Form\FormBuilder;
 use Eccube\Form\Type\AbstractType;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Eccube\Form\FormBuilder;
 
 class CsvImportType extends AbstractType
 {

@@ -17,6 +17,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Eccube\Entity\Delivery;
 use Eccube\Entity\Order;
 use Eccube\Entity\Payment;
+use Eccube\Form\Form;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\DeliveryRepository;
 use Eccube\Repository\OrderRepository;
@@ -26,16 +31,10 @@ use Eccube\Validator\Constraints\Length;
 use Eccube\Validator\Constraints\NotBlank;
 use Eccube\Validator\Constraints\Regex;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Eccube\Form\FormBuilder;
-use Eccube\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Eccube\Form\Form;
-use Eccube\OptionsResolver\OptionsResolver;
 
 class OrderType extends AbstractType
 {

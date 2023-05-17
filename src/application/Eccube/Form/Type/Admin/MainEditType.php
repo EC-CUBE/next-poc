@@ -19,18 +19,17 @@ use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Layout;
 use Eccube\Entity\Master\DeviceType;
 use Eccube\Entity\Page;
-use Eccube\Form\Validator\TwigLint;
-use Eccube\Repository\Master\DeviceTypeRepository;
-use Eccube\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Eccube\Form\Type\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\FormError;
 use Eccube\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Form\Validator\TwigLint;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Repository\Master\DeviceTypeRepository;
+use Eccube\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class MainEditType extends AbstractType
 {

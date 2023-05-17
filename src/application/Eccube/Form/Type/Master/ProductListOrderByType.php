@@ -14,11 +14,10 @@
 namespace Eccube\Form\Type\Master;
 
 use Eccube\Entity\Master\ProductListOrderBy;
-use Eccube\Form\Type\MasterType;
-use Eccube\Form\Type\AbstractType;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Form\Type\MasterType;
 use Eccube\OptionsResolver\OptionsResolver;
 
 class ProductListOrderByType extends AbstractType

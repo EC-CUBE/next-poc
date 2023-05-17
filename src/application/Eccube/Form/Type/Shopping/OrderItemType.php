@@ -13,8 +13,8 @@
 
 namespace Eccube\Form\Type\Shopping;
 
-use Eccube\Form\Type\AbstractType;
 use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Eccube\OptionsResolver\OptionsResolver;
 
 class OrderItemType extends AbstractType

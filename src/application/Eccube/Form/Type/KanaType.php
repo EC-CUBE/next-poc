@@ -14,10 +14,9 @@
 namespace Eccube\Form\Type;
 
 use Eccube\Common\EccubeConfig;
-use Eccube\Validator\Constraints as Assert;
-use Eccube\Form\Type\AbstractType;
 use Eccube\Form\FormBuilder;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints as Assert;
 
 class KanaType extends AbstractType
 {

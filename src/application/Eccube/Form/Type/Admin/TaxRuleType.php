@@ -14,17 +14,16 @@
 namespace Eccube\Form\Type\Admin;
 
 use Eccube\Entity\TaxRule;
-use Eccube\Form\Type\Master\RoundingTypeType;
-use Eccube\Repository\TaxRuleRepository;
-use Eccube\Validator\Constraints as Assert;
-use Eccube\Form\Type\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\FormError;
 use Eccube\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Form\Type\Master\RoundingTypeType;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Repository\TaxRuleRepository;
+use Eccube\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 /**
  * Class TaxRuleType

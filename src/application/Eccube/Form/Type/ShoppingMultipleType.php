@@ -13,11 +13,10 @@
 
 namespace Eccube\Form\Type;
 
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Eccube\Form\Type\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Eccube\Form\FormBuilder;
 use Eccube\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ShoppingMultipleType extends AbstractType
 {

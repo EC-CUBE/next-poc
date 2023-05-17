@@ -14,11 +14,11 @@
 namespace Eccube\Form\Type\Front;
 
 use Eccube\Common\EccubeConfig;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Validator\Email;
 use Eccube\Validator\Constraints as Assert;
-use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Eccube\Form\FormBuilder;
 
 /**
  * Class ForgotType

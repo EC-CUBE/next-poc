@@ -13,12 +13,12 @@
 
 namespace Eccube\Form\Type\Admin;
 
-use Eccube\Validator\Constraints as Assert;
+use Eccube\Form\FormBuilder;
 use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Eccube\Form\FormBuilder;
-use Eccube\OptionsResolver\OptionsResolver;
 
 class PluginManagementType extends AbstractType
 {

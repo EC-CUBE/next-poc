@@ -14,12 +14,12 @@
 namespace Eccube\Form\Type\Master;
 
 use Eccube\Entity\Master\OrderStatus;
-use Eccube\Form\Type\MasterType;
-use Eccube\Repository\OrderRepository;
-use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Form;
 use Eccube\Form\FormView;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Form\Type\MasterType;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Repository\OrderRepository;
 
 class OrderStatusType extends AbstractType
 {

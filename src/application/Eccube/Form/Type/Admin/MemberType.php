@@ -17,18 +17,17 @@ use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Master\Authority;
 use Eccube\Entity\Master\Work;
 use Eccube\Entity\Member;
-use Eccube\Form\Type\RepeatedPasswordType;
-use Eccube\Form\Type\ToggleSwitchType;
-use Eccube\Repository\MemberRepository;
-use Eccube\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Eccube\Form\Type\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\FormError;
 use Eccube\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Form\Type\RepeatedPasswordType;
+use Eccube\Form\Type\ToggleSwitchType;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Repository\MemberRepository;
+use Eccube\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class MemberType extends AbstractType
 {

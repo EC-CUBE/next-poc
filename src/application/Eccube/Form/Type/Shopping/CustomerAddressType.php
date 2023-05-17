@@ -16,11 +16,11 @@ namespace Eccube\Form\Type\Shopping;
 use Eccube\Entity\Customer;
 use Eccube\Entity\CustomerAddress;
 use Eccube\Entity\Shipping;
-use Eccube\Validator\Constraints\NotBlank;
-use Eccube\Form\Type\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class CustomerAddressType extends AbstractType
 {

@@ -14,11 +14,11 @@
 namespace Eccube\Service\Payment\Method;
 
 use Eccube\Entity\Order;
+use Eccube\Form\Form;
 use Eccube\Service\Payment\PaymentMethodInterface;
 use Eccube\Service\Payment\PaymentResult;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
-use Eccube\Form\Form;
 
 /**
  * 銀行振込, 代金引き換えなど, 主に現金を扱う支払い方法を扱うクラス.

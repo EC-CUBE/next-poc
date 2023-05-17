@@ -13,11 +13,10 @@
 
 namespace Eccube\Form\Type;
 
-use Eccube\Form\Type\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Eccube\Form\Form;
 use Eccube\Form\FormView;
 use Eccube\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class ToggleSwitchType extends AbstractType
 {

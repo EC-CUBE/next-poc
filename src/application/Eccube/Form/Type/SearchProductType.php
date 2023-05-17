@@ -16,15 +16,14 @@ namespace Eccube\Form\Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\Master\ProductListMax;
 use Eccube\Entity\Master\ProductListOrderBy;
+use Eccube\Form\FormBuilder;
 use Eccube\Form\Type\Master\ProductListMaxType;
 use Eccube\Form\Type\Master\ProductListOrderByType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
-use Eccube\Form\FormBuilder;
-use Eccube\OptionsResolver\OptionsResolver;
 
 class SearchProductType extends AbstractType
 {

@@ -13,8 +13,8 @@
 
 namespace Eccube\Form\Type\Front;
 
-use Eccube\Form\Type\AbstractType;
 use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Eccube\OptionsResolver\OptionsResolver;
 
 class ShoppingShippingType extends AbstractType

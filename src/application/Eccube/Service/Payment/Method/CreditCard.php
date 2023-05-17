@@ -14,8 +14,8 @@
 namespace Eccube\Service\Payment\Method;
 
 use Eccube\Entity\Order;
-use Eccube\Service\Payment\PaymentMethodInterface;
 use Eccube\Form\Form;
+use Eccube\Service\Payment\PaymentMethodInterface;
 
 /**
  * クレジットカード払いの基底クラス.

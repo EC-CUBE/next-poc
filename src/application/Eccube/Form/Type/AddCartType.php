@@ -19,18 +19,16 @@ use Eccube\Common\EccubeConfig;
 use Eccube\Entity\CartItem;
 use Eccube\Entity\ProductClass;
 use Eccube\Form\DataTransformer\EntityToIdTransformer;
+use Eccube\Form\Form;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormEvent;
+use Eccube\Form\FormView;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\ProductClassRepository;
 use Eccube\Validator\Constraints as Assert;
-use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Eccube\Form\FormBuilder;
-use Eccube\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Eccube\Form\Form;
-use Eccube\Form\FormView;
-use Eccube\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Context\ExecutionContext;
 
 class AddCartType extends AbstractType
