@@ -167,7 +167,7 @@ class ShippingController extends AbstractController
             ]);
 
         // 配送先の追加フラグが立っている場合は新しいお届け先を追加
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+        $builder->onPreSubmit(function (FormEvent $event) {
             $data = $event->getData();
             if ($data['add_shipping']) {
                 $Shippings = $data['shippings'];

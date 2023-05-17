@@ -111,7 +111,7 @@ class MemberType extends AbstractType
             ]);
 
         // login idの入力は新規登録時のみとし、編集時はdisabledにする
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->onPreSetData(function (FormEvent $event) {
             $form = $event->getForm();
             $data = $event->getData();
 
@@ -143,7 +143,7 @@ class MemberType extends AbstractType
             $form->add('login_id', TextType::class, $options);
         });
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             /** @var Member $Member */
             $Member = $event->getData();
 

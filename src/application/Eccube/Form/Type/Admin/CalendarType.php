@@ -91,7 +91,7 @@ class CalendarType extends AbstractType
             ])
         ;
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             // 日付重複チェック
             /** @var Calendar $Calendar */
             $Calendar = $event->getData();

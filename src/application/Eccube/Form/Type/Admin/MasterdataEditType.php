@@ -36,7 +36,7 @@ class MasterdataEditType extends AbstractType
                 'prototype' => true,
             ])
             ->add('masterdata_name', HiddenType::class)
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            ->onPostSubmit(function (FormEvent $event) {
                 $form = $event->getForm();
                 $data = $event->getData();
 

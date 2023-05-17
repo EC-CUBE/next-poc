@@ -87,7 +87,7 @@ class OrderStatusSettingType extends AbstractType
             ])
         ;
 
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+        $builder->onPostSetData(function (FormEvent $event) {
             $data = $event->getData();
             $form = $event->getForm();
 

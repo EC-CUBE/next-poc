@@ -70,7 +70,7 @@ class TaxRuleType extends AbstractType
                 ],
             ]);
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             /** @var TaxRule $TaxRule */
             $TaxRule = $event->getData();
             $qb = $this->taxRuleRepository->createQueryBuilder('t');

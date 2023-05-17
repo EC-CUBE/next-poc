@@ -37,14 +37,14 @@ class PageMaxType extends AbstractType
      */
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->onPreSetData(function (FormEvent $event) {
             $options = $event->getForm()->getConfig()->getOptions();
             if (!$event->getData()) {
                 $data = current($options['choice_loader']->loadChoiceList()->getChoices());
                 $event->setData($data);
             }
         });
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+        $builder->onPreSubmit(function (FormEvent $event) {
             $options = $event->getForm()->getConfig()->getOptions();
             $values = $options['choice_loader']->loadChoiceList()->getValues();
             if (!in_array($event->getData(), $values)) {

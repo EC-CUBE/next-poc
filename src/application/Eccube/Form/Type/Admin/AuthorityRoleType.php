@@ -51,7 +51,7 @@ class AuthorityRoleType extends AbstractType
                     ]),
                 ],
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            ->onPostSubmit(function (FormEvent $event) {
                 $form = $event->getForm();
 
                 $Authority = $form['Authority']->getData();

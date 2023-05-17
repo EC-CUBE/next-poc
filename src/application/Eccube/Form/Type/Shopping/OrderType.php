@@ -124,7 +124,7 @@ class OrderType extends AbstractType
         }
 
         // 支払い方法のプルダウンを生成
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+        $builder->onPostSetData(function (FormEvent $event) {
             /** @var Order $Order */
             $Order = $event->getData();
             if (null === $Order || !$Order->getId()) {
@@ -143,7 +143,7 @@ class OrderType extends AbstractType
 
         // 支払い方法のプルダウンを生成(Submit時)
         // 配送方法の選択によって使用できる支払い方法がかわるため, フォームを再生成する.
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+        $builder->onPreSubmit(function (FormEvent $event) {
             /** @var Order $Order */
             $Order = $event->getForm()->getData();
             $data = $event->getData();
@@ -169,7 +169,7 @@ class OrderType extends AbstractType
             $this->addPaymentForm($form, $Payments);
         });
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             /** @var Order $Order */
             $Order = $event->getData();
             $Payment = $Order->getPayment();

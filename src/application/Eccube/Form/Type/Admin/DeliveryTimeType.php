@@ -55,7 +55,7 @@ class DeliveryTimeType extends AbstractType
                 'expanded' => false,
             ])
         ;
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             /** @var DeliveryTime $DeliveryTime */
             $DeliveryTime = $event->getData();
             if (null === $DeliveryTime->isVisible()) {

@@ -168,7 +168,7 @@ class ProductClassEditType extends AbstractType
         if (!$this->baseInfoRepository->get()->isOptionProductTaxRule()) {
             return;
         }
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+        $builder->onPostSetData(function (FormEvent $event) {
             $data = $event->getData();
             if (!$data instanceof ProductClass) {
                 return;
@@ -187,7 +187,7 @@ class ProductClassEditType extends AbstractType
      */
     protected function setCheckbox(FormBuilder $builder)
     {
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+        $builder->onPostSetData(function (FormEvent $event) {
             $data = $event->getData();
             if (!$data instanceof ProductClass) {
                 return;
@@ -198,7 +198,7 @@ class ProductClassEditType extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             $form = $event->getForm();
             $data = $event->getData();
             $data->setVisible($form['checked']->getData() ? true : false);
@@ -207,7 +207,7 @@ class ProductClassEditType extends AbstractType
 
     protected function addValidations(FormBuilder $builder)
     {
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             $form = $event->getForm();
             $data = $form->getData();
 

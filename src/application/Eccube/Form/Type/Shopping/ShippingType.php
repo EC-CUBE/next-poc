@@ -75,8 +75,7 @@ class ShippingType extends AbstractType
             );
 
         // 配送業者のプルダウンを生成
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
+        $builder->onPreSetData(
             function (FormEvent $event) {
                 /* @var Shipping $Shipping */
                 $Shipping = $event->getData();
@@ -117,8 +116,7 @@ class ShippingType extends AbstractType
         );
 
         // お届け日のプルダウンを生成
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
+        $builder->onPreSetData(
             function (FormEvent $event) {
                 $Shipping = $event->getData();
                 if (is_null($Shipping) || !$Shipping->getId()) {
@@ -194,8 +192,7 @@ class ShippingType extends AbstractType
             }
         );
         // お届け時間のプルダウンを生成
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
+        $builder->onPreSetData(
             function (FormEvent $event) {
                 /** @var Shipping $Shipping */
                 $Shipping = $event->getData();
@@ -240,7 +237,7 @@ class ShippingType extends AbstractType
 
         // POSTされないデータをエンティティにセットする.
         // TODO PurchaseFlow で行うのが適切.
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             /** @var Shipping $Shipping */
             $Shipping = $event->getData();
             $form = $event->getForm();

@@ -112,7 +112,7 @@ class ShippingMultipleItemType extends AbstractType
                     new Assert\Regex(['pattern' => '/^\d+$/']),
                 ],
             ])
-            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            ->onPreSetData(function (FormEvent $event) {
                 $form = $event->getForm();
 
                 if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -148,7 +148,7 @@ class ShippingMultipleItemType extends AbstractType
                     ],
                 ]);
             })
-            ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+            ->onPostSetData(function (FormEvent $event) {
                 /** @var \Eccube\Entity\Shipping $data */
                 $data = $event->getData();
                 /** @var \Symfony\Component\Form\Form $form */

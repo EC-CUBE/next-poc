@@ -126,7 +126,7 @@ class SecurityType extends AbstractType
                 ],
                 'data' => env('TRUSTED_HOSTS'),
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
+            ->onPostSubmit(function ($event) {
                 $form = $event->getForm();
                 $data = $form->getData();
 

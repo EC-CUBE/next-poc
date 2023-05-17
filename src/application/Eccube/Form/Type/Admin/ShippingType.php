@@ -216,7 +216,7 @@ class ShippingType extends AbstractType
                 'required' => false,
                 'data' => true,
             ])
-            ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+            ->onPostSetData(function (FormEvent $event) {
                 /** @var \Eccube\Entity\Shipping $data */
                 $data = $event->getData();
                 /** @var \Symfony\Component\Form\Form $form */
@@ -260,7 +260,7 @@ class ShippingType extends AbstractType
                     'mapped' => false,
                 ]);
             })
-            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            ->onPreSubmit(function (FormEvent $event) {
                 $data = $event->getData();
                 $form = $event->getForm();
 
@@ -293,7 +293,7 @@ class ShippingType extends AbstractType
                     'mapped' => false,
                 ]);
             })
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            ->onPostSubmit(function (FormEvent $event) {
                 $form = $event->getForm();
                 $Shipping = $event->getData();
                 $Delivery = $Shipping->getDelivery();
@@ -307,7 +307,7 @@ class ShippingType extends AbstractType
                     $Shipping->setTimeId(null);
                 }
             })
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            ->onPostSubmit(function (FormEvent $event) {
                 // 出荷編集画面のみバリデーションをする。
                 if ($event->getForm()->getParent()->getName() != 'shippings') {
                     return;

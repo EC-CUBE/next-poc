@@ -56,7 +56,7 @@ class PasswordResetType extends AbstractType
             ],
         ])->add('password', RepeatedPasswordType::class);
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             $form = $event->getForm();
             if ($form['password']['first']->getData() == $form['login_email']->getData()) {
                 $form['password']['first']->addError(new FormError(trans('common.password_eq_email')));

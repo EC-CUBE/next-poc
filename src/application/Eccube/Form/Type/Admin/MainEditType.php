@@ -185,7 +185,7 @@ class MainEditType extends AbstractType
                         ->orderBy('l.id', 'DESC');
                 },
             ])
-            ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+            ->onPostSetData(function (FormEvent $event) {
                 $Page = $event->getData();
                 if (is_null($Page->getId())) {
                     return;
@@ -201,7 +201,7 @@ class MainEditType extends AbstractType
                     }
                 }
             })
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            ->onPostSubmit(function (FormEvent $event) {
                 $form = $event->getForm();
 
                 /** @var Page $Page */

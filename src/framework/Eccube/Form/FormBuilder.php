@@ -86,6 +86,18 @@ class FormBuilder
         return $this;
     }
 
+    public function onPostSetData(callable $listener, int $priority = 0): self
+    {
+        $this->adaptee->addEventListener(FormEvents::POST_SET_DATA, $this->wrapEventListener($listener), $priority);
+        return $this;
+    }
+
+    public function onPreSubmit(callable $listener, int $priority = 0): self
+    {
+        $this->adaptee->addEventListener(FormEvents::PRE_SUBMIT, $this->wrapEventListener($listener), $priority);
+        return $this;
+    }
+
     public function onPostSubmit(callable $listener, int $priority = 0): self
     {
         $this->adaptee->addEventListener(FormEvents::POST_SUBMIT, $this->wrapEventListener($listener), $priority);

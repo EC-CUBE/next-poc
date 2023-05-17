@@ -80,7 +80,7 @@ class ProductClassMatrixType extends AbstractType
             ->add('save', SubmitType::class);
 
         if ($options['product_classes_exist']) {
-            $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            $builder->onPostSubmit(function (FormEvent $event) {
                 $form = $event->getForm();
                 $ProductClasses = $form['product_classes']->getData();
                 $hasVisible = false;

@@ -153,7 +153,7 @@ class CustomerType extends AbstractType
                 ],
             ]);
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             $form = $event->getForm();
             /** @var Customer $Customer */
             $Customer = $event->getData();
@@ -167,7 +167,7 @@ class CustomerType extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             $Customer = $event->getData();
 
             // ポイント数が入力されていない場合0を登録

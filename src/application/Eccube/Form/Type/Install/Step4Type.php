@@ -92,7 +92,7 @@ class Step4Type extends AbstractType
                 'label' => trans('install.database_password'),
                 'required' => false,
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
+            ->onPostSubmit(function ($event) {
                 $form = $event->getForm();
                 $data = $form->getData();
 

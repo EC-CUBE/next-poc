@@ -154,7 +154,7 @@ class OrderPdfType extends AbstractType
                 'label' => 'admin.order.delivery_note_save_input',
                 'required' => false,
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            ->onPostSubmit(function (FormEvent $event) {
                 $form = $event->getForm();
                 $data = $form->getData();
                 if (!isset($data['ids']) || !is_string($data['ids'])) {

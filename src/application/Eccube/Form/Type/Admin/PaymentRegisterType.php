@@ -92,7 +92,7 @@ class PaymentRegisterType extends AbstractType
             ->add('charge', PriceType::class, [
             ])
             ->add('fixed', HiddenType::class)
-            ->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
+            ->onPostSubmit(function ($event) {
                 $form = $event->getForm();
                 $ruleMax = $form['rule_max']->getData();
                 $ruleMin = $form['rule_min']->getData();
