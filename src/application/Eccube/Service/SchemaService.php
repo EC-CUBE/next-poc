@@ -67,31 +67,34 @@ class SchemaService
         }
 
         try {
-            $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
-            $drivers = $chain->getDrivers();
-            foreach ($drivers as $namespace => $oldDriver) {
-                if ('Eccube\Entity' === $namespace || preg_match('/^Plugin\\\\.*\\\\Entity$/', $namespace)) {
-                    // Setup to AnnotationDriver
-                    $newDriver = new ReloadSafeAnnotationDriver(
-                        new AnnotationReader(),
-                        $oldDriver->getPaths()
-                    );
-                    $newDriver->setFileExtension($oldDriver->getFileExtension());
-                    $newDriver->addExcludePaths($oldDriver->getExcludePaths());
-                    $newDriver->setTraitProxiesDirectory($proxiesDirectory);
-                    $newDriver->setNewProxyFiles($generatedFiles);
-                    $newDriver->setOutputDir($outputDir);
-                    $chain->addDriver($newDriver, $namespace);
-                }
-
-                if ($this->pluginContext->isUninstall()) {
-                    foreach ($this->pluginContext->getExtraEntityNamespaces() as $extraEntityNamespace) {
-                        if ($extraEntityNamespace === $namespace) {
-                            $chain->addDriver(new NopAnnotationDriver(new AnnotationReader()), $namespace);
-                        }
-                    }
-                }
-            }
+//
+// XmlDriverで処理するので、AnnotationDriverの差し替えはいらなくなるはず
+//
+//            $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
+//            $drivers = $chain->getDrivers();
+//            foreach ($drivers as $namespace => $oldDriver) {
+//                if ('Eccube\Entity' === $namespace || preg_match('/^Plugin\\\\.*\\\\Entity$/', $namespace)) {
+//                    // Setup to AnnotationDriver
+//                    $newDriver = new ReloadSafeAnnotationDriver(
+//                        new AnnotationReader(),
+//                        $oldDriver->getPaths()
+//                    );
+//                    $newDriver->setFileExtension($oldDriver->getFileExtension());
+//                    $newDriver->addExcludePaths($oldDriver->getExcludePaths());
+//                    $newDriver->setTraitProxiesDirectory($proxiesDirectory);
+//                    $newDriver->setNewProxyFiles($generatedFiles);
+//                    $newDriver->setOutputDir($outputDir);
+//                    $chain->addDriver($newDriver, $namespace);
+//                }
+//
+//                if ($this->pluginContext->isUninstall()) {
+//                    foreach ($this->pluginContext->getExtraEntityNamespaces() as $extraEntityNamespace) {
+//                        if ($extraEntityNamespace === $namespace) {
+//                            $chain->addDriver(new NopAnnotationDriver(new AnnotationReader()), $namespace);
+//                        }
+//                    }
+//                }
+//            }
 
             $tool = new SchemaTool($this->entityManager);
             $metaData = $this->entityManager->getMetadataFactory()->getAllMetadata();
