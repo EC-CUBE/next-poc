@@ -97,6 +97,7 @@ services:
     Plugin\:
         resource: '../../../app/Plugin/*'
         exclude: '../../../app/Plugin/*/{Entity,Resource,ServiceProvider,Tests,Codeception,DoctrineMigrations}'
+        public: true
 
     Customize\:
         resource: '../../../app/Customize/*'
