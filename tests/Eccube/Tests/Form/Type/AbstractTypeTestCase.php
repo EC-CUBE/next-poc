@@ -13,19 +13,19 @@
 
 namespace Eccube\Tests\Form\Type;
 
+use Eccube\Form\FormFactory;
 use Eccube\Tests\EccubeTestCase;
-use Symfony\Component\Form\FormFactoryInterface;
 
 abstract class AbstractTypeTestCase extends EccubeTestCase
 {
     /**
-     * @var FormFactoryInterface
+     * @var FormFactory
      */
     protected $formFactory;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->formFactory = static::getContainer()->get('form.factory');
+        $this->formFactory = static::getContainer()->get(FormFactory::class);
     }
 }

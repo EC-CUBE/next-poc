@@ -15,7 +15,6 @@ namespace Eccube\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 if (!class_exists('\Eccube\Entity\Customer')) {
     /**
@@ -115,10 +114,6 @@ if (!class_exists('\Eccube\Entity\Customer')) {
          */
         private $birth;
 
-        /**
-         * @Assert\NotBlank()
-         * @Assert\Length(max=4096)
-         */
         private $plain_password;
 
         /**

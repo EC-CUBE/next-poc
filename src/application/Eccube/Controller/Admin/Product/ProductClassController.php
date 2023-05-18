@@ -16,6 +16,7 @@ namespace Eccube\Controller\Admin\Product;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\ORM\NoResultException;
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\ClassName;
 use Eccube\Entity\Product;
 use Eccube\Entity\ProductClass;
@@ -26,12 +27,10 @@ use Eccube\Repository\ClassCategoryRepository;
 use Eccube\Repository\ProductClassRepository;
 use Eccube\Repository\ProductRepository;
 use Eccube\Repository\TaxRuleRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Util\CacheUtil;
-use Eccube\Controller\Annotation\Template;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Routing\Annotation\Route;
 
 class ProductClassController extends AbstractController
 {
@@ -181,7 +180,7 @@ class ProductClassController extends AbstractController
         return [
             'Product' => $Product,
             'form' => $form->createView(),
-            'clearForm' => $this->createForm(FormType::class)->createView(),
+            'clearForm' => $this->formFactory->create()->createView(),
             'ClassName1' => $ClassName1,
             'ClassName2' => $ClassName2,
             'return_product_list' => $request->get('return_product_list') ? true : false,
@@ -199,7 +198,7 @@ class ProductClassController extends AbstractController
             return $this->redirectToRoute('admin_product_product_class', ['id' => $Product->getId()]);
         }
 
-        $form = $this->createForm(FormType::class);
+        $form = $this->formFactory->create();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -415,7 +414,7 @@ class ProductClassController extends AbstractController
      * @param ClassName|null $ClassName2
      * @param array $options
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return \Eccube\Form\Form
      */
     protected function createMatrixForm(
         $ProductClasses = [],

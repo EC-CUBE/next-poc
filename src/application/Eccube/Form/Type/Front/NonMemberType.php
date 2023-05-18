@@ -14,16 +14,16 @@
 namespace Eccube\Form\Type\Front;
 
 use Eccube\Common\EccubeConfig;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\AddressType;
 use Eccube\Form\Type\KanaType;
 use Eccube\Form\Type\NameType;
 use Eccube\Form\Type\PhoneNumberType;
 use Eccube\Form\Type\PostalType;
 use Eccube\Form\Type\RepeatedEmailType;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class NonMemberType extends AbstractType
 {
@@ -45,7 +45,7 @@ class NonMemberType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('name', NameType::class, [

@@ -13,15 +13,14 @@
 
 namespace Eccube\Form\Type\Admin;
 
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints\Regex;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Regex;
 
 class AuthorityRoleType extends AbstractType
 {
@@ -32,7 +31,7 @@ class AuthorityRoleType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('Authority', EntityType::class, [
@@ -51,7 +50,7 @@ class AuthorityRoleType extends AbstractType
                     ]),
                 ],
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            ->onPostSubmit(function (FormEvent $event) {
                 $form = $event->getForm();
 
                 $Authority = $form['Authority']->getData();

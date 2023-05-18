@@ -17,19 +17,18 @@ use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\ClassCategory;
 use Eccube\Form\DataTransformer;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\Master\DeliveryDurationType;
 use Eccube\Form\Type\Master\SaleTypeType;
 use Eccube\Form\Type\PriceType;
-use Symfony\Component\Form\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class ProductClassType extends AbstractType
 {
@@ -59,7 +58,7 @@ class ProductClassType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('code', TextType::class, [
@@ -128,7 +127,7 @@ class ProductClassType extends AbstractType
                 'required' => false,
                 'placeholder' => 'common.select__unspecified',
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
+            ->onPostSubmit(function ($event) {
                 $form = $event->getForm();
                 $data = $form->getData();
 

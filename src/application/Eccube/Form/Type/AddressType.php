@@ -14,14 +14,13 @@
 namespace Eccube\Form\Type;
 
 use Eccube\Common\EccubeConfig;
+use Eccube\Form\Form;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormView;
 use Eccube\Form\Type\Master\PrefType;
-use Symfony\Component\Form\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class AddressType extends AbstractType
 {
@@ -45,7 +44,7 @@ class AddressType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $options['pref_options']['required'] = $options['required'];
         $options['addr01_options']['required'] = $options['required'];
@@ -84,7 +83,7 @@ class AddressType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, Form $form, array $options)
     {
         $builder = $form->getConfig();
         $view->vars['pref_name'] = $builder->getAttribute('pref_name');

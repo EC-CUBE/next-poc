@@ -13,20 +13,19 @@
 
 namespace Eccube\Form\Type\Admin;
 
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 
 class MasterdataEditType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('data', CollectionType::class, [
@@ -36,7 +35,7 @@ class MasterdataEditType extends AbstractType
                 'prototype' => true,
             ])
             ->add('masterdata_name', HiddenType::class)
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            ->onPostSubmit(function (FormEvent $event) {
                 $form = $event->getForm();
                 $data = $event->getData();
 

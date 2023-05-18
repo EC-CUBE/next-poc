@@ -15,24 +15,23 @@ namespace Eccube\Form\Type\Admin;
 
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Category;
+use Eccube\Form\Form;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\Master\ProductStatusType;
 use Eccube\Form\Validator\TwigLint;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\CategoryRepository;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class ProductType.
@@ -66,7 +65,7 @@ class ProductType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             // 商品規格情報
@@ -184,8 +183,8 @@ class ProductType extends AbstractType
             ])
         ;
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
-            /** @var FormInterface $form */
+        $builder->onPostSubmit(function (FormEvent $event) {
+            /** @var Form $form */
             $form = $event->getForm();
             $saveImgDir = $this->eccubeConfig['eccube_save_image_dir'];
             $tempImgDir = $this->eccubeConfig['eccube_temp_image_dir'];
@@ -197,7 +196,7 @@ class ProductType extends AbstractType
     /**
      * 指定された複数ディレクトリのうち、いずれかのディレクトリ以下にファイルが存在するかを確認。
      *
-     * @param $form FormInterface
+     * @param $form Form
      * @param $dirs array
      */
     private function validateFilePath($form, $dirs)

@@ -13,12 +13,12 @@
 
 namespace Eccube\Form\Type\Admin;
 
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class PluginManagementType extends AbstractType
 {
@@ -29,7 +29,7 @@ class PluginManagementType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $plugin_id = $options['plugin_id'];
 

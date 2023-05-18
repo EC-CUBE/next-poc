@@ -29,10 +29,10 @@ use Eccube\Repository\MailTemplateRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 class MailService
 {

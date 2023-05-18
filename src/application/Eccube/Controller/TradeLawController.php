@@ -13,8 +13,8 @@
 
 namespace Eccube\Controller;
 
-use Eccube\Repository\TradeLawRepository;
 use Eccube\Controller\Annotation\Template;
+use Eccube\Repository\TradeLawRepository;
 use Eccube\Routing\Annotation\Route;
 
 class TradeLawController extends AbstractController

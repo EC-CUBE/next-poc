@@ -20,13 +20,13 @@ use Eccube\Repository\CategoryRepository;
 use Eccube\Repository\Master\ProductListOrderByRepository;
 use Eccube\Repository\PageRepository;
 use Eccube\Repository\ProductRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Routing\Router;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Routing\Annotation\Route;
 
 class SitemapController extends AbstractController
 {

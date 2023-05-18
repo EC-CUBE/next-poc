@@ -15,6 +15,7 @@ namespace Eccube\Controller\Admin\Order;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Master\CustomerStatus;
 use Eccube\Entity\Master\OrderItemType;
 use Eccube\Entity\Master\OrderStatus;
@@ -36,6 +37,7 @@ use Eccube\Repository\Master\OrderItemTypeRepository;
 use Eccube\Repository\Master\OrderStatusRepository;
 use Eccube\Repository\OrderRepository;
 use Eccube\Repository\ProductRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Routing\Router;
 use Eccube\Service\OrderHelper;
 use Eccube\Service\OrderStateMachine;
@@ -45,11 +47,9 @@ use Eccube\Service\PurchaseFlow\PurchaseException;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Eccube\Service\TaxRuleService;
 use Knp\Component\Pager\PaginatorInterface;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -625,7 +625,7 @@ class EditController extends AbstractController
 
             $forms = [];
             foreach ($Products as $Product) {
-                /* @var $builder \Symfony\Component\Form\FormBuilderInterface */
+                /* @var $builder \Eccube\Form\FormBuilder */
                 $builder = $this->formFactory->createNamedBuilder('', AddCartType::class, null, [
                     'product' => $Product,
                 ]);

@@ -15,22 +15,21 @@ namespace Eccube\Form\Type\Admin;
 
 use Doctrine\ORM\EntityRepository;
 use Eccube\Entity\DeliveryTime;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class DeliveryTimeType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('delivery_time', TextType::class, [
@@ -55,7 +54,7 @@ class DeliveryTimeType extends AbstractType
                 'expanded' => false,
             ])
         ;
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             /** @var DeliveryTime $DeliveryTime */
             $DeliveryTime = $event->getData();
             if (null === $DeliveryTime->isVisible()) {

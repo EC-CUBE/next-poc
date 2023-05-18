@@ -14,12 +14,12 @@
 namespace Eccube\Controller\Admin\Setting\Shop;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Calendar;
 use Eccube\Form\Type\Admin\CalendarType;
 use Eccube\Repository\CalendarRepository;
-use Eccube\Controller\Annotation\Template;
-use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class CalendarController

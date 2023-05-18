@@ -14,17 +14,17 @@
 namespace Eccube\Controller\Admin\Content;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\News;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\NewsType;
 use Eccube\Repository\NewsRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Util\CacheUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Routing\Annotation\Route;
 
 class NewsController extends AbstractController
 {

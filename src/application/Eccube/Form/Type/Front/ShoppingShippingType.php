@@ -13,16 +13,16 @@
 
 namespace Eccube\Form\Type\Front;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
 
 class ShoppingShippingType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
     }
 

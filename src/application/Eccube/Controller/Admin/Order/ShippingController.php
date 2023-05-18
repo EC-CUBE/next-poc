@@ -15,29 +15,28 @@ namespace Eccube\Controller\Admin\Order;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Order;
 use Eccube\Entity\OrderItem;
 use Eccube\Entity\Shipping;
+use Eccube\Form\FormEvent;
 use Eccube\Form\Type\Admin\SearchProductType;
 use Eccube\Form\Type\Admin\ShippingType;
 use Eccube\Repository\CategoryRepository;
 use Eccube\Repository\DeliveryRepository;
 use Eccube\Repository\OrderItemRepository;
 use Eccube\Repository\ShippingRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Service\MailService;
 use Eccube\Service\OrderStateMachine;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Eccube\Service\TaxRuleService;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class ShippingController extends AbstractController
@@ -167,7 +166,7 @@ class ShippingController extends AbstractController
             ]);
 
         // 配送先の追加フラグが立っている場合は新しいお届け先を追加
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+        $builder->onPreSubmit(function (FormEvent $event) {
             $data = $event->getData();
             if ($data['add_shipping']) {
                 $Shippings = $data['shippings'];

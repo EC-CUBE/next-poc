@@ -14,21 +14,21 @@
 namespace Eccube\Controller\Admin\Product;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Category;
 use Eccube\Entity\Master\CsvType;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\CategoryType;
 use Eccube\Repository\CategoryRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Service\CsvExportService;
 use Eccube\Util\CacheUtil;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Routing\Annotation\Route;
 
 class CategoryController extends AbstractController
 {

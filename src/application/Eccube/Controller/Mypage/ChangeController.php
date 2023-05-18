@@ -14,14 +14,14 @@
 namespace Eccube\Controller\Mypage;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Customer;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Front\EntryType;
 use Eccube\Repository\CustomerRepository;
-use Eccube\Controller\Annotation\Template;
-use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
@@ -65,7 +65,7 @@ class ChangeController extends AbstractController
         $Customer = $this->getUser();
         $Customer->setPlainPassword($this->eccubeConfig['eccube_default_password']);
 
-        /* @var $builder \Symfony\Component\Form\FormBuilderInterface */
+        /* @var $builder \Eccube\Form\FormBuilder */
         $builder = $this->formFactory->createBuilder(EntryType::class, $Customer);
 
         $event = new EventArgs(
@@ -77,7 +77,7 @@ class ChangeController extends AbstractController
         );
         $this->eventDispatcher->dispatch($event, EccubeEvents::FRONT_MYPAGE_CHANGE_INDEX_INITIALIZE);
 
-        /* @var $form \Symfony\Component\Form\FormInterface */
+        /* @var $form \Eccube\Form\Form */
         $form = $builder->getForm();
         $form->handleRequest($request);
 

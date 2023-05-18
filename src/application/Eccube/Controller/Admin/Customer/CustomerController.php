@@ -17,6 +17,7 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\ORM\QueryBuilder;
 use Eccube\Common\Constant;
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Master\CsvType;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
@@ -25,16 +26,15 @@ use Eccube\Repository\CustomerRepository;
 use Eccube\Repository\Master\PageMaxRepository;
 use Eccube\Repository\Master\PrefRepository;
 use Eccube\Repository\Master\SexRepository;
+use Eccube\Routing\Annotation\Route;
+use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Eccube\Service\CsvExportService;
 use Eccube\Service\MailService;
 use Eccube\Util\FormUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Routing\Annotation\Route;
-use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CustomerController extends AbstractController

@@ -17,18 +17,17 @@ use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Master\Authority;
 use Eccube\Entity\Master\Work;
 use Eccube\Entity\Member;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\RepeatedPasswordType;
 use Eccube\Form\Type\ToggleSwitchType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\MemberRepository;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class MemberType extends AbstractType
 {
@@ -59,7 +58,7 @@ class MemberType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('name', TextType::class, [
@@ -111,7 +110,7 @@ class MemberType extends AbstractType
             ]);
 
         // login idの入力は新規登録時のみとし、編集時はdisabledにする
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+        $builder->onPreSetData(function (FormEvent $event) {
             $form = $event->getForm();
             $data = $event->getData();
 
@@ -143,7 +142,7 @@ class MemberType extends AbstractType
             $form->add('login_id', TextType::class, $options);
         });
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             /** @var Member $Member */
             $Member = $event->getData();
 

@@ -14,17 +14,16 @@
 namespace Eccube\Form\Type\Admin;
 
 use Eccube\Entity\TaxRule;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\Master\RoundingTypeType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\TaxRuleRepository;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class TaxRuleType
@@ -41,7 +40,7 @@ class TaxRuleType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('tax_rate', IntegerType::class, [
@@ -70,7 +69,7 @@ class TaxRuleType extends AbstractType
                 ],
             ]);
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             /** @var TaxRule $TaxRule */
             $TaxRule = $event->getData();
             $qb = $this->taxRuleRepository->createQueryBuilder('t');

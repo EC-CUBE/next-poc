@@ -14,12 +14,12 @@
 namespace Eccube\Form\Type\Master;
 
 use Eccube\Entity\Master\OrderStatus;
+use Eccube\Form\Form;
+use Eccube\Form\FormView;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\MasterType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\OrderRepository;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OrderStatusType extends AbstractType
 {
@@ -41,7 +41,7 @@ class OrderStatusType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, Form $form, array $options)
     {
         /** @var OrderStatus[] $OrderStatuses */
         $OrderStatuses = $options['choice_loader']->loadChoiceList()->getChoices();

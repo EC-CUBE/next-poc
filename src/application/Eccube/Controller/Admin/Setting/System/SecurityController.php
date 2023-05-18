@@ -14,12 +14,12 @@
 namespace Eccube\Controller\Admin\Setting\System;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Form\Type\Admin\SecurityType;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class SecurityController extends AbstractController

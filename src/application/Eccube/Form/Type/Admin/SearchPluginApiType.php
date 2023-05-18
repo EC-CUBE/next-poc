@@ -14,19 +14,19 @@
 namespace Eccube\Form\Type\Admin;
 
 use Eccube\Entity\Master\PageMax;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchPluginApiType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $category = $options['category'];
         // Todo: constant for the API key

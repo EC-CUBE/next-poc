@@ -19,28 +19,27 @@ use Eccube\Entity\BaseInfo;
 use Eccube\Entity\Delivery;
 use Eccube\Entity\DeliveryTime;
 use Eccube\Entity\Shipping;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\AddressType;
 use Eccube\Form\Type\KanaType;
 use Eccube\Form\Type\NameType;
 use Eccube\Form\Type\PhoneNumberType;
 use Eccube\Form\Type\PostalType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\DeliveryRepository;
 use Eccube\Repository\DeliveryTimeRepository;
 use Eccube\Util\StringUtil;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class ShippingType extends AbstractType
 {
@@ -87,7 +86,7 @@ class ShippingType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('name', NameType::class, [
@@ -216,7 +215,7 @@ class ShippingType extends AbstractType
                 'required' => false,
                 'data' => true,
             ])
-            ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+            ->onPostSetData(function (FormEvent $event) {
                 /** @var \Eccube\Entity\Shipping $data */
                 $data = $event->getData();
                 /** @var \Symfony\Component\Form\Form $form */
@@ -260,7 +259,7 @@ class ShippingType extends AbstractType
                     'mapped' => false,
                 ]);
             })
-            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+            ->onPreSubmit(function (FormEvent $event) {
                 $data = $event->getData();
                 $form = $event->getForm();
 
@@ -293,7 +292,7 @@ class ShippingType extends AbstractType
                     'mapped' => false,
                 ]);
             })
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            ->onPostSubmit(function (FormEvent $event) {
                 $form = $event->getForm();
                 $Shipping = $event->getData();
                 $Delivery = $Shipping->getDelivery();
@@ -307,7 +306,7 @@ class ShippingType extends AbstractType
                     $Shipping->setTimeId(null);
                 }
             })
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            ->onPostSubmit(function (FormEvent $event) {
                 // 出荷編集画面のみバリデーションをする。
                 if ($event->getForm()->getParent()->getName() != 'shippings') {
                     return;

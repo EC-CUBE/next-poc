@@ -14,6 +14,7 @@
 namespace Eccube\Controller\Admin\Order;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\MailHistory;
 use Eccube\Entity\Order;
 use Eccube\Event\EccubeEvents;
@@ -21,10 +22,9 @@ use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\OrderMailType;
 use Eccube\Repository\MailHistoryRepository;
 use Eccube\Repository\OrderRepository;
-use Eccube\Service\MailService;
-use Eccube\Controller\Annotation\Template;
-use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
+use Eccube\Service\MailService;
+use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
 
 class MailController extends AbstractController

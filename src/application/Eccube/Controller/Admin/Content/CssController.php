@@ -15,12 +15,12 @@ namespace Eccube\Controller\Admin\Content;
 
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
+use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Routing\Annotation\Route;
 
 class CssController extends AbstractController
 {

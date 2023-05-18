@@ -14,14 +14,14 @@
 namespace Eccube\Controller\Admin\Setting\System;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\AuthorityRoleType;
 use Eccube\Repository\AuthorityRoleRepository;
-use Eccube\Controller\Annotation\Template;
+use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Routing\Annotation\Route;
 
 class AuthorityController extends AbstractController
 {

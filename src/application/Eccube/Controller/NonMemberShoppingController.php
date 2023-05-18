@@ -13,6 +13,7 @@
 
 namespace Eccube\Controller;
 
+use Eccube\Controller\Annotation\Template;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Front\NonMemberType;
@@ -21,10 +22,9 @@ use Eccube\Repository\Master\PrefRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Service\CartService;
 use Eccube\Service\OrderHelper;
-use Eccube\Controller\Annotation\Template;
+use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\Validator;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class NonMemberShoppingController extends AbstractShoppingController
 {

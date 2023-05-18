@@ -15,21 +15,21 @@ namespace Eccube\Form\Type\Admin;
 
 use Eccube\Common\EccubeConfig;
 use Eccube\Form\EventListener\ConvertKanaListener;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\AddressType;
 use Eccube\Form\Type\PhoneNumberType;
 use Eccube\Form\Type\PostalType;
 use Eccube\Form\Type\PriceType;
 use Eccube\Form\Type\ToggleSwitchType;
 use Eccube\Form\Validator\Email;
-use Symfony\Component\Form\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class ShopMasterType
@@ -54,7 +54,7 @@ class ShopMasterType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('company_name', TextType::class, [

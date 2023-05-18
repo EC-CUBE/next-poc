@@ -17,25 +17,24 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Eccube\Entity\Delivery;
 use Eccube\Entity\Order;
 use Eccube\Entity\Payment;
+use Eccube\Form\Form;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\DeliveryRepository;
 use Eccube\Repository\OrderRepository;
 use Eccube\Repository\PaymentRepository;
 use Eccube\Request\Context;
+use Eccube\Validator\Constraints\Length;
+use Eccube\Validator\Constraints\NotBlank;
+use Eccube\Validator\Constraints\Regex;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Regex;
 
 class OrderType extends AbstractType
 {
@@ -90,7 +89,7 @@ class OrderType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         // ShoppingController::checkoutから呼ばれる場合は, フォーム項目の定義をスキップする.
         if ($options['skip_add_form']) {
@@ -124,7 +123,7 @@ class OrderType extends AbstractType
         }
 
         // 支払い方法のプルダウンを生成
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+        $builder->onPostSetData(function (FormEvent $event) {
             /** @var Order $Order */
             $Order = $event->getData();
             if (null === $Order || !$Order->getId()) {
@@ -143,7 +142,7 @@ class OrderType extends AbstractType
 
         // 支払い方法のプルダウンを生成(Submit時)
         // 配送方法の選択によって使用できる支払い方法がかわるため, フォームを再生成する.
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+        $builder->onPreSubmit(function (FormEvent $event) {
             /** @var Order $Order */
             $Order = $event->getForm()->getData();
             $data = $event->getData();
@@ -169,7 +168,7 @@ class OrderType extends AbstractType
             $this->addPaymentForm($form, $Payments);
         });
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             /** @var Order $Order */
             $Order = $event->getData();
             $Payment = $Order->getPayment();
@@ -194,7 +193,7 @@ class OrderType extends AbstractType
         return '_shopping_order';
     }
 
-    private function addPaymentForm(FormInterface $form, array $choices, Payment $data = null)
+    private function addPaymentForm(Form $form, array $choices, Payment $data = null)
     {
         $message = trans('front.shopping.payment_method_unselected');
 

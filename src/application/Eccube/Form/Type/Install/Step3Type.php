@@ -14,18 +14,17 @@
 namespace Eccube\Form\Type\Install;
 
 use Eccube\Common\EccubeConfig;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Validator\Email;
+use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\Validator;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class Step3Type extends AbstractType
 {
@@ -48,7 +47,7 @@ class Step3Type extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('shop_name', TextType::class, [
@@ -140,7 +139,7 @@ class Step3Type extends AbstractType
                 'label' => trans('install.smtp_password'),
                 'required' => false,
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
+            ->onPostSubmit(function ($event) {
                 $form = $event->getForm();
                 $data = $form->getData();
 

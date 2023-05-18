@@ -16,6 +16,7 @@ namespace Eccube\Controller\Admin\Setting\Shop;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Delivery;
 use Eccube\Entity\DeliveryFee;
 use Eccube\Entity\DeliveryTime;
@@ -30,12 +31,11 @@ use Eccube\Repository\DeliveryTimeRepository;
 use Eccube\Repository\Master\PrefRepository;
 use Eccube\Repository\Master\SaleTypeRepository;
 use Eccube\Repository\PaymentOptionRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Twig\Extension\EccubeExtension;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Routing\Annotation\Route;
 
 /**
  * Class DeliveryController

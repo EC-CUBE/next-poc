@@ -13,6 +13,7 @@
 
 namespace Eccube\Controller;
 
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\BaseInfo;
 use Eccube\Entity\Master\CustomerStatus;
 use Eccube\Event\EccubeEvents;
@@ -22,18 +23,16 @@ use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\CustomerRepository;
 use Eccube\Repository\Master\CustomerStatusRepository;
 use Eccube\Repository\PageRepository;
+use Eccube\Routing\Annotation\Route;
+use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Eccube\Service\CartService;
 use Eccube\Service\MailService;
-use Eccube\Controller\Annotation\Template;
+use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception as HttpException;
-use Eccube\Routing\Annotation\Route;
-use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class EntryController extends AbstractController
 {
@@ -134,7 +133,7 @@ class EntryController extends AbstractController
         /** @var $Customer \Eccube\Entity\Customer */
         $Customer = $this->customerRepository->newCustomer();
 
-        /* @var $builder \Symfony\Component\Form\FormBuilderInterface */
+        /* @var $builder \Eccube\Form\FormBuilder */
         $builder = $this->formFactory->createBuilder(EntryType::class, $Customer);
 
         $event = new EventArgs(
@@ -146,7 +145,7 @@ class EntryController extends AbstractController
         );
         $this->eventDispatcher->dispatch($event, EccubeEvents::FRONT_ENTRY_INDEX_INITIALIZE);
 
-        /* @var $form \Symfony\Component\Form\FormInterface */
+        /* @var $form \Eccube\Form\Form */
         $form = $builder->getForm();
 
         $form->handleRequest($request);

@@ -16,6 +16,7 @@ namespace Eccube\Controller\Admin\Product;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Eccube\Common\Constant;
 use Eccube\Controller\Admin\AbstractCsvImportController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\BaseInfo;
 use Eccube\Entity\Category;
 use Eccube\Entity\Product;
@@ -24,6 +25,7 @@ use Eccube\Entity\ProductClass;
 use Eccube\Entity\ProductImage;
 use Eccube\Entity\ProductStock;
 use Eccube\Entity\ProductTag;
+use Eccube\Form\Form;
 use Eccube\Form\Type\Admin\CsvImportType;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\CategoryRepository;
@@ -41,18 +43,16 @@ use Eccube\Stream\Filter\ConvertLineFeedFilter;
 use Eccube\Stream\Filter\SjisToUtf8EncodingFilter;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
-use Eccube\Controller\Annotation\Template;
+use Eccube\Validator\Constraints\GreaterThanOrEqual;
 use Eccube\Validator\Validator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
-use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 
 class CsvImportController extends AbstractCsvImportController
 {
@@ -870,7 +870,7 @@ class CsvImportController extends AbstractCsvImportController
     /**
      * 登録、更新時のエラー画面表示
      *
-     * @param FormInterface $form
+     * @param Form $form
      * @param array $headers
      * @param bool $rollback
      *

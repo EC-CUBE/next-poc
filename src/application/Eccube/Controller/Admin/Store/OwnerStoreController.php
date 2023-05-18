@@ -14,6 +14,7 @@
 namespace Eccube\Controller\Admin\Store;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\BaseInfo;
 use Eccube\Entity\Master\PageMax;
 use Eccube\Entity\Plugin;
@@ -21,6 +22,7 @@ use Eccube\Exception\PluginApiException;
 use Eccube\Form\Type\Admin\SearchPluginApiType;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\PluginRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Service\Composer\ComposerServiceInterface;
 use Eccube\Service\PluginApiService;
 use Eccube\Service\PluginService;
@@ -28,10 +30,8 @@ use Eccube\Service\SystemService;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\FormUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Routing\Annotation\Route;
 
 /**
  * @Route("/%eccube_admin_route%/store/plugin/api")

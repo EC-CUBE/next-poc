@@ -13,16 +13,16 @@
 
 namespace Eccube\Form\Type\Install;
 
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\FormBuilderInterface;
 
 class Step1Type extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('agree', CheckboxType::class, [

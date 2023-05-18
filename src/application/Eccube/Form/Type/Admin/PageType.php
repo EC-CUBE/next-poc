@@ -14,16 +14,16 @@
 namespace Eccube\Form\Type\Admin;
 
 use Doctrine\ORM\EntityRepository;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 
 class PageType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('layout', EntityType::class, [

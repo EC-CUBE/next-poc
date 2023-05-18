@@ -16,15 +16,15 @@ namespace Eccube\Form\Type\Shopping;
 use Eccube\Entity\Customer;
 use Eccube\Entity\CustomerAddress;
 use Eccube\Entity\Shipping;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CustomerAddressType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         // 会員住所とお届け先住所をマージして選択肢を作成
         /** @var Customer $Customer */

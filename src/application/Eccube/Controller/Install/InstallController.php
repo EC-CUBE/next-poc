@@ -23,6 +23,7 @@ use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\ORM\Tools\Setup;
 use Eccube\Common\Constant;
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Doctrine\DBAL\Types\UTCDateTimeType;
 use Eccube\Doctrine\DBAL\Types\UTCDateTimeTzType;
 use Eccube\Doctrine\ORM\Mapping\Driver\AnnotationDriver;
@@ -30,16 +31,15 @@ use Eccube\Form\Type\Install\Step1Type;
 use Eccube\Form\Type\Install\Step3Type;
 use Eccube\Form\Type\Install\Step4Type;
 use Eccube\Form\Type\Install\Step5Type;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Security\Core\Encoder\PasswordEncoder;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Routing\Annotation\Route;
 
 class InstallController extends AbstractController
 {

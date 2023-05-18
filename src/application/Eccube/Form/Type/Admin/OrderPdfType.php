@@ -15,16 +15,15 @@ namespace Eccube\Form\Type\Admin;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\EccubeConfig;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class OrderPdfType.
@@ -52,10 +51,10 @@ class OrderPdfType extends AbstractType
     /**
      * Build config type form.
      *
-     * @param FormBuilderInterface $builder
+     * @param FormBuilder $builder
      * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $config = $this->eccubeConfig;
         $builder
@@ -154,7 +153,7 @@ class OrderPdfType extends AbstractType
                 'label' => 'admin.order.delivery_note_save_input',
                 'required' => false,
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            ->onPostSubmit(function (FormEvent $event) {
                 $form = $event->getForm();
                 $data = $form->getData();
                 if (!isset($data['ids']) || !is_string($data['ids'])) {

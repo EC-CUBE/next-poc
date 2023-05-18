@@ -14,6 +14,7 @@
 namespace Eccube\Controller\Admin\Customer;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Customer;
 use Eccube\Entity\Master\CustomerStatus;
 use Eccube\Event\EccubeEvents;
@@ -22,12 +23,11 @@ use Eccube\Form\Type\Admin\CustomerType;
 use Eccube\Repository\CustomerRepository;
 use Eccube\Repository\Master\PageMaxRepository;
 use Eccube\Repository\OrderRepository;
+use Eccube\Routing\Annotation\Route;
 use Eccube\Util\StringUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class CustomerEditController extends AbstractController

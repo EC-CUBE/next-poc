@@ -14,14 +14,13 @@
 namespace Eccube\Form\Type;
 
 use Eccube\Common\EccubeConfig;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints\NotBlank;
+use Eccube\Validator\Constraints\Range;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Intl\Currencies;
 use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Range;
 
 class PriceType extends AbstractType
 {

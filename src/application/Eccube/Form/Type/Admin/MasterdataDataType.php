@@ -14,13 +14,12 @@
 namespace Eccube\Form\Type\Admin;
 
 use Eccube\Common\EccubeConfig;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class MasterdataDataType
@@ -45,7 +44,7 @@ class MasterdataDataType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('id', TextType::class, [
@@ -63,7 +62,7 @@ class MasterdataDataType extends AbstractType
             ->add('name', TextType::class, [
                 'required' => false,
             ])
-        ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        ->onPostSubmit(function (FormEvent $event) {
             $form = $event->getForm();
             $data = $form->getData();
             if (strlen($data['id']) && strlen($data['name']) == 0) {

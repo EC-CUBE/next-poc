@@ -13,15 +13,14 @@
 
 namespace Eccube\Form\Type\Install;
 
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContext;
 
 class Step4Type extends AbstractType
@@ -45,7 +44,7 @@ class Step4Type extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $database = [];
         if (extension_loaded('pdo_pgsql')) {
@@ -92,7 +91,7 @@ class Step4Type extends AbstractType
                 'label' => trans('install.database_password'),
                 'required' => false,
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
+            ->onPostSubmit(function ($event) {
                 $form = $event->getForm();
                 $data = $form->getData();
 

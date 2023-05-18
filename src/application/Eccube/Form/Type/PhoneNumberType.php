@@ -14,11 +14,10 @@
 namespace Eccube\Form\Type;
 
 use Eccube\Common\EccubeConfig;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\FormBuilder;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class PhoneNumberType
@@ -43,7 +42,7 @@ class PhoneNumberType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         // 全角英数を事前に半角にする
         $builder->addEventSubscriber(new \Eccube\Form\EventListener\ConvertKanaListener());

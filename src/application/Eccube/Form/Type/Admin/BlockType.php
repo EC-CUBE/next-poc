@@ -16,17 +16,16 @@ namespace Eccube\Form\Type\Admin;
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Block;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Validator\TwigLint;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class BlockType extends AbstractType
 {
@@ -55,7 +54,7 @@ class BlockType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('name', TextType::class, [
@@ -95,7 +94,7 @@ class BlockType extends AbstractType
                 'choice_label' => 'id',
             ])
             ->add('id', HiddenType::class)
-            ->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
+            ->onPostSubmit(function ($event) {
                 $form = $event->getForm();
                 $file_name = $form['file_name']->getData();
                 $DeviceType = $form['DeviceType']->getData();

@@ -18,25 +18,24 @@ use Eccube\Common\EccubeConfig;
 use Eccube\Entity\ClassCategory;
 use Eccube\Entity\ProductClass;
 use Eccube\Form\DataTransformer;
+use Eccube\Form\Form;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\Master\DeliveryDurationType;
 use Eccube\Form\Type\Master\SaleTypeType;
 use Eccube\Form\Type\PriceType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\BaseInfoRepository;
+use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\ConstraintViolationList;
 use Eccube\Validator\Validator;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class ProductClassEditType extends AbstractType
 {
@@ -82,7 +81,7 @@ class ProductClassEditType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('checked', CheckboxType::class, [
@@ -161,14 +160,14 @@ class ProductClassEditType extends AbstractType
     /**
      * 各行の個別税率設定の制御.
      *
-     * @param FormBuilderInterface $builder
+     * @param FormBuilder $builder
      */
-    protected function setTaxRate(FormBuilderInterface $builder)
+    protected function setTaxRate(FormBuilder $builder)
     {
         if (!$this->baseInfoRepository->get()->isOptionProductTaxRule()) {
             return;
         }
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+        $builder->onPostSetData(function (FormEvent $event) {
             $data = $event->getData();
             if (!$data instanceof ProductClass) {
                 return;
@@ -183,11 +182,11 @@ class ProductClassEditType extends AbstractType
     /**
      * 各行の登録チェックボックスの制御.
      *
-     * @param FormBuilderInterface $builder
+     * @param FormBuilder $builder
      */
-    protected function setCheckbox(FormBuilderInterface $builder)
+    protected function setCheckbox(FormBuilder $builder)
     {
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+        $builder->onPostSetData(function (FormEvent $event) {
             $data = $event->getData();
             if (!$data instanceof ProductClass) {
                 return;
@@ -198,16 +197,16 @@ class ProductClassEditType extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             $form = $event->getForm();
             $data = $event->getData();
             $data->setVisible($form['checked']->getData() ? true : false);
         });
     }
 
-    protected function addValidations(FormBuilderInterface $builder)
+    protected function addValidations(FormBuilder $builder)
     {
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             $form = $event->getForm();
             $data = $form->getData();
 
@@ -270,7 +269,7 @@ class ProductClassEditType extends AbstractType
         });
     }
 
-    protected function addErrors($key, FormInterface $form, ConstraintViolationList $errors)
+    protected function addErrors($key, Form $form, ConstraintViolationList $errors)
     {
         foreach ($errors as $error) {
             $form[$key]->addError(new FormError($error->getMessage()));

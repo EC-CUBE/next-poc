@@ -15,17 +15,16 @@ namespace Eccube\Form\Type\Admin;
 
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Master\OrderStatus;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\ToggleSwitchType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\Master\CustomerOrderStatusRepository;
 use Eccube\Repository\Master\OrderStatusColorRepository;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class OrderStatusSettingType extends AbstractType
 {
@@ -57,7 +56,7 @@ class OrderStatusSettingType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('name', TextType::class, [
@@ -87,7 +86,7 @@ class OrderStatusSettingType extends AbstractType
             ])
         ;
 
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+        $builder->onPostSetData(function (FormEvent $event) {
             $data = $event->getData();
             $form = $event->getForm();
 

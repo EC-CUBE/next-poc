@@ -14,9 +14,9 @@
 namespace Eccube\Form\Type\Master;
 
 use Eccube\Entity\Master\DeviceType;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\MasterType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Eccube\OptionsResolver\OptionsResolver;
 
 class DeviceTypeType extends AbstractType
 {

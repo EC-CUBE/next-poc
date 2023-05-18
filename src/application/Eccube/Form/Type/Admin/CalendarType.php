@@ -15,17 +15,16 @@ namespace Eccube\Form\Type\Admin;
 
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Calendar;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\CalendarRepository;
+use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\Validator;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class CalendarType
@@ -60,7 +59,7 @@ class CalendarType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('title', TextType::class, [
@@ -91,7 +90,7 @@ class CalendarType extends AbstractType
             ])
         ;
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             // 日付重複チェック
             /** @var Calendar $Calendar */
             $Calendar = $event->getData();

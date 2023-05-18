@@ -17,18 +17,16 @@ use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Customer;
 use Eccube\Entity\CustomerAddress;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormEvent;
 use Eccube\Repository\Master\PrefRepository;
 use Eccube\Service\OrderHelper;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class ShippingMultipleItemType extends AbstractType
 {
@@ -96,7 +94,7 @@ class ShippingMultipleItemType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('quantity', IntegerType::class, [
@@ -112,7 +110,7 @@ class ShippingMultipleItemType extends AbstractType
                     new Assert\Regex(['pattern' => '/^\d+$/']),
                 ],
             ])
-            ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            ->onPreSetData(function (FormEvent $event) {
                 $form = $event->getForm();
 
                 if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -148,7 +146,7 @@ class ShippingMultipleItemType extends AbstractType
                     ],
                 ]);
             })
-            ->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+            ->onPostSetData(function (FormEvent $event) {
                 /** @var \Eccube\Entity\Shipping $data */
                 $data = $event->getData();
                 /** @var \Symfony\Component\Form\Form $form */

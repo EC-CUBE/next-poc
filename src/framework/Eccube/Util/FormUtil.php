@@ -13,18 +13,18 @@
 
 namespace Eccube\Util;
 
-use Symfony\Component\Form\FormInterface;
+use Eccube\Form\Form;
 
 class FormUtil
 {
     /**
      * formオブジェクトからviewDataを取得する.
      *
-     * @param FormInterface $form
+     * @param Form $form
      *
      * @return array
      */
-    public static function getViewData(FormInterface $form)
+    public static function getViewData(Form $form)
     {
         $viewData = [];
         $forms = $form->all();
@@ -48,12 +48,12 @@ class FormUtil
     /**
      * formオブジェクトにviewdataをsubmitし, マッピングした結果を返す.
      *
-     * @param FormInterface $form
+     * @param Form $form
      * @param $viewData
      *
      * @return mixed
      */
-    public static function submitAndGetData(FormInterface $form, $viewData)
+    public static function submitAndGetData(Form $form, $viewData)
     {
         $form->submit($viewData);
 

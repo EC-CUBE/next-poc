@@ -33,6 +33,7 @@ use Eccube\Doctrine\DBAL\Types\UTCDateTimeType;
 use Eccube\Doctrine\DBAL\Types\UTCDateTimeTzType;
 use Eccube\Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Eccube\Doctrine\Query\QueryCustomizer;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Service\Payment\PaymentMethodInterface;
 use Eccube\Service\PurchaseFlow\DiscountProcessor;
 use Eccube\Service\PurchaseFlow\ItemHolderPostValidator;
@@ -262,6 +263,9 @@ class Kernel extends BaseKernel
         $container->registerForAutoconfiguration(PurchaseProcessor::class)
             ->addTag(PurchaseFlowPass::PURCHASE_PROCESSOR_TAG);
         $container->addCompilerPass(new PurchaseFlowPass());
+
+        $container->registerForAutoconfiguration(AbstractType::class)
+            ->addTag('form.type');
     }
 
     protected function addEntityExtensionPass(ContainerBuilder $container)

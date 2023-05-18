@@ -20,10 +20,10 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Eccube\Entity\Master\CustomerOrderStatus;
 use Eccube\Entity\Master\OrderStatus;
 use Eccube\Entity\Master\OrderStatusColor;
-use Symfony\Component\Form\AbstractType;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class MasterdataType
@@ -48,7 +48,7 @@ class MasterdataType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $masterdata = [];
 

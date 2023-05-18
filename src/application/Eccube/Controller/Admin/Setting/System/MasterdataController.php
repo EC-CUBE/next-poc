@@ -15,13 +15,13 @@ namespace Eccube\Controller\Admin\Setting\System;
 
 use Doctrine\Persistence\Mapping\MappingException;
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\MasterdataEditType;
 use Eccube\Form\Type\Admin\MasterdataType;
-use Eccube\Controller\Annotation\Template;
-use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class MasterdataController extends AbstractController
 {

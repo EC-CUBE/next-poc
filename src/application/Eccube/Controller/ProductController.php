@@ -13,6 +13,8 @@
 
 namespace Eccube\Controller;
 
+use Eccube\Controller\Annotation\ParamConverter;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\BaseInfo;
 use Eccube\Entity\Master\ProductStatus;
 use Eccube\Entity\Product;
@@ -24,17 +26,15 @@ use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\CustomerFavoriteProductRepository;
 use Eccube\Repository\Master\ProductListMaxRepository;
 use Eccube\Repository\ProductRepository;
+use Eccube\Routing\Annotation\Route;
+use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Eccube\Service\CartService;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\PaginatorInterface;
-use Eccube\Controller\Annotation\ParamConverter;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Eccube\Routing\Annotation\Route;
-use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ProductController extends AbstractController
@@ -124,7 +124,7 @@ class ProductController extends AbstractController
         }
 
         // searchForm
-        /* @var $builder \Symfony\Component\Form\FormBuilderInterface */
+        /* @var $builder \Eccube\Form\FormBuilder */
         $builder = $this->formFactory->createNamedBuilder('', SearchProductType::class);
 
         if ($request->getMethod() === 'GET') {
@@ -139,7 +139,7 @@ class ProductController extends AbstractController
         );
         $this->eventDispatcher->dispatch($event, EccubeEvents::FRONT_PRODUCT_INDEX_INITIALIZE);
 
-        /* @var $searchForm \Symfony\Component\Form\FormInterface */
+        /* @var $searchForm \Eccube\Form\Form */
         $searchForm = $builder->getForm();
 
         $searchForm->handleRequest($request);
@@ -177,7 +177,7 @@ class ProductController extends AbstractController
         // addCart form
         $forms = [];
         foreach ($pagination as $Product) {
-            /* @var $builder \Symfony\Component\Form\FormBuilderInterface */
+            /* @var $builder \Eccube\Form\FormBuilder */
             $builder = $this->formFactory->createNamedBuilder(
                 '',
                 AddCartType::class,
@@ -336,7 +336,7 @@ class ProductController extends AbstractController
         );
         $this->eventDispatcher->dispatch($event, EccubeEvents::FRONT_PRODUCT_CART_ADD_INITIALIZE);
 
-        /* @var $form \Symfony\Component\Form\FormInterface */
+        /* @var $form \Eccube\Form\Form */
         $form = $builder->getForm();
         $form->handleRequest($request);
 

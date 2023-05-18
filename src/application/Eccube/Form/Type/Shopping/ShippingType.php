@@ -17,17 +17,16 @@ use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Delivery;
 use Eccube\Entity\DeliveryTime;
 use Eccube\Entity\Shipping;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\DeliveryFeeRepository;
 use Eccube\Repository\DeliveryRepository;
+use Eccube\Validator\Constraints\NotBlank;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ShippingType extends AbstractType
 {
@@ -63,7 +62,7 @@ class ShippingType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add(
@@ -75,8 +74,7 @@ class ShippingType extends AbstractType
             );
 
         // 配送業者のプルダウンを生成
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
+        $builder->onPreSetData(
             function (FormEvent $event) {
                 /* @var Shipping $Shipping */
                 $Shipping = $event->getData();
@@ -117,8 +115,7 @@ class ShippingType extends AbstractType
         );
 
         // お届け日のプルダウンを生成
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
+        $builder->onPreSetData(
             function (FormEvent $event) {
                 $Shipping = $event->getData();
                 if (is_null($Shipping) || !$Shipping->getId()) {
@@ -194,8 +191,7 @@ class ShippingType extends AbstractType
             }
         );
         // お届け時間のプルダウンを生成
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
+        $builder->onPreSetData(
             function (FormEvent $event) {
                 /** @var Shipping $Shipping */
                 $Shipping = $event->getData();
@@ -240,7 +236,7 @@ class ShippingType extends AbstractType
 
         // POSTされないデータをエンティティにセットする.
         // TODO PurchaseFlow で行うのが適切.
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             /** @var Shipping $Shipping */
             $Shipping = $event->getData();
             $form = $event->getForm();

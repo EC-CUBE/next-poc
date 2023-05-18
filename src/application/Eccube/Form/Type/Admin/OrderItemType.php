@@ -21,26 +21,25 @@ use Eccube\Entity\Master\TaxType;
 use Eccube\Entity\OrderItem;
 use Eccube\Entity\ProductClass;
 use Eccube\Form\DataTransformer;
+use Eccube\Form\Form;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\PriceType;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\Master\OrderItemTypeRepository;
 use Eccube\Repository\OrderItemRepository;
 use Eccube\Repository\ProductClassRepository;
 use Eccube\Repository\TaxRuleRepository;
 use Eccube\Util\StringUtil;
+use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\ConstraintViolationList;
 use Eccube\Validator\Validator;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class OrderItemType extends AbstractType
 {
@@ -121,7 +120,7 @@ class OrderItemType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('product_name', TextType::class, [
@@ -184,7 +183,7 @@ class OrderItemType extends AbstractType
                 )));
 
         // 受注明細フォームの税率を補完する
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+        $builder->onPreSubmit(function (FormEvent $event) {
             $OrderItem = $event->getData();
 
             if (!isset($OrderItem['tax_rate']) || StringUtil::isBlank($OrderItem['tax_rate'])) {
@@ -215,7 +214,7 @@ class OrderItemType extends AbstractType
             }
         });
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             /** @var OrderItem $OrderItem */
             $OrderItem = $event->getData();
 
@@ -259,7 +258,7 @@ class OrderItemType extends AbstractType
         });
 
         // price, quantityのバリデーション
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $builder->onPostSubmit(function (FormEvent $event) {
             $form = $event->getForm();
             /** @var OrderItem $OrderItem */
             $OrderItem = $event->getData();
@@ -316,10 +315,10 @@ class OrderItemType extends AbstractType
     }
 
     /**
-     * @param FormInterface $form
+     * @param Form $form
      * @param ConstraintViolationList $errors
      */
-    protected function addErrorsIfExists(FormInterface $form, ConstraintViolationList $errors)
+    protected function addErrorsIfExists(Form $form, ConstraintViolationList $errors)
     {
         if (count($errors) < 1) {
             return;

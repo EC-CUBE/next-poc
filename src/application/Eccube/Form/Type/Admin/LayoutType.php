@@ -15,13 +15,13 @@ namespace Eccube\Form\Type\Admin;
 
 use Doctrine\ORM\EntityRepository;
 use Eccube\Entity\PageLayout;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\Master\DeviceTypeType;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class ProductType.
@@ -31,7 +31,7 @@ class LayoutType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $layout_id = $options['layout_id'];
 

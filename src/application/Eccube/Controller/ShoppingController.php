@@ -13,6 +13,7 @@
 
 namespace Eccube\Controller;
 
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Customer;
 use Eccube\Entity\CustomerAddress;
 use Eccube\Entity\Order;
@@ -20,12 +21,15 @@ use Eccube\Entity\Shipping;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Exception\ShoppingException;
+use Eccube\Form\Form;
 use Eccube\Form\Type\Front\CustomerLoginType;
 use Eccube\Form\Type\Front\ShoppingShippingType;
 use Eccube\Form\Type\Shopping\CustomerAddressType;
 use Eccube\Form\Type\Shopping\OrderType;
 use Eccube\Repository\OrderRepository;
 use Eccube\Repository\TradeLawRepository;
+use Eccube\Routing\Annotation\Route;
+use Eccube\Routing\Router;
 use Eccube\Service\CartService;
 use Eccube\Service\MailService;
 use Eccube\Service\OrderHelper;
@@ -33,15 +37,11 @@ use Eccube\Service\Payment\PaymentDispatcher;
 use Eccube\Service\Payment\PaymentMethodInterface;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
-use Eccube\Routing\Router;
-use Eccube\Controller\Annotation\Template;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
-use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ShoppingController extends AbstractShoppingController
@@ -174,7 +174,7 @@ class ShoppingController extends AbstractShoppingController
 
         $activeTradeLaws = $this->tradeLawRepository->findBy(['displayOrderScreen' => true], ['sortNo' => 'ASC']);
 
-        $form = $this->createForm(OrderType::class, $Order);
+        $form = $this->formFactory->create(OrderType::class, $Order);
 
         return [
             'form' => $form->createView(),
@@ -220,7 +220,7 @@ class ShoppingController extends AbstractShoppingController
             return $this->redirectToRoute('shopping_error');
         }
 
-        $form = $this->createForm(OrderType::class, $Order);
+        $form = $this->formFactory->create(OrderType::class, $Order);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -297,7 +297,7 @@ class ShoppingController extends AbstractShoppingController
         }
 
         $activeTradeLaws = $this->tradeLawRepository->findBy(['displayOrderScreen' => true], ['sortNo' => 'ASC']);
-        $form = $this->createForm(OrderType::class, $Order);
+        $form = $this->formFactory->create(OrderType::class, $Order);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -405,7 +405,7 @@ class ShoppingController extends AbstractShoppingController
         }
 
         // フォームの生成.
-        $form = $this->createForm(OrderType::class, $Order, [
+        $form = $this->formFactory->create(OrderType::class, $Order, [
             // 確認画面から注文処理へ遷移する場合は, Orderエンティティで値を引き回すためフォーム項目の定義をスキップする.
             'skip_add_form' => true,
         ]);
@@ -729,7 +729,7 @@ class ShoppingController extends AbstractShoppingController
             return $this->redirectToRoute('shopping');
         }
 
-        /* @var $form \Symfony\Component\Form\FormInterface */
+        /* @var $form \Eccube\Form\Form */
         $builder = $this->formFactory->createNamedBuilder('', CustomerLoginType::class);
 
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
@@ -788,11 +788,11 @@ class ShoppingController extends AbstractShoppingController
      * PaymentMethodをコンテナから取得する.
      *
      * @param Order $Order
-     * @param FormInterface $form
+     * @param Form $form
      *
      * @return PaymentMethodInterface
      */
-    private function createPaymentMethod(Order $Order, FormInterface $form)
+    private function createPaymentMethod(Order $Order, Form $form)
     {
         $PaymentMethod = $this->serviceContainer->get($Order->getPayment()->getMethodClass());
         $PaymentMethod->setOrder($Order);

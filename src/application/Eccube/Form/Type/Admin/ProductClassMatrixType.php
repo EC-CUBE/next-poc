@@ -15,22 +15,21 @@ namespace Eccube\Form\Type\Admin;
 
 use Doctrine\ORM\EntityRepository;
 use Eccube\Entity\ClassName;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
+use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\Validator\Constraints\Callback;
+use Eccube\Validator\Constraints\NotBlank;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Callback;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class ProductClassMatrixType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('class_name1', EntityType::class, [
@@ -80,7 +79,7 @@ class ProductClassMatrixType extends AbstractType
             ->add('save', SubmitType::class);
 
         if ($options['product_classes_exist']) {
-            $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            $builder->onPostSubmit(function (FormEvent $event) {
                 $form = $event->getForm();
                 $ProductClasses = $form['product_classes']->getData();
                 $hasVisible = false;

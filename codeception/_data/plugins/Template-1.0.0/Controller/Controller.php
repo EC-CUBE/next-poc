@@ -3,9 +3,9 @@
 namespace Plugin\Template\Controller;
 
 use Eccube\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Eccube\Controller\Annotation\Template;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Eccube\Routing\Annotation\Route;
 
 class Controller extends AbstractController
 {

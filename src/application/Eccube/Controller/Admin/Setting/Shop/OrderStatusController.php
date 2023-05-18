@@ -14,14 +14,14 @@
 namespace Eccube\Controller\Admin\Setting\Shop;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Form\Type\Admin\OrderStatusSettingType;
 use Eccube\Repository\Master\CustomerOrderStatusRepository;
 use Eccube\Repository\Master\OrderStatusColorRepository;
 use Eccube\Repository\Master\OrderStatusRepository;
-use Eccube\Controller\Annotation\Template;
+use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
-use Eccube\Routing\Annotation\Route;
 
 class OrderStatusController extends AbstractController
 {

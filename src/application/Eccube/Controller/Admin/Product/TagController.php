@@ -14,16 +14,16 @@
 namespace Eccube\Controller\Admin\Product;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Tag;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
+use Eccube\Form\Form;
 use Eccube\Form\Type\Admin\ProductTag;
 use Eccube\Repository\TagRepository;
-use Eccube\Controller\Annotation\Template;
-use Symfony\Component\Form\FormInterface;
+use Eccube\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Eccube\Routing\Annotation\Route;
 
 class TagController extends AbstractController
 {
@@ -175,7 +175,7 @@ class TagController extends AbstractController
         return new Response();
     }
 
-    protected function dispatchComplete(Request $request, FormInterface $form, Tag $Tag)
+    protected function dispatchComplete(Request $request, Form $form, Tag $Tag)
     {
         $event = new EventArgs(
             [

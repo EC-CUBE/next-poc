@@ -20,6 +20,10 @@ use Eccube\Entity\Master\OrderStatus;
 use Eccube\Entity\Order;
 use Eccube\Entity\Payment;
 use Eccube\Form\DataTransformer;
+use Eccube\Form\FormBuilder;
+use Eccube\Form\FormError;
+use Eccube\Form\FormEvent;
+use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\AddressType;
 use Eccube\Form\Type\KanaType;
 use Eccube\Form\Type\NameType;
@@ -27,22 +31,17 @@ use Eccube\Form\Type\PhoneNumberType;
 use Eccube\Form\Type\PostalType;
 use Eccube\Form\Type\PriceType;
 use Eccube\Form\Validator\Email;
+use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\Master\OrderStatusRepository;
 use Eccube\Service\OrderStateMachine;
+use Eccube\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints as Assert;
 
 class OrderType extends AbstractType
 {
@@ -88,7 +87,7 @@ class OrderType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilder $builder, array $options)
     {
         $builder
             ->add('name', NameType::class, [
@@ -241,13 +240,13 @@ class OrderType extends AbstractType
                     '\Eccube\Entity\Customer'
                 )));
 
-        $builder->addEventListener(FormEvents::POST_SET_DATA, [$this, 'sortOrderItems']);
-        $builder->addEventListener(FormEvents::POST_SET_DATA, [$this, 'addOrderStatusForm']);
-        $builder->addEventListener(FormEvents::POST_SET_DATA, [$this, 'addShippingForm']);
-        $builder->addEventListener(FormEvents::POST_SUBMIT, [$this, 'copyFields']);
-        $builder->addEventListener(FormEvents::POST_SUBMIT, [$this, 'validateOrderStatus']);
-        $builder->addEventListener(FormEvents::POST_SUBMIT, [$this, 'validateOrderItems']);
-        $builder->addEventListener(FormEvents::POST_SUBMIT, [$this, 'associateOrderAndShipping']);
+        $builder->onPostSetData([$this, 'sortOrderItems']);
+        $builder->onPostSetData([$this, 'addOrderStatusForm']);
+        $builder->onPostSetData([$this, 'addShippingForm']);
+        $builder->onPostSubmit([$this, 'copyFields']);
+        $builder->onPostSubmit([$this, 'validateOrderStatus']);
+        $builder->onPostSubmit([$this, 'validateOrderItems']);
+        $builder->onPostSubmit([$this, 'associateOrderAndShipping']);
     }
 
     /**

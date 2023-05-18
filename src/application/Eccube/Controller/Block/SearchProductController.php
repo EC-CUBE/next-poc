@@ -14,13 +14,13 @@
 namespace Eccube\Controller\Block;
 
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\SearchProductBlockType;
-use Eccube\Controller\Annotation\Template;
+use Eccube\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Eccube\Routing\Annotation\Route;
 
 class SearchProductController extends AbstractController
 {

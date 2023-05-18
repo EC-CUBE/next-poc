@@ -18,6 +18,7 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Eccube\Controller\AbstractController;
+use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Master\CustomerStatus;
 use Eccube\Entity\Master\OrderStatus;
 use Eccube\Entity\Master\ProductStatus;
@@ -32,10 +33,9 @@ use Eccube\Repository\Master\OrderStatusRepository;
 use Eccube\Repository\MemberRepository;
 use Eccube\Repository\OrderRepository;
 use Eccube\Repository\ProductRepository;
-use Eccube\Service\PluginApiService;
-use Eccube\Controller\Annotation\Template;
-use Symfony\Component\HttpFoundation\Request;
 use Eccube\Routing\Annotation\Route;
+use Eccube\Service\PluginApiService;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -135,7 +135,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin_homepage');
         }
 
-        /* @var $form \Symfony\Component\Form\FormInterface */
+        /* @var $form \Eccube\Form\Form */
         $builder = $this->formFactory->createNamedBuilder('', LoginType::class);
 
         $event = new EventArgs(
