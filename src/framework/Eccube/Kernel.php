@@ -32,8 +32,10 @@ use Eccube\DependencyInjection\Facade\LoggerFacade;
 use Eccube\DependencyInjection\Facade\TranslatorFacade;
 use Eccube\Doctrine\DBAL\Types\UTCDateTimeType;
 use Eccube\Doctrine\DBAL\Types\UTCDateTimeTzType;
+use Eccube\Doctrine\ORM\Mapping\Driver\XmlDriver;
 use Eccube\Doctrine\Query\QueryCustomizer;
 use Eccube\Form\Type\AbstractType;
+use Eccube\Service\EntityProxyService;
 use Eccube\Service\Payment\PaymentMethodInterface;
 use Eccube\Service\PurchaseFlow\DiscountProcessor;
 use Eccube\Service\PurchaseFlow\ItemHolderPostValidator;
@@ -48,7 +50,6 @@ use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
@@ -276,50 +277,37 @@ class Kernel extends BaseKernel
 
         // 本体
         $src = $projectDir.'/src/application/Eccube/Resource/doctrine/mapping';
-        $dist = $projectDir.'/app/mapping/eccube';
-        $namespaces[$dist] = 'Eccube\\Entity';
-        $this->transformXslt($src, $dist);
-
+        $namespaces[$src] = 'Eccube\\Entity';
         // カスタマイズ
         $src = $projectDir.'/app/Customize/Resource/doctrine/mapping';
-        $dist = $projectDir.'/app/mapping/customize';
-        $namespaces[$dist] = 'Customize\\Entity';
-        $this->transformXslt($src, $dist);
-
-        // プラグイン
+        $namespaces[$src] = 'Customize\\Entity';
+        // プラグイン;
         $pluginDirs = (new Finder())
             ->in($projectDir.'/app/Plugin')
             ->sortByName()
             ->depth(0)
             ->directories();
-
         foreach ($pluginDirs as $dir) {
             $code = $dir->getBasename();
             $src = $dir->getRealPath().'/Resource/doctrine/mapping';
             if (file_exists($src)) {
-                $dist = $projectDir.'/app/mapping/plugin/'.$code;
-                $namespaces[$dist] = 'Plugin\\'.$code.'\\Entity';
-                $this->transformXslt($src, $dist);
+                $namespaces[$src] = 'Plugin\\'.$code.'\\Entity';
             }
         }
 
-        $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($namespaces));
+        // Entity拡張
+        $entityExtensionFiles = (new Finder())
+            ->in([$projectDir.'/app/Customize/Resource/doctrine', $projectDir.'/app/Plugin/*/Resource/doctrine'])
+            ->name('entity_extension.xml')
+            ->files();
 
-        $locator = new SymfonyFileLocator($namespaces, '.orm.xml');
-
-        // Entity拡張：プラグイン
-        foreach ($pluginDirs as $dir) {
-            $extensionXml = $dir->getRealPath().'/Resource/doctrine/entity_extension.xml';
-            if (file_exists($extensionXml)) {
-                $this->mergeEntityExtensionXml($extensionXml, $locator);
-            }
-        }
-
-        // Entity拡張：カスタマイズ
-        $extensionXml = $projectDir.'/app/Customize/Resource/doctrine/entity_extension.xml';
-        if (file_exists($extensionXml)) {
-            $this->mergeEntityExtensionXml($extensionXml, $locator);
-        }
+        $locator = new Definition(SymfonyFileLocator::class, [$namespaces, '.orm.xml']);
+        $driver = new Definition(XmlDriver::class, [$locator]);
+        $driver->addMethodCall('setProjectDir', [$projectDir]);
+        $driver->addMethodCall('setEntityExtensionFiles', [array_keys(iterator_to_array($entityExtensionFiles))]);
+        $driver->addMethodCall('setEntityProxyService', [new Reference(EntityProxyService::class)]);
+        $pass = new DoctrineOrmMappingsPass($driver, $namespaces, []);
+        $container->addCompilerPass($pass);
     }
 
     protected function loadEntityProxies()
@@ -336,66 +324,6 @@ class Kernel extends BaseKernel
             ->files();
         foreach ($files as $file) {
             require_once $file->getRealPath();
-        }
-    }
-
-    private function transformXslt($src, $dist)
-    {
-        $processor = $this->createXsltProcessor();
-        $files = (new Finder())
-            ->in($src)
-            ->name('*.orm.xml')
-            ->files();
-        (new Filesystem())->mkdir($dist);
-        foreach ($files as $file) {
-            $document = new \DOMDocument();
-            $document->loadXML($file->getContents());
-            $transformed = $processor->transformToXML($document);
-            $transformed = str_replace('<entity xmlns=""', '<entity', $transformed);
-            file_put_contents($dist.'/'.$file->getBasename(), $transformed);
-        }
-    }
-
-    private function createXsltProcessor(): \XSLTProcessor
-    {
-        $xsl = <<<EOL
-<?xml version="1.0" encoding="utf-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-    <xsl:output method="xml" version="1.0" encoding="utf-8" indent="yes"/>
-    <xsl:template match="/">
-        <xsl:apply-templates select="mapping/entity"/>
-    </xsl:template>
-    <xsl:template match="mapping/entity">
-        <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
-            <xsl:copy-of select="."/>
-        </doctrine-mapping>
-    </xsl:template>
-</xsl:stylesheet>
-EOL;
-        $document = new \DOMDocument();
-        $document->loadXML($xsl);
-        $xsltProcessor = new \XSLTProcessor();
-        $xsltProcessor->importStyleSheet($document);
-
-        return $xsltProcessor;
-    }
-
-    private function mergeEntityExtensionXml($path, $locator)
-    {
-        $ext = new \DOMDocument();
-        $ext->loadXML(file_get_contents($path));
-        $entities = $ext->getElementsByTagName('entity');
-        foreach ($entities as $entity) {
-            if ($entity->attributes['target']->value) {
-                $path = $locator->findMappingFile($entity->attributes['target']->value);
-                $target = new \DOMDocument();
-                $target->loadXML(file_get_contents($path));
-                foreach ($entity->childNodes as $child) {
-                    $child = $target->importNode($child, true);
-                    $target->getElementsByTagName('entity')->item(0)->appendChild($child);
-                }
-                file_put_contents($path, $target->saveXML());
-            }
         }
     }
 }
