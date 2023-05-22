@@ -297,7 +297,10 @@ class Kernel extends BaseKernel
 
         // Entity拡張
         $entityExtensionFiles = (new Finder())
-            ->in([$projectDir.'/app/Customize/Resource/doctrine', $projectDir.'/app/Plugin/*/Resource/doctrine'])
+            ->in(array_merge(
+                [$projectDir.'/app/Customize/Resource/doctrine'],
+                array_map(fn ($dir) => $dir->getRealPath(), iterator_to_array($pluginDirs))
+            ))
             ->name('entity_extension.xml')
             ->files();
 
