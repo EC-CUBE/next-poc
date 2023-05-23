@@ -17,9 +17,11 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\MappingException as ORMMappingException;
+use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\Persistence\Mapping\MappingException as PersistenceMappingException;
 use Eccube\Common\Constant;
 use Eccube\Common\EccubeConfig;
+use Eccube\Doctrine\ORM\Mapping\Driver\XmlDriver;
 use Eccube\Entity\Plugin;
 use Eccube\Exception\PluginException;
 use Eccube\Repository\PluginRepository;
@@ -268,7 +270,22 @@ class PluginService
                 $this->entityManager->flush();
             }
 
-            $this->generateProxyAndUpdateSchema($Plugin, $config);
+            $this->pluginContext->setInstall();
+            $this->pluginContext->setCode($config['code']);
+
+            // スキーマ更新
+            $this->entityManager->getMetadataFactory()->setCacheDriver(null);
+            $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
+            $drivers = $chain->getDrivers();
+            foreach ($drivers as $namespace => $driver) {
+                if ($driver instanceof XmlDriver) {
+                    $driver->clear();
+                    $driver->setPluginContext($this->pluginContext);
+                }
+            }
+            $tool = new SchemaTool($this->entityManager);
+            $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
+            $tool->updateSchema($metadata, true);
 
             $this->callPluginManagerMethod($config, 'install');
 

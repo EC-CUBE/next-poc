@@ -92,4 +92,9 @@ class PluginContext
 
         return [];
     }
+
+    public function getCode(): string
+    {
+        return $this->code;
+    }
 }

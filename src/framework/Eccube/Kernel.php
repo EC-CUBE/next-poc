@@ -49,6 +49,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
@@ -272,15 +273,15 @@ class Kernel extends BaseKernel
 
     protected function addEntityExtensionPass(ContainerBuilder $container)
     {
-        $namespaces = [];
         $projectDir = $container->getParameter('kernel.project_dir');
 
         // 本体
-        $src = $projectDir.'/src/application/Eccube/Resource/doctrine/mapping';
-        $namespaces[$src] = 'Eccube\\Entity';
+        $namespaces = [];
+        $path = $projectDir.'/src/application/Eccube/Resource/doctrine/mapping';
+        $namespaces[$path] = 'Eccube\\Entity';
         // カスタマイズ
-        $src = $projectDir.'/app/Customize/Resource/doctrine/mapping';
-        $namespaces[$src] = 'Customize\\Entity';
+        $path = $projectDir.'/app/Customize/Resource/doctrine/mapping';
+        $namespaces[$path] = 'Customize\\Entity';
         // プラグイン;
         $pluginDirs = (new Finder())
             ->in($projectDir.'/app/Plugin')
@@ -295,19 +296,10 @@ class Kernel extends BaseKernel
             }
         }
 
-        // Entity拡張
-        $entityExtensionFiles = (new Finder())
-            ->in(array_merge(
-                [$projectDir.'/app/Customize/Resource/doctrine'],
-                array_map(fn ($dir) => $dir->getRealPath(), iterator_to_array($pluginDirs))
-            ))
-            ->name('entity_extension.xml')
-            ->files();
-
         $locator = new Definition(SymfonyFileLocator::class, [$namespaces, '.orm.xml']);
         $driver = new Definition(XmlDriver::class, [$locator]);
+        $driver->addMethodCall('setContainerBag', [new Reference(ContainerBagInterface::class)]);
         $driver->addMethodCall('setProjectDir', [$projectDir]);
-        $driver->addMethodCall('setEntityExtensionFiles', [array_keys(iterator_to_array($entityExtensionFiles))]);
         $driver->addMethodCall('setEntityProxyService', [new Reference(EntityProxyService::class)]);
         $pass = new DoctrineOrmMappingsPass($driver, $namespaces, []);
         $container->addCompilerPass($pass);

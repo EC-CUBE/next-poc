@@ -128,6 +128,7 @@ class EccubeExtension extends Extension implements PrependExtensionInterface
         // ファイル設置のみの場合は, 無効なプラグインとみなす.
         // DB接続後, 有効無効の判定を行う.
         $container->setParameter('eccube.plugins.disabled', $pluginDirs);
+        $container->setParameter('eccube.plugins.installed', []);
 
         // doctrine.yml, または他のprependで差し込まれたdoctrineの設定値を取得する.
         $configs = $container->getExtensionConfig('doctrine');
@@ -156,10 +157,12 @@ class EccubeExtension extends Extension implements PrependExtensionInterface
         $plugins = $stmt->fetchAll();
 
         $enabled = [];
+        $installed = [];
         foreach ($plugins as $plugin) {
             if (array_key_exists('enabled', $plugin) && $plugin['enabled']) {
                 $enabled[] = $plugin['code'];
             }
+            $installed[] = $plugin['code'];
         }
 
         $disabled = [];
@@ -172,6 +175,7 @@ class EccubeExtension extends Extension implements PrependExtensionInterface
         // 他で使いまわすため, パラメータで保持しておく.
         $container->setParameter('eccube.plugins.enabled', $enabled);
         $container->setParameter('eccube.plugins.disabled', $disabled);
+        $container->setParameter('eccube.plugins.installed', $installed);
 
         $pluginDir = $container->getParameter('kernel.project_dir').'/app/Plugin';
         $this->configureTwigPaths($container, $enabled, $pluginDir);
