@@ -77,8 +77,6 @@ class XmlDriver extends BaseXmlDriver
             );
         }
 
-        $this->generateProxies();
-
         return parent::initialize();
     }
 
@@ -203,25 +201,6 @@ EOL;
             ->files();
 
         return array_keys(iterator_to_array($entityExtensionFiles));
-    }
-
-    private function generateProxies(): void
-    {
-        $projectDir = $this->containerBag->get('kernel.project_dir');
-        $plugins = $this->getTargetPlugins();
-        $pluginDirs = array_map(fn ($code) => $projectDir.'/app/Plugin/'.$code.'/Entity', $plugins);
-        $pluginDirs = array_filter($pluginDirs, fn ($dir) => file_exists($dir));
-        $uninstallPluginDirs = [];
-        if ($this->pluginContext && $this->pluginContext->isUninstall()) {
-            if (file_exists($projectDir.'/app/Plugin/'.$this->pluginContext->getCode().'/Entity')) {
-                $uninstallPluginDirs[] = $projectDir.'/app/Plugin/'.$this->pluginContext->getCode().'/Entity';
-            }
-        }
-        $this->entityProxyService->generate(
-            array_merge([$this->projectDir.'/app/Customize/Entity'], $pluginDirs),
-            $uninstallPluginDirs,
-            $this->projectDir.'/app/proxy/entity'
-        );
     }
 
     private function getPluginNamespaces()
