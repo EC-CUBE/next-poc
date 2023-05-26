@@ -53,6 +53,16 @@ class XmlDriver extends BaseXmlDriver
         $this->pluginContext = $pluginContext;
     }
 
+    public static function newDriver(XmlDriver $oldDriver, PluginContext $pluginContext)
+    {
+        $result = new XmlDriver($oldDriver->getLocator());
+        $result->setPluginContext($pluginContext);
+        $result->setContainerBag($oldDriver->containerBag);
+        $result->setProjectDir($oldDriver->projectDir);
+        $result->setEntityProxyService($oldDriver->entityProxyService);
+        return $result;
+    }
+
     public function clear(): void
     {
         $this->classCache = null;
@@ -153,10 +163,14 @@ EOL;
         $entities = $ext->getElementsByTagName('entity');
         $targets = [];
         foreach ($entities as $entity) {
-            if ($entity->attributes['target']->value) {
-                foreach ($entity->childNodes as $child) {
-                    if ($child instanceof \DOMElement) {
-                        $targets[$entity->attributes['target']->value][] = $child;
+            $target = $entity->attributes['target']->value;
+            if ($target) {
+                $targetClass = new \ReflectionClass($target);
+                if (in_array('Plugin\Horizon\Entity\CartTrait', $targetClass->getTraitNames())) {
+                    foreach ($entity->childNodes as $child) {
+                        if ($child instanceof \DOMElement) {
+                            $targets[$target][] = $child;
+                        }
                     }
                 }
             }

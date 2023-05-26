@@ -270,22 +270,23 @@ class PluginService
                 $this->entityManager->flush();
             }
 
-            $this->pluginContext->setInstall();
-            $this->pluginContext->setCode($config['code']);
-
-            // スキーマ更新
-            $this->entityManager->getMetadataFactory()->setCacheDriver(null);
-            $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
-            $drivers = $chain->getDrivers();
-            foreach ($drivers as $namespace => $driver) {
-                if ($driver instanceof XmlDriver) {
-                    $driver->clear();
-                    $driver->setPluginContext($this->pluginContext);
-                }
-            }
-            $tool = new SchemaTool($this->entityManager);
-            $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
-            $tool->updateSchema($metadata, true);
+            $this->generateProxyAndUpdateSchema($Plugin, $config);
+//            $this->pluginContext->setInstall();
+//            $this->pluginContext->setCode($config['code']);
+//
+//            // スキーマ更新
+//            $this->entityManager->getMetadataFactory()->setCacheDriver(null);
+//            $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
+//            $drivers = $chain->getDrivers();
+//            foreach ($drivers as $namespace => $driver) {
+//                if ($driver instanceof XmlDriver) {
+//                    $driver->clear();
+//                    $driver->setPluginContext($this->pluginContext);
+//                }
+//            }
+//            $tool = new SchemaTool($this->entityManager);
+//            $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
+//            $tool->updateSchema($metadata, true);
 
             $this->callPluginManagerMethod($config, 'install');
 
@@ -319,6 +320,7 @@ class PluginService
     {
         // キャッシュしたメタデータを利用しないようにキャッシュドライバを外しておく
         $this->entityManager->getMetadataFactory()->setCacheDriver(null);
+//        $this->entityManager->getMetadataFactory()->setCache(null);
 
         $this->generateProxyAndCallback(function ($generatedFiles, $proxiesDirectory) use ($saveMode) {
             $this->schemaService->updateSchema($generatedFiles, $proxiesDirectory, $saveMode);
@@ -354,18 +356,18 @@ class PluginService
             }
 
             try {
-                if (!$uninstall) {
-                    // プラグインmetadata定義を追加
-                    $entityDir = $this->eccubeConfig['plugin_realdir'].'/'.$plugin->getCode().'/Entity';
-                    if (file_exists($entityDir)) {
-                        $ormConfig = $this->entityManager->getConfiguration();
-                        $chain = $ormConfig->getMetadataDriverImpl()->getDriver();
-                        $driver = $ormConfig->newDefaultAnnotationDriver([$entityDir], false);
-                        $namespace = 'Plugin\\'.$config['code'].'\\Entity';
-                        $chain->addDriver($driver, $namespace);
-                        $ormConfig->addEntityNamespace($plugin->getCode(), $namespace);
-                    }
-                }
+//                if (!$uninstall) {
+//                    // プラグインmetadata定義を追加
+//                    $entityDir = $this->eccubeConfig['plugin_realdir'].'/'.$plugin->getCode().'/Entity';
+//                    if (file_exists($entityDir)) {
+//                        $ormConfig = $this->entityManager->getConfiguration();
+//                        $chain = $ormConfig->getMetadataDriverImpl()->getDriver();
+//                        $driver = $ormConfig->newDefaultAnnotationDriver([$entityDir], false);
+//                        $namespace = 'Plugin\\'.$config['code'].'\\Entity';
+//                        $chain->addDriver($driver, $namespace);
+//                        $ormConfig->addEntityNamespace($plugin->getCode(), $namespace);
+//                    }
+//                }
 
                 // 一時的に利用するProxyを生成してからスキーマを更新する
                 $generatedFiles = $this->regenerateProxy($plugin, true, $tmpProxyOutputDir, $uninstall);
@@ -373,11 +375,11 @@ class PluginService
                 call_user_func($callback, $generatedFiles, $tmpProxyOutputDir);
             } finally {
                 if ($createOutputDir) {
-                    $files = Finder::create()
-                        ->in($tmpProxyOutputDir)
-                        ->files();
-                    $f = new Filesystem();
-                    $f->remove($files);
+//                    $files = Finder::create()
+//                        ->in($tmpProxyOutputDir)
+//                        ->files();
+//                    $f = new Filesystem();
+//                    $f->remove($files);
                 }
             }
         }

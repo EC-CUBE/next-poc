@@ -17,7 +17,7 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Eccube\Doctrine\ORM\Mapping\Driver\NopAnnotationDriver;
-use Eccube\Doctrine\ORM\Mapping\Driver\ReloadSafeAnnotationDriver;
+use Eccube\Doctrine\ORM\Mapping\Driver\XmlDriver;
 use Eccube\Util\StringUtil;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -67,14 +67,15 @@ class SchemaService
         }
 
         try {
-//
-// XmlDriverで処理するので、AnnotationDriverの差し替えはいらなくなるはず
-//
-//            $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
-//            $drivers = $chain->getDrivers();
-//            foreach ($drivers as $namespace => $oldDriver) {
-//                if ('Eccube\Entity' === $namespace || preg_match('/^Plugin\\\\.*\\\\Entity$/', $namespace)) {
-//                    // Setup to AnnotationDriver
+
+            $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
+            $drivers = $chain->getDrivers();
+            foreach ($drivers as $namespace => $oldDriver) {
+                if ('Eccube\Entity' === $namespace || preg_match('/^Plugin\\\\.*\\\\Entity$/', $namespace)) {
+
+
+                    $newDriver = XmlDriver::newDriver($oldDriver, $this->pluginContext);
+                    // Setup to AnnotationDriver
 //                    $newDriver = new ReloadSafeAnnotationDriver(
 //                        new AnnotationReader(),
 //                        $oldDriver->getPaths()
@@ -84,17 +85,17 @@ class SchemaService
 //                    $newDriver->setTraitProxiesDirectory($proxiesDirectory);
 //                    $newDriver->setNewProxyFiles($generatedFiles);
 //                    $newDriver->setOutputDir($outputDir);
-//                    $chain->addDriver($newDriver, $namespace);
-//                }
-//
-//                if ($this->pluginContext->isUninstall()) {
-//                    foreach ($this->pluginContext->getExtraEntityNamespaces() as $extraEntityNamespace) {
-//                        if ($extraEntityNamespace === $namespace) {
-//                            $chain->addDriver(new NopAnnotationDriver(new AnnotationReader()), $namespace);
-//                        }
-//                    }
-//                }
-//            }
+                    $chain->addDriver($newDriver, $namespace);
+                }
+
+                if ($this->pluginContext->isUninstall()) {
+                    foreach ($this->pluginContext->getExtraEntityNamespaces() as $extraEntityNamespace) {
+                        if ($extraEntityNamespace === $namespace) {
+                            $chain->addDriver(new NopAnnotationDriver(new AnnotationReader()), $namespace);
+                        }
+                    }
+                }
+            }
 
             $tool = new SchemaTool($this->entityManager);
             $metaData = $this->entityManager->getMetadataFactory()->getAllMetadata();

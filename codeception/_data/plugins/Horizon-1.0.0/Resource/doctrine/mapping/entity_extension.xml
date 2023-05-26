@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mapping>
+  <entity target="Eccube\Entity\Cart">
+    <field name="is_horizon" type="boolean" column="is_horizon">
+      <options>
+        <option name="default">false</option>
+      </options>
+    </field>
+    <many-to-one field="dash" target-entity="Plugin\Horizon\Entity\Dash">
+      <join-columns>
+        <join-column name="dash_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</mapping>
