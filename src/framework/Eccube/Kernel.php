@@ -300,7 +300,6 @@ class Kernel extends BaseKernel
         $driver = new Definition(XmlDriver::class, [$locator]);
         $driver->addMethodCall('setContainerBag', [new Reference(ContainerBagInterface::class)]);
         $driver->addMethodCall('setProjectDir', [$projectDir]);
-        $driver->addMethodCall('setEntityProxyService', [new Reference(EntityProxyService::class)]);
         $pass = new DoctrineOrmMappingsPass($driver, $namespaces, []);
         $container->addCompilerPass($pass);
     }

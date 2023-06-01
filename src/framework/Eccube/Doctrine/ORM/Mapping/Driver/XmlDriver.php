@@ -14,7 +14,6 @@
 namespace Eccube\Doctrine\ORM\Mapping\Driver;
 
 use Doctrine\ORM\Mapping\Driver\XmlDriver as BaseXmlDriver;
-use Doctrine\Persistence\Mapping\Driver\SymfonyFileLocator;
 use Eccube\Service\EntityProxyService;
 use Eccube\Service\PluginContext;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
@@ -31,8 +30,6 @@ class XmlDriver extends BaseXmlDriver
 
     private ?PluginContext $pluginContext = null;
 
-    private EntityProxyService $entityProxyService;
-
     public function setContainerBag(ContainerBagInterface $containerBag)
     {
         $this->containerBag = $containerBag;
@@ -41,11 +38,6 @@ class XmlDriver extends BaseXmlDriver
     public function setProjectDir(string $projectDir)
     {
         $this->projectDir = $projectDir;
-    }
-
-    public function setEntityProxyService(EntityProxyService $entityProxyService)
-    {
-        $this->entityProxyService = $entityProxyService;
     }
 
     public function setPluginContext(PluginContext $pluginContext)
@@ -59,7 +51,7 @@ class XmlDriver extends BaseXmlDriver
         $result->setPluginContext($pluginContext);
         $result->setContainerBag($oldDriver->containerBag);
         $result->setProjectDir($oldDriver->projectDir);
-        $result->setEntityProxyService($oldDriver->entityProxyService);
+
         return $result;
     }
 
@@ -72,14 +64,6 @@ class XmlDriver extends BaseXmlDriver
 
     protected function initialize()
     {
-//        $namespaces = [];
-//        $path = $this->projectDir.'/src/application/Eccube/Resource/doctrine/mapping';
-//        $namespaces[$path] = 'Eccube\\Entity';
-//        $path = $this->projectDir.'/app/Customize/Resource/doctrine/mapping';
-//        $namespaces[$path] = 'Customize\\Entity';
-//        $namespaces = array_merge($namespaces, $this->getPluginNamespaces());
-//        $this->locator = new SymfonyFileLocator($namespaces, $this->locator->getFileExtension());
-
         foreach ($this->getEntityExtensionFiles() as $entityExtensionFile) {
             $this->entityExtensions = array_merge(
                 $this->entityExtensions,
@@ -109,15 +93,21 @@ class XmlDriver extends BaseXmlDriver
     private function getTransformedMappingFilePath(string $file): string
     {
         $matches = [];
-        if (preg_match('|Eccube/Resource/doctrine/mapping/.+\.orm\.xml|i', $file)) {
+        if (preg_match('|Eccube/Resource/doctrine/mapping/.+\.orm\.xml$|i', $file)) {
             return $this->projectDir.'/app/mapping/eccube/'.basename($file);
-        } elseif (preg_match('|Customize/Resource/doctrine/mapping/.+\.orm\.xml|i', $file)) {
+        } elseif (preg_match('|Customize/Resource/doctrine/mapping/.+\.orm\.xml$|i', $file)) {
             return $this->projectDir.'/app/mapping/customize/'.basename($file);
-        } elseif (preg_match('|Plugin/(.+)/Resource/doctrine/mapping/.+\.orm\.xml|i', $file, $matches)) {
+        } elseif (preg_match('|Plugin/(.+)/Resource/doctrine/mapping/.+\.orm\.xml$|i', $file, $matches)) {
             $code = $matches[1];
+
+            return $this->projectDir.'/app/mapping/plugin/'.$code.'/'.basename($file);
+        } elseif (preg_match('|/(.+)/Resource/doctrine/mapping/.+\.orm\.xml$|i', $file, $matches)) {
+            // eccube:composer:require ec-cube/Sample --from=./path/to/Sample
+            $code = $matches[1];
+
             return $this->projectDir.'/app/mapping/plugin/'.$code.'/'.basename($file);
         } else {
-            throw new \LogicException();
+            throw new \LogicException($file);
         }
     }
 
@@ -175,6 +165,7 @@ EOL;
                 }
             }
         }
+
         return $targets;
     }
 
@@ -217,27 +208,9 @@ EOL;
         return array_keys(iterator_to_array($entityExtensionFiles));
     }
 
-    private function getPluginNamespaces()
-    {
-        $projectDir = $this->containerBag->get('kernel.project_dir');
-        $plugins = $this->getTargetPlugins();
-        $namespaces = [];
-
-        foreach ($plugins as $code) {
-            $path = $projectDir.'/app/Plugin/'.$code.'/Resource/doctrine/mapping';
-            if (file_exists($path)) {
-                $namespaces[$path] = 'Plugin\\'.$code.'\\Entity';
-            }
-        }
-
-        return $namespaces;
-    }
-
     private function getTargetPlugins(): array
     {
         $plugins = $this->containerBag->get('eccube.plugins.installed');
-
-        //dump($plugins);
 
         if ($this->pluginContext !== null && $this->pluginContext->isInstall()) {
             $plugins[] = $this->pluginContext->getCode();
@@ -245,8 +218,6 @@ EOL;
         if ($this->pluginContext !== null && $this->pluginContext->isUninstall()) {
             $plugins = array_filter($plugins, fn ($plugin) => $plugin !== $this->pluginContext->getCode());
         }
-
-        //dump($plugins);
 
         return $plugins;
     }
