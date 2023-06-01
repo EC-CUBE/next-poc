@@ -156,7 +156,10 @@ EOL;
             $target = $entity->attributes['target']->value;
             if ($target) {
                 $targetClass = new \ReflectionClass($target);
-                if (in_array('Plugin\Horizon\Entity\CartTrait', $targetClass->getTraitNames())) {
+                // TODO いったんCustomizeもしくはPluginのTraitをuseしているプロキシがあれば対象にする/entity_extension.xmlでTraitを指定するか、命名規約でカバーするか検討
+                $traits = $targetClass->getTraitNames();
+                $filtered = array_filter($traits, fn ($t) => \str_starts_with($t, 'Customize\\') || \str_starts_with($t, 'Plugin\\'));
+                if ($traits !== $filtered) {
                     foreach ($entity->childNodes as $child) {
                         if ($child instanceof \DOMElement) {
                             $targets[$target][] = $child;
