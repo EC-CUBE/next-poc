@@ -35,7 +35,6 @@ use Eccube\Doctrine\DBAL\Types\UTCDateTimeTzType;
 use Eccube\Doctrine\ORM\Mapping\Driver\XmlDriver;
 use Eccube\Doctrine\Query\QueryCustomizer;
 use Eccube\Form\Type\AbstractType;
-use Eccube\Service\EntityProxyService;
 use Eccube\Service\Payment\PaymentMethodInterface;
 use Eccube\Service\PurchaseFlow\DiscountProcessor;
 use Eccube\Service\PurchaseFlow\ItemHolderPostValidator;
@@ -46,6 +45,7 @@ use Eccube\Service\PurchaseFlow\ItemValidator;
 use Eccube\Service\PurchaseFlow\PurchaseProcessor;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -273,35 +273,40 @@ class Kernel extends BaseKernel
 
     protected function addEntityExtensionPass(ContainerBuilder $container)
     {
-        $projectDir = $container->getParameter('kernel.project_dir');
-
         // 本体
-        $namespaces = [];
-        $path = $projectDir.'/src/application/Eccube/Resource/doctrine/mapping';
-        $namespaces[$path] = 'Eccube\\Entity';
+        $path = $this->getProjectDir().'/src/application/Eccube/Resource/doctrine/mapping';
+        $ns = 'Eccube\\Entity';
+        $container->addCompilerPass($this->createOrmMappingPass($ns, $path));
+
         // カスタマイズ
-        $path = $projectDir.'/app/Customize/Resource/doctrine/mapping';
-        $namespaces[$path] = 'Customize\\Entity';
+        $path = $this->getProjectDir().'/app/Customize/Resource/doctrine/mapping';
+        $ns = 'Customize\\Entity';
+        $container->addCompilerPass($this->createOrmMappingPass($ns, $path));
+
         // プラグイン;
         $pluginDirs = (new Finder())
-            ->in($projectDir.'/app/Plugin')
+            ->in($this->getProjectDir().'/app/Plugin')
             ->sortByName()
             ->depth(0)
             ->directories();
         foreach ($pluginDirs as $dir) {
             $code = $dir->getBasename();
-            $src = $dir->getRealPath().'/Resource/doctrine/mapping';
-            if (file_exists($src)) {
-                $namespaces[$src] = 'Plugin\\'.$code.'\\Entity';
+            $path = $dir->getRealPath().'/Resource/doctrine/mapping';
+            if (file_exists($path)) {
+                $ns = 'Plugin\\'.$code.'\\Entity';
+                $container->addCompilerPass($this->createOrmMappingPass($ns, $path));
             }
         }
+    }
 
+    private function createOrmMappingPass(string $namespace, string $path): CompilerPassInterface
+    {
+        $namespaces[$path] = $namespace;
         $locator = new Definition(SymfonyFileLocator::class, [$namespaces, '.orm.xml']);
         $driver = new Definition(XmlDriver::class, [$locator]);
         $driver->addMethodCall('setContainerBag', [new Reference(ContainerBagInterface::class)]);
-        $driver->addMethodCall('setProjectDir', [$projectDir]);
-        $pass = new DoctrineOrmMappingsPass($driver, $namespaces, []);
-        $container->addCompilerPass($pass);
+        $driver->addMethodCall('setProjectDir', [$this->getProjectDir()]);
+        return new DoctrineOrmMappingsPass($driver, $namespaces, []);
     }
 
     protected function loadEntityProxies()
