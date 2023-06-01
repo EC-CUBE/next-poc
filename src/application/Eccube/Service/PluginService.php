@@ -18,6 +18,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\MappingException as ORMMappingException;
 use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\Persistence\Mapping\AbstractClassMetadataFactory;
 use Doctrine\Persistence\Mapping\Driver\SymfonyFileLocator;
 use Doctrine\Persistence\Mapping\MappingException as PersistenceMappingException;
 use Eccube\Common\Constant;
@@ -629,19 +630,46 @@ class PluginService
         if ($plugin->isInitialized()) {
             $this->callPluginManagerMethod($config, 'uninstall');
         }
-        $this->unregisterPlugin($plugin);
 
         try {
             // スキーマを更新する
-            $this->generateProxyAndUpdateSchema($plugin, $config, true);
+            $this->pluginContext->setUninstall();
+            $this->pluginContext->setCode($plugin->getCode());
+
+            $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
+            $drivers = $chain->getDrivers();
+            foreach ($drivers as $namespace => $driver) {
+                if ($driver instanceof XmlDriver) {
+                    $driver->clear();
+                    $driver->setPluginContext($this->pluginContext);
+                }
+            }
+
+            // FIXME AbstractClassMetadataFactory::loadedMetadataでメタデータがキャッシュされているので無理やりクリア
+            $metadataFactory = $this->entityManager->getMetadataFactory();
+            $metadataFactory->setCacheDriver(null);
+            $property = new \ReflectionProperty(AbstractClassMetadataFactory::class, 'loadedMetadata');
+            $property->setAccessible(true);
+            $property->setValue($metadataFactory, []);
+
+            $this->entityManager->getMetadataFactory()->setCacheDriver(null);
+            $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
+            $tool = new SchemaTool($this->entityManager);
+            $tool->updateSchema($metadata);
 
             // プラグインのネームスペースに含まれるEntityのテーブルを削除する
             $namespace = 'Plugin\\'.$plugin->getCode().'\\Entity';
             $this->schemaService->dropTable($namespace);
+
+            // プロキシを再生成しTraitを解除する
+            $this->regenerateProxy($plugin, false, null, true);
+
         } catch (PersistenceMappingException $e) {
         } catch (ORMMappingException $e) {
             // XXX 削除された Bundle が MappingException をスローする場合があるが実害は無いので無視して進める
         }
+
+        $this->unregisterPlugin($plugin);
 
         if ($force) {
             $this->deleteFile($pluginDir);
@@ -686,8 +714,8 @@ class PluginService
         @mkdir($outputDir);
 
         $enabledPluginCodes = array_map(
-            function ($p) { return $p->getCode(); },
-            $temporary ? $this->pluginRepository->findAll() : $this->pluginRepository->findAllEnabled()
+            fn ($p) => $p->getCode(),
+            $this->pluginRepository->findAll()
         );
 
         $excludes = [];
