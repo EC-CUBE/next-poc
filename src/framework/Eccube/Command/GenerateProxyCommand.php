@@ -14,6 +14,8 @@
 namespace Eccube\Command;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Doctrine\ORM\EntityManagerInterface;
+use Eccube\Entity\Plugin;
 use Eccube\Service\EntityProxyService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -34,11 +36,17 @@ class GenerateProxyCommand extends Command
      */
     private $container;
 
-    public function __construct(EntityProxyService $entityProxyService, ContainerInterface $container)
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(
+        EntityProxyService $entityProxyService,
+        ContainerInterface $container,
+        EntityManagerInterface $entityManager)
     {
         parent::__construct();
         $this->entityProxyService = $entityProxyService;
         $this->container = $container;
+        $this->entityManager = $entityManager;
     }
 
     protected function configure()
@@ -51,13 +59,11 @@ class GenerateProxyCommand extends Command
     {
         $projectDir = $this->container->getParameter('kernel.project_dir');
 
-        // アノテーションを読み込めるように設定.
-        AnnotationRegistry::registerAutoloadNamespace('Eccube\Annotation', $projectDir.'/src/framework');
-
         $includeDirs = [$projectDir.'/app/Customize/Entity'];
 
-        $enabledPlugins = $this->container->getParameter('eccube.plugins.enabled');
-        foreach ($enabledPlugins as $code) {
+        $Plugins = $this->entityManager->getRepository(Plugin::class)->findAll();
+        foreach ($Plugins as $Plugin) {
+            $code = $Plugin->getCode();
             if (file_exists($projectDir.'/app/Plugin/'.$code.'/Entity')) {
                 $includeDirs[] = $projectDir.'/app/Plugin/'.$code.'/Entity';
             }
