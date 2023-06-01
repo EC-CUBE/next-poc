@@ -68,33 +68,7 @@ class PluginEnableCommand extends Command
         }
 
         if (!$plugin->isInitialized()) {
-            $projectDir = $this->container->getParameter('kernel.project_dir');
-            $this->entityManager->getMetadataFactory()->setCacheDriver(null);
-            $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
-            $drivers = $chain->getDrivers();
-            foreach ($drivers as $namespace => $driver) {
-                if (\str_starts_with($namespace, 'Eccube') && $driver instanceof XmlDriver) {
-                    $driver->clear();
-                    $this->pluginContext->setCode($code);
-                    $this->pluginContext->setInstall();
-                    $driver->setPluginContext($this->pluginContext);
-
-                    $path = $projectDir.'/app/Plugin/'.$code.'/Resource/doctrine/mapping';
-                    $ns = 'Plugin\\'.$code.'\\Entity';
-                    $locator = $driver->getLocator();
-                    $locator->addNamespacePrefixes([$path => $ns]);
-
-                    $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
-                    $chain->addDriver($driver, $ns);
-
-                    // driverのインスタンスはすべて同一
-                    break;
-                }
-            }
-
-            $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
-            $tool = new SchemaTool($this->entityManager);
-            $tool->updateSchema($metadata, true);
+            $this->pluginService->installWithCode($code);
         }
 
         $this->pluginService->enable($plugin);

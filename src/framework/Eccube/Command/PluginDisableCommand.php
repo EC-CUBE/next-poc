@@ -27,7 +27,7 @@ class PluginDisableCommand extends Command
     protected function configure()
     {
         $this
-            ->addOption('code', null, InputOption::VALUE_OPTIONAL, 'plugin code');
+            ->addOption('code', null, InputOption::VALUE_REQUIRED, 'plugin code');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -35,13 +35,6 @@ class PluginDisableCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $code = $input->getOption('code');
-
-        if (empty($code)) {
-            $io->error('code is required.');
-
-            return 1;
-        }
-
         $plugin = $this->pluginRepository->findByCode($code);
         if (is_null($plugin)) {
             $io->error("Plugin `$code` is not found.");

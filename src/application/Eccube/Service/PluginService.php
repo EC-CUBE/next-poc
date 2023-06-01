@@ -18,6 +18,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\MappingException as ORMMappingException;
 use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\Persistence\Mapping\Driver\SymfonyFileLocator;
 use Doctrine\Persistence\Mapping\MappingException as PersistenceMappingException;
 use Eccube\Common\Constant;
 use Eccube\Common\EccubeConfig;
@@ -29,6 +30,7 @@ use Eccube\Service\Composer\ComposerServiceInterface;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 
@@ -109,6 +111,8 @@ class PluginService
      */
     private $pluginContext;
 
+    private ContainerBagInterface $containerBag;
+
     /**
      * PluginService constructor.
      *
@@ -135,7 +139,8 @@ class PluginService
         ComposerServiceInterface $composerService,
         PluginApiService $pluginApiService,
         SystemService $systemService,
-        PluginContext $pluginContext
+        PluginContext $pluginContext,
+        ContainerBagInterface $containerBag
     ) {
         $this->entityManager = $entityManager;
         $this->pluginRepository = $pluginRepository;
@@ -150,6 +155,7 @@ class PluginService
         $this->pluginApiService = $pluginApiService;
         $this->systemService = $systemService;
         $this->pluginContext = $pluginContext;
+        $this->containerBag = $containerBag;
     }
 
     /**
@@ -270,23 +276,33 @@ class PluginService
                 $this->entityManager->flush();
             }
 
-            $this->generateProxyAndUpdateSchema($Plugin, $config);
-//            $this->pluginContext->setInstall();
-//            $this->pluginContext->setCode($config['code']);
-//
-//            // スキーマ更新
-//            $this->entityManager->getMetadataFactory()->setCacheDriver(null);
-//            $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
-//            $drivers = $chain->getDrivers();
-//            foreach ($drivers as $namespace => $driver) {
-//                if ($driver instanceof XmlDriver) {
-//                    $driver->clear();
-//                    $driver->setPluginContext($this->pluginContext);
-//                }
-//            }
-//            $tool = new SchemaTool($this->entityManager);
-//            $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
-//            $tool->updateSchema($metadata, true);
+            $projectDir = $this->container->getParameter('kernel.project_dir');
+            $this->entityManager->getMetadataFactory()->setCacheDriver(null);
+            $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
+            $drivers = $chain->getDrivers();
+            foreach ($drivers as $namespace => $driver) {
+                if ($driver instanceof XmlDriver) {
+                    $driver->clear();
+                    $this->pluginContext->setCode($config['code']);
+                    $this->pluginContext->setInstall();
+                    $driver->setPluginContext($this->pluginContext);
+                }
+            }
+
+            $path = $projectDir.'/app/Plugin/'.$config['code'].'/Resource/doctrine/mapping';
+            $ns = 'Plugin\\'.$config['code'].'\\Entity';
+            $locator = new SymfonyFileLocator([$path => $ns], '.orm.xml');
+            $xmlDriver = new XmlDriver($locator);
+            $xmlDriver->setContainerBag($this->containerBag);
+            $xmlDriver->setProjectDir($this->containerBag->get('kernel.project_dir'));
+            $xmlDriver->setPluginContext($this->pluginContext);
+
+            $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
+            $chain->addDriver($xmlDriver, $ns);
+
+            $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
+            $tool = new SchemaTool($this->entityManager);
+            $tool->updateSchema($metadata, true);
 
             $this->callPluginManagerMethod($config, 'install');
 
@@ -356,18 +372,19 @@ class PluginService
             }
 
             try {
-//                if (!$uninstall) {
-//                    // プラグインmetadata定義を追加
-//                    $entityDir = $this->eccubeConfig['plugin_realdir'].'/'.$plugin->getCode().'/Entity';
-//                    if (file_exists($entityDir)) {
-//                        $ormConfig = $this->entityManager->getConfiguration();
-//                        $chain = $ormConfig->getMetadataDriverImpl()->getDriver();
-//                        $driver = $ormConfig->newDefaultAnnotationDriver([$entityDir], false);
-//                        $namespace = 'Plugin\\'.$config['code'].'\\Entity';
-//                        $chain->addDriver($driver, $namespace);
-//                        $ormConfig->addEntityNamespace($plugin->getCode(), $namespace);
-//                    }
-//                }
+                if (!$uninstall) {
+                    // プラグインmetadata定義を追加
+                    $entityDir = $this->eccubeConfig['plugin_realdir'].'/'.$plugin->getCode().'/Entity';
+                    if (file_exists($entityDir)) {
+                        $ormConfig = $this->entityManager->getConfiguration();
+                        $chain = $ormConfig->getMetadataDriverImpl()->getDriver();
+                        $driver = new XmlDriver();
+                        $driver = $ormConfig->newDefaultAnnotationDriver([$entityDir], false);
+                        $namespace = 'Plugin\\'.$config['code'].'\\Entity';
+                        $chain->addDriver($driver, $namespace);
+                        $ormConfig->addEntityNamespace($plugin->getCode(), $namespace);
+                    }
+                }
 
                 // 一時的に利用するProxyを生成してからスキーマを更新する
                 $generatedFiles = $this->regenerateProxy($plugin, true, $tmpProxyOutputDir, $uninstall);
@@ -707,9 +724,6 @@ class PluginService
 
             $plugin->setEnabled($enable ? true : false);
             $em->persist($plugin);
-
-            // Proxyだけ再生成してスキーマは更新しない
-            $this->regenerateProxy($plugin, false);
 
             $em->flush();
             $em->getConnection()->commit();
