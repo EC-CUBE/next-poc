@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mapping>
+  <entity target="Plugin\Boomerang\Entity\Bar">
+    <field name="mail" type="string" column="mail" length="255" nullable="true">
+    </field>
+  </entity>
+</mapping>
