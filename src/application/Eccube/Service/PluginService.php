@@ -838,7 +838,7 @@ class PluginService
 
             $em->persist($plugin);
 
-            $this->generateProxyAndUpdateSchema($plugin, $meta);
+            //$this->generateProxyAndUpdateSchema($plugin, $meta);
 
             if ($plugin->isInitialized()) {
                 $this->callPluginManagerMethod($meta, 'update');

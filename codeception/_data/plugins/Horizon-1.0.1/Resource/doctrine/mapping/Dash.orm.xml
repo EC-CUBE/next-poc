@@ -9,5 +9,6 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="name" type="string" column="name" length="255" nullable="true"/>
+    <field name="new_column" type="string" column="new_column" length="255" nullable="true"/>
   </entity>
 </mapping>

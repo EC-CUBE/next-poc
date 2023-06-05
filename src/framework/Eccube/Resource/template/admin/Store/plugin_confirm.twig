@@ -73,6 +73,14 @@ $(function() {
                     ctx.log('**************** Upgrade ****************');
                     return $.post("{{ url('admin_store_plugin_api_upgrade') }}", ctx.plugin).then(function(data) {
                         ctx.currentCount += 1;
+                        ctx.progressBar.css('width', '20%');
+                        ctx.log(data.log);
+                    })
+                }).then(function() {
+                    ctx.statusBar.text('「' + ctx.plugin.pluginCode + '」のプロキシを更新中');
+                    ctx.log('**************** Upgrade ****************');
+                    return $.post("{{ url('admin_store_plugin_api_generate_proxy') }}").then(function(data) {
+                        ctx.currentCount += 1;
                         ctx.progressBar.css('width', '40%');
                         ctx.log(data.log);
                     })

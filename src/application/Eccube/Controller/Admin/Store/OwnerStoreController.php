@@ -13,8 +13,8 @@
 
 namespace Eccube\Controller\Admin\Store;
 
+use Doctrine\ORM\Tools\SchemaTool;
 use Eccube\Controller\AbstractController;
-use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\BaseInfo;
 use Eccube\Entity\Master\PageMax;
 use Eccube\Entity\Plugin;
@@ -22,7 +22,6 @@ use Eccube\Exception\PluginApiException;
 use Eccube\Form\Type\Admin\SearchPluginApiType;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\PluginRepository;
-use Eccube\Routing\Annotation\Route;
 use Eccube\Service\Composer\ComposerServiceInterface;
 use Eccube\Service\EntityProxyService;
 use Eccube\Service\PluginApiService;
@@ -286,6 +285,8 @@ class OwnerStoreController extends AbstractController
     public function apiGenerateProxy()
     {
         $this->isTokenValid();
+        $this->cacheUtil->clearCache();
+
         $projectDir = $this->getParameter('kernel.project_dir');
         $includeDirs = [$projectDir.'/app/Customize/Entity'];
 
@@ -410,17 +411,16 @@ class OwnerStoreController extends AbstractController
                 throw new NotFoundHttpException();
             }
 
-            $config = $this->pluginService->readConfig($this->pluginService->calcPluginDir($Plugin->getCode()));
-
             ob_start();
-            $this->pluginService->generateProxyAndUpdateSchema($Plugin, $config);
 
             // 初期化されていなければインストール処理を実行する
             if (!$Plugin->isInitialized()) {
-                $this->pluginService->callPluginManagerMethod($config, 'install');
-                $Plugin->setInitialized(true);
-                $this->entityManager->persist($Plugin);
-                $this->entityManager->flush();
+                $this->pluginService->installWithCode($Plugin->getCode());
+            } else {
+                $this->entityManager->getMetadataFactory()->setCacheDriver(null);
+                $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
+                $tool = new SchemaTool($this->entityManager);
+                $tool->updateSchema($metadata);
             }
 
             $log = ob_get_clean();
