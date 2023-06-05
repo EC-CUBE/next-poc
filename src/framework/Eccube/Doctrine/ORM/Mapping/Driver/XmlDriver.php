@@ -71,7 +71,7 @@ class XmlDriver extends BaseXmlDriver
             );
         }
 
-        return parent::initialize();
+        parent::initialize();
     }
 
     protected function loadMappingFile($file)

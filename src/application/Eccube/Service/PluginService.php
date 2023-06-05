@@ -381,7 +381,7 @@ class PluginService
                     if (file_exists($entityDir)) {
                         $ormConfig = $this->entityManager->getConfiguration();
                         $chain = $ormConfig->getMetadataDriverImpl()->getDriver();
-                        $driver = new XmlDriver();
+                        // $driver = new XmlDriver();
                         $driver = $ormConfig->newDefaultAnnotationDriver([$entityDir], false);
                         $namespace = 'Plugin\\'.$config['code'].'\\Entity';
                         $chain->addDriver($driver, $namespace);
