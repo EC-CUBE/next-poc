@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mapping>
+  <entity repository-class="Plugin\Horizon\Repository\DashRepository" name="Plugin\Horizon\Entity\Dash" table="dtb_dash" inheritance-type="SINGLE_TABLE">
+    <discriminator-column name="discriminator_type" type="string" length="255"/>
+    <discriminator-map>
+      <discriminator-mapping value="dash" class="Plugin\Horizon\Entity\Dash"/>
+    </discriminator-map>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name" type="string" column="name" length="255" nullable="true"/>
+  </entity>
+</mapping>
