@@ -14,7 +14,6 @@
 namespace Eccube\Doctrine\ORM\Mapping\Driver;
 
 use Doctrine\ORM\Mapping\Driver\XmlDriver as BaseXmlDriver;
-use Eccube\Service\EntityProxyService;
 use Eccube\Service\PluginContext;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -65,10 +64,14 @@ class XmlDriver extends BaseXmlDriver
     protected function initialize()
     {
         foreach ($this->getEntityExtensionFiles() as $entityExtensionFile) {
-            $this->entityExtensions = array_merge(
-                $this->entityExtensions,
-                $this->loadEntityExtensionFile($entityExtensionFile)
-            );
+            $entityExtensions = $this->loadEntityExtensionFile($entityExtensionFile);
+            foreach ($entityExtensions as $class => $elements) {
+                if (isset($this->entityExtensions[$class])) {
+                    $this->entityExtensions[$class] = array_merge($this->entityExtensions[$class], $elements);
+                } else {
+                    $this->entityExtensions[$class] = $elements;
+                }
+            }
         }
 
         parent::initialize();
