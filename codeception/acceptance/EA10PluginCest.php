@@ -736,6 +736,7 @@ class Store_Plugin extends Abstract_Plugin
 
         $this->initialized = false;
         $this->enabled = false;
+        $this->removed = true;
 
         $this->検証();
 
