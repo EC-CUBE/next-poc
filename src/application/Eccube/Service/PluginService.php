@@ -291,15 +291,17 @@ class PluginService
             }
 
             $path = $projectDir.'/app/Plugin/'.$config['code'].'/Resource/doctrine/mapping';
-            $ns = 'Plugin\\'.$config['code'].'\\Entity';
-            $locator = new SymfonyFileLocator([$path => $ns], '.orm.xml');
-            $xmlDriver = new XmlDriver($locator);
-            $xmlDriver->setContainerBag($this->containerBag);
-            $xmlDriver->setProjectDir($this->containerBag->get('kernel.project_dir'));
-            $xmlDriver->setPluginContext($this->pluginContext);
+            if (file_exists($path)) {
+                $ns = 'Plugin\\'.$config['code'].'\\Entity';
+                $locator = new SymfonyFileLocator([$path => $ns], '.orm.xml');
+                $xmlDriver = new XmlDriver($locator);
+                $xmlDriver->setContainerBag($this->containerBag);
+                $xmlDriver->setProjectDir($this->containerBag->get('kernel.project_dir'));
+                $xmlDriver->setPluginContext($this->pluginContext);
 
-            $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
-            $chain->addDriver($xmlDriver, $ns);
+                $chain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
+                $chain->addDriver($xmlDriver, $ns);
+            }
 
             $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
             $tool = new SchemaTool($this->entityManager);
