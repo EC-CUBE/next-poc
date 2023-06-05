@@ -24,6 +24,7 @@ use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\PluginRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Service\Composer\ComposerServiceInterface;
+use Eccube\Service\EntityProxyService;
 use Eccube\Service\PluginApiService;
 use Eccube\Service\PluginService;
 use Eccube\Service\SystemService;
@@ -71,6 +72,8 @@ class OwnerStoreController extends AbstractController
     /** @var CacheUtil */
     private $cacheUtil;
 
+    private EntityProxyService $entityProxyService;
+
     /**
      * OwnerStoreController constructor.
      *
@@ -92,7 +95,8 @@ class OwnerStoreController extends AbstractController
         SystemService $systemService,
         PluginApiService $pluginApiService,
         BaseInfoRepository $baseInfoRepository,
-        CacheUtil $cacheUtil
+        CacheUtil $cacheUtil,
+        EntityProxyService $entityProxyService
     ) {
         $this->pluginRepository = $pluginRepository;
         $this->pluginService = $pluginService;
@@ -103,6 +107,7 @@ class OwnerStoreController extends AbstractController
 
         // TODO: Check the flow of the composer service below
         $this->composerService = $composerService;
+        $this->entityProxyService = $entityProxyService;
     }
 
     /**
@@ -273,6 +278,32 @@ class OwnerStoreController extends AbstractController
         }
 
         return $this->json(['success' => false, 'log' => $log], 500);
+    }
+
+    /**
+     * @Route("/generate_proxy", name="admin_store_plugin_api_generate_proxy", methods={"POST"})
+     */
+    public function apiGenerateProxy()
+    {
+        $this->isTokenValid();
+        $projectDir = $this->getParameter('kernel.project_dir');
+        $includeDirs = [$projectDir.'/app/Customize/Entity'];
+
+        $Plugins = $this->entityManager->getRepository(Plugin::class)->findAll();
+        foreach ($Plugins as $Plugin) {
+            $code = $Plugin->getCode();
+            if (file_exists($projectDir.'/app/Plugin/'.$code.'/Entity')) {
+                $includeDirs[] = $projectDir.'/app/Plugin/'.$code.'/Entity';
+            }
+        }
+
+        $this->entityProxyService->generate(
+            $includeDirs,
+            [],
+            $projectDir.'/app/proxy/entity'
+        );
+
+        return $this->json(['success' => true, 'log' => '']);
     }
 
     /**

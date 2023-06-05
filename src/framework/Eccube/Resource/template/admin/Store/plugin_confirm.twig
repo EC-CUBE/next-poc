@@ -31,7 +31,7 @@ $(function() {
         'install': {
             'name': 'インストール',
             'init': function(ctx) {
-                ctx.progressBar.css('width', (0.5/ctx.totalCount*100) + '%');
+                ctx.progressBar.css('width', (0.33/ctx.totalCount*100) + '%');
             },
             'execute': function(ctx) {
                 return ctx.deferred.then(function() {
@@ -39,7 +39,15 @@ $(function() {
                     ctx.log('**************** ' + ctx.plugin.pluginCode + ' ****************');
                     return $.post("{{ url('admin_store_plugin_api_install') }}", ctx.plugin).then(function(data) {
                         ctx.currentCount += 1;
-                        ctx.progressBar.css('width', ((ctx.currentCount/ctx.totalCount + 0.5/ctx.totalCount)*100) + '%');
+                        ctx.progressBar.css('width', ((ctx.currentCount/ctx.totalCount + 0.33/ctx.totalCount)*100) + '%');
+                        ctx.log(data.log);
+                    })
+                }).then(function() {
+                    ctx.statusBar.text('「' + ctx.plugin.pluginCode + '」プロキシ作成中');
+                    ctx.log('**************** ' + ctx.plugin.pluginCode + ' ****************');
+                    return $.post("{{ url('admin_store_plugin_api_generate_proxy') }}", ctx.plugin).then(function(data) {
+                        ctx.currentCount += 1;
+                        ctx.progressBar.css('width', ((ctx.currentCount/ctx.totalCount + 0.33/ctx.totalCount)*100) + '%');
                         ctx.log(data.log);
                     })
                 }).then(function() {
