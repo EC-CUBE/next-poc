@@ -13,6 +13,8 @@
 
 namespace Eccube\Controller\Admin\Store;
 
+use Eccube\Controller\Annotation\Template;
+use Eccube\Routing\Annotation\Route;
 use Doctrine\ORM\Tools\SchemaTool;
 use Eccube\Controller\AbstractController;
 use Eccube\Entity\BaseInfo;
