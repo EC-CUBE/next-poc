@@ -50,10 +50,10 @@ class EA10PluginCest
     public function test_install_enable_disable_remove_store(AcceptanceTester $I)
     {
         Horizon_Store::start($I)
-            ->インストール();
-//            ->有効化()
-//            ->無効化()
-//            ->削除();
+            ->インストール()
+            ->有効化()
+            ->無効化()
+            ->削除();
     }
 
     public function test_install_enable_disable_remove_local(AcceptanceTester $I)
@@ -609,10 +609,11 @@ abstract class Abstract_Plugin
             $this->columnNotExists();
         }
 
-        if ($this->enabled) {
-            $this->traitExists();
-        } else {
+        // proxyはプラグインのインストール時に作成され、プラグイン削除時に削除される
+        if ($this->removed) {
             $this->traitNotExists();
+        } else {
+            $this->traitExists();
         }
 
         return $this;
@@ -842,6 +843,7 @@ class Local_Plugin extends Abstract_Plugin
 
         $this->initialized = false;
         $this->enabled = false;
+        $this->removed = true;
 
         $this->I->see('プラグインを削除しました。', PluginManagePage::完了メーッセージ);
 
