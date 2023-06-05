@@ -663,6 +663,10 @@ class PluginService
             $namespace = 'Plugin\\'.$plugin->getCode().'\\Entity';
             $this->schemaService->dropTable($namespace);
 
+            // プラグインのマッピングファイルを削除
+            $mappingDir = $this->eccubeConfig->get('kernel.project_dir').'/app/mapping/plugin/'.$plugin->getCode();
+            (new Filesystem())->remove($mappingDir);
+
             // プロキシを再生成しTraitを解除する
             $this->regenerateProxy($plugin, false, null, true);
 
