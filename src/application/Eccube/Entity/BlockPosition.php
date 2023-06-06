@@ -18,67 +18,56 @@ use Doctrine\ORM\Mapping as ORM;
 if (!class_exists('\Eccube\Entity\BlockPosition')) {
     /**
      * BlockPosition
-     *
-     * @ORM\Table(name="dtb_block_position")
-     * @ORM\InheritanceType("SINGLE_TABLE")
-     * @ORM\DiscriminatorColumn(name="discriminator_type", type="string", length=255)
-     * @ORM\HasLifecycleCallbacks()
-     * @ORM\Entity(repositoryClass="Eccube\Repository\BlockPositionRepository")
      */
+    #[ORM\Table(name: 'dtb_block_position')]
+    #[ORM\InheritanceType('SINGLE_TABLE')]
+    #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
+    #[ORM\HasLifecycleCallbacks]
+    #[ORM\Entity(repositoryClass: 'Eccube\Repository\BlockPositionRepository')]
     class BlockPosition extends \Eccube\Entity\AbstractEntity
     {
         /**
          * @var int
-         *
-         * @ORM\Column(name="section", type="integer", options={"unsigned":true})
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="NONE")
          */
+        #[ORM\Column(name: 'section', type: 'integer', options: ['unsigned' => true])]
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'NONE')]
         private $section;
 
         /**
          * @var int
-         *
-         * @ORM\Column(name="block_id", type="integer", options={"unsigned":true})
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="NONE")
          */
+        #[ORM\Column(name: 'block_id', type: 'integer', options: ['unsigned' => true])]
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'NONE')]
         private $block_id;
 
         /**
          * @var int
-         *
-         * @ORM\Column(name="layout_id", type="integer", options={"unsigned":true})
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="NONE")
          */
+        #[ORM\Column(name: 'layout_id', type: 'integer', options: ['unsigned' => true])]
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'NONE')]
         private $layout_id;
 
         /**
          * @var int|null
-         *
-         * @ORM\Column(name="block_row", type="integer", nullable=true, options={"unsigned":true})
          */
+        #[ORM\Column(name: 'block_row', type: 'integer', nullable: true, options: ['unsigned' => true])]
         private $block_row;
 
         /**
          * @var \Eccube\Entity\Block
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Block", inversedBy="BlockPositions")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="block_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'block_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Block', inversedBy: 'BlockPositions')]
         private $Block;
 
         /**
          * @var \Eccube\Entity\Layout
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Layout", inversedBy="BlockPositions")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="layout_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'layout_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Layout', inversedBy: 'BlockPositions')]
         private $Layout;
 
         /**

@@ -18,58 +18,48 @@ use Doctrine\ORM\Mapping as ORM;
 if (!class_exists('\Eccube\Entity\CartItem')) {
     /**
      * CartItem
-     *
-     * @ORM\Table(name="dtb_cart_item")
-     * @ORM\InheritanceType("SINGLE_TABLE")
-     * @ORM\DiscriminatorColumn(name="discriminator_type", type="string", length=255)
-     * @ORM\HasLifecycleCallbacks()
-     * @ORM\Entity(repositoryClass="Eccube\Repository\CartItemRepository")
      */
+    #[ORM\Table(name: 'dtb_cart_item')]
+    #[ORM\InheritanceType('SINGLE_TABLE')]
+    #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
+    #[ORM\HasLifecycleCallbacks]
+    #[ORM\Entity(repositoryClass: 'Eccube\Repository\CartItemRepository')]
     class CartItem extends \Eccube\Entity\AbstractEntity implements ItemInterface
     {
         use PointRateTrait;
 
         /**
          * @var integer
-         *
-         * @ORM\Column(name="id", type="integer", options={"unsigned":true})
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="IDENTITY")
          */
+        #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'IDENTITY')]
         private $id;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="price", type="decimal", precision=12, scale=2, options={"default":0})
          */
+        #[ORM\Column(name: 'price', type: 'decimal', precision: 12, scale: 2, options: ['default' => 0])]
         private $price = 0;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="quantity", type="decimal", precision=10, scale=0, options={"default":0})
          */
+        #[ORM\Column(name: 'quantity', type: 'decimal', precision: 10, scale: 0, options: ['default' => 0])]
         private $quantity = 0;
 
         /**
          * @var \Eccube\Entity\ProductClass
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\ProductClass")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="product_class_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'product_class_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\ProductClass')]
         private $ProductClass;
 
         /**
          * @var \Eccube\Entity\Cart
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Cart", inversedBy="CartItems", cascade={"persist"})
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="cart_id", referencedColumnName="id", onDelete="CASCADE")
-         * })
          */
+        #[ORM\JoinColumn(name: 'cart_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Cart', inversedBy: 'CartItems', cascade: ['persist'])]
         private $Cart;
 
         /**

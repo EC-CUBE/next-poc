@@ -17,9 +17,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * AbstractMasterentity
- *
- * @ORM\MappedSuperclass
  */
+#[ORM\MappedSuperclass]
 abstract class AbstractMasterEntity extends \Eccube\Entity\AbstractEntity
 {
     /**
@@ -32,25 +31,22 @@ abstract class AbstractMasterEntity extends \Eccube\Entity\AbstractEntity
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="smallint", options={"unsigned":true})
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
      */
+    #[ORM\Column(name: 'id', type: 'smallint', options: ['unsigned' => true])]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'NONE')]
     protected $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
      */
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
     protected $name;
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="sort_no", type="smallint", options={"unsigned":true})
      */
+    #[ORM\Column(name: 'sort_no', type: 'smallint', options: ['unsigned' => true])]
     protected $sort_no;
 
     /**

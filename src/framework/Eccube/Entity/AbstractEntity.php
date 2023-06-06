@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
-/** @MappedSuperclass */
+#[MappedSuperclass]
 abstract class AbstractEntity implements \ArrayAccess
 {
     #[\ReturnTypeWillChange]

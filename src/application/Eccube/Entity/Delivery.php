@@ -18,13 +18,12 @@ use Doctrine\ORM\Mapping as ORM;
 if (!class_exists('\Eccube\Entity\Delivery')) {
     /**
      * Delivery
-     *
-     * @ORM\Table(name="dtb_delivery")
-     * @ORM\InheritanceType("SINGLE_TABLE")
-     * @ORM\DiscriminatorColumn(name="discriminator_type", type="string", length=255)
-     * @ORM\HasLifecycleCallbacks()
-     * @ORM\Entity(repositoryClass="Eccube\Repository\DeliveryRepository")
      */
+    #[ORM\Table(name: 'dtb_delivery')]
+    #[ORM\InheritanceType('SINGLE_TABLE')]
+    #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
+    #[ORM\HasLifecycleCallbacks]
+    #[ORM\Entity(repositoryClass: 'Eccube\Repository\DeliveryRepository')]
     class Delivery extends \Eccube\Entity\AbstractEntity
     {
         /**
@@ -37,111 +36,91 @@ if (!class_exists('\Eccube\Entity\Delivery')) {
 
         /**
          * @var int
-         *
-         * @ORM\Column(name="id", type="integer", options={"unsigned":true})
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="IDENTITY")
          */
+        #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'IDENTITY')]
         private $id;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="name", type="string", length=255, nullable=true)
          */
+        #[ORM\Column(name: 'name', type: 'string', length: 255, nullable: true)]
         private $name;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="service_name", type="string", length=255, nullable=true)
          */
+        #[ORM\Column(name: 'service_name', type: 'string', length: 255, nullable: true)]
         private $service_name;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="description", type="string", length=4000, nullable=true)
          */
+        #[ORM\Column(name: 'description', type: 'string', length: 4000, nullable: true)]
         private $description;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="confirm_url", type="string", length=4000, nullable=true)
          */
+        #[ORM\Column(name: 'confirm_url', type: 'string', length: 4000, nullable: true)]
         private $confirm_url;
 
         /**
          * @var int|null
-         *
-         * @ORM\Column(name="sort_no", type="integer", nullable=true, options={"unsigned":true})
          */
+        #[ORM\Column(name: 'sort_no', type: 'integer', nullable: true, options: ['unsigned' => true])]
         private $sort_no;
 
         /**
          * @var boolean
-         *
-         * @ORM\Column(name="visible", type="boolean", options={"default":true})
          */
+        #[ORM\Column(name: 'visible', type: 'boolean', options: ['default' => true])]
         private $visible = true;
 
         /**
          * @var \DateTime
-         *
-         * @ORM\Column(name="create_date", type="datetimetz")
          */
+        #[ORM\Column(name: 'create_date', type: 'datetimetz')]
         private $create_date;
 
         /**
          * @var \DateTime
-         *
-         * @ORM\Column(name="update_date", type="datetimetz")
          */
+        #[ORM\Column(name: 'update_date', type: 'datetimetz')]
         private $update_date;
 
         /**
          * @var \Doctrine\Common\Collections\Collection
-         *
-         * @ORM\OneToMany(targetEntity="Eccube\Entity\PaymentOption", mappedBy="Delivery", cascade={"persist","remove"})
          */
+        #[ORM\OneToMany(targetEntity: 'Eccube\Entity\PaymentOption', mappedBy: 'Delivery', cascade: ['persist', 'remove'])]
         private $PaymentOptions;
 
         /**
          * @var \Doctrine\Common\Collections\Collection
-         *
-         * @ORM\OneToMany(targetEntity="Eccube\Entity\DeliveryFee", mappedBy="Delivery", cascade={"persist","remove"})
          */
+        #[ORM\OneToMany(targetEntity: 'Eccube\Entity\DeliveryFee', mappedBy: 'Delivery', cascade: ['persist', 'remove'])]
         private $DeliveryFees;
 
         /**
          * @var \Doctrine\Common\Collections\Collection
-         *
-         * @ORM\OneToMany(targetEntity="Eccube\Entity\DeliveryTime", mappedBy="Delivery", cascade={"persist","remove"})
-         * @ORM\OrderBy({
-         *     "sort_no"="ASC"
-         * })
          */
+        #[ORM\OneToMany(targetEntity: 'Eccube\Entity\DeliveryTime', mappedBy: 'Delivery', cascade: ['persist', 'remove'])]
+        #[ORM\OrderBy(['sort_no' => 'ASC'])]
         private $DeliveryTimes;
 
         /**
          * @var \Eccube\Entity\Member
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Member")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'creator_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Member')]
         private $Creator;
 
         /**
          * @var \Eccube\Entity\Master\SaleType
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Master\SaleType")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="sale_type_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'sale_type_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Master\SaleType')]
         private $SaleType;
 
         /**

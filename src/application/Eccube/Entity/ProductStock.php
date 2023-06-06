@@ -18,13 +18,12 @@ use Doctrine\ORM\Mapping as ORM;
 if (!class_exists('\Eccube\Entity\ProductStock')) {
     /**
      * ProductStock
-     *
-     * @ORM\Table(name="dtb_product_stock")
-     * @ORM\InheritanceType("SINGLE_TABLE")
-     * @ORM\DiscriminatorColumn(name="discriminator_type", type="string", length=255)
-     * @ORM\HasLifecycleCallbacks()
-     * @ORM\Entity(repositoryClass="Eccube\Repository\ProductStockRepository")
      */
+    #[ORM\Table(name: 'dtb_product_stock')]
+    #[ORM\InheritanceType('SINGLE_TABLE')]
+    #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
+    #[ORM\HasLifecycleCallbacks]
+    #[ORM\Entity(repositoryClass: 'Eccube\Repository\ProductStockRepository')]
     class ProductStock extends \Eccube\Entity\AbstractEntity
     {
         public const IN_STOCK = 1;
@@ -61,52 +60,42 @@ if (!class_exists('\Eccube\Entity\ProductStock')) {
 
         /**
          * @var integer
-         *
-         * @ORM\Column(name="id", type="integer", options={"unsigned":true})
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="IDENTITY")
          */
+        #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'IDENTITY')]
         private $id;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="stock", type="decimal", precision=10, scale=0, nullable=true)
          */
+        #[ORM\Column(name: 'stock', type: 'decimal', precision: 10, scale: 0, nullable: true)]
         private $stock;
 
         /**
          * @var \DateTime
-         *
-         * @ORM\Column(name="create_date", type="datetimetz")
          */
+        #[ORM\Column(name: 'create_date', type: 'datetimetz')]
         private $create_date;
 
         /**
          * @var \DateTime
-         *
-         * @ORM\Column(name="update_date", type="datetimetz")
          */
+        #[ORM\Column(name: 'update_date', type: 'datetimetz')]
         private $update_date;
 
         /**
          * @var \Eccube\Entity\ProductClass
-         *
-         * @ORM\OneToOne(targetEntity="Eccube\Entity\ProductClass", inversedBy="ProductStock")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="product_class_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'product_class_id', referencedColumnName: 'id')]
+        #[ORM\OneToOne(targetEntity: 'Eccube\Entity\ProductClass', inversedBy: 'ProductStock')]
         private $ProductClass;
 
         /**
          * @var \Eccube\Entity\Member
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Member")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'creator_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Member')]
         private $Creator;
 
         /**
