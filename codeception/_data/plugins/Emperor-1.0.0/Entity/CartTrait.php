@@ -11,11 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait CartTrait
 {
-    /**
-     * @ORM\OneToOne(targetEntity="Plugin\Emperor\Entity\Foo")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="foo_id", referencedColumnName="id")
-     * })
-     */
+    #[ORM\JoinColumn(name: 'foo_id', referencedColumnName: 'id')]
+    #[ORM\OneToOne(targetEntity: 'Plugin\Emperor\Entity\Foo')]
     public $foo;
 }
