@@ -19,13 +19,14 @@ use Doctrine\Inflector\NoopWordInflector;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 use Doctrine\ORM\Proxy\Proxy;
+use Eccube\ORM\Mapping\MappedSuperclass as EccubeORM;
 use Eccube\DependencyInjection\Facade\AnnotationReaderFacade;
 use Eccube\Util\StringUtil;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
-#[MappedSuperclass]
+#[EccubeORM\MappedSuperclass]
 abstract class AbstractEntity implements \ArrayAccess
 {
     #[\ReturnTypeWillChange]
