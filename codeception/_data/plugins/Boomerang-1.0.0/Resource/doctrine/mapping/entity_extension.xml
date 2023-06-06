@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mapping>
   <entity target="Eccube\Entity\Cart">
-    <field name="is_boomerang" type="boolean" column="is_boomerang">
+    <field name="is_boomerang" type="boolean" column="is_boomerang" nullable="true">
       <options>
         <option name="default">false</option>
       </options>
