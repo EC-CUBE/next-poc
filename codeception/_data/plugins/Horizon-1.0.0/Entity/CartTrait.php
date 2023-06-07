@@ -2,7 +2,7 @@
 
 namespace Plugin\Horizon\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 use Eccube\Annotation\EntityExtension;
 
 /**

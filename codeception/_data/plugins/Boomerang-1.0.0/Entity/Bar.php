@@ -12,7 +12,7 @@
 
  namespace Plugin\Boomerang\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 
 if (!class_exists('Plugin\Boomerang\Entity\Bar')) {
 

@@ -4,7 +4,7 @@ namespace Plugin\Emperor\Entity;
 
 
 use Eccube\Annotation\EntityExtension;
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 
 /**
  * @EntityExtension("Eccube\Entity\Cart")

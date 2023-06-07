@@ -13,7 +13,7 @@
 namespace Plugin\Horizon\Entity;
 
 
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 
 if (!class_exists('Plugin\Horizon\Entity\Dash')) {
     /**
