@@ -5,6 +5,7 @@ namespace Eccube\Security;
 use Eccube\Entity\Customer;
 use Eccube\Entity\Member;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
@@ -72,7 +73,7 @@ class SecurityContext
         return $token->getEncoderFactory()->getEncoder($token->getUser());
     }
 
-    public function getToken(): ?TokenInterface
+    protected function getToken(): ?TokenInterface
     {
         return $this->tokenStorage->getToken();
     }
