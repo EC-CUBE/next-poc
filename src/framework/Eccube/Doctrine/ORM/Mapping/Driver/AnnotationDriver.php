@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping\MappingAttribute;
 use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\Persistence\Mapping\ClassMetadata as PersistenceClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\ColocatedMappingDriver;
+use Eccube\ORM\Mapping as EccubeORM;
 use LogicException;
 use ReflectionClass;
 use ReflectionMethod;
@@ -40,9 +41,40 @@ class AnnotationDriver extends \Doctrine\ORM\Mapping\Driver\AttributeDriver
 {
     protected $trait_proxies_directory;
 
+    public function __construct(array $paths)
+    {
+        parent::__construct($paths);
+
+        // TODO deprecatedのため, isTransientをオーバーライドする
+        $this->entityAnnotationClasses[EccubeORM\Entity::class] = 1;
+        $this->entityAnnotationClasses[EccubeORM\MappedSuperclass::class] = 2;
+    }
+
     public function setTraitProxiesDirectory($dir)
     {
         $this->trait_proxies_directory = $dir;
+    }
+
+    private function exists(array $classAttributes, array $attributes): bool
+    {
+        foreach ($attributes as $attr) {
+            if (isset($classAttributes[$attr])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function get(array $classAttributes, array $attributes): MappingAttribute|Mapping\Driver\RepeatableAttributeCollection
+    {
+        foreach ($attributes as $attr) {
+            if (isset($classAttributes[$attr])) {
+                return $classAttributes[$attr];
+            }
+        }
+
+        throw new LogicException();
     }
 
     /**
@@ -144,8 +176,8 @@ class AnnotationDriver extends \Doctrine\ORM\Mapping\Driver\AttributeDriver
         $classAttributes = $this->reader->getClassAttributes($reflectionClass);
 
         // Evaluate Entity attribute
-        if (isset($classAttributes[Mapping\Entity::class])) {
-            $entityAttribute = $classAttributes[Mapping\Entity::class];
+        if ($this->exists($classAttributes, [Mapping\Entity::class, EccubeORM\Entity::class])) {
+            $entityAttribute = $this->get($classAttributes, [Mapping\Entity::class, EccubeORM\Entity::class]);
             if ($entityAttribute->repositoryClass !== null) {
                 $metadata->setCustomRepositoryClass($entityAttribute->repositoryClass);
             }
@@ -153,8 +185,8 @@ class AnnotationDriver extends \Doctrine\ORM\Mapping\Driver\AttributeDriver
             if ($entityAttribute->readOnly) {
                 $metadata->markReadOnly();
             }
-        } elseif (isset($classAttributes[Mapping\MappedSuperclass::class])) {
-            $mappedSuperclassAttribute = $classAttributes[Mapping\MappedSuperclass::class];
+        } elseif ($this->exists($classAttributes, [Mapping\MappedSuperclass::class, EccubeORM\MappedSuperclass::class])) {
+            $mappedSuperclassAttribute = $this->get($classAttributes, [Mapping\MappedSuperclass::class, EccubeORM\MappedSuperclass::class]);
 
             $metadata->setCustomRepositoryClass($mappedSuperclassAttribute->repositoryClass);
             $metadata->isMappedSuperclass = true;
@@ -166,8 +198,8 @@ class AnnotationDriver extends \Doctrine\ORM\Mapping\Driver\AttributeDriver
 
         $primaryTable = [];
 
-        if (isset($classAttributes[Mapping\Table::class])) {
-            $tableAnnot             = $classAttributes[Mapping\Table::class];
+        if ($this->exists($classAttributes, [Mapping\Table::class, EccubeORM\Table::class])) {
+            $tableAnnot             = $this->get($classAttributes, [Mapping\Table::class, EccubeORM\Table::class]);
             $primaryTable['name']   = $tableAnnot->name;
             $primaryTable['schema'] = $tableAnnot->schema;
 
@@ -176,8 +208,8 @@ class AnnotationDriver extends \Doctrine\ORM\Mapping\Driver\AttributeDriver
             }
         }
 
-        if (isset($classAttributes[Mapping\Index::class])) {
-            foreach ($classAttributes[Mapping\Index::class] as $idx => $indexAnnot) {
+        if ($this->exists($classAttributes, [Mapping\Index::class, EccubeORM\Index::class])) {
+            foreach ($this->get($classAttributes, [Mapping\Index::class, EccubeORM\Index::class]) as $idx => $indexAnnot) {
                 $index = [];
 
                 if (! empty($indexAnnot->columns)) {
@@ -217,8 +249,8 @@ class AnnotationDriver extends \Doctrine\ORM\Mapping\Driver\AttributeDriver
             }
         }
 
-        if (isset($classAttributes[Mapping\UniqueConstraint::class])) {
-            foreach ($classAttributes[Mapping\UniqueConstraint::class] as $idx => $uniqueConstraintAnnot) {
+        if ($this->exists($classAttributes, [Mapping\UniqueConstraint::class, EccubeORM\UniqueConstraint::class])) {
+            foreach ($this->get($classAttributes, [Mapping\UniqueConstraint::class, EccubeORM\UniqueConstraint::class]) as $idx => $uniqueConstraintAnnot) {
                 $uniqueConstraint = [];
 
                 if (! empty($uniqueConstraintAnnot->columns)) {
@@ -268,8 +300,8 @@ class AnnotationDriver extends \Doctrine\ORM\Mapping\Driver\AttributeDriver
         }
 
         // Evaluate InheritanceType attribute
-        if (isset($classAttributes[Mapping\InheritanceType::class])) {
-            $inheritanceTypeAttribute = $classAttributes[Mapping\InheritanceType::class];
+        if ($this->exists($classAttributes, [Mapping\InheritanceType::class, EccubeORM\InheritanceType::class])) {
+            $inheritanceTypeAttribute = $this->get($classAttributes, [Mapping\InheritanceType::class, EccubeORM\InheritanceType::class]);
 
             $metadata->setInheritanceType(
                 constant('Doctrine\ORM\Mapping\ClassMetadata::INHERITANCE_TYPE_' . $inheritanceTypeAttribute->value)
@@ -277,8 +309,8 @@ class AnnotationDriver extends \Doctrine\ORM\Mapping\Driver\AttributeDriver
 
             if ($metadata->inheritanceType !== ClassMetadata::INHERITANCE_TYPE_NONE) {
                 // Evaluate DiscriminatorColumn attribute
-                if (isset($classAttributes[Mapping\DiscriminatorColumn::class])) {
-                    $discrColumnAttribute = $classAttributes[Mapping\DiscriminatorColumn::class];
+                if ($this->exists($classAttributes, [Mapping\DiscriminatorColumn::class, EccubeORM\DiscriminatorColumn::class])) {
+                    $discrColumnAttribute = $this->get($classAttributes, [Mapping\DiscriminatorColumn::class, EccubeORM\DiscriminatorColumn::class]);
 
                     $metadata->setDiscriminatorColumn(
                         [
@@ -584,7 +616,7 @@ class AnnotationDriver extends \Doctrine\ORM\Mapping\Driver\AttributeDriver
         }
 
         // Evaluate #[HasLifecycleCallbacks] attribute
-        if (isset($classAttributes[Mapping\HasLifecycleCallbacks::class])) {
+        if ($this->exists($classAttributes, [Mapping\HasLifecycleCallbacks::class, EccubeORM\HasLifecycleCallbacks::class])) {
             foreach ($reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
                 assert($method instanceof ReflectionMethod);
                 foreach ($this->getMethodCallbacks($method) as $value) {
