@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Eccube\ORM\Mapping;
 
 use Attribute;
+use Doctrine\ORM\Mapping\AssociationOverride;
 use Doctrine\ORM\Mapping\MappingAttribute;
+use Doctrine\ORM\Mapping\MappingException;
 
 use function array_values;
 use function is_array;

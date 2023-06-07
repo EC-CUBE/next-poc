@@ -24,68 +24,68 @@ class FormErrorIterator implements \RecursiveIterator, \SeekableIterator, \Array
         $this->adaptee = $adaptee;
     }
 
-    public function current()
+    public function current(): mixed
     {
         return new FormError($this->adaptee->current());
     }
 
-    public function next()
+    public function next(): void
     {
         $this->adaptee->next();
     }
 
-    public function key()
+    public function key(): int
     {
         return $this->adaptee->key();
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return $this->adaptee->valid();
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->adaptee->rewind();
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $this->adaptee->offsetExists($offset);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return new FormError($this->adaptee->offsetGet($offset));
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         /** @var FormError $value */
         $this->adaptee->offsetSet($offset, $value->getAdaptee());
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         $this->adaptee->offsetUnset($offset);
     }
 
-    public function count()
+    public function count(): int
     {
         return $this->adaptee->count();
     }
 
-    public function hasChildren()
+    public function hasChildren(): bool
     {
         return $this->adaptee->hasChildren();
     }
 
-    public function getChildren()
+    public function getChildren(): ?\RecursiveIterator
     {
         return new FormErrorIterator($this->adaptee->getChildren());
     }
 
-    public function seek($offset)
+    public function seek($offset): void
     {
         $this->adaptee->seek($offset);
     }
