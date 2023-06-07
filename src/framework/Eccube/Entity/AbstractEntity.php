@@ -16,8 +16,8 @@ namespace Eccube\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\NoopWordInflector;
+use Doctrine\ORM\Mapping\Driver\AttributeReader;
 use Doctrine\ORM\Proxy\Proxy;
-use Eccube\DependencyInjection\Facade\AnnotationReaderFacade;
 use Eccube\ORM\Mapping as ORM;
 use Eccube\Util\StringUtil;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -244,8 +244,8 @@ abstract class AbstractEntity implements \ArrayAccess
         $Properties = $PropReflect->getProperties();
 
         foreach ($Properties as $Property) {
-            $AnnotationReader = AnnotationReaderFacade::create();
-            $anno = $AnnotationReader->getPropertyAnnotation($Property, ORM\Id::class);
+            $reader = new AttributeReader();
+            $anno = $reader->getPropertyAttribute($Property, ORM\Id::class);
             if ($anno) {
                 $Property->setAccessible(true);
                 $Result[$Property->getName()] = $Property->getValue($Entity);

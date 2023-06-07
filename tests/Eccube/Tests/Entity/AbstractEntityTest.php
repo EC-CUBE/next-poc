@@ -13,7 +13,7 @@
 
 namespace Eccube\Tests\Entity;
 
-use Doctrine\ORM\Mapping\Id;
+use Eccube\ORM\Mapping\Id;
 use Eccube\Entity\AbstractEntity;
 use Eccube\Tests\EccubeTestCase;
 
@@ -420,9 +420,7 @@ class TestChildEntity extends TestExtendsEntity
 
 class TestChildren extends AbstractEntity
 {
-    /**
-     * @Id
-     */
+    #[Id]
     private $childField;
 
     public function __construct($childField)
