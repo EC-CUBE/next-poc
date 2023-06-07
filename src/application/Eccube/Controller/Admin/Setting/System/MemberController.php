@@ -23,16 +23,10 @@ use Eccube\Form\Type\Admin\MemberType;
 use Eccube\Repository\MemberRepository;
 use Eccube\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class MemberController extends AbstractController
 {
-    /**
-     * @var TokenStorageInterface
-     */
-    protected $tokenStorage;
-
     /**
      * @var MemberRepository
      */
@@ -48,16 +42,13 @@ class MemberController extends AbstractController
      *
      * @param EncoderFactoryInterface $encoderFactory
      * @param MemberRepository $memberRepository
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         EncoderFactoryInterface $encoderFactory,
-        MemberRepository $memberRepository,
-        TokenStorageInterface $tokenStorage
+        MemberRepository $memberRepository
     ) {
         $this->encoderFactory = $encoderFactory;
         $this->memberRepository = $memberRepository;
-        $this->tokenStorage = $tokenStorage;
     }
 
     /**

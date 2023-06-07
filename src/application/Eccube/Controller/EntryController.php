@@ -31,7 +31,6 @@ use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception as HttpException;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class EntryController extends AbstractController
@@ -67,11 +66,6 @@ class EntryController extends AbstractController
     protected $encoderFactory;
 
     /**
-     * @var TokenStorageInterface
-     */
-    protected $tokenStorage;
-
-    /**
      * @var \Eccube\Service\CartService
      */
     protected $cartService;
@@ -91,7 +85,6 @@ class EntryController extends AbstractController
      * @param CustomerRepository $customerRepository
      * @param EncoderFactoryInterface $encoderFactory
      * @param Validator $validator
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         CartService              $cartService,
@@ -101,7 +94,6 @@ class EntryController extends AbstractController
         CustomerRepository       $customerRepository,
         EncoderFactoryInterface  $encoderFactory,
         Validator                $validator,
-        TokenStorageInterface    $tokenStorage,
         PageRepository           $pageRepository
     ) {
         $this->customerStatusRepository = $customerStatusRepository;
@@ -110,7 +102,6 @@ class EntryController extends AbstractController
         $this->customerRepository = $customerRepository;
         $this->encoderFactory = $encoderFactory;
         $this->validator = $validator;
-        $this->tokenStorage = $tokenStorage;
         $this->cartService = $cartService;
         $this->pageRepository = $pageRepository;
     }

@@ -21,16 +21,10 @@ use Eccube\Routing\Annotation\Route;
 use Eccube\Service\TwoFactorAuthService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class TwoFactorAuthController extends AbstractController
 {
-    /**
-     * @var TokenStorageInterface
-     */
-    protected $tokenStorage;
-
     /**
      * @var MemberRepository
      */
@@ -50,17 +44,14 @@ class TwoFactorAuthController extends AbstractController
      * TwoFactorAuthController constructor.
      *
      * @param MemberRepository $memberRepository
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         EncoderFactoryInterface $encoderFactory,
         MemberRepository $memberRepository,
-        TokenStorageInterface $tokenStorage,
         TwoFactorAuthService $twoFactorAuthService
     ) {
         $this->encoderFactory = $encoderFactory;
         $this->memberRepository = $memberRepository;
-        $this->tokenStorage = $tokenStorage;
         $this->twoFactorAuthService = $twoFactorAuthService;
     }
 

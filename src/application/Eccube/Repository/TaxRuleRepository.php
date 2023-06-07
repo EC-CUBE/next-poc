@@ -20,7 +20,7 @@ use Eccube\Entity\BaseInfo;
 use Eccube\Entity\Customer;
 use Eccube\Entity\Master\RoundingType;
 use Eccube\Entity\TaxRule;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Eccube\Security\SecurityContext;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
@@ -43,32 +43,28 @@ class TaxRuleRepository extends AbstractRepository
      */
     protected $authorizationChecker;
 
-    /**
-     * @var TokenStorageInterface
-     */
-    protected $tokenStorage;
+    protected SecurityContext $securityContext;
 
     /**
      * TaxRuleRepository constructor.
      *
      * @param RegistryInterface $registry
-     * @param TokenStorageInterface $tokenStorage
      * @param AuthorizationCheckerInterface $authorizationChecker
      * @param BaseInfoRepository $baseInfoRepository
      * @param EccubeConfig $eccubeConfig
      */
     public function __construct(
         RegistryInterface $registry,
-        TokenStorageInterface $tokenStorage,
         AuthorizationCheckerInterface $authorizationChecker,
         BaseInfoRepository $baseInfoRepository,
-        EccubeConfig $eccubeConfig
+        EccubeConfig $eccubeConfig,
+        SecurityContext $securityContext
     ) {
         parent::__construct($registry, TaxRule::class);
-        $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $authorizationChecker;
         $this->baseInfo = $baseInfoRepository->get();
         $this->eccubeConfig = $eccubeConfig;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -111,9 +107,9 @@ class TaxRuleRepository extends AbstractRepository
     public function getByRule($Product = null, $ProductClass = null, $Pref = null, $Country = null)
     {
         // Pref Country 設定
-        if (!$Pref && !$Country && $this->tokenStorage->getToken() && $this->authorizationChecker->isGranted('ROLE_USER')) {
-            /* @var $Customer \Eccube\Entity\Customer */
-            $Customer = $this->tokenStorage->getToken()->getUser();
+        if (!$Pref && !$Country && $this->securityContext->hasToken() && $this->authorizationChecker->isGranted('ROLE_USER')) {
+            /** @var Customer $Customer */
+            $Customer = $this->securityContext->getLoginCustomer();
             // FIXME なぜか管理画面でも実行されている.
             if ($Customer instanceof Customer) {
                 $Pref = $Customer->getPref();

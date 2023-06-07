@@ -22,17 +22,10 @@ use Eccube\Form\Type\Front\EntryType;
 use Eccube\Repository\CustomerRepository;
 use Eccube\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class ChangeController extends AbstractController
 {
-    /**
-     * @var TokenStorage
-     */
-    protected $tokenStorage;
-
     /**
      * @var CustomerRepository
      */
@@ -45,12 +38,10 @@ class ChangeController extends AbstractController
 
     public function __construct(
         CustomerRepository $customerRepository,
-        EncoderFactoryInterface $encoderFactory,
-        TokenStorageInterface $tokenStorage
+        EncoderFactoryInterface $encoderFactory
     ) {
         $this->customerRepository = $customerRepository;
         $this->encoderFactory = $encoderFactory;
-        $this->tokenStorage = $tokenStorage;
     }
 
     /**

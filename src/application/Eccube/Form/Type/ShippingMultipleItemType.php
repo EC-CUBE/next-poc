@@ -20,12 +20,12 @@ use Eccube\Entity\CustomerAddress;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\FormEvent;
 use Eccube\Repository\Master\PrefRepository;
+use Eccube\Security\SecurityContext;
 use Eccube\Service\OrderHelper;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ShippingMultipleItemType extends AbstractType
@@ -46,11 +46,6 @@ class ShippingMultipleItemType extends AbstractType
     protected $authorizationChecker;
 
     /**
-     * @var TokenStorageInterface
-     */
-    protected $tokenStorage;
-
-    /**
      * @var PrefRepository
      */
     protected $prefRepository;
@@ -65,30 +60,31 @@ class ShippingMultipleItemType extends AbstractType
      */
     protected $orderHelper;
 
+    protected SecurityContext $securityContext;
+
     /**
      * ShippingMultipleItemType constructor.
      *
      * @param EccubeConfig $eccubeConfig
      * @param SessionInterface $session
      * @param AuthorizationCheckerInterface $authorizationChecker
-     * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(
         EccubeConfig $eccubeConfig,
         SessionInterface $session,
         AuthorizationCheckerInterface $authorizationChecker,
-        TokenStorageInterface $tokenStorage,
         PrefRepository $prefRepository,
         EntityManagerInterface $entityManager,
-        OrderHelper $orderHelper
+        OrderHelper $orderHelper,
+        SecurityContext $securityContext
     ) {
         $this->eccubeConfig = $eccubeConfig;
         $this->session = $session;
         $this->authorizationChecker = $authorizationChecker;
-        $this->tokenStorage = $tokenStorage;
         $this->prefRepository = $prefRepository;
         $this->entityManager = $entityManager;
         $this->orderHelper = $orderHelper;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -116,7 +112,7 @@ class ShippingMultipleItemType extends AbstractType
                 if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
                     // 会員の場合は、会員住所とお届け先住所をマージしてリストを作成
                     /** @var Customer $Customer */
-                    $Customer = $this->tokenStorage->getToken()->getUser();
+                    $Customer = $this->securityContext->getLoginCustomer();
                     $CustomerAddress = new CustomerAddress();
                     $CustomerAddress->setFromCustomer($Customer);
                     $CustomerAddresses = array_merge([$CustomerAddress], $Customer->getCustomerAddresses()->toArray());
