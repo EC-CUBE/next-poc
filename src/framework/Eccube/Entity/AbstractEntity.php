@@ -16,17 +16,15 @@ namespace Eccube\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\NoopWordInflector;
-use Doctrine\ORM\Mapping\Id;
-use Doctrine\ORM\Mapping\MappedSuperclass;
 use Doctrine\ORM\Proxy\Proxy;
-use Eccube\ORM\Mapping\MappedSuperclass as EccubeORM;
 use Eccube\DependencyInjection\Facade\AnnotationReaderFacade;
+use Eccube\ORM\Mapping as ORM;
 use Eccube\Util\StringUtil;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
-#[EccubeORM\MappedSuperclass]
+#[ORM\MappedSuperclass]
 abstract class AbstractEntity implements \ArrayAccess
 {
     #[\ReturnTypeWillChange]
@@ -247,7 +245,7 @@ abstract class AbstractEntity implements \ArrayAccess
 
         foreach ($Properties as $Property) {
             $AnnotationReader = AnnotationReaderFacade::create();
-            $anno = $AnnotationReader->getPropertyAnnotation($Property, Id::class);
+            $anno = $AnnotationReader->getPropertyAnnotation($Property, ORM\Id::class);
             if ($anno) {
                 $Property->setAccessible(true);
                 $Result[$Property->getName()] = $Property->getValue($Entity);

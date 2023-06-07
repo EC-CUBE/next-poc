@@ -13,7 +13,7 @@
 
 namespace Eccube\Entity\Master;
 
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 
 if (!class_exists(OrderStatusColor::class, false)) {
     /**

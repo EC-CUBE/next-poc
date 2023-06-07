@@ -14,8 +14,7 @@
 namespace Eccube\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use Eccube\ORM\Mapping as EccubeORM;
+use Eccube\ORM\Mapping as ORM;
 use Eccube\Service\PurchaseFlow\InvalidItemException;
 use Eccube\Service\PurchaseFlow\ItemCollection;
 
@@ -23,13 +22,13 @@ if (!class_exists('\Eccube\Entity\Cart')) {
     /**
      * Cart
      */
-    #[EccubeORM\Table(name: 'dtb_cart')]
-    #[EccubeORM\Index(name: 'dtb_cart_update_date_idx', columns: ['update_date'])]
-    #[EccubeORM\InheritanceType('SINGLE_TABLE')]
-    #[EccubeORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
-    #[EccubeORM\HasLifecycleCallbacks]
-    #[EccubeORM\UniqueConstraint(name: 'dtb_cart_pre_order_id_idx', columns: ['pre_order_id'])]
-    #[EccubeORM\Entity(repositoryClass: 'Eccube\Repository\CartRepository')]
+    #[ORM\Table(name: 'dtb_cart')]
+    #[ORM\Index(name: 'dtb_cart_update_date_idx', columns: ['update_date'])]
+    #[ORM\InheritanceType('SINGLE_TABLE')]
+    #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
+    #[ORM\HasLifecycleCallbacks]
+    #[ORM\UniqueConstraint(name: 'dtb_cart_pre_order_id_idx', columns: ['pre_order_id'])]
+    #[ORM\Entity(repositoryClass: 'Eccube\Repository\CartRepository')]
     class Cart extends AbstractEntity implements PurchaseInterface, ItemHolderInterface
     {
         use PointTrait;

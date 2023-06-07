@@ -13,18 +13,17 @@
 
 namespace Eccube\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Eccube\ORM\Mapping as EccubeORM;
+use Eccube\ORM\Mapping as ORM;
 
 if (!class_exists('\Eccube\Entity\CartItem')) {
     /**
      * CartItem
      */
-    #[EccubeORM\Table(name: 'dtb_cart_item')]
-    #[EccubeORM\InheritanceType('SINGLE_TABLE')]
-    #[EccubeORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
-    #[EccubeORM\HasLifecycleCallbacks]
-    #[EccubeORM\Entity(repositoryClass: 'Eccube\Repository\CartItemRepository')]
+    #[ORM\Table(name: 'dtb_cart_item')]
+    #[ORM\InheritanceType('SINGLE_TABLE')]
+    #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
+    #[ORM\HasLifecycleCallbacks]
+    #[ORM\Entity(repositoryClass: 'Eccube\Repository\CartItemRepository')]
     class CartItem extends \Eccube\Entity\AbstractEntity implements ItemInterface
     {
         use PointRateTrait;
