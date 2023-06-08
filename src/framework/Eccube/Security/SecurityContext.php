@@ -6,16 +6,22 @@ use Eccube\Entity\Customer;
 use Eccube\Entity\Member;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 class SecurityContext
 {
     private TokenStorageInterface $tokenStorage;
+    private AuthorizationCheckerInterface $authorizationChecker;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        AuthorizationCheckerInterface $authorizationChecker
+    )
     {
         $this->tokenStorage = $tokenStorage;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     public function getLoginCustomer(): ?Customer
@@ -53,14 +59,18 @@ class SecurityContext
         $this->tokenStorage->setToken(null);
     }
 
-    public function isGranted(string $role): bool
+    /**
+     * Checks if the attribute is granted against the current authentication token and optionally supplied subject.
+     *
+     * @param mixed $attribute A single attribute to vote on (can be of any type, string and instance of Expression are supported by the core)
+     * @param mixed $subject
+     *
+     * @return bool
+     * @see AuthorizationCheckerInterface::isGranted()
+     */
+    public function isGranted($attribute, $subject = null): bool
     {
-        $token = $this->getToken();
-        if (!$token) {
-            return false;
-        }
-
-        return $token->isGranted($role);
+        return $this->authorizationChecker->isGranted($attribute, $subject);
     }
 
     public function getEncoder(): ?PasswordEncoderInterface

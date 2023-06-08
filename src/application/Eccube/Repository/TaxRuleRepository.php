@@ -21,7 +21,6 @@ use Eccube\Entity\Customer;
 use Eccube\Entity\Master\RoundingType;
 use Eccube\Entity\TaxRule;
 use Eccube\Security\SecurityContext;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * TaxRuleRepository
@@ -38,30 +37,22 @@ class TaxRuleRepository extends AbstractRepository
      */
     protected $baseInfo;
 
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    protected $authorizationChecker;
-
     protected SecurityContext $securityContext;
 
     /**
      * TaxRuleRepository constructor.
      *
      * @param RegistryInterface $registry
-     * @param AuthorizationCheckerInterface $authorizationChecker
      * @param BaseInfoRepository $baseInfoRepository
      * @param EccubeConfig $eccubeConfig
      */
     public function __construct(
         RegistryInterface $registry,
-        AuthorizationCheckerInterface $authorizationChecker,
         BaseInfoRepository $baseInfoRepository,
         EccubeConfig $eccubeConfig,
         SecurityContext $securityContext
     ) {
         parent::__construct($registry, TaxRule::class);
-        $this->authorizationChecker = $authorizationChecker;
         $this->baseInfo = $baseInfoRepository->get();
         $this->eccubeConfig = $eccubeConfig;
         $this->securityContext = $securityContext;
@@ -107,7 +98,7 @@ class TaxRuleRepository extends AbstractRepository
     public function getByRule($Product = null, $ProductClass = null, $Pref = null, $Country = null)
     {
         // Pref Country 設定
-        if (!$Pref && !$Country && $this->securityContext->hasToken() && $this->authorizationChecker->isGranted('ROLE_USER')) {
+        if (!$Pref && !$Country && $this->securityContext->hasToken() && $this->securityContext->isGranted('ROLE_USER')) {
             /** @var Customer $Customer */
             $Customer = $this->securityContext->getLoginCustomer();
             // FIXME なぜか管理画面でも実行されている.

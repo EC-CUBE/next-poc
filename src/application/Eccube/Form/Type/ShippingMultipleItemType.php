@@ -26,7 +26,6 @@ use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ShippingMultipleItemType extends AbstractType
 {
@@ -39,11 +38,6 @@ class ShippingMultipleItemType extends AbstractType
      * @var SessionInterface
      */
     protected $session;
-
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    protected $authorizationChecker;
 
     /**
      * @var PrefRepository
@@ -67,12 +61,10 @@ class ShippingMultipleItemType extends AbstractType
      *
      * @param EccubeConfig $eccubeConfig
      * @param SessionInterface $session
-     * @param AuthorizationCheckerInterface $authorizationChecker
      */
     public function __construct(
         EccubeConfig $eccubeConfig,
         SessionInterface $session,
-        AuthorizationCheckerInterface $authorizationChecker,
         PrefRepository $prefRepository,
         EntityManagerInterface $entityManager,
         OrderHelper $orderHelper,
@@ -80,7 +72,6 @@ class ShippingMultipleItemType extends AbstractType
     ) {
         $this->eccubeConfig = $eccubeConfig;
         $this->session = $session;
-        $this->authorizationChecker = $authorizationChecker;
         $this->prefRepository = $prefRepository;
         $this->entityManager = $entityManager;
         $this->orderHelper = $orderHelper;
@@ -109,7 +100,7 @@ class ShippingMultipleItemType extends AbstractType
             ->onPreSetData(function (FormEvent $event) {
                 $form = $event->getForm();
 
-                if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
+                if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
                     // 会員の場合は、会員住所とお届け先住所をマージしてリストを作成
                     /** @var Customer $Customer */
                     $Customer = $this->securityContext->getLoginCustomer();

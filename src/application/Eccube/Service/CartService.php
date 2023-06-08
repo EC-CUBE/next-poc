@@ -28,7 +28,6 @@ use Eccube\Service\Cart\CartItemAllocator;
 use Eccube\Service\Cart\CartItemComparator;
 use Eccube\Util\StringUtil;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CartService
 {
@@ -79,11 +78,6 @@ class CartService
      */
     protected $orderRepository;
 
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    protected $authorizationChecker;
-
     protected SecurityContext $securityContext;
 
     /**
@@ -97,7 +91,6 @@ class CartService
         CartItemComparator $cartItemComparator,
         CartItemAllocator $cartItemAllocator,
         OrderRepository $orderRepository,
-        AuthorizationCheckerInterface $authorizationChecker,
         SecurityContext $securityContext
     ) {
         $this->session = $session;
@@ -107,7 +100,6 @@ class CartService
         $this->cartItemComparator = $cartItemComparator;
         $this->cartItemAllocator = $cartItemAllocator;
         $this->orderRepository = $orderRepository;
-        $this->authorizationChecker = $authorizationChecker;
         $this->securityContext = $securityContext;
     }
 

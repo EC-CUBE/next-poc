@@ -34,19 +34,14 @@ use Eccube\Repository\MemberRepository;
 use Eccube\Repository\OrderRepository;
 use Eccube\Repository\ProductRepository;
 use Eccube\Routing\Annotation\Route;
+use Eccube\Security\SecurityContext;
 use Eccube\Service\PluginApiService;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminController extends AbstractController
 {
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    protected $authorizationChecker;
-
     /**
      * @var AuthenticationUtils
      */
@@ -85,6 +80,8 @@ class AdminController extends AbstractController
     /** @var PluginApiService */
     protected $pluginApiService;
 
+    protected SecurityContext $securityContext;
+
     /**
      * @var array 売り上げ状況用受注状況
      */
@@ -93,7 +90,6 @@ class AdminController extends AbstractController
     /**
      * AdminController constructor.
      *
-     * @param AuthorizationCheckerInterface $authorizationChecker
      * @param AuthenticationUtils $helper
      * @param MemberRepository $memberRepository
      * @param EncoderFactoryInterface $encoderFactory
@@ -104,7 +100,6 @@ class AdminController extends AbstractController
      * @param PluginApiService $pluginApiService
      */
     public function __construct(
-        AuthorizationCheckerInterface $authorizationChecker,
         AuthenticationUtils $helper,
         MemberRepository $memberRepository,
         EncoderFactoryInterface $encoderFactory,
@@ -112,9 +107,9 @@ class AdminController extends AbstractController
         OrderStatusRepository $orderStatusRepository,
         CustomerRepository $custmerRepository,
         ProductRepository $productRepository,
-        PluginApiService $pluginApiService
+        PluginApiService $pluginApiService,
+        SecurityContext $securityContext
     ) {
-        $this->authorizationChecker = $authorizationChecker;
         $this->helper = $helper;
         $this->memberRepository = $memberRepository;
         $this->encoderFactory = $encoderFactory;
@@ -123,6 +118,7 @@ class AdminController extends AbstractController
         $this->customerRepository = $custmerRepository;
         $this->productRepository = $productRepository;
         $this->pluginApiService = $pluginApiService;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -131,7 +127,7 @@ class AdminController extends AbstractController
      */
     public function login(Request $request)
     {
-        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+        if ($this->securityContext->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('admin_homepage');
         }
 
