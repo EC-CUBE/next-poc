@@ -71,7 +71,7 @@ class TagRepository extends AbstractRepository
     public function delete($Tag)
     {
         $em = $this->getEntityManager();
-        $em->beginTransaction();
+        $em->begin();
 
         $em->createQuery("DELETE \Eccube\Entity\ProductTag pt WHERE pt.Tag = :tag")->execute(['tag' => $Tag]);
 
