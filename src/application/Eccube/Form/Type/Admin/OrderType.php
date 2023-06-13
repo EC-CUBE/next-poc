@@ -14,7 +14,6 @@
 namespace Eccube\Form\Type\Admin;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Master\OrderStatus;
 use Eccube\Entity\Order;
@@ -32,6 +31,7 @@ use Eccube\Form\Type\PostalType;
 use Eccube\Form\Type\PriceType;
 use Eccube\Form\Validator\Email;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\Master\OrderStatusRepository;
 use Eccube\Service\OrderStateMachine;
 use Eccube\Validator\Constraints as Assert;
@@ -45,10 +45,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class OrderType extends AbstractType
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var EccubeConfig
@@ -68,12 +65,12 @@ class OrderType extends AbstractType
     /**
      * OrderType constructor.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      * @param EccubeConfig $eccubeConfig
      * @param OrderStateMachine $orderStateMachine
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         EccubeConfig $eccubeConfig,
         OrderStateMachine $orderStateMachine,
         OrderStatusRepository $orderStatusRepository

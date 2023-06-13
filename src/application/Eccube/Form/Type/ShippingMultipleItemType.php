@@ -13,12 +13,12 @@
 
 namespace Eccube\Form\Type;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Customer;
 use Eccube\Entity\CustomerAddress;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\FormEvent;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\Master\PrefRepository;
 use Eccube\Service\OrderHelper;
 use Eccube\Validator\Constraints as Assert;
@@ -55,10 +55,7 @@ class ShippingMultipleItemType extends AbstractType
      */
     protected $prefRepository;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var OrderHelper
@@ -79,7 +76,7 @@ class ShippingMultipleItemType extends AbstractType
         AuthorizationCheckerInterface $authorizationChecker,
         TokenStorageInterface $tokenStorage,
         PrefRepository $prefRepository,
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         OrderHelper $orderHelper
     ) {
         $this->eccubeConfig = $eccubeConfig;

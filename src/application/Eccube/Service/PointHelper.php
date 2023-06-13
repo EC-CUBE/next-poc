@@ -13,12 +13,12 @@
 
 namespace Eccube\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\ItemHolderInterface;
 use Eccube\Entity\Master\OrderItemType;
 use Eccube\Entity\Master\TaxDisplayType;
 use Eccube\Entity\Master\TaxType;
 use Eccube\Entity\OrderItem;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Service\PurchaseFlow\Processor\PointProcessor;
 
@@ -29,18 +29,15 @@ class PointHelper
      */
     protected $baseInfoRepository;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * PointHelper constructor.
      *
      * @param BaseInfoRepository $baseInfoRepository
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      */
-    public function __construct(BaseInfoRepository $baseInfoRepository, EntityManagerInterface $entityManager)
+    public function __construct(BaseInfoRepository $baseInfoRepository, EntityManager $entityManager)
     {
         $this->baseInfoRepository = $baseInfoRepository;
         $this->entityManager = $entityManager;

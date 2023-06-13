@@ -13,13 +13,13 @@
 
 namespace Eccube\Form\Type;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\Master\ProductListMax;
 use Eccube\Entity\Master\ProductListOrderBy;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\Type\Master\ProductListMaxType;
 use Eccube\Form\Type\Master\ProductListOrderByType;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\CategoryRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -32,17 +32,14 @@ class SearchProductType extends AbstractType
      */
     protected $categoryRepository;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * SearchProductType constructor.
      *
      * @param CategoryRepository $categoryRepository
      */
-    public function __construct(CategoryRepository $categoryRepository, EntityManagerInterface $entityManager)
+    public function __construct(CategoryRepository $categoryRepository, EntityManager $entityManager)
     {
         $this->categoryRepository = $categoryRepository;
         $this->entityManager = $entityManager;

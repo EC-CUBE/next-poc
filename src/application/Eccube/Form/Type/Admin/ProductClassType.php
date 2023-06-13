@@ -13,7 +13,6 @@
 
 namespace Eccube\Form\Type\Admin;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\ClassCategory;
 use Eccube\Form\DataTransformer;
@@ -24,6 +23,7 @@ use Eccube\Form\Type\Master\DeliveryDurationType;
 use Eccube\Form\Type\Master\SaleTypeType;
 use Eccube\Form\Type\PriceType;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\ORM\EntityManager;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -32,10 +32,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ProductClassType extends AbstractType
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var EccubeConfig
@@ -45,10 +42,10 @@ class ProductClassType extends AbstractType
     /**
      * ProductClassType constructor.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         EccubeConfig $eccubeConfig
     ) {
         $this->entityManager = $entityManager;

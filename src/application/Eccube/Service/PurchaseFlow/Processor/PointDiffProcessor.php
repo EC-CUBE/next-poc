@@ -13,10 +13,10 @@
 
 namespace Eccube\Service\PurchaseFlow\Processor;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\ItemHolderInterface;
 use Eccube\Entity\Master\OrderStatus;
 use Eccube\Entity\Order;
+use Eccube\ORM\EntityManager;
 use Eccube\Service\PointHelper;
 use Eccube\Service\PurchaseFlow\ItemHolderValidator;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
@@ -27,10 +27,7 @@ use Eccube\Service\PurchaseFlow\PurchaseProcessor;
  */
 class PointDiffProcessor extends ItemHolderValidator implements PurchaseProcessor
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var PointHelper
@@ -40,10 +37,10 @@ class PointDiffProcessor extends ItemHolderValidator implements PurchaseProcesso
     /**
      * PointDiffProcessor constructor.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      * @param PointHelper $pointHelper
      */
-    public function __construct(EntityManagerInterface $entityManager, PointHelper $pointHelper)
+    public function __construct(EntityManager $entityManager, PointHelper $pointHelper)
     {
         $this->entityManager = $entityManager;
         $this->pointHelper = $pointHelper;

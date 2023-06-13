@@ -16,6 +16,7 @@ namespace Eccube\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\DBALException;
 use Eccube\Entity\AbstractEntity;
+use Eccube\ORM\EntityManager;
 
 abstract class AbstractRepository extends ServiceEntityRepository
 {
@@ -62,7 +63,7 @@ abstract class AbstractRepository extends ServiceEntityRepository
      */
     protected function isPostgreSQL()
     {
-        return 'postgresql' == $this->getEntityManager()->getConnection()->getDatabasePlatform()->getName();
+        return 'postgresql' == $this->getEntityManager()->getDatabaseName();
     }
 
     /**
@@ -74,6 +75,11 @@ abstract class AbstractRepository extends ServiceEntityRepository
      */
     protected function isMySQL()
     {
-        return 'mysql' == $this->getEntityManager()->getConnection()->getDatabasePlatform()->getName();
+        return 'mysql' == $this->getEntityManager()->getDatabaseName();
+    }
+
+    public function getEntityManager(): EntityManager
+    {
+        return new EntityManager(parent::getEntityManager());
     }
 }

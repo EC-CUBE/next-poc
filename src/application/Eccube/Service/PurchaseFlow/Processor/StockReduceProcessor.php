@@ -14,11 +14,11 @@
 namespace Eccube\Service\PurchaseFlow\Processor;
 
 use Doctrine\DBAL\LockMode;
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\ItemHolderInterface;
 use Eccube\Entity\Order;
 use Eccube\Entity\ProductStock;
 use Eccube\Exception\ShoppingException;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\ProductStockRepository;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 
@@ -32,18 +32,15 @@ class StockReduceProcessor extends AbstractPurchaseProcessor
      */
     protected $productStockRepository;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * StockReduceProcessor constructor.
      *
      * @param ProductStockRepository $productStockRepository
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      */
-    public function __construct(ProductStockRepository $productStockRepository, EntityManagerInterface $entityManager)
+    public function __construct(ProductStockRepository $productStockRepository, EntityManager $entityManager)
     {
         $this->productStockRepository = $productStockRepository;
         $this->entityManager = $entityManager;

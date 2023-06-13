@@ -13,7 +13,6 @@
 
 namespace Eccube\Form\Type\Admin;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Layout;
@@ -25,6 +24,7 @@ use Eccube\Form\FormEvent;
 use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Validator\TwigLint;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\Master\DeviceTypeRepository;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -33,10 +33,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class MainEditType extends AbstractType
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var DeviceTypeRepository
@@ -51,12 +48,12 @@ class MainEditType extends AbstractType
     /**
      * MainEditType constructor.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      * @param DeviceTypeRepository $deviceTypeRepository
      * @param EccubeConfig $eccubeConfig
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         DeviceTypeRepository $deviceTypeRepository,
         EccubeConfig $eccubeConfig
     ) {

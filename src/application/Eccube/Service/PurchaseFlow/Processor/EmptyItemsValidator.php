@@ -13,26 +13,23 @@
 
 namespace Eccube\Service\PurchaseFlow\Processor;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\ItemHolderInterface;
 use Eccube\Entity\Order;
+use Eccube\ORM\EntityManager;
 use Eccube\Service\PurchaseFlow\InvalidItemException;
 use Eccube\Service\PurchaseFlow\ItemHolderValidator;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 
 class EmptyItemsValidator extends ItemHolderValidator
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * EmptyItemsProcessor constructor.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }

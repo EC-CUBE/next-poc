@@ -13,7 +13,6 @@
 
 namespace Eccube\Form\Type\Admin;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Block;
 use Eccube\Form\FormBuilder;
@@ -21,6 +20,7 @@ use Eccube\Form\FormError;
 use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Validator\TwigLint;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\ORM\EntityManager;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -29,10 +29,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class BlockType extends AbstractType
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var EccubeConfig
@@ -45,7 +42,7 @@ class BlockType extends AbstractType
      * @param $entityManager
      * @param EccubeConfig $eccubeConfig
      */
-    public function __construct(EntityManagerInterface $entityManager, EccubeConfig $eccubeConfig)
+    public function __construct(EntityManager $entityManager, EccubeConfig $eccubeConfig)
     {
         $this->entityManager = $entityManager;
         $this->eccubeConfig = $eccubeConfig;
