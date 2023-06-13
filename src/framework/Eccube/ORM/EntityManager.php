@@ -17,6 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NativeQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\UnitOfWork;
 
 class EntityManager
 {
@@ -115,9 +116,9 @@ class EntityManager
         return $this->entityManager->find($className, $id, $lockMode, $lockVersion);
     }
 
-    public function getEntityState($entity, $assume = null)
+    public function isStateManaged($entity, $assume = null): bool
     {
-        return $this->entityManager->getUnitOfWork()->getEntityState($entity, $assume);
+        return UnitOfWork::STATE_MANAGED === $this->entityManager->getUnitOfWork()->getEntityState($entity, $assume);
     }
 
     public function getDatabaseName(): string
