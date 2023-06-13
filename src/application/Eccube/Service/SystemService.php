@@ -13,7 +13,7 @@
 
 namespace Eccube\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Eccube\ORM\EntityManager;
 use Eccube\Util\StringUtil;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -46,10 +46,7 @@ class SystemService implements EventSubscriberInterface
      */
     private $maintenanceMode = null;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var ContainerInterface
@@ -60,7 +57,7 @@ class SystemService implements EventSubscriberInterface
      * SystemService constructor.
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         ContainerInterface $container
     ) {
         $this->entityManager = $entityManager;
@@ -74,32 +71,7 @@ class SystemService implements EventSubscriberInterface
      */
     public function getDbversion()
     {
-        $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
-        $rsm->addScalarResult('v', 'v');
-
-        $platform = $this->entityManager->getConnection()->getDatabasePlatform()->getName();
-        switch ($platform) {
-            case 'sqlite':
-                $prefix = 'SQLite version ';
-                $func = 'sqlite_version()';
-                break;
-
-            case 'mysql':
-                $prefix = 'MySQL ';
-                $func = 'version()';
-                break;
-
-            case 'pgsql':
-            default:
-                $prefix = '';
-                $func = 'version()';
-        }
-
-        $version = $this->entityManager
-            ->createNativeQuery('select '.$func.' as v', $rsm)
-            ->getSingleScalarResult();
-
-        return $prefix.$version;
+        return $this->entityManager->getDatabaseVersion();
     }
 
     /**
