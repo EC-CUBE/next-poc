@@ -67,8 +67,8 @@ class CsvImportController extends AbstractCsvImportController
                     $csv = $this->getImportData($formFile);
 
                     try {
-                        $this->entityManager->getConfiguration()->setSQLLogger(null);
-                        $this->entityManager->getConnection()->beginTransaction();
+                        $this->entityManager->resetSqlLogger();
+                        $this->entityManager->beginTransaction();
 
                         $this->loadCsv($csv, $errors);
 

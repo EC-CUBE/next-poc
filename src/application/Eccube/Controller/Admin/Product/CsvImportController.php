@@ -219,8 +219,8 @@ class CsvImportController extends AbstractCsvImportController
                     $headerByKey = array_flip(array_map($getId, $headers));
                     $deleteImages = [];
 
-                    $this->entityManager->getConfiguration()->setSQLLogger(null);
-                    $this->entityManager->getConnection()->beginTransaction();
+                    $this->entityManager->resetSqlLogger();
+                    $this->entityManager->beginTransaction();
                     // CSVファイルの登録処理
                     foreach ($data as $row) {
                         $line = $this->convertLineNo($data->key() + 1);
@@ -729,8 +729,8 @@ class CsvImportController extends AbstractCsvImportController
 
                         return $this->renderWithError($form, $headers, false);
                     }
-                    $this->entityManager->getConfiguration()->setSQLLogger(null);
-                    $this->entityManager->getConnection()->beginTransaction();
+                    $this->entityManager->resetSqlLogger();
+                    $this->entityManager->beginTransaction();
                     // CSVファイルの登録処理
                     foreach ($data as $row) {
                         /** @var $Category Category */

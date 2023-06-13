@@ -73,7 +73,7 @@ class EntityManager
         $this->entityManager->refresh($entity, $lockMode);
     }
 
-    public function begin(): bool
+    public function beginTransaction(): bool
     {
         return $this->entityManager->getConnection()->beginTransaction();
     }
@@ -157,5 +157,10 @@ class EntityManager
     public function filterIsEnabled(string $filter): bool
     {
         return $this->entityManager->getFilters()->isEnabled($filter);
+    }
+
+    public function resetSqlLogger()
+    {
+        $this->entityManager->getConfiguration()->setSQLLogger(null);
     }
 }
