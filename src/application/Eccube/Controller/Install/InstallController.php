@@ -263,13 +263,13 @@ class InstallController extends AbstractController
         // 再インストールの場合は環境変数から復旧
         if ($this->isInstalled()) {
             // ショップ名/メールアドレス
-            $conn = $this->entityManager->getConnection();
+            $databaseUrl = $this->getParameter('eccube_database_url');
+            $conn = $this->createConnection(['url' => $databaseUrl]);
             $stmt = $conn->query('SELECT shop_name, email01 FROM dtb_base_info WHERE id = 1;');
             $row = $stmt->fetch();
+
             $sessionData['shop_name'] = $row['shop_name'];
             $sessionData['email'] = $row['email01'];
-
-            $databaseUrl = $this->getParameter('eccube_database_url');
             $sessionData = array_merge($sessionData, $this->extractDatabaseUrl($databaseUrl));
 
             // 管理画面ルーティング
