@@ -73,10 +73,10 @@ class CsvImportController extends AbstractCsvImportController
                         $this->loadCsv($csv, $errors);
 
                         if ($errors) {
-                            $this->entityManager->getConnection()->rollBack();
+                            $this->entityManager->rollBack();
                         } else {
                             $this->entityManager->flush();
-                            $this->entityManager->getConnection()->commit();
+                            $this->entityManager->commit();
 
                             $this->addInfo('admin.common.csv_upload_complete', 'admin');
                         }

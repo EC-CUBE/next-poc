@@ -651,7 +651,7 @@ class CsvImportController extends AbstractCsvImportController
                         $this->entityManager->persist($Product);
                     }
                     $this->entityManager->flush();
-                    $this->entityManager->getConnection()->commit();
+                    $this->entityManager->commit();
 
                     // 画像ファイルの削除(commit後に削除させる)
                     foreach ($deleteImages as $images) {
@@ -830,7 +830,7 @@ class CsvImportController extends AbstractCsvImportController
                         $this->categoryRepository->save($Category);
                     }
 
-                    $this->entityManager->getConnection()->commit();
+                    $this->entityManager->commit();
                     log_info('カテゴリCSV登録完了');
                     $message = 'admin.common.csv_upload_complete';
                     $this->session->getFlashBag()->add('eccube.admin.success', $message);
@@ -882,7 +882,7 @@ class CsvImportController extends AbstractCsvImportController
     {
         if ($this->hasErrors()) {
             if ($rollback) {
-                $this->entityManager->getConnection()->rollback();
+                $this->entityManager->rollBack();
             }
         }
 
