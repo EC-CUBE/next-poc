@@ -159,6 +159,11 @@ class EntityManager
         return $this->entityManager->getFilters()->isEnabled($filter);
     }
 
+    public function enableFilter(string $filter)
+    {
+        $this->entityManager->getFilters()->enable($filter);
+    }
+
     public function resetSqlLogger()
     {
         $this->entityManager->getConfiguration()->setSQLLogger(null);

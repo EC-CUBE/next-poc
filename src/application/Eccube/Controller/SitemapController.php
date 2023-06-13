@@ -140,7 +140,7 @@ class SitemapController extends AbstractController
     {
         // Doctrine SQLFilter
         if ($this->BaseInfo->isOptionNostockHidden()) {
-            $this->entityManager->getFilters()->enable('option_nostock_hidden');
+            $this->entityManager->enableFilter('option_nostock_hidden');
         }
         // フロントの商品一覧の条件で商品情報を取得
         $ProductListOrder = $this->productListOrderByRepository->find($this->eccubeConfig['eccube_product_order_newer']);
