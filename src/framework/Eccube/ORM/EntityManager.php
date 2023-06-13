@@ -14,6 +14,7 @@
 namespace Eccube\ORM;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\NativeQuery;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 
@@ -41,6 +42,12 @@ class EntityManager
     {
         // todo queryのアダプタが必要
         return $this->entityManager->createQuery($dql);
+    }
+
+    public function createNativeQuery($sql, \Doctrine\ORM\Query\ResultSetMapping $rsm): NativeQuery
+    {
+        // todo queryのアダプタが必要
+        return $this->entityManager->createNativeQuery($sql, $rsm);
     }
 
     public function remove($entity)
