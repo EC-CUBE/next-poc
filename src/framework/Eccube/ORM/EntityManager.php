@@ -65,6 +65,11 @@ class EntityManager
         $this->entityManager->persist($entity);
     }
 
+    public function detach($entity)
+    {
+        $this->entityManager->detach($entity);
+    }
+
     public function clear($entityName = null)
     {
         $this->entityManager->clear($entityName);
