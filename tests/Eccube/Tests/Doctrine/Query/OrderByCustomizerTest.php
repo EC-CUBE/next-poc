@@ -13,7 +13,7 @@
 
 namespace Eccube\Tests\Doctrine\Query;
 
-use Doctrine\ORM\QueryBuilder;
+use Eccube\ORM\QueryBuilder;
 use Eccube\Doctrine\Query\OrderByClause;
 use Eccube\Doctrine\Query\OrderByCustomizer;
 use Eccube\Tests\EccubeTestCase;
@@ -73,9 +73,9 @@ class OrderByCustomizerTest extends EccubeTestCase
      */
     private function createQueryBuilder()
     {
-        return $this->entityManager->createQueryBuilder()
+        return new QueryBuilder($this->entityManager->createQueryBuilder()
             ->select('p')
-            ->from('Product', 'p');
+            ->from('Product', 'p'));
     }
 }
 
