@@ -13,12 +13,12 @@
 
 namespace Eccube\Controller\Admin\Content;
 
-use Doctrine\ORM\NoResultException;
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Layout;
 use Eccube\Entity\Master\ProductStatus;
 use Eccube\Form\Type\Admin\LayoutType;
+use Eccube\ORM\Exception\ORMException;
 use Eccube\Repository\BlockPositionRepository;
 use Eccube\Repository\BlockRepository;
 use Eccube\Repository\LayoutRepository;
@@ -203,7 +203,7 @@ class LayoutController extends AbstractController
                 // プレビューする画面を取得
                 try {
                     $Page = $this->pageRepository->find($previewPageId);
-                } catch (NoResultException $e) {
+                } catch (ORMException $e) {
                     throw new NotFoundHttpException();
                 }
 

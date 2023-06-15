@@ -14,7 +14,6 @@
 namespace Eccube\Controller\Admin\Product;
 
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
-use Doctrine\ORM\NoResultException;
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\ClassName;
@@ -22,6 +21,7 @@ use Eccube\Entity\Product;
 use Eccube\Entity\ProductClass;
 use Eccube\Entity\ProductStock;
 use Eccube\Form\Type\Admin\ProductClassMatrixType;
+use Eccube\ORM\Exception\ORMException;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\ClassCategoryRepository;
 use Eccube\Repository\ProductClassRepository;
@@ -458,7 +458,7 @@ class ProductClassController extends AbstractController
 
         try {
             return $qb->getQuery()->getSingleResult();
-        } catch (NoResultException $e) {
+        } catch (ORMException $e) {
             return null;
         }
     }

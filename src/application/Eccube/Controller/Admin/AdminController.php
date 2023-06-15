@@ -15,7 +15,6 @@ namespace Eccube\Controller\Admin;
 
 use Carbon\Carbon;
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\ORM\NoResultException;
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Master\CustomerStatus;
@@ -27,6 +26,7 @@ use Eccube\Event\EventArgs;
 use Eccube\Exception\PluginApiException;
 use Eccube\Form\Type\Admin\ChangePasswordType;
 use Eccube\Form\Type\Admin\LoginType;
+use Eccube\ORM\Exception\ORMException;
 use Eccube\Repository\CustomerRepository;
 use Eccube\Repository\Master\OrderStatusRepository;
 use Eccube\Repository\MemberRepository;
@@ -159,9 +159,6 @@ class AdminController extends AbstractController
      * @param Request $request
      *
      * @return array
-     *
-     * @throws NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      *
      * @Route("/%eccube_admin_route%/", name="admin_homepage", methods={"GET"})
      * @Template("@admin/index.twig")
@@ -474,7 +471,7 @@ class AdminController extends AbstractController
         $result = [];
         try {
             $result = $q->getSingleResult();
-        } catch (NoResultException $e) {
+        } catch (ORMException $e) {
             // 結果がない場合は空の配列を返す.
         }
 
@@ -513,7 +510,7 @@ class AdminController extends AbstractController
         $result = [];
         try {
             $result = $q->getSingleResult();
-        } catch (NoResultException $e) {
+        } catch (ORMException $e) {
             // 結果がない場合は空の配列を返す.
         }
 

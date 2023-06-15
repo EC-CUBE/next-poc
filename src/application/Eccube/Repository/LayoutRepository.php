@@ -13,9 +13,9 @@
 
 namespace Eccube\Repository;
 
-use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Entity\Layout;
+use Eccube\ORM\Exception\ORMException;
 
 /**
  * LayoutRepository
@@ -43,7 +43,7 @@ class LayoutRepository extends AbstractRepository
                 ->getQuery()
                 ->useResultCache(true, $this->getCacheLifetime())
                 ->getSingleResult();
-        } catch (NoResultException $e) {
+        } catch (ORMException $e) {
             return null;
         }
 

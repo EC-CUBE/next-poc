@@ -13,13 +13,13 @@
 
 namespace Eccube\Repository;
 
-use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\BaseInfo;
 use Eccube\Entity\Customer;
 use Eccube\Entity\Master\RoundingType;
 use Eccube\Entity\TaxRule;
+use Eccube\ORM\Exception\ORMException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -86,7 +86,7 @@ class TaxRuleRepository extends AbstractRepository
         try {
             $CurrentRule = $this->getByRule();
             $RoundingType = $CurrentRule->getRoundingType();
-        } catch (NoResultException $e) {
+        } catch (ORMException $e) {
             // quiet
         }
         $TaxRule = new TaxRule();
@@ -106,7 +106,7 @@ class TaxRuleRepository extends AbstractRepository
      *
      * @return \Eccube\Entity\TaxRule                 税設定情報
      *
-     * @throws NoResultException
+     * @throws ORMException
      */
     public function getByRule($Product = null, $ProductClass = null, $Pref = null, $Country = null)
     {
@@ -241,7 +241,7 @@ class TaxRuleRepository extends AbstractRepository
 
             return $TaxRules[0];
         } else {
-            throw new NoResultException();
+            throw new ORMException();
         }
     }
 
@@ -265,9 +265,9 @@ class TaxRuleRepository extends AbstractRepository
     /**
      * 税規約の削除.
      *
-     * @param  int|\Eccube\Entity\TaxRule $TaxRule 税規約
+     * @param int|\Eccube\Entity\TaxRule $TaxRule 税規約
      *
-     * @throws NoResultException
+     * @throws ORMException
      */
     public function delete($TaxRule)
     {
@@ -275,7 +275,7 @@ class TaxRuleRepository extends AbstractRepository
             $TaxRule = $this->find($TaxRule);
         }
         if (!$TaxRule) {
-            throw new NoResultException();
+            throw new ORMException();
         }
         $em = $this->getEntityManager();
         $em->remove($TaxRule);
