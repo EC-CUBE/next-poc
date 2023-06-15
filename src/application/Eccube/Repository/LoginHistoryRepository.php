@@ -45,7 +45,7 @@ class LoginHistoryRepository extends AbstractRepository
     /**
      * @param $searchData
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return \Eccube\ORM\QueryBuilder
      */
     public function getQueryBuilderBySearchDataForAdmin($searchData)
     {

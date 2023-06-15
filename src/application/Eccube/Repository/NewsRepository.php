@@ -61,7 +61,7 @@ class NewsRepository extends AbstractRepository
     }
 
     /**
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return \Eccube\ORM\QueryBuilder
      */
     public function getQueryBuilderAll()
     {

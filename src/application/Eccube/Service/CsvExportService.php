@@ -14,7 +14,7 @@
 namespace Eccube\Service;
 
 use Doctrine\Common\Util\ClassUtils;
-use Doctrine\ORM\QueryBuilder;
+use Eccube\ORM\QueryBuilder;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Csv;
 use Eccube\Entity\Master\CsvType;
@@ -52,10 +52,7 @@ class CsvExportService
 
     protected EntityManager $entityManager;
 
-    /**
-     * @var QueryBuilder;
-     */
-    protected $qb;
+    protected QueryBuilder $qb;
 
     /**
      * @var EccubeConfig
@@ -398,7 +395,7 @@ class CsvExportService
      *
      * @param Request $request
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return \Eccube\ORM\QueryBuilder
      */
     public function getOrderQueryBuilder(Request $request)
     {
@@ -422,7 +419,7 @@ class CsvExportService
      *
      * @param Request $request
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return \Eccube\ORM\QueryBuilder
      */
     public function getCustomerQueryBuilder(Request $request)
     {
@@ -446,7 +443,7 @@ class CsvExportService
      *
      * @param Request $request
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return \Eccube\ORM\QueryBuilder
      */
     public function getProductQueryBuilder(Request $request)
     {

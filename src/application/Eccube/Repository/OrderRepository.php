@@ -14,7 +14,7 @@
 namespace Eccube\Repository;
 
 use Doctrine\ORM\NoResultException;
-use Doctrine\ORM\QueryBuilder;
+use Eccube\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Doctrine\Query\Queries;
 use Eccube\Entity\Customer;
