@@ -16,7 +16,6 @@ namespace Eccube\Controller\Admin;
 use Carbon\Carbon;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\NoResultException;
-use Doctrine\ORM\Query\ResultSetMapping;
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Master\CustomerStatus;
@@ -427,23 +426,16 @@ class AdminController extends AbstractController
      */
     protected function getOrderEachStatus(array $excludes)
     {
-        $sql = 'SELECT
-                    t1.order_status_id as status,
-                    COUNT(t1.id) as count
-                FROM
-                    dtb_order t1
-                WHERE
-                    t1.order_status_id NOT IN (:excludes)
-                GROUP BY
-                    t1.order_status_id
-                ORDER BY
-                    t1.order_status_id';
-        $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('status', 'status');
-        $rsm->addScalarResult('count', 'count');
-        $query = $this->entityManager->createNativeQuery($sql, $rsm);
-        $query->setParameters([':excludes' => $excludes]);
-        $result = $query->getResult();
+        $qb = $this->entityManager->createQueryBuilder();
+        $result = $qb->select('IDENTITY(o.OrderStatus) as status, COUNT(o.id) as count')
+            ->from(\Eccube\Entity\Order::class, 'o')
+            ->where('o.OrderStatus NOT IN (:excludes)')
+            ->groupBy('o.OrderStatus')
+            ->orderBy('o.OrderStatus', 'ASC')
+            ->setParameter('excludes', $excludes)
+            ->getQuery()
+            ->getResult();
+
         $orderArray = [];
         foreach ($result as $row) {
             $orderArray[$row['status']] = $row['count'];

@@ -43,12 +43,6 @@ class EntityManager
         return new Query($this->entityManager->createQuery($dql));
     }
 
-    public function createNativeQuery($sql, \Doctrine\ORM\Query\ResultSetMapping $rsm): NativeQuery
-    {
-        // todo queryのアダプタが必要
-        return $this->entityManager->createNativeQuery($sql, $rsm);
-    }
-
     public function remove($entity)
     {
         $this->entityManager->remove($entity);
