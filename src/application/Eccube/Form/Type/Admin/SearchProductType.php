@@ -25,7 +25,7 @@ use Eccube\Repository\CategoryRepository;
 use Eccube\Repository\Master\ProductStatusRepository;
 use Eccube\Repository\TagRepository;
 use Eccube\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;

@@ -24,7 +24,7 @@ use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\DeliveryFeeRepository;
 use Eccube\Repository\DeliveryRepository;
 use Eccube\Validator\Constraints\NotBlank;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 

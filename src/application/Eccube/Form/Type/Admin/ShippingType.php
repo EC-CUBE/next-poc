@@ -34,7 +34,7 @@ use Eccube\Repository\DeliveryRepository;
 use Eccube\Repository\DeliveryTimeRepository;
 use Eccube\Util\StringUtil;
 use Eccube\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;

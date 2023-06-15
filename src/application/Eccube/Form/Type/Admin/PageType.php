@@ -16,7 +16,7 @@ namespace Eccube\Form\Type\Admin;
 use Doctrine\ORM\EntityRepository;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\Type\AbstractType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 
 class PageType extends AbstractType
 {
