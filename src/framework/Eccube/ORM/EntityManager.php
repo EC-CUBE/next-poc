@@ -15,7 +15,7 @@ namespace Eccube\ORM;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NativeQuery;
-use Doctrine\ORM\Query;
+use Eccube\ORM\Query;
 use Eccube\ORM\QueryBuilder;
 use Doctrine\ORM\UnitOfWork;
 
@@ -40,8 +40,7 @@ class EntityManager
 
     public function createQuery(string $dql): Query
     {
-        // todo queryのアダプタが必要
-        return $this->entityManager->createQuery($dql);
+        return new Query($this->entityManager->createQuery($dql));
     }
 
     public function createNativeQuery($sql, \Doctrine\ORM\Query\ResultSetMapping $rsm): NativeQuery

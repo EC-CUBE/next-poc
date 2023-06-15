@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace Eccube\ORM;
 
 use Doctrine\Common\Collections\Criteria;
-use Doctrine\ORM\Query;
+use Eccube\ORM\Query;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\Query\QueryException;
@@ -106,7 +106,7 @@ class QueryBuilder
 
     public function getQuery(): Query
     {
-        return $this->qb->getQuery();
+        return new Query($this->qb->getQuery());
     }
 
     public function getRootAlias(): string
