@@ -16,7 +16,7 @@ namespace Eccube\ORM;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NativeQuery;
 use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
+use Eccube\ORM\QueryBuilder;
 use Doctrine\ORM\UnitOfWork;
 
 class EntityManager
@@ -35,8 +35,7 @@ class EntityManager
 
     public function createQueryBuilder(): QueryBuilder
     {
-        // todo queryBuilderのアダプタが必要
-        return $this->entityManager->createQueryBuilder();
+        return new QueryBuilder($this->entityManager->createQueryBuilder());
     }
 
     public function createQuery(string $dql): Query

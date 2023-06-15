@@ -17,6 +17,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\DBALException;
 use Eccube\Entity\AbstractEntity;
 use Eccube\ORM\EntityManager;
+use Eccube\ORM\QueryBuilder;
 
 abstract class AbstractRepository extends ServiceEntityRepository
 {
@@ -81,5 +82,12 @@ abstract class AbstractRepository extends ServiceEntityRepository
     public function getEntityManager(): EntityManager
     {
         return new EntityManager(parent::getEntityManager());
+    }
+
+    public function createQueryBuilder($alias, $indexBy = null): QueryBuilder
+    {
+        $qb = parent::createQueryBuilder($alias, $indexBy);
+
+        return new QueryBuilder($qb);
     }
 }
