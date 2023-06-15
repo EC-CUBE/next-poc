@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Eccube\ORM;
 
 use Doctrine\ORM\Query as DoctrineQuery;
+use Eccube\ORM\Exception\ORMException;
 
 class Query
 {
@@ -47,9 +48,16 @@ class Query
         $this->query = $query;
     }
 
+    /**
+     * @throws ORMException
+     */
     public function getResult($hydrationMode = self::HYDRATE_OBJECT)
     {
-        return $this->query->getResult($hydrationMode);
+        try {
+            return $this->query->getResult($hydrationMode);
+        } catch (\Exception $e) {
+            throw ORMException::wrapORMException($e);
+        }
     }
 
     public function useResultCache($useCache, $lifetime = null, $resultCacheId = null): Query
@@ -60,34 +68,51 @@ class Query
     }
 
     /**
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\NoResultException
+     * @throws ORMException
      */
     public function getSingleResult($hydrationMode = null)
     {
-        return $this->query->getSingleResult($hydrationMode);
+        try {
+            return $this->query->getSingleResult($hydrationMode);
+        } catch (\Exception $e) {
+            throw ORMException::wrapORMException($e);
+        }
     }
 
     /**
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     * @throws \Doctrine\ORM\NoResultException
+     * @throws ORMException
      */
     public function getSingleScalarResult()
     {
-        return $this->getSingleResult(self::HYDRATE_SINGLE_SCALAR);
-    }
-
-    public function execute($parameters = null, $hydrationMode = null)
-    {
-        return $this->query->execute($parameters, $hydrationMode);
+        try {
+            return $this->getSingleResult(self::HYDRATE_SINGLE_SCALAR);
+        } catch (\Exception $e) {
+            throw ORMException::wrapORMException($e);
+        }
     }
 
     /**
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws ORMException
+     */
+    public function execute($parameters = null, $hydrationMode = null)
+    {
+        try {
+            return $this->query->execute($parameters, $hydrationMode);
+        } catch (\Exception $e) {
+            throw ORMException::wrapORMException($e);
+        }
+    }
+
+    /**
+     * @throws ORMException
      */
     public function getOneOrNullResult($hydrationMode = null)
     {
-        return $this->query->getOneOrNullResult($hydrationMode);
+        try {
+            return $this->query->getOneOrNullResult($hydrationMode);
+        } catch (\Exception $e) {
+            throw ORMException::wrapORMException($e);
+        }
     }
 
     public function setParameters($parameters): Query
@@ -104,8 +129,15 @@ class Query
         return $this;
     }
 
+    /**
+     * @throws ORMException
+     */
     public function getArrayResult()
     {
-        return $this->query->getArrayResult();
+        try {
+            return $this->query->getArrayResult();
+        } catch (\Exception $e) {
+            throw ORMException::wrapORMException($e);
+        }
     }
 }
