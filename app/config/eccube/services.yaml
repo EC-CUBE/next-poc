@@ -236,3 +236,9 @@ services:
         shared: false
         autowire: false
         autoconfigure: false
+
+    Eccube\Security\PasswordHasher\EccubePasswordHasher:
+        arguments:
+            - '%eccube_auth_magic%'
+            - '%eccube_auth_type%'
+            - '%eccube_password_hash_algos%'
