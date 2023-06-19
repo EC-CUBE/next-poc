@@ -34,10 +34,10 @@ use Eccube\Repository\MemberRepository;
 use Eccube\Repository\OrderRepository;
 use Eccube\Repository\ProductRepository;
 use Eccube\Routing\Annotation\Route;
+use Eccube\Security\Core\User\UserPasswordHasher;
 use Eccube\Security\SecurityContext;
 use Eccube\Service\PluginApiService;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminController extends AbstractController
@@ -51,11 +51,6 @@ class AdminController extends AbstractController
      * @var MemberRepository
      */
     protected $memberRepository;
-
-    /**
-     * @var EncoderFactoryInterface
-     */
-    protected $encoderFactory;
 
     /**
      * @var OrderRepository
@@ -92,7 +87,6 @@ class AdminController extends AbstractController
      *
      * @param AuthenticationUtils $helper
      * @param MemberRepository $memberRepository
-     * @param EncoderFactoryInterface $encoderFactory
      * @param OrderRepository $orderRepository
      * @param OrderStatusRepository $orderStatusRepository
      * @param CustomerRepository $custmerRepository
@@ -102,7 +96,6 @@ class AdminController extends AbstractController
     public function __construct(
         AuthenticationUtils $helper,
         MemberRepository $memberRepository,
-        EncoderFactoryInterface $encoderFactory,
         OrderRepository $orderRepository,
         OrderStatusRepository $orderStatusRepository,
         CustomerRepository $custmerRepository,
@@ -112,7 +105,6 @@ class AdminController extends AbstractController
     ) {
         $this->helper = $helper;
         $this->memberRepository = $memberRepository;
-        $this->encoderFactory = $encoderFactory;
         $this->orderRepository = $orderRepository;
         $this->orderStatusRepository = $orderStatusRepository;
         $this->customerRepository = $custmerRepository;
@@ -318,7 +310,7 @@ class AdminController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|array
      */
-    public function changePassword(Request $request)
+    public function changePassword(Request $request, UserPasswordHasher $hasher)
     {
         $builder = $this->formFactory
             ->createBuilder(ChangePasswordType::class);
@@ -336,21 +328,12 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $Member = $this->getUser();
-            $salt = $Member->getSalt();
+
             $password = $form->get('change_password')->getData();
-
-            $encoder = $this->encoderFactory->getEncoder($Member);
-
-            // 2系からのデータ移行でsaltがセットされていない場合はsaltを生成.
-            if (empty($salt)) {
-                $salt = $encoder->createSalt();
-            }
-
-            $password = $encoder->encodePassword($password, $salt);
+            $password = $hasher->hashPassword($Member, $password);
 
             $Member
-                ->setPassword($password)
-                ->setSalt($salt);
+                ->setPassword($password);
 
             $this->memberRepository->save($Member);
 

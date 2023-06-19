@@ -22,8 +22,8 @@ use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\MemberType;
 use Eccube\Repository\MemberRepository;
 use Eccube\Routing\Annotation\Route;
+use Eccube\Security\Core\User\UserPasswordHasher;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class MemberController extends AbstractController
 {
@@ -33,21 +33,13 @@ class MemberController extends AbstractController
     protected $memberRepository;
 
     /**
-     * @var EncoderFactoryInterface
-     */
-    protected $encoderFactory;
-
-    /**
      * MemberController constructor.
      *
-     * @param EncoderFactoryInterface $encoderFactory
      * @param MemberRepository $memberRepository
      */
     public function __construct(
-        EncoderFactoryInterface $encoderFactory,
         MemberRepository $memberRepository
     ) {
-        $this->encoderFactory = $encoderFactory;
         $this->memberRepository = $memberRepository;
     }
 
@@ -82,7 +74,7 @@ class MemberController extends AbstractController
      * @Route("/%eccube_admin_route%/setting/system/member/new", name="admin_setting_system_member_new", methods={"GET", "POST"})
      * @Template("@admin/Setting/System/member_edit.twig")
      */
-    public function create(Request $request)
+    public function create(Request $request, UserPasswordHasher $hasher)
     {
         $Member = new Member();
         $builder = $this->formFactory
@@ -98,13 +90,9 @@ class MemberController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $encoder = $this->encoderFactory->getEncoder($Member);
-            $salt = $encoder->createSalt();
             $password = $Member->getPlainPassword();
-            $password = $encoder->encodePassword($password, $salt);
-            $Member
-                ->setSalt($salt)
-                ->setPassword($password);
+            $password = $hasher->hashPassword($Member, $password);
+            $Member->setPassword($password);
 
             $this->memberRepository->save($Member);
 
@@ -132,7 +120,7 @@ class MemberController extends AbstractController
      * @Route("/%eccube_admin_route%/setting/system/member/{id}/edit", requirements={"id" = "\d+"}, name="admin_setting_system_member_edit", methods={"GET", "POST"})
      * @Template("@admin/Setting/System/member_edit.twig")
      */
-    public function edit(Request $request, Member $Member)
+    public function edit(Request $request, Member $Member, UserPasswordHasher $hasher)
     {
         $Member->setPlainPassword($this->eccubeConfig['eccube_default_password']);
 
@@ -153,16 +141,8 @@ class MemberController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($Member->getPlainPassword() !== $this->eccubeConfig['eccube_default_password']) {
-                $salt = $Member->getSalt();
-                // 2系からのデータ移行でsaltがセットされていない場合はsaltを生成.
-                if (empty($salt)) {
-                    $salt = bin2hex(openssl_random_pseudo_bytes(5));
-                    $Member->setSalt($salt);
-                }
-
                 $password = $Member->getPlainPassword();
-                $encoder = $this->encoderFactory->getEncoder($Member);
-                $password = $encoder->encodePassword($password, $salt);
+                $password = $hasher->hashPassword($Member, $password);
                 $Member->setPassword($password);
             }
 

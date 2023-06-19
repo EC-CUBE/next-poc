@@ -25,13 +25,13 @@ use Eccube\Repository\Master\CustomerStatusRepository;
 use Eccube\Repository\PageRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Routing\Generator\UrlGeneratorInterface;
+use Eccube\Security\Core\User\UserPasswordHasher;
 use Eccube\Service\CartService;
 use Eccube\Service\MailService;
 use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception as HttpException;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class EntryController extends AbstractController
 {
@@ -61,11 +61,6 @@ class EntryController extends AbstractController
     protected $customerRepository;
 
     /**
-     * @var EncoderFactoryInterface
-     */
-    protected $encoderFactory;
-
-    /**
      * @var \Eccube\Service\CartService
      */
     protected $cartService;
@@ -83,7 +78,6 @@ class EntryController extends AbstractController
      * @param MailService $mailService
      * @param BaseInfoRepository $baseInfoRepository
      * @param CustomerRepository $customerRepository
-     * @param EncoderFactoryInterface $encoderFactory
      * @param Validator $validator
      */
     public function __construct(
@@ -92,7 +86,6 @@ class EntryController extends AbstractController
         MailService              $mailService,
         BaseInfoRepository       $baseInfoRepository,
         CustomerRepository       $customerRepository,
-        EncoderFactoryInterface  $encoderFactory,
         Validator                $validator,
         PageRepository           $pageRepository
     ) {
@@ -100,7 +93,6 @@ class EntryController extends AbstractController
         $this->mailService = $mailService;
         $this->BaseInfo = $baseInfoRepository->get();
         $this->customerRepository = $customerRepository;
-        $this->encoderFactory = $encoderFactory;
         $this->validator = $validator;
         $this->cartService = $cartService;
         $this->pageRepository = $pageRepository;
@@ -113,7 +105,7 @@ class EntryController extends AbstractController
      * @Route("/entry", name="entry_confirm", methods={"GET", "POST"})
      * @Template("Entry/index.twig")
      */
-    public function index(Request $request)
+    public function index(Request $request, UserPasswordHasher $hasher)
     {
         if ($this->isGranted('ROLE_USER')) {
             log_info('認証済のためログイン処理をスキップ');
@@ -158,15 +150,9 @@ class EntryController extends AbstractController
                 case 'complete':
                     log_info('会員登録開始');
 
-                    $encoder = $this->encoderFactory->getEncoder($Customer);
-                    $salt = $encoder->createSalt();
-                    $password = $encoder->encodePassword($Customer->getPlainPassword(), $salt);
-                    $secretKey = $this->customerRepository->getUniqueSecretKey();
-
                     $Customer
-                        ->setSalt($salt)
-                        ->setPassword($password)
-                        ->setSecretKey($secretKey)
+                        ->setPassword($hasher->hashPassword($Customer, $Customer->getPlainPassword()))
+                        ->setSecretKey($this->customerRepository->getUniqueSecretKey())
                         ->setPoint(0);
 
                     $this->entityManager->persist($Customer);

@@ -21,8 +21,8 @@ use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Front\EntryType;
 use Eccube\Repository\CustomerRepository;
 use Eccube\Routing\Annotation\Route;
+use Eccube\Security\Core\User\UserPasswordHasher;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class ChangeController extends AbstractController
 {
@@ -31,17 +31,10 @@ class ChangeController extends AbstractController
      */
     protected $customerRepository;
 
-    /**
-     * @var EncoderFactoryInterface
-     */
-    protected $encoderFactory;
-
     public function __construct(
-        CustomerRepository $customerRepository,
-        EncoderFactoryInterface $encoderFactory
+        CustomerRepository $customerRepository
     ) {
         $this->customerRepository = $customerRepository;
-        $this->encoderFactory = $encoderFactory;
     }
 
     /**
@@ -50,7 +43,7 @@ class ChangeController extends AbstractController
      * @Route("/mypage/change", name="mypage_change", methods={"GET", "POST"})
      * @Template("Mypage/change.twig")
      */
-    public function index(Request $request)
+    public function index(Request $request, UserPasswordHasher $hasher)
     {
         /** @var Customer $Customer */
         $Customer = $this->getUser();
@@ -76,13 +69,8 @@ class ChangeController extends AbstractController
             log_info('会員編集開始');
 
             if ($Customer->getPlainPassword() !== $this->eccubeConfig['eccube_default_password']) {
-                $encoder = $this->encoderFactory->getEncoder($Customer);
-                if ($Customer->getSalt() === null) {
-                    $Customer->setSalt($encoder->createSalt());
-                }
-                $Customer->setPassword(
-                    $encoder->encodePassword($Customer->getPlainPassword(), $Customer->getSalt())
-                );
+                $password = $hasher->hashPassword($Customer, $Customer->getPlainPassword());
+                $Customer->setPassword($password);
             }
             $this->entityManager->flush();
 
