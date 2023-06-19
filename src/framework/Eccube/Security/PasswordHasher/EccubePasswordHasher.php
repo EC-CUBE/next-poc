@@ -63,7 +63,7 @@ class EccubePasswordHasher implements LegacyPasswordHasherInterface
 
     public function needsRehash(string $hashedPassword): bool
     {
-        return password_needs_rehash($hashedPassword, PASSWORD_DEFAULT);
+        return true;
     }
 
     public function setAuthMagic(string $auth_magic): void
