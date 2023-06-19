@@ -2,7 +2,6 @@
 
 namespace Eccube\Security\PasswordHasher;
 
-use Eccube\Common\EccubeConfig;
 use Symfony\Component\PasswordHasher\LegacyPasswordHasherInterface;
 
 class EccubePasswordHasher implements LegacyPasswordHasherInterface
@@ -64,10 +63,5 @@ class EccubePasswordHasher implements LegacyPasswordHasherInterface
     public function needsRehash(string $hashedPassword): bool
     {
         return true;
-    }
-
-    public function setAuthMagic(string $auth_magic): void
-    {
-        $this->auth_magic = $auth_magic;
     }
 }
