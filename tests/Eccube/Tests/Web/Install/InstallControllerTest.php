@@ -18,7 +18,7 @@ use Eccube\Common\Constant;
 use Eccube\Controller\Install\InstallController;
 use Eccube\Form\FormFactory;
 use Eccube\Form\FormView;
-use Eccube\Security\Core\Encoder\PasswordEncoder;
+use Eccube\Security\Core\User\UserPasswordHasher;
 use Eccube\Tests\Web\AbstractWebTestCase;
 use Eccube\Util\CacheUtil;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -72,11 +72,11 @@ class InstallControllerTest extends AbstractWebTestCase
         }
 
         $formFactory = static::getContainer()->get(FormFactory::class);
-        $encoder = static::getContainer()->get(PasswordEncoder::class);
+        $hasher = static::getContainer()->get(UserPasswordHasher::class);
         $cacheUtil = static::getContainer()->get(CacheUtil::class);
 
         $this->session = new Session(new MockArraySessionStorage());
-        $this->controller = new InstallController($encoder, $cacheUtil);
+        $this->controller = new InstallController($hasher, $cacheUtil);
         $this->controller->setFormFactory($formFactory);
         $this->controller->setSession($this->session);
         $this->controller->setEntityManager(static::getContainer()->get(EntityManagerInterface::class));
