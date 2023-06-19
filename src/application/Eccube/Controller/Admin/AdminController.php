@@ -35,10 +35,10 @@ use Eccube\Repository\OrderRepository;
 use Eccube\Repository\ProductRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Security\Core\User\UserPasswordHasher;
+use Eccube\Security\Http\Authentication\AuthenticationUtils;
 use Eccube\Security\SecurityContext;
 use Eccube\Service\PluginApiService;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminController extends AbstractController
 {
