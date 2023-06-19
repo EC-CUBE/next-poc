@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of EC-CUBE
+ *
+ * Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+ *
+ * http://www.ec-cube.co.jp/
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Eccube\Security;
 
 use Eccube\Entity\Customer;
@@ -7,19 +18,22 @@ use Eccube\Entity\Member;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class SecurityContext
 {
     private TokenStorageInterface $tokenStorage;
     private AuthorizationCheckerInterface $authorizationChecker;
+    private CsrfTokenManagerInterface $csrfTokenManager;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
-        AuthorizationCheckerInterface $authorizationChecker
-    )
-    {
+        AuthorizationCheckerInterface $authorizationChecker,
+        CsrfTokenManagerInterface $csrfTokenManager
+    ) {
         $this->tokenStorage = $tokenStorage;
         $this->authorizationChecker = $authorizationChecker;
+        $this->csrfTokenManager = $csrfTokenManager;
     }
 
     public function getLoginCustomer(): ?Customer
@@ -64,6 +78,7 @@ class SecurityContext
      * @param mixed $subject
      *
      * @return bool
+     *
      * @see AuthorizationCheckerInterface::isGranted()
      */
     public function isGranted($attribute, $subject = null): bool
@@ -79,5 +94,15 @@ class SecurityContext
     public function hasToken(): bool
     {
         return $this->tokenStorage->getToken() !== null;
+    }
+
+    public function getCsrfToken($tokenID): ?string
+    {
+        $token = $this->csrfTokenManager->getToken($tokenID);
+        if ($token) {
+            return $token->getValue();
+        }
+
+        return null;
     }
 }

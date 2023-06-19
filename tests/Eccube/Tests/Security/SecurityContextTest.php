@@ -20,6 +20,7 @@ use Eccube\Tests\EccubeTestCase;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class SecurityContextTest extends EccubeTestCase
 {
@@ -31,8 +32,8 @@ class SecurityContextTest extends EccubeTestCase
 
         $tokenStorage = $this->createMock(TokenStorageInterface::class);
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
-
-        $this->securityContext = new SecurityContext($tokenStorage, $authorizationChecker);
+        $csrfTokenManager = $this->createMock(CsrfTokenManagerInterface::class);
+        $this->securityContext = new SecurityContext($tokenStorage, $authorizationChecker, $csrfTokenManager);
     }
 
     public function testGetLoginCustomerReturnsNullWhenNoUserIsLoggedIn()
@@ -49,7 +50,8 @@ class SecurityContextTest extends EccubeTestCase
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $authorizationChecker->method('isGranted')->willReturn(false);
 
-        $securityContext = new SecurityContext($tokenStorage, $authorizationChecker);
+        $csrfTokenManager = $this->createMock(CsrfTokenManagerInterface::class);
+        $securityContext = new SecurityContext($tokenStorage, $authorizationChecker, $csrfTokenManager);
 
         $this->assertNull($securityContext->getLoginCustomer());
     }
@@ -67,7 +69,8 @@ class SecurityContextTest extends EccubeTestCase
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $authorizationChecker->method('isGranted')->willReturn(true);
 
-        $securityContext = new SecurityContext($tokenStorage, $authorizationChecker);
+        $csrfTokenManager = $this->createMock(CsrfTokenManagerInterface::class);
+        $securityContext = new SecurityContext($tokenStorage, $authorizationChecker, $csrfTokenManager);
 
         $this->assertSame($customer, $securityContext->getLoginCustomer());
     }
@@ -86,7 +89,8 @@ class SecurityContextTest extends EccubeTestCase
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $authorizationChecker->method('isGranted')->willReturn(false);
 
-        $securityContext = new SecurityContext($tokenStorage, $authorizationChecker);
+        $csrfTokenManager = $this->createMock(CsrfTokenManagerInterface::class);
+        $securityContext = new SecurityContext($tokenStorage, $authorizationChecker, $csrfTokenManager);
 
         $this->assertNull($securityContext->getLoginMember());
     }
@@ -104,7 +108,8 @@ class SecurityContextTest extends EccubeTestCase
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $authorizationChecker->method('isGranted')->willReturn(true);
 
-        $securityContext = new SecurityContext($tokenStorage, $authorizationChecker);
+        $csrfTokenManager = $this->createMock(CsrfTokenManagerInterface::class);
+        $securityContext = new SecurityContext($tokenStorage, $authorizationChecker, $csrfTokenManager);
 
         $this->assertSame($member, $securityContext->getLoginMember());
     }
