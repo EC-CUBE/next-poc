@@ -20,7 +20,7 @@ use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+use Eccube\Validator\Constraints\UserPassword;
 
 class ChangePasswordType extends AbstractType
 {
