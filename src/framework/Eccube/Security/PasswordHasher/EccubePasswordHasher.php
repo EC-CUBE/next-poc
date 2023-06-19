@@ -70,9 +70,4 @@ class EccubePasswordHasher implements LegacyPasswordHasherInterface
     {
         $this->auth_magic = $auth_magic;
     }
-
-    public function createSalt(int $length = 5): string
-    {
-        return bin2hex(openssl_random_pseudo_bytes($length));
-    }
 }

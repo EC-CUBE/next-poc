@@ -7,8 +7,6 @@ use Eccube\Entity\Member;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 class SecurityContext
 {
@@ -71,16 +69,6 @@ class SecurityContext
     public function isGranted($attribute, $subject = null): bool
     {
         return $this->authorizationChecker->isGranted($attribute, $subject);
-    }
-
-    public function getEncoder(): ?PasswordEncoderInterface
-    {
-        $token = $this->getToken();
-        if (!$token) {
-            return null;
-        }
-
-        return $token->getEncoderFactory()->getEncoder($token->getUser());
     }
 
     protected function getToken(): ?TokenInterface
