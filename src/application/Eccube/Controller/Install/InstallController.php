@@ -590,7 +590,7 @@ class InstallController extends AbstractController
             $this->getParameter('kernel.project_dir').'/app/Customize/Entity',
         ];
         $config = Setup::createConfiguration(true);
-        $driver = new AnnotationDriver(new AnnotationReader(), $paths);
+        $driver = new AnnotationDriver($paths);
         $driver->setTraitProxiesDirectory($this->getParameter('kernel.project_dir').'/app/proxy/entity');
         $config->setMetadataDriverImpl($driver);
 

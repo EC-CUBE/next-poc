@@ -87,8 +87,7 @@ class MockSessionHandler extends \SessionHandler
         return $this->data;
     }
 
-    #[\ReturnTypeWillChange]
-    public function open($path, $name)
+    public function open($path, $name): bool
     {
         return parent::open($path, $name);
     }
@@ -104,8 +103,7 @@ class TestSessionHandler extends SameSiteNoneCompatSessionHandler
         $this->data = $handler->getData();
     }
 
-    #[\ReturnTypeWillChange]
-    public function open($path, $name)
+    public function open($path, $name): bool
     {
         echo __FUNCTION__, "\n";
 
@@ -132,7 +130,7 @@ class TestSessionHandler extends SameSiteNoneCompatSessionHandler
     /**
      * {@inheritdoc}
      */
-    public function updateTimestamp($sessionId, $data)
+    public function updateTimestamp($sessionId, $data): bool
     {
         echo __FUNCTION__, "\n";
 
@@ -152,21 +150,21 @@ class TestSessionHandler extends SameSiteNoneCompatSessionHandler
     /**
      * {@inheritdoc}
      */
-    public function destroy($sessionId)
+    public function destroy($sessionId): bool
     {
         echo __FUNCTION__, "\n";
 
         return parent::destroy($sessionId);
     }
 
-    public function close()
+    public function close(): bool
     {
         echo __FUNCTION__, "\n";
 
         return true;
     }
 
-    public function gc($maxLifetime)
+    public function gc($maxLifetime): int|false
     {
         echo __FUNCTION__, "\n";
 

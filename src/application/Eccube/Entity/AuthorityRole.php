@@ -13,68 +13,57 @@
 
 namespace Eccube\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 
 if (!class_exists('\Eccube\Entity\AuthorityRole')) {
     /**
      * AuthorityRole
-     *
-     * @ORM\Table(name="dtb_authority_role")
-     * @ORM\InheritanceType("SINGLE_TABLE")
-     * @ORM\DiscriminatorColumn(name="discriminator_type", type="string", length=255)
-     * @ORM\HasLifecycleCallbacks()
-     * @ORM\Entity(repositoryClass="Eccube\Repository\AuthorityRoleRepository")
      */
+    #[ORM\Table(name: 'dtb_authority_role')]
+    #[ORM\InheritanceType('SINGLE_TABLE')]
+    #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
+    #[ORM\HasLifecycleCallbacks]
+    #[ORM\Entity(repositoryClass: 'Eccube\Repository\AuthorityRoleRepository')]
     class AuthorityRole extends \Eccube\Entity\AbstractEntity
     {
         /**
          * @var int
-         *
-         * @ORM\Column(name="id", type="integer", options={"unsigned":true})
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="IDENTITY")
          */
+        #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'IDENTITY')]
         private $id;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="deny_url", type="string", length=4000)
          */
+        #[ORM\Column(name: 'deny_url', type: 'string', length: 4000)]
         private $deny_url;
 
         /**
          * @var \DateTime
-         *
-         * @ORM\Column(name="create_date", type="datetimetz")
          */
+        #[ORM\Column(name: 'create_date', type: 'datetimetz')]
         private $create_date;
 
         /**
          * @var \DateTime
-         *
-         * @ORM\Column(name="update_date", type="datetimetz")
          */
+        #[ORM\Column(name: 'update_date', type: 'datetimetz')]
         private $update_date;
 
         /**
          * @var \Eccube\Entity\Master\Authority
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Master\Authority")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="authority_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'authority_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Master\Authority')]
         private $Authority;
 
         /**
          * @var \Eccube\Entity\Member
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Member")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'creator_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Member')]
         private $Creator;
 
         /**

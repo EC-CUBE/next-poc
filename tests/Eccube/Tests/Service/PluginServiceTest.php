@@ -593,24 +593,22 @@ EOD;
         $dummyEntity = <<<'EOD'
 <?php
 namespace Plugin\@@@@\Entity;
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 
 /**
  * Blocknn
- *
- * @ORM\Table(name="plg_@@@@")
- * @ORM\Entity(repositoryClass="Plugin\@@@@\Repository\BlockRepository")
  */
 if (!class_exists('\Plugin\@@@@\Entity\Block')) {
+#[ORM\Table(name: 'plg_@@@@')]
+#[ORM\Entity(repositoryClass: 'Plugin\@@@@\Repository\BlockRepository')]
 class Block
 {
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer", options={"unsigned":true})
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+     #[ORM\Column(name: 'id', type: 'integer', options:['unsigned' => true])]
+     #[ORM\Id]
+     #[ORM\GeneratedValue(strategy: 'IDENTITY')]
     private $id;
 
     /**
@@ -630,7 +628,7 @@ EOD;
 <?php
 namespace Plugin\@@@@\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 use Eccube\Annotation as Eccube;
 
 /**
@@ -638,9 +636,7 @@ use Eccube\Annotation as Eccube;
  */
 trait BlockTrait {
 
-    /**
-     * @ORM\Column(name="sample", type="boolean", options={"default":false})
-     */
+    #[ORM\Column(name: 'sample', type: 'boolean', options: ['default' => false])]
     public $sample;
 }
 EOD;

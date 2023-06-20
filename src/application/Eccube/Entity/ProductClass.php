@@ -13,18 +13,19 @@
 
 namespace Eccube\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 
 if (!class_exists('\Eccube\Entity\ProductClass')) {
     /**
      * ProductClass
-     *
-     * @ORM\Table(name="dtb_product_class", indexes={@ORM\Index(name="dtb_product_class_price02_idx", columns={"price02"}), @ORM\Index(name="dtb_product_class_stock_stock_unlimited_idx", columns={"stock", "stock_unlimited"})})
-     * @ORM\InheritanceType("SINGLE_TABLE")
-     * @ORM\DiscriminatorColumn(name="discriminator_type", type="string", length=255)
-     * @ORM\HasLifecycleCallbacks()
-     * @ORM\Entity(repositoryClass="Eccube\Repository\ProductClassRepository")
      */
+    #[ORM\Table(name: 'dtb_product_class')]
+    #[ORM\Index(name: 'dtb_product_class_price02_idx', columns: ['price02'])]
+    #[ORM\Index(name: 'dtb_product_class_stock_stock_unlimited_idx', columns: ['stock', 'stock_unlimited'])]
+    #[ORM\InheritanceType('SINGLE_TABLE')]
+    #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
+    #[ORM\HasLifecycleCallbacks]
+    #[ORM\Entity(repositoryClass: 'Eccube\Repository\ProductClassRepository')]
     class ProductClass extends \Eccube\Entity\AbstractEntity
     {
         private $price01_inc_tax = null;
@@ -167,169 +168,136 @@ if (!class_exists('\Eccube\Entity\ProductClass')) {
 
         /**
          * @var int
-         *
-         * @ORM\Column(name="id", type="integer", options={"unsigned":true})
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="IDENTITY")
          */
+        #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'IDENTITY')]
         private $id;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="product_code", type="string", length=255, nullable=true)
          */
+        #[ORM\Column(name: 'product_code', type: 'string', length: 255, nullable: true)]
         private $code;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="stock", type="decimal", precision=10, scale=0, nullable=true)
          */
+        #[ORM\Column(name: 'stock', type: 'decimal', precision: 10, scale: 0, nullable: true)]
         private $stock;
 
         /**
          * @var boolean
-         *
-         * @ORM\Column(name="stock_unlimited", type="boolean", options={"default":false})
          */
+        #[ORM\Column(name: 'stock_unlimited', type: 'boolean', options: ['default' => false])]
         private $stock_unlimited = false;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="sale_limit", type="decimal", precision=10, scale=0, nullable=true, options={"unsigned":true})
          */
+        #[ORM\Column(name: 'sale_limit', type: 'decimal', precision: 10, scale: 0, nullable: true, options: ['unsigned' => true])]
         private $sale_limit;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="price01", type="decimal", precision=12, scale=2, nullable=true)
          */
+        #[ORM\Column(name: 'price01', type: 'decimal', precision: 12, scale: 2, nullable: true)]
         private $price01;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="price02", type="decimal", precision=12, scale=2)
          */
+        #[ORM\Column(name: 'price02', type: 'decimal', precision: 12, scale: 2)]
         private $price02;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="delivery_fee", type="decimal", precision=12, scale=2, nullable=true, options={"unsigned":true})
          */
+        #[ORM\Column(name: 'delivery_fee', type: 'decimal', precision: 12, scale: 2, nullable: true, options: ['unsigned' => true])]
         private $delivery_fee;
 
         /**
          * @var boolean
-         *
-         * @ORM\Column(name="visible", type="boolean", options={"default":true})
          */
+        #[ORM\Column(name: 'visible', type: 'boolean', options: ['default' => true])]
         private $visible;
 
         /**
          * @var \DateTime
-         *
-         * @ORM\Column(name="create_date", type="datetimetz")
          */
+        #[ORM\Column(name: 'create_date', type: 'datetimetz')]
         private $create_date;
 
         /**
          * @var \DateTime
-         *
-         * @ORM\Column(name="update_date", type="datetimetz")
          */
+        #[ORM\Column(name: 'update_date', type: 'datetimetz')]
         private $update_date;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="currency_code", type="string", nullable=true)
          */
+        #[ORM\Column(name: 'currency_code', type: 'string', nullable: true)]
         private $currency_code;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="point_rate", type="decimal", precision=10, scale=0, options={"unsigned":true}, nullable=true)
          */
+        #[ORM\Column(name: 'point_rate', type: 'decimal', precision: 10, scale: 0, options: ['unsigned' => true], nullable: true)]
         private $point_rate;
 
         /**
          * @var \Eccube\Entity\ProductStock
-         *
-         * @ORM\OneToOne(targetEntity="Eccube\Entity\ProductStock", mappedBy="ProductClass", cascade={"persist","remove"})
          */
+        #[ORM\OneToOne(targetEntity: 'Eccube\Entity\ProductStock', mappedBy: 'ProductClass', cascade: ['persist', 'remove'])]
         private $ProductStock;
 
         /**
          * @var \Eccube\Entity\TaxRule
-         *
-         * @ORM\OneToOne(targetEntity="Eccube\Entity\TaxRule", mappedBy="ProductClass", cascade={"persist","remove"})
          */
+        #[ORM\OneToOne(targetEntity: 'Eccube\Entity\TaxRule', mappedBy: 'ProductClass', cascade: ['persist', 'remove'])]
         private $TaxRule;
 
         /**
          * @var \Eccube\Entity\Product
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Product", inversedBy="ProductClasses")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Product', inversedBy: 'ProductClasses')]
         private $Product;
 
         /**
          * @var \Eccube\Entity\Master\SaleType
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Master\SaleType")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="sale_type_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'sale_type_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Master\SaleType')]
         private $SaleType;
 
         /**
          * @var \Eccube\Entity\ClassCategory
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\ClassCategory")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="class_category_id1", referencedColumnName="id", nullable=true)
-         * })
          */
+        #[ORM\JoinColumn(name: 'class_category_id1', referencedColumnName: 'id', nullable: true)]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\ClassCategory')]
         private $ClassCategory1;
 
         /**
          * @var \Eccube\Entity\ClassCategory
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\ClassCategory")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="class_category_id2", referencedColumnName="id", nullable=true)
-         * })
          */
+        #[ORM\JoinColumn(name: 'class_category_id2', referencedColumnName: 'id', nullable: true)]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\ClassCategory')]
         private $ClassCategory2;
 
         /**
          * @var \Eccube\Entity\DeliveryDuration
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\DeliveryDuration")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="delivery_duration_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'delivery_duration_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\DeliveryDuration')]
         private $DeliveryDuration;
 
         /**
          * @var \Eccube\Entity\Member
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Member")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'creator_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Member')]
         private $Creator;
 
         public function __clone()

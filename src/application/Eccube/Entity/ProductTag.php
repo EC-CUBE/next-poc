@@ -13,18 +13,17 @@
 
 namespace Eccube\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 
 if (!class_exists('\Eccube\Entity\ProductTag')) {
     /**
      * ProductTag
-     *
-     * @ORM\Table(name="dtb_product_tag")
-     * @ORM\InheritanceType("SINGLE_TABLE")
-     * @ORM\DiscriminatorColumn(name="discriminator_type", type="string", length=255)
-     * @ORM\HasLifecycleCallbacks()
-     * @ORM\Entity(repositoryClass="Eccube\Repository\ProductTagRepository")
      */
+    #[ORM\Table(name: 'dtb_product_tag')]
+    #[ORM\InheritanceType('SINGLE_TABLE')]
+    #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
+    #[ORM\HasLifecycleCallbacks]
+    #[ORM\Entity(repositoryClass: 'Eccube\Repository\ProductTagRepository')]
     class ProductTag extends \Eccube\Entity\AbstractEntity
     {
         /**
@@ -44,48 +43,37 @@ if (!class_exists('\Eccube\Entity\ProductTag')) {
 
         /**
          * @var integer
-         *
-         * @ORM\Column(name="id", type="integer", options={"unsigned":true})
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="IDENTITY")
          */
+        #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'IDENTITY')]
         private $id;
 
         /**
          * @var \DateTime
-         *
-         * @ORM\Column(name="create_date", type="datetimetz")
          */
+        #[ORM\Column(name: 'create_date', type: 'datetimetz')]
         private $create_date;
 
         /**
          * @var \Eccube\Entity\Product
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Product", inversedBy="ProductTag")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Product', inversedBy: 'ProductTag')]
         private $Product;
 
         /**
          * @var \Eccube\Entity\Tag
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Tag", inversedBy="ProductTag")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'tag_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Tag', inversedBy: 'ProductTag')]
         private $Tag;
 
         /**
          * @var \Eccube\Entity\Member
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Member")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'creator_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Member')]
         private $Creator;
 
         /**

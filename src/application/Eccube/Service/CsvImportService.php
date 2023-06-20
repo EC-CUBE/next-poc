@@ -132,9 +132,9 @@ class CsvImportService implements \Iterator, \SeekableIterator, \Countable
      *
      * If a header row has been set, an associative array will be returned
      *
-     * @return array
+     * @return mixed
      */
-    public function current()
+    public function current(): mixed
     {
         // If the CSV has no column headers just return the line
         if (empty($this->columnHeaders)) {
@@ -218,7 +218,7 @@ class CsvImportService implements \Iterator, \SeekableIterator, \Countable
      * row. That way, when you iterate over the rows, that header row is
      * skipped.
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->file->rewind();
         if (null !== $this->headerRowNumber) {
@@ -229,7 +229,7 @@ class CsvImportService implements \Iterator, \SeekableIterator, \Countable
     /**
      * {@inheritdoc}
      */
-    public function count()
+    public function count(): int
     {
         if (null === $this->count) {
             $position = $this->key();
@@ -245,7 +245,7 @@ class CsvImportService implements \Iterator, \SeekableIterator, \Countable
     /**
      * {@inheritdoc}
      */
-    public function next()
+    public function next(): void
     {
         $this->file->next();
     }
@@ -253,7 +253,7 @@ class CsvImportService implements \Iterator, \SeekableIterator, \Countable
     /**
      * {@inheritdoc}
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->file->valid();
     }
@@ -261,7 +261,7 @@ class CsvImportService implements \Iterator, \SeekableIterator, \Countable
     /**
      * {@inheritdoc}
      */
-    public function key()
+    public function key(): mixed
     {
         return $this->file->key();
     }
@@ -269,7 +269,7 @@ class CsvImportService implements \Iterator, \SeekableIterator, \Countable
     /**
      * {@inheritdoc}
      */
-    public function seek($pointer)
+    public function seek($pointer): void
     {
         $this->file->seek($pointer);
     }

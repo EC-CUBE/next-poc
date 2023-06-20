@@ -424,16 +424,14 @@ class UpdateSchemaDoctrineCommandTest extends EccubeTestCase
 namespace Plugin\\${tmpname}\\Entity;
 
 use Eccube\Annotation\EntityExtension;
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 
 /**
  * @EntityExtension("Eccube\Entity\Customer")
  */
 trait HogeTrait
 {
-    /**
-     * @ORM\Column(name="test_update_schema_command", type="string", nullable=true)
-     */
+    #[ORM\Column(name: 'test_update_schema_command', type: 'string', nullable: true)]
     public \$testUpdateSchemaCommand;
 }
 EOT

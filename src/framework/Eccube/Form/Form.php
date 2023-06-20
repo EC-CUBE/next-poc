@@ -53,23 +53,23 @@ class Form implements \ArrayAccess, \IteratorAggregate, \Countable
         return new FormView($this->adaptee->createView());
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $this->adaptee->offsetExists($offset);
     }
 
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return new Form($this->adaptee->offsetGet($offset));
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         /** @var Form $value */
         $this->adaptee->offsetSet($offset, $value->adaptee);
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         $this->adaptee->offsetUnset($offset);
     }
@@ -143,12 +143,12 @@ class Form implements \ArrayAccess, \IteratorAggregate, \Countable
         return null;
     }
 
-    public function count()
+    public function count(): int
     {
         return $this->adaptee->count();
     }
 
-    public function getIterator()
+    public function getIterator(): \Iterator
     {
         return new \ArrayIterator($this->all());
     }

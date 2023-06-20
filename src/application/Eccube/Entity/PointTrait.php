@@ -13,22 +13,20 @@
 
 namespace Eccube\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 
 trait PointTrait
 {
     /**
      * @var string
-     *
-     * @ORM\Column(name="add_point", type="decimal", precision=12, scale=0, options={"unsigned":true,"default":0})
      */
+    #[ORM\Column(name: 'add_point', type: 'decimal', precision: 12, scale: 0, options: ['unsigned' => true, 'default' => 0])]
     private $add_point = '0';
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="use_point", type="decimal", precision=12, scale=0, options={"unsigned":true,"default":0})
      */
+    #[ORM\Column(name: 'use_point', type: 'decimal', precision: 12, scale: 0, options: ['unsigned' => true, 'default' => 0])]
     private $use_point = '0';
 
     /**

@@ -13,7 +13,7 @@
 
 namespace Eccube\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 use Eccube\Entity\Master\OrderItemType;
 use Eccube\Entity\Master\RoundingType;
 use Eccube\Entity\Master\TaxDisplayType;
@@ -21,13 +21,12 @@ use Eccube\Entity\Master\TaxDisplayType;
 if (!class_exists('\Eccube\Entity\OrderItem')) {
     /**
      * OrderItem
-     *
-     * @ORM\Table(name="dtb_order_item")
-     * @ORM\InheritanceType("SINGLE_TABLE")
-     * @ORM\DiscriminatorColumn(name="discriminator_type", type="string", length=255)
-     * @ORM\HasLifecycleCallbacks()
-     * @ORM\Entity(repositoryClass="Eccube\Repository\OrderItemRepository")
      */
+    #[ORM\Table(name: 'dtb_order_item')]
+    #[ORM\InheritanceType('SINGLE_TABLE')]
+    #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
+    #[ORM\HasLifecycleCallbacks]
+    #[ORM\Entity(repositoryClass: 'Eccube\Repository\OrderItemRepository')]
     class OrderItem extends \Eccube\Entity\AbstractEntity implements ItemInterface
     {
         use PointRateTrait;
@@ -129,189 +128,150 @@ if (!class_exists('\Eccube\Entity\OrderItem')) {
 
         /**
          * @var integer
-         *
-         * @ORM\Column(name="id", type="integer", options={"unsigned":true})
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="IDENTITY")
          */
+        #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'IDENTITY')]
         private $id;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="product_name", type="string", length=255)
          */
+        #[ORM\Column(name: 'product_name', type: 'string', length: 255)]
         private $product_name;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="product_code", type="string", length=255, nullable=true)
          */
+        #[ORM\Column(name: 'product_code', type: 'string', length: 255, nullable: true)]
         private $product_code;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="class_name1", type="string", length=255, nullable=true)
          */
+        #[ORM\Column(name: 'class_name1', type: 'string', length: 255, nullable: true)]
         private $class_name1;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="class_name2", type="string", length=255, nullable=true)
          */
+        #[ORM\Column(name: 'class_name2', type: 'string', length: 255, nullable: true)]
         private $class_name2;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="class_category_name1", type="string", length=255, nullable=true)
          */
+        #[ORM\Column(name: 'class_category_name1', type: 'string', length: 255, nullable: true)]
         private $class_category_name1;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="class_category_name2", type="string", length=255, nullable=true)
          */
+        #[ORM\Column(name: 'class_category_name2', type: 'string', length: 255, nullable: true)]
         private $class_category_name2;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="price", type="decimal", precision=12, scale=2, options={"default":0})
          */
+        #[ORM\Column(name: 'price', type: 'decimal', precision: 12, scale: 2, options: ['default' => 0])]
         private $price = 0;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="quantity", type="decimal", precision=10, scale=0, options={"default":0})
          */
+        #[ORM\Column(name: 'quantity', type: 'decimal', precision: 10, scale: 0, options: ['default' => 0])]
         private $quantity = 0;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="tax", type="decimal", precision=10, scale=0, options={"default":0})
          */
+        #[ORM\Column(name: 'tax', type: 'decimal', precision: 10, scale: 0, options: ['default' => 0])]
         private $tax = 0;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="tax_rate", type="decimal", precision=10, scale=0, options={"unsigned":true,"default":0})
          */
+        #[ORM\Column(name: 'tax_rate', type: 'decimal', precision: 10, scale: 0, options: ['unsigned' => true, 'default' => 0])]
         private $tax_rate = 0;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="tax_adjust", type="decimal", precision=10, scale=0, options={"unsigned":true,"default":0})
          */
+        #[ORM\Column(name: 'tax_adjust', type: 'decimal', precision: 10, scale: 0, options: ['unsigned' => true, 'default' => 0])]
         private $tax_adjust = 0;
 
         /**
          * @var int|null
-         *
-         * @ORM\Column(name="tax_rule_id", type="smallint", nullable=true, options={"unsigned":true})
          */
+        #[ORM\Column(name: 'tax_rule_id', type: 'smallint', nullable: true, options: ['unsigned' => true])]
         private $tax_rule_id;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="currency_code", type="string", nullable=true)
          */
+        #[ORM\Column(name: 'currency_code', type: 'string', nullable: true)]
         private $currency_code;
 
         /**
          * @var string|null
-         *
-         * @ORM\Column(name="processor_name", type="string", nullable=true)
          */
+        #[ORM\Column(name: 'processor_name', type: 'string', nullable: true)]
         private $processor_name;
 
         /**
          * @var \Eccube\Entity\Order
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Order", inversedBy="OrderItems")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="order_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'order_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Order', inversedBy: 'OrderItems')]
         private $Order;
 
         /**
          * @var \Eccube\Entity\Product
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Product")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'product_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Product')]
         private $Product;
 
         /**
          * @var \Eccube\Entity\ProductClass
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\ProductClass")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="product_class_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'product_class_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\ProductClass')]
         private $ProductClass;
 
         /**
          * @var \Eccube\Entity\Shipping
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Shipping", inversedBy="OrderItems")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="shipping_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'shipping_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Shipping', inversedBy: 'OrderItems')]
         private $Shipping;
 
         /**
          * @var \Eccube\Entity\Master\RoundingType
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Master\RoundingType")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="rounding_type_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'rounding_type_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Master\RoundingType')]
         private $RoundingType;
 
         /**
          * @var \Eccube\Entity\Master\TaxType
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Master\TaxType")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="tax_type_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'tax_type_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Master\TaxType')]
         private $TaxType;
 
         /**
          * @var \Eccube\Entity\Master\TaxDisplayType
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Master\TaxDisplayType")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="tax_display_type_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'tax_display_type_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Master\TaxDisplayType')]
         private $TaxDisplayType;
 
         /**
          * @var \Eccube\Entity\Master\OrderItemType
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Master\OrderItemType")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="order_item_type_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'order_item_type_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Master\OrderItemType')]
         private $OrderItemType;
 
         /**

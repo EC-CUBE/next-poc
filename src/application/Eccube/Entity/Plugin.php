@@ -13,82 +13,73 @@
 
 namespace Eccube\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 
 if (!class_exists('\Eccube\Entity\Plugin')) {
     /**
      * Plugin
-     *
-     * @ORM\Table(name="dtb_plugin")
-     * @ORM\InheritanceType("SINGLE_TABLE")
-     * @ORM\DiscriminatorColumn(name="discriminator_type", type="string", length=255)
-     * @ORM\HasLifecycleCallbacks()
-     * @ORM\Entity(repositoryClass="Eccube\Repository\PluginRepository")
      */
+    #[ORM\Table(name: 'dtb_plugin')]
+    #[ORM\InheritanceType('SINGLE_TABLE')]
+    #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
+    #[ORM\HasLifecycleCallbacks]
+    #[ORM\Entity(repositoryClass: 'Eccube\Repository\PluginRepository')]
     class Plugin extends \Eccube\Entity\AbstractEntity
     {
         /**
          * @var int
-         *
-         * @ORM\Column(name="id", type="integer", options={"unsigned":true})
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="IDENTITY")
          */
+        #[ORM\Column(name: 'id', type: 'integer', options: ['unsigned' => true])]
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'IDENTITY')]
         private $id;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="name", type="string", length=255)
          */
+        #[ORM\Column(name: 'name', type: 'string', length: 255)]
         private $name;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="code", type="string", length=255)
          */
+        #[ORM\Column(name: 'code', type: 'string', length: 255)]
         private $code;
 
         /**
          * @var boolean
-         *
-         * @ORM\Column(name="enabled", type="boolean", options={"default":false})
          */
+        #[ORM\Column(name: 'enabled', type: 'boolean', options: ['default' => false])]
         private $enabled = false;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="version", type="string", length=255)
          */
+        #[ORM\Column(name: 'version', type: 'string', length: 255)]
         private $version;
 
         /**
          * @var string
-         *
-         * @ORM\Column(name="source", type="string", length=255)
          */
+        #[ORM\Column(name: 'source', type: 'string', length: 255)]
         private $source;
 
         /**
          * @var boolean
-         * @ORM\Column(name="initialized", type="boolean", options={"default":false})
          */
+        #[ORM\Column(name: 'initialized', type: 'boolean', options: ['default' => false])]
         private $initialized = false;
 
         /**
          * @var \DateTime
-         *
-         * @ORM\Column(name="create_date", type="datetimetz")
          */
+        #[ORM\Column(name: 'create_date', type: 'datetimetz')]
         private $create_date;
 
         /**
          * @var \DateTime
-         *
-         * @ORM\Column(name="update_date", type="datetimetz")
          */
+        #[ORM\Column(name: 'update_date', type: 'datetimetz')]
         private $update_date;
 
         /**

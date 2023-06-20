@@ -13,21 +13,20 @@
 
 namespace Eccube\Entity\Master;
 
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 
 if (!class_exists(ProductStatus::class, false)) {
     /**
      * ProductStatus
      *
      * 商品の公開ステータス
-     *
-     * @ORM\Table(name="mtb_product_status")
-     * @ORM\InheritanceType("SINGLE_TABLE")
-     * @ORM\DiscriminatorColumn(name="discriminator_type", type="string", length=255)
-     * @ORM\HasLifecycleCallbacks()
-     * @ORM\Entity(repositoryClass="Eccube\Repository\Master\ProductStatusRepository")
-     * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
      */
+    #[ORM\Table(name: 'mtb_product_status')]
+    #[ORM\InheritanceType('SINGLE_TABLE')]
+    #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
+    #[ORM\HasLifecycleCallbacks]
+    #[ORM\Entity(repositoryClass: 'Eccube\Repository\Master\ProductStatusRepository')]
+    #[ORM\Cache(usage: 'NONSTRICT_READ_WRITE')]
     class ProductStatus extends \Eccube\Entity\Master\AbstractMasterEntity
     {
         /**

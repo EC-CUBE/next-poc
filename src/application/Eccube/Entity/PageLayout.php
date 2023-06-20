@@ -13,63 +13,53 @@
 
 namespace Eccube\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Eccube\ORM\Mapping as ORM;
 
 if (!class_exists('\Eccube\Entity\PageLayout')) {
     /**
      * PageLayout
-     *
-     * @ORM\Table(name="dtb_page_layout")
-     * @ORM\InheritanceType("SINGLE_TABLE")
-     * @ORM\DiscriminatorColumn(name="discriminator_type", type="string", length=255)
-     * @ORM\HasLifecycleCallbacks()
-     * @ORM\Entity(repositoryClass="Eccube\Repository\PageLayoutRepository")
      */
+    #[ORM\Table(name: 'dtb_page_layout')]
+    #[ORM\InheritanceType('SINGLE_TABLE')]
+    #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
+    #[ORM\HasLifecycleCallbacks]
+    #[ORM\Entity(repositoryClass: 'Eccube\Repository\PageLayoutRepository')]
     class PageLayout extends AbstractEntity
     {
         /**
          * @var integer
-         *
-         * @ORM\Column(name="page_id", type="integer", options={"unsigned":true})
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="NONE")
          */
+        #[ORM\Column(name: 'page_id', type: 'integer', options: ['unsigned' => true])]
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'NONE')]
         private $page_id;
 
         /**
          * @var integer
-         *
-         * @ORM\Column(name="layout_id", type="integer", options={"unsigned":true})
-         * @ORM\Id
-         * @ORM\GeneratedValue(strategy="NONE")
          */
+        #[ORM\Column(name: 'layout_id', type: 'integer', options: ['unsigned' => true])]
+        #[ORM\Id]
+        #[ORM\GeneratedValue(strategy: 'NONE')]
         private $layout_id;
 
         /**
          * @var int
-         *
-         * @ORM\Column(name="sort_no", type="smallint", options={"unsigned":true})
          */
+        #[ORM\Column(name: 'sort_no', type: 'smallint', options: ['unsigned' => true])]
         private $sort_no;
 
         /**
          * @var \Eccube\Entity\Page
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Page", inversedBy="PageLayouts")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="page_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'page_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Page', inversedBy: 'PageLayouts')]
         private $Page;
 
         /**
          * @var \Eccube\Entity\Layout
-         *
-         * @ORM\ManyToOne(targetEntity="Eccube\Entity\Layout", inversedBy="PageLayouts")
-         * @ORM\JoinColumns({
-         *   @ORM\JoinColumn(name="layout_id", referencedColumnName="id")
-         * })
          */
+        #[ORM\JoinColumn(name: 'layout_id', referencedColumnName: 'id')]
+        #[ORM\ManyToOne(targetEntity: 'Eccube\Entity\Layout', inversedBy: 'PageLayouts')]
         private $Layout;
 
         /**
