@@ -13,7 +13,7 @@
 
 namespace Eccube\Service\PurchaseFlow\Processor;
 
-use Doctrine\DBAL\LockMode;
+
 use Eccube\Entity\ItemHolderInterface;
 use Eccube\Entity\Order;
 use Eccube\Entity\ProductStock;
@@ -83,7 +83,7 @@ class StockReduceProcessor extends AbstractPurchaseProcessor
                 $productStock = $item->getProductClass()->getProductStock();
                 if ($productStock->getProductClassId() === null) {
                     // 在庫に対してロックを実行
-                    $this->entityManager->lock($productStock, LockMode::PESSIMISTIC_WRITE);
+                    $this->entityManager->pessimisticWriteLock($productStock);
                     $this->entityManager->refresh($productStock);
                     $productStock->setProductClassId($item->getProductClass()->getId());
                 }

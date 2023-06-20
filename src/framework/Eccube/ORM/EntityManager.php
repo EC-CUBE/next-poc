@@ -14,6 +14,7 @@
 namespace Eccube\ORM;
 
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException as DoctrineForeignKeyConstraintViolationException;
+use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
 use Eccube\ORM\Exception\ORMException;
@@ -83,18 +84,18 @@ class EntityManager
     /**
      * @throws ORMException
      */
-    public function lock($entity, $lockMode, $lockVersion = null)
+    public function pessimisticWriteLock($entity)
     {
         try {
-            $this->entityManager->lock($entity, $lockMode, $lockVersion);
+            $this->entityManager->lock($entity, LockMode::PESSIMISTIC_WRITE);
         } catch (\Exception $e) {
             throw new ORMException($e);
         }
     }
 
-    public function refresh($entity, ?int $lockMode = null)
+    public function refresh($entity)
     {
-        $this->entityManager->refresh($entity, $lockMode);
+        $this->entityManager->refresh($entity);
     }
 
     /**
@@ -136,9 +137,9 @@ class EntityManager
         return $this->entityManager->getConnection()->getNativeConnection()->isRollbackOnly();
     }
 
-    public function find($className, $id, $lockMode = null, $lockVersion = null)
+    public function find($className, $id)
     {
-        return $this->entityManager->find($className, $id, $lockMode, $lockVersion);
+        return $this->entityManager->find($className, $id);
     }
 
     public function isStateManaged($entity, $assume = null): bool
