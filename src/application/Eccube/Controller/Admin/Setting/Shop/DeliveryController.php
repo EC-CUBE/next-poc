@@ -14,7 +14,7 @@
 namespace Eccube\Controller\Admin\Setting\Shop;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Delivery;

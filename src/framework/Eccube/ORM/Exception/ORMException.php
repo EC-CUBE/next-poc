@@ -19,4 +19,9 @@ class ORMException extends \Exception
     {
         return new self($e->getMessage(), $e->getCode(), $e);
     }
+
+    public static function wrapForeignKeyException(\Exception $e): ForeignKeyConstraintViolationException
+    {
+        return new ForeignKeyConstraintViolationException($e->getMessage(), $e->getCode(), $e);
+    }
 }
