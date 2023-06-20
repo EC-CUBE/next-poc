@@ -13,7 +13,7 @@
 
 namespace Eccube\ORM;
 
-use Eccube\ORM\Exception\ForeignKeyConstraintViolationException as DoctrineForeignKeyConstraintViolationException;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException as DoctrineForeignKeyConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
 use Eccube\ORM\Exception\ORMException;
