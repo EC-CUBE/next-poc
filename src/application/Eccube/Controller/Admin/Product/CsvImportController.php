@@ -38,6 +38,7 @@ use Eccube\Repository\ProductRepository;
 use Eccube\Repository\TagRepository;
 use Eccube\Repository\TaxRuleRepository;
 use Eccube\Routing\Annotation\Route;
+use Eccube\Security\SecurityContext;
 use Eccube\Service\CsvImportService;
 use Eccube\Stream\Filter\ConvertLineFeedFilter;
 use Eccube\Stream\Filter\SjisToUtf8EncodingFilter;
@@ -52,7 +53,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class CsvImportController extends AbstractCsvImportController
 {
@@ -1696,7 +1696,7 @@ class CsvImportController extends AbstractCsvImportController
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function importCsv(Request $request, CsrfTokenManagerInterface $tokenManager)
+    public function importCsv(Request $request, SecurityContext $securityContext)
     {
         $this->isTokenValid();
 
@@ -1722,7 +1722,7 @@ class CsvImportController extends AbstractCsvImportController
 
         $request->setMethod('POST');
         $request->request->set('admin_csv_import', [
-            Constant::TOKEN_NAME => $tokenManager->getToken('admin_csv_import')->getValue(),
+            Constant::TOKEN_NAME => $securityContext->getCsrfToken('admin_csv_import'),
             'is_split_csv' => true,
             'csv_file_no' => $request->get('file_no'),
         ]);

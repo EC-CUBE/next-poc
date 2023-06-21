@@ -21,12 +21,12 @@ use Eccube\Form\Type\Front\PasswordResetType;
 use Eccube\Repository\CustomerRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Routing\Generator\UrlGeneratorInterface;
+use Eccube\Security\Core\User\UserPasswordHasher;
 use Eccube\Service\MailService;
 use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception as HttpException;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class ForgotController extends AbstractController
 {
@@ -46,28 +46,20 @@ class ForgotController extends AbstractController
     protected $customerRepository;
 
     /**
-     * @var EncoderFactoryInterface
-     */
-    protected $encoderFactory;
-
-    /**
      * ForgotController constructor.
      *
      * @param Validator $validator
      * @param MailService $mailService
      * @param CustomerRepository $customerRepository
-     * @param EncoderFactoryInterface $encoderFactory
      */
     public function __construct(
         Validator $validator,
         MailService $mailService,
-        CustomerRepository $customerRepository,
-        EncoderFactoryInterface $encoderFactory
+        CustomerRepository $customerRepository
     ) {
         $this->validator = $validator;
         $this->mailService = $mailService;
         $this->customerRepository = $customerRepository;
-        $this->encoderFactory = $encoderFactory;
     }
 
     /**
@@ -163,7 +155,7 @@ class ForgotController extends AbstractController
      * @Route("/forgot/reset/{reset_key}", name="forgot_reset", methods={"GET", "POST"})
      * @Template("Forgot/reset.twig")
      */
-    public function reset(Request $request, $reset_key)
+    public function reset(Request $request, $reset_key, UserPasswordHasher $hasher)
     {
         if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
             throw new HttpException\NotFoundHttpException();
@@ -207,18 +199,11 @@ class ForgotController extends AbstractController
                 ->getRegularCustomerByResetKey($reset_key, $form->get('login_email')->getData());
             if ($Customer) {
                 // パスワードの発行・更新
-                $encoder = $this->encoderFactory->getEncoder($Customer);
-                $pass = $form->get('password')->getData();
-                $Customer->setPassword($pass);
-
-                // 発行したパスワードの暗号化
-                if ($Customer->getSalt() === null) {
-                    $Customer->setSalt($this->encoderFactory->getEncoder($Customer)->createSalt());
-                }
-                $encPass = $encoder->encodePassword($pass, $Customer->getSalt());
+                $password = $form->get('password')->getData();
+                $password = $hasher->hashPassword($Customer, $password);
 
                 // パスワードを更新
-                $Customer->setPassword($encPass);
+                $Customer->setPassword($password);
                 // リセットキーをクリア
                 $Customer->setResetKey(null);
 

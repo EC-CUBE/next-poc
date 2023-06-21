@@ -45,3 +45,6 @@ services:
     Eccube\Service\Composer\ComposerApiService:
         autowire: true
         public: true
+    Eccube\Security\Core\User\UserPasswordHasher:
+        autowire: true
+        public: true

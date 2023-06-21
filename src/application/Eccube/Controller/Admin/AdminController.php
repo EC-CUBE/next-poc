@@ -34,19 +34,14 @@ use Eccube\Repository\MemberRepository;
 use Eccube\Repository\OrderRepository;
 use Eccube\Repository\ProductRepository;
 use Eccube\Routing\Annotation\Route;
+use Eccube\Security\Core\User\UserPasswordHasher;
+use Eccube\Security\Http\Authentication\AuthenticationUtils;
+use Eccube\Security\SecurityContext;
 use Eccube\Service\PluginApiService;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminController extends AbstractController
 {
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    protected $authorizationChecker;
-
     /**
      * @var AuthenticationUtils
      */
@@ -56,11 +51,6 @@ class AdminController extends AbstractController
      * @var MemberRepository
      */
     protected $memberRepository;
-
-    /**
-     * @var EncoderFactoryInterface
-     */
-    protected $encoderFactory;
 
     /**
      * @var OrderRepository
@@ -85,6 +75,8 @@ class AdminController extends AbstractController
     /** @var PluginApiService */
     protected $pluginApiService;
 
+    protected SecurityContext $securityContext;
+
     /**
      * @var array 売り上げ状況用受注状況
      */
@@ -93,10 +85,8 @@ class AdminController extends AbstractController
     /**
      * AdminController constructor.
      *
-     * @param AuthorizationCheckerInterface $authorizationChecker
      * @param AuthenticationUtils $helper
      * @param MemberRepository $memberRepository
-     * @param EncoderFactoryInterface $encoderFactory
      * @param OrderRepository $orderRepository
      * @param OrderStatusRepository $orderStatusRepository
      * @param CustomerRepository $custmerRepository
@@ -104,25 +94,23 @@ class AdminController extends AbstractController
      * @param PluginApiService $pluginApiService
      */
     public function __construct(
-        AuthorizationCheckerInterface $authorizationChecker,
         AuthenticationUtils $helper,
         MemberRepository $memberRepository,
-        EncoderFactoryInterface $encoderFactory,
         OrderRepository $orderRepository,
         OrderStatusRepository $orderStatusRepository,
         CustomerRepository $custmerRepository,
         ProductRepository $productRepository,
-        PluginApiService $pluginApiService
+        PluginApiService $pluginApiService,
+        SecurityContext $securityContext
     ) {
-        $this->authorizationChecker = $authorizationChecker;
         $this->helper = $helper;
         $this->memberRepository = $memberRepository;
-        $this->encoderFactory = $encoderFactory;
         $this->orderRepository = $orderRepository;
         $this->orderStatusRepository = $orderStatusRepository;
         $this->customerRepository = $custmerRepository;
         $this->productRepository = $productRepository;
         $this->pluginApiService = $pluginApiService;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -131,7 +119,7 @@ class AdminController extends AbstractController
      */
     public function login(Request $request)
     {
-        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+        if ($this->securityContext->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('admin_homepage');
         }
 
@@ -322,7 +310,7 @@ class AdminController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|array
      */
-    public function changePassword(Request $request)
+    public function changePassword(Request $request, UserPasswordHasher $hasher)
     {
         $builder = $this->formFactory
             ->createBuilder(ChangePasswordType::class);
@@ -340,21 +328,12 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $Member = $this->getUser();
-            $salt = $Member->getSalt();
+
             $password = $form->get('change_password')->getData();
-
-            $encoder = $this->encoderFactory->getEncoder($Member);
-
-            // 2系からのデータ移行でsaltがセットされていない場合はsaltを生成.
-            if (empty($salt)) {
-                $salt = $encoder->createSalt();
-            }
-
-            $password = $encoder->encodePassword($password, $salt);
+            $password = $hasher->hashPassword($Member, $password);
 
             $Member
-                ->setPassword($password)
-                ->setSalt($salt);
+                ->setPassword($password);
 
             $this->memberRepository->save($Member);
 

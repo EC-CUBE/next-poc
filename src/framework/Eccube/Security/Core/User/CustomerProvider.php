@@ -13,24 +13,29 @@
 
 namespace Eccube\Security\Core\User;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\Customer;
 use Eccube\Entity\Master\CustomerStatus;
 use Eccube\Repository\CustomerRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class CustomerProvider implements UserProviderInterface
+class CustomerProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
     /**
      * @var CustomerRepository
      */
     protected $customerRepository;
 
-    public function __construct(CustomerRepository $customerRepository)
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(CustomerRepository $customerRepository, EntityManagerInterface $entityManager)
     {
         $this->customerRepository = $customerRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -85,5 +90,11 @@ class CustomerProvider implements UserProviderInterface
     public function supportsClass($class)
     {
         return Customer::class === $class || is_subclass_of($class, Customer::class);
+    }
+
+    public function upgradePassword(UserInterface $user, string $newHashedPassword): void
+    {
+        $user->setPassword($newHashedPassword);
+        $this->entityManager->flush();
     }
 }

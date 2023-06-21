@@ -16,8 +16,8 @@ namespace Eccube\Request;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Customer;
 use Eccube\Entity\Member;
+use Eccube\Security\SecurityContext;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class Context
 {
@@ -31,16 +31,13 @@ class Context
      */
     protected $eccubeConfig;
 
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
+    protected SecurityContext $securityContext;
 
-    public function __construct(RequestStack $requestStack, EccubeConfig $eccubeConfig, TokenStorageInterface $tokenStorage)
+    public function __construct(RequestStack $requestStack, EccubeConfig $eccubeConfig, SecurityContext $securityContext)
     {
         $this->requestStack = $requestStack;
         $this->eccubeConfig = $eccubeConfig;
-        $this->tokenStorage = $tokenStorage;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -90,11 +87,11 @@ class Context
             return null;
         }
 
-        if (null === $token = $this->tokenStorage->getToken()) {
+        if (!$this->securityContext->hasToken()) {
             return null;
         }
 
-        if (!is_object($user = $token->getUser())) {
+        if (!is_object($user = $this->securityContext->getLoginUser())) {
             // e.g. anonymous authentication
             return null;
         }

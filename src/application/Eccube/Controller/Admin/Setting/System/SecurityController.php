@@ -17,26 +17,21 @@ use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
 use Eccube\Form\Type\Admin\SecurityType;
 use Eccube\Routing\Annotation\Route;
+use Eccube\Security\SecurityContext;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * @var TokenStorageInterface
-     */
-    protected $tokenStorage;
+    protected SecurityContext $securityContext;
 
     /**
      * SecurityController constructor.
-     *
-     * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(SecurityContext $securityContext)
     {
-        $this->tokenStorage = $tokenStorage;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -106,7 +101,7 @@ class SecurityController extends AbstractController
                 $this->addSuccess('admin.setting.system.security.admin_url_changed', 'admin');
 
                 // ログアウト
-                $this->tokenStorage->setToken(null);
+                $this->securityContext->logout();
 
                 // キャッシュの削除
                 $cacheUtil->clearCache();
