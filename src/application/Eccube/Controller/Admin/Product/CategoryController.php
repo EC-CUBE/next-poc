@@ -26,7 +26,7 @@ use Eccube\Service\CsvExportService;
 use Eccube\Util\CacheUtil;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Http\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Eccube\Http\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

@@ -52,7 +52,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Eccube\Http\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Http\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Eccube\Http\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;

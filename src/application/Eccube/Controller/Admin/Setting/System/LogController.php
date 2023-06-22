@@ -20,7 +20,7 @@ use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\LogType;
 use Eccube\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Eccube\Http\StreamedResponse;
 
 class LogController extends AbstractController
 {
@@ -28,7 +28,7 @@ class LogController extends AbstractController
      * @Route("/%eccube_admin_route%/setting/system/log", name="admin_setting_system_log", methods={"GET", "POST"})
      * @Template("@admin/Setting/System/log.twig")
      *
-     * @return array|Symfony\Component\HttpFoundation\StreamedResponse
+     * @return array|Eccube\Http\StreamedResponse
      */
     public function index(Request $request)
     {

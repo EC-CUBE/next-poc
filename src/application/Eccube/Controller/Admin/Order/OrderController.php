@@ -48,7 +48,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Eccube\Http\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Http\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Eccube\Http\StreamedResponse;
 
 class OrderController extends AbstractController
 {
