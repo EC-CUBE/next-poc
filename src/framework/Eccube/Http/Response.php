@@ -82,9 +82,12 @@ class Response
 
     private HttpResponse $response;
 
+    public ResponseHeader $headers;
+
     public function __construct(?string $content = '', int $status = 200, array $headers = [])
     {
         $this->response = new HttpResponse($content, $status, $headers);
+        $this->headers = new ResponseHeader($this->response->headers);
     }
 
     public function getAdaptee()
