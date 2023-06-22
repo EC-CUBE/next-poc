@@ -5,6 +5,7 @@ namespace Eccube\Tests\Form\Type\Admin;
 use Eccube\Entity\Master\DeviceType;
 use Eccube\Form\Type\Admin\BlockType;
 use Eccube\Http\Request;
+use Eccube\Http\RequestStack;
 
 class BlockTypeTest extends \Eccube\Tests\Form\Type\AbstractTypeTestCase
 {
@@ -31,7 +32,7 @@ class BlockTypeTest extends \Eccube\Tests\Form\Type\AbstractTypeTestCase
                 'csrf_protection' => false,
             ])
             ->getForm();
-        self::$container->get('request_stack')->push(new Request());
+        self::$container->get(RequestStack::class)->push(new Request());
     }
 
     public function testValidData()
