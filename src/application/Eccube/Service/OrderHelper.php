@@ -34,10 +34,10 @@ use Eccube\Repository\Master\OrderStatusRepository;
 use Eccube\Repository\Master\PrefRepository;
 use Eccube\Repository\OrderRepository;
 use Eccube\Repository\PaymentRepository;
+use Eccube\Security\SecurityContext;
 use Eccube\Util\StringUtil;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class OrderHelper
 {
@@ -115,6 +115,8 @@ class OrderHelper
 
     protected EntityManager $entityManager;
 
+    protected SecurityContext $securityContext;
+
     public function __construct(
         ContainerInterface $container,
         EntityManager $entityManager,
@@ -126,7 +128,8 @@ class OrderHelper
         DeviceTypeRepository $deviceTypeRepository,
         PrefRepository $prefRepository,
         MobileDetect $mobileDetector,
-        SessionInterface $session
+        SessionInterface $session,
+        SecurityContext $securityContext
     ) {
         $this->container = $container;
         $this->orderRepository = $orderRepository;
@@ -139,6 +142,7 @@ class OrderHelper
         $this->prefRepository = $prefRepository;
         $this->mobileDetector = $mobileDetector;
         $this->session = $session;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -220,17 +224,17 @@ class OrderHelper
     public function isLoginRequired()
     {
         // フォームログイン済はログイン不要
-        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
             return false;
         }
 
         // Remember Meログイン済の場合はフォームからのログインが必要
-        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if ($this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return true;
         }
 
         // 未ログインだがお客様情報を入力している場合はログイン不要
-        if (!$this->getUser() && $this->getNonMember()) {
+        if (!$this->securityContext->getLoginCustomer() && $this->getNonMember()) {
             return false;
         }
 
@@ -500,29 +504,5 @@ class OrderHelper
             $OrderItem->setOrder($Order);
             $OrderItem->setShipping($Shipping);
         }
-    }
-
-    /**
-     * @see Symfony\Bundle\FrameworkBundle\Controller\AbstractController
-     */
-    private function isGranted($attribute, $subject = null): bool
-    {
-        return $this->container->get('security.authorization_checker')->isGranted($attribute, $subject);
-    }
-
-    /**
-     * @see Symfony\Bundle\FrameworkBundle\Controller\AbstractController
-     */
-    private function getUser(): ?UserInterface
-    {
-        if (null === $token = $this->container->get('security.token_storage')->getToken()) {
-            return null;
-        }
-
-        if (!\is_object($user = $token->getUser())) {
-            return null;
-        }
-
-        return $user;
     }
 }

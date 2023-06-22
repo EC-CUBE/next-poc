@@ -51,7 +51,7 @@ use Eccube\Repository\PageRepository;
 use Eccube\Repository\PaymentRepository;
 use Eccube\Repository\TagRepository;
 use Eccube\Repository\TaxRuleRepository;
-use Eccube\Security\Core\Encoder\PasswordEncoder;
+use Eccube\Security\Core\User\UserPasswordHasher;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Eccube\Util\StringUtil;
@@ -70,11 +70,6 @@ class Generator
      * @var EntityManagerInterface
      */
     protected $entityManager;
-
-    /**
-     * @var PasswordEncoder
-     */
-    protected $passwordEncoder;
 
     /**
      * @var MemberRepository
@@ -151,9 +146,10 @@ class Generator
      */
     protected $orderPurchaseFlow;
 
+    private UserPasswordHasher $hasher;
+
     public function __construct(
         EntityManagerInterface $entityManager,
-        PasswordEncoder $passwordEncoder,
         MemberRepository $memberRepository,
         CategoryRepository $categoryRepository,
         CustomerRepository $customerRepository,
@@ -168,11 +164,11 @@ class Generator
         TaxRuleRepository $taxRuleRepository,
         PurchaseFlow $orderPurchaseFlow,
         SessionInterface $session,
+        UserPasswordHasher $hasher,
         $locale = 'ja_JP'
     ) {
         $this->locale = $locale;
         $this->entityManager = $entityManager;
-        $this->passwordEncoder = $passwordEncoder;
         $this->memberRepository = $memberRepository;
         $this->categoryRepository = $categoryRepository;
         $this->customerRepository = $customerRepository;
@@ -187,6 +183,7 @@ class Generator
         $this->taxRuleRepository = $taxRuleRepository;
         $this->orderPurchaseFlow = $orderPurchaseFlow;
         $this->session = $session;
+        $this->hasher = $hasher;
     }
 
     /**
@@ -212,14 +209,12 @@ class Generator
         $Authority = $this->entityManager->find(\Eccube\Entity\Master\Authority::class, 0);
         $Creator = $this->entityManager->find(\Eccube\Entity\Member::class, 2);
 
-        $salt = bin2hex(openssl_random_pseudo_bytes(5));
         $password = 'password';
-        $password = $this->passwordEncoder->encodePassword($password, $salt);
+        $password = $this->hasher->hashPassword($Member, $password);
 
         $Member
             ->setLoginId($loginId)
             ->setName($username)
-            ->setSalt($salt)
             ->setPassword($password)
             ->setWork($Work)
             ->setAuthority($Authority)
@@ -252,8 +247,8 @@ class Generator
         $Sex = $this->entityManager->find(\Eccube\Entity\Master\Sex::class, $faker->numberBetween(1, 2));
         $Job = $this->entityManager->find(\Eccube\Entity\Master\Job::class, $faker->numberBetween(1, 18));
 
-        $salt = $this->passwordEncoder->createSalt();
-        $password = $this->passwordEncoder->encodePassword('password', $salt);
+        $password = $this->hasher->hashPassword($Customer, 'password');
+
         $Customer
             ->setName01($faker->lastName)
             ->setName02($faker->firstName)
@@ -270,7 +265,6 @@ class Generator
             ->setSex($Sex)
             ->setJob($Job)
             ->setPassword($password)
-            ->setSalt($salt)
             ->setSecretKey($this->customerRepository->getUniqueSecretKey())
             ->setStatus($Status)
             ->setCreateDate(new \DateTime()) // FIXME

@@ -14,12 +14,12 @@
 namespace Eccube\Service;
 
 use Eccube\Common\EccubeConfig;
+use Eccube\Security\Core\User\UserPasswordHasher;
 use RobThree\Auth\TwoFactorAuth;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class TwoFactorAuthService
 {
@@ -44,11 +44,6 @@ class TwoFactorAuthService
     protected $eccubeConfig;
 
     /**
-     * @var EncoderFactoryInterface
-     */
-    protected $encoderFactory;
-
-    /**
      * @var RequestStack
      */
     protected $requestStack;
@@ -57,11 +52,6 @@ class TwoFactorAuthService
      * @var Request
      */
     protected $request;
-
-    /**
-     * @var Encoder
-     */
-    protected $encoder;
 
     /**
      * @var string
@@ -78,26 +68,26 @@ class TwoFactorAuthService
      */
     protected $tfa;
 
+    private UserPasswordHasher $hasher;
+
     /**
      * constructor.
      *
      * @param ContainerInterface $container
      * @param EccubeConfig $eccubeConfig
-     * @param EncoderFactoryInterface $encoderFactory
      */
     public function __construct(
         ContainerInterface $container,
         EccubeConfig $eccubeConfig,
-        EncoderFactoryInterface $encoderFactory,
-        RequestStack $requestStack
+        RequestStack $requestStack,
+        UserPasswordHasher $hasher
     ) {
         $this->container = $container;
         $this->eccubeConfig = $eccubeConfig;
-        $this->encoderFactory = $encoderFactory;
         $this->requestStack = $requestStack;
         $this->request = $requestStack->getCurrentRequest();
-        $this->encoder = $this->encoderFactory->getEncoder('Eccube\\Entity\\Member');
         $this->tfa = new TwoFactorAuth();
+        $this->hasher = $hasher;
 
         if ($this->eccubeConfig->get('eccube_2fa_cookie_name')) {
             $this->cookieName = $this->eccubeConfig->get('eccube_2fa_cookie_name');
@@ -118,7 +108,8 @@ class TwoFactorAuthService
     {
         if (($json = $this->request->cookies->get($this->cookieName))) {
             $configs = json_decode($json);
-            $encodedString = $this->encoder->encodePassword($Member->getId().$Member->getTwoFactorAuthKey(), $Member->getSalt());
+            $encodedString
+                = $this->hasher->hashPassword($Member, $Member->getId().$Member->getTwoFactorAuthKey());
             if (
                 $configs
                 && isset($configs->{$Member->getId()})
@@ -144,7 +135,8 @@ class TwoFactorAuthService
      */
     public function createAuthedCookie($Member)
     {
-        $encodedString = $this->encoder->encodePassword($Member->getId().$Member->getTwoFactorAuthKey(), $Member->getSalt());
+        $encodedString
+            = $this->hasher->hashPassword($Member, $Member->getId().$Member->getTwoFactorAuthKey());
 
         $configs = json_decode('{}');
         if (($json = $this->request->cookies->get($this->cookieName))) {

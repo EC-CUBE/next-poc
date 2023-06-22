@@ -27,12 +27,13 @@ use Eccube\Controller\Annotation\Template;
 use Eccube\Doctrine\DBAL\Types\UTCDateTimeType;
 use Eccube\Doctrine\DBAL\Types\UTCDateTimeTzType;
 use Eccube\Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Eccube\Entity\Member;
 use Eccube\Form\Type\Install\Step1Type;
 use Eccube\Form\Type\Install\Step3Type;
 use Eccube\Form\Type\Install\Step4Type;
 use Eccube\Form\Type\Install\Step5Type;
 use Eccube\Routing\Annotation\Route;
-use Eccube\Security\Core\Encoder\PasswordEncoder;
+use Eccube\Security\Core\User\UserPasswordHasher;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
 use Symfony\Component\Filesystem\Filesystem;
@@ -89,18 +90,15 @@ class InstallController extends AbstractController
     ];
 
     /**
-     * @var PasswordEncoder
-     */
-    protected $encoder;
-
-    /**
      * @var CacheUtil
      */
     protected $cacheUtil;
 
-    public function __construct(PasswordEncoder $encoder, CacheUtil $cacheUtil)
+    private UserPasswordHasher $hasher;
+
+    public function __construct(UserPasswordHasher $hasher, CacheUtil $cacheUtil)
     {
-        $this->encoder = $encoder;
+        $this->hasher = $hasher;
         $this->cacheUtil = $cacheUtil;
     }
 
@@ -823,9 +821,7 @@ class InstallController extends AbstractController
     {
         $conn->beginTransaction();
         try {
-            $salt = StringUtil::random(32);
-            $this->encoder->setAuthMagic($data['auth_magic']);
-            $password = $this->encoder->encodePassword($data['login_pass'], $salt);
+            $password = $this->hasher->hashPassword(new Member(), $data['login_pass']);
 
             $id = ('postgresql' === $conn->getDatabasePlatform()->getName())
                 ? $conn->fetchOne("select nextval('dtb_base_info_id_seq')")
@@ -852,7 +848,6 @@ class InstallController extends AbstractController
                 'id' => $member_id,
                 'login_id' => $data['login_id'],
                 'password' => $password,
-                'salt' => $salt,
                 'work_id' => 1,
                 'authority_id' => 0,
                 'creator_id' => 1,
@@ -877,27 +872,23 @@ class InstallController extends AbstractController
     {
         $conn->beginTransaction();
         try {
-            $salt = StringUtil::random(32);
             $stmt = $conn->prepare('SELECT id FROM dtb_member WHERE login_id = :login_id;');
             $stmt->bindParam(':login_id', $data['login_id']);
             $row = $stmt->executeQuery();
-            $this->encoder->setAuthMagic($data['auth_magic']);
-            $password = $this->encoder->encodePassword($data['login_pass'], $salt);
+            $password = $this->hasher->hashPassword( new Member(), $data['login_pass']);
             if ($row) {
                 // 同一の管理者IDであればパスワードのみ更新
-                $sth = $conn->prepare('UPDATE dtb_member set password = :password, salt = :salt, update_date = current_timestamp WHERE login_id = :login_id;');
+                $sth = $conn->prepare('UPDATE dtb_member set password = :password, update_date = current_timestamp WHERE login_id = :login_id;');
                 $sth->execute([
                     ':password' => $password,
-                    ':salt' => $salt,
                     ':login_id' => $data['login_id'],
                 ]);
             } else {
                 // 新しい管理者IDが入力されたらinsert
-                $sth = $conn->prepare("INSERT INTO dtb_member (login_id, password, salt, work_id, authority_id, creator_id, sort_no, update_date, create_date,name,department,discriminator_type) VALUES (:login_id, :password , :salt , '1', '0', '1', '1', current_timestamp, current_timestamp,'管理者','EC-CUBE SHOP', 'member');");
+                $sth = $conn->prepare("INSERT INTO dtb_member (login_id, password, work_id, authority_id, creator_id, sort_no, update_date, create_date,name,department,discriminator_type) VALUES (:login_id, :password, '1', '0', '1', '1', current_timestamp, current_timestamp,'管理者','EC-CUBE SHOP', 'member');");
                 $sth->execute([
                     ':login_id' => $data['login_id'],
                     ':password' => $password,
-                    ':salt' => $salt,
                 ]);
             }
             $stmt = $conn->prepare('UPDATE dtb_base_info set

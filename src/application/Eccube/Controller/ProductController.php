@@ -35,7 +35,6 @@ use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ProductController extends AbstractController
 {
@@ -65,11 +64,6 @@ class ProductController extends AbstractController
     protected $BaseInfo;
 
     /**
-     * @var AuthenticationUtils
-     */
-    protected $helper;
-
-    /**
      * @var ProductListMaxRepository
      */
     protected $productListMaxRepository;
@@ -84,7 +78,6 @@ class ProductController extends AbstractController
      * @param CartService $cartService
      * @param ProductRepository $productRepository
      * @param BaseInfoRepository $baseInfoRepository
-     * @param AuthenticationUtils $helper
      * @param ProductListMaxRepository $productListMaxRepository
      */
     public function __construct(
@@ -93,7 +86,6 @@ class ProductController extends AbstractController
         CartService $cartService,
         ProductRepository $productRepository,
         BaseInfoRepository $baseInfoRepository,
-        AuthenticationUtils $helper,
         ProductListMaxRepository $productListMaxRepository
     ) {
         $this->purchaseFlow = $cartPurchaseFlow;
@@ -101,7 +93,6 @@ class ProductController extends AbstractController
         $this->cartService = $cartService;
         $this->productRepository = $productRepository;
         $this->BaseInfo = $baseInfoRepository->get();
-        $this->helper = $helper;
         $this->productListMaxRepository = $productListMaxRepository;
     }
 

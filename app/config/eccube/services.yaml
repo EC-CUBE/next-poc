@@ -116,6 +116,9 @@ services:
         tags:
           - { name: 'data_collector', template: '@toolbar/eccube.html.twig', id: 'eccube_core', priority: -512 }
 
+    eccube.security.context:
+        class: Eccube\Security\SecurityContext
+
     eccube.security.success_handler:
         class: Eccube\Security\Http\Authentication\EccubeAuthenticationSuccessHandler
 
@@ -233,3 +236,9 @@ services:
         shared: false
         autowire: false
         autoconfigure: false
+
+    Eccube\Security\PasswordHasher\EccubePasswordHasher:
+        arguments:
+            - '%eccube_auth_magic%'
+            - '%eccube_auth_type%'
+            - '%eccube_password_hash_algos%'

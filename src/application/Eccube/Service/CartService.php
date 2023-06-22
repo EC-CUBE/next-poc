@@ -22,12 +22,11 @@ use Eccube\ORM\EntityManager;
 use Eccube\Repository\CartRepository;
 use Eccube\Repository\OrderRepository;
 use Eccube\Repository\ProductClassRepository;
+use Eccube\Security\SecurityContext;
 use Eccube\Service\Cart\CartItemAllocator;
 use Eccube\Service\Cart\CartItemComparator;
 use Eccube\Util\StringUtil;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CartService
 {
@@ -75,15 +74,7 @@ class CartService
      */
     protected $orderRepository;
 
-    /**
-     * @var TokenStorageInterface
-     */
-    protected $tokenStorage;
-
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    protected $authorizationChecker;
+    protected SecurityContext $securityContext;
 
     /**
      * CartService constructor.
@@ -96,8 +87,7 @@ class CartService
         CartItemComparator $cartItemComparator,
         CartItemAllocator $cartItemAllocator,
         OrderRepository $orderRepository,
-        TokenStorageInterface $tokenStorage,
-        AuthorizationCheckerInterface $authorizationChecker
+        SecurityContext $securityContext
     ) {
         $this->session = $session;
         $this->entityManager = $entityManager;
@@ -106,8 +96,7 @@ class CartService
         $this->cartItemComparator = $cartItemComparator;
         $this->cartItemAllocator = $cartItemAllocator;
         $this->orderRepository = $orderRepository;
-        $this->tokenStorage = $tokenStorage;
-        $this->authorizationChecker = $authorizationChecker;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -495,11 +484,11 @@ class CartService
 
     protected function getUser()
     {
-        if (null === $token = $this->tokenStorage->getToken()) {
+        if (!$this->securityContext->hasToken()) {
             return;
         }
 
-        if (!is_object($user = $token->getUser())) {
+        if (!is_object($user = $this->securityContext->getLoginCustomer())) {
             // e.g. anonymous authentication
             return;
         }
