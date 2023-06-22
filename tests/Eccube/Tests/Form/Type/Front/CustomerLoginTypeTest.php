@@ -14,7 +14,7 @@
 namespace Eccube\Tests\Form\Type\Front;
 
 use Eccube\Form\Type\Front\CustomerLoginType;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class CustomerLoginTypeTest extends \Eccube\Tests\Form\Type\AbstractTypeTestCase
 {

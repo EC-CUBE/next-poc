@@ -21,7 +21,7 @@ use Eccube\Form\Type\Admin\AuthorityRoleType;
 use Eccube\Repository\AuthorityRoleRepository;
 use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class AuthorityController extends AbstractController
 {

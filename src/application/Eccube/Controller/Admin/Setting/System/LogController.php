@@ -19,7 +19,7 @@ use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\LogType;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Eccube\Http\StreamedResponse;
 
 class LogController extends AbstractController

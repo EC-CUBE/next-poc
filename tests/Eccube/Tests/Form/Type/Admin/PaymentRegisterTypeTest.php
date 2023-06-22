@@ -14,7 +14,7 @@
 namespace Eccube\Tests\Form\Type\Admin;
 
 use Eccube\Form\Type\Admin\PaymentRegisterType;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class PaymentRegisterTypeTest extends \Eccube\Tests\Form\Type\AbstractTypeTestCase
 {

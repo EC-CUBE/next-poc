@@ -19,7 +19,7 @@ use Eccube\EventListener\RateLimiterListener;
 use Eccube\Request\Context;
 use Eccube\Tests\EccubeTestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;

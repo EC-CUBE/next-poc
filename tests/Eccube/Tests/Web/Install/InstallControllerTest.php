@@ -22,7 +22,7 @@ use Eccube\ORM\EntityManager;
 use Eccube\Security\Core\User\UserPasswordHasher;
 use Eccube\Tests\Web\AbstractWebTestCase;
 use Eccube\Util\CacheUtil;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 

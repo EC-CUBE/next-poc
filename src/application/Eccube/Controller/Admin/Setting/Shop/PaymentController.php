@@ -24,7 +24,7 @@ use Eccube\Repository\PaymentRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Service\Payment\Method\Cash;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Eccube\Http\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

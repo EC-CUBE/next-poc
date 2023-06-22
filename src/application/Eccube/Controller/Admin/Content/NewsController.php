@@ -23,7 +23,7 @@ use Eccube\Repository\NewsRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Util\CacheUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class NewsController extends AbstractController

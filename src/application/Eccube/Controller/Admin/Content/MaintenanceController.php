@@ -18,7 +18,7 @@ use Eccube\Controller\Annotation\Template;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Service\SystemService;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class MaintenanceController extends AbstractController

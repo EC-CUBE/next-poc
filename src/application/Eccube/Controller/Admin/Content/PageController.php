@@ -28,7 +28,7 @@ use Eccube\Routing\Router;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Twig\Environment;
 
 class PageController extends AbstractController

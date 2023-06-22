@@ -16,7 +16,7 @@ namespace Eccube\Tests\Event;
 use Eccube\Event\EventArgs;
 use Eccube\Tests\EccubeTestCase;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class EventArgsrTest extends EccubeTestCase

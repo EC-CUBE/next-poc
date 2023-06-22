@@ -23,7 +23,7 @@ use Eccube\Form\Type\Admin\MemberType;
 use Eccube\Repository\MemberRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Security\Core\User\UserPasswordHasher;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class MemberController extends AbstractController
 {

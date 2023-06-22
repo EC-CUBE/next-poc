@@ -40,7 +40,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Eccube\Http\JsonResponse;
 use Eccube\Http\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class PluginController extends AbstractController
 {

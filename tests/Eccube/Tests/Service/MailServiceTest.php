@@ -21,7 +21,7 @@ use Eccube\Service\MailService;
 use Symfony\Bundle\FrameworkBundle\Test\MailerAssertionsTrait;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 /**
  * MailService test cases.

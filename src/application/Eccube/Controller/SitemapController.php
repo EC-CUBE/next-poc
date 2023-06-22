@@ -24,7 +24,7 @@ use Eccube\Routing\Annotation\Route;
 use Eccube\Routing\Router;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Eccube\Http\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

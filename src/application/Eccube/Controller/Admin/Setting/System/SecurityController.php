@@ -20,7 +20,7 @@ use Eccube\Routing\Annotation\Route;
 use Eccube\Security\SecurityContext;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class SecurityController extends AbstractController
 {

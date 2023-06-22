@@ -14,7 +14,7 @@
 namespace Eccube\Tests\EventListener;
 
 use Eccube\Tests\Web\AbstractWebTestCase;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Eccube\Common\EccubeConfig;
 use Eccube\Request\Context;

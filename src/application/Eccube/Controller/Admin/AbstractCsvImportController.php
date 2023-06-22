@@ -18,7 +18,7 @@ use Eccube\Service\CsvImportService;
 use Eccube\Util\StringUtil;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Eccube\Http\StreamedResponse;
 
 class AbstractCsvImportController extends AbstractController

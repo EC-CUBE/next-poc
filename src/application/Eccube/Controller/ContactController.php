@@ -21,7 +21,7 @@ use Eccube\Form\Type\Front\ContactType;
 use Eccube\Repository\PageRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Service\MailService;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class ContactController extends AbstractController
 {

@@ -18,7 +18,7 @@ use Eccube\Security\Core\User\UserPasswordHasher;
 use RobThree\Auth\TwoFactorAuth;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Eccube\Http\Cookie;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class TwoFactorAuthService

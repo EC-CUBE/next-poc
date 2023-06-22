@@ -4,7 +4,7 @@ namespace Eccube\Tests\Form\Type\Admin;
 
 use Eccube\Entity\Master\DeviceType;
 use Eccube\Form\Type\Admin\BlockType;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class BlockTypeTest extends \Eccube\Tests\Form\Type\AbstractTypeTestCase
 {

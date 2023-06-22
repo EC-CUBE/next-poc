@@ -26,7 +26,7 @@ use Eccube\Service\CartService;
 use Eccube\Service\MailService;
 use Eccube\Service\OrderHelper;
 use Eccube\Util\StringUtil;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class WithdrawController extends AbstractController
 {

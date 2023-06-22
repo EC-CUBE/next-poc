@@ -50,7 +50,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 use Eccube\Http\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Eccube\Http\Response;
 use Eccube\Http\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;

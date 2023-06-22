@@ -37,7 +37,7 @@ use Eccube\Security\Core\User\UserPasswordHasher;
 use Eccube\Security\Http\Authentication\AuthenticationUtils;
 use Eccube\Security\SecurityContext;
 use Eccube\Service\PluginApiService;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class AdminController extends AbstractController
 {

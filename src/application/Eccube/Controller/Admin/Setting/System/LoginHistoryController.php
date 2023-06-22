@@ -21,7 +21,7 @@ use Eccube\Repository\Master\PageMaxRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Util\FormUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 /**
  * Class LoginHistoryController

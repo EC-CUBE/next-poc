@@ -35,7 +35,7 @@ use Eccube\Service\TaxRuleService;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Eccube\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Eccube\Http\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 

@@ -22,7 +22,7 @@ use Eccube\Form\Form;
 use Eccube\Form\Type\Admin\ProductTag;
 use Eccube\Repository\TagRepository;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Eccube\Http\Response;
 
 class TagController extends AbstractController

@@ -4,7 +4,7 @@ namespace Plugin\Template\Controller;
 
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Eccube\Routing\Annotation\Route;
 
 class Controller extends AbstractController
