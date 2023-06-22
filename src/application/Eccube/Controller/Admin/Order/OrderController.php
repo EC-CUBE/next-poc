@@ -45,7 +45,7 @@ use Eccube\Util\FormUtil;
 use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\Validator;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Eccube\Http\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Eccube\Http\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;

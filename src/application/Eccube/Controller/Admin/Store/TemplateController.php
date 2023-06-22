@@ -64,7 +64,7 @@ class TemplateController extends AbstractController
      *
      * @param Request $request
      *
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|Eccube\Http\RedirectResponse
      */
     public function index(Request $request, CacheUtil $cacheUtil)
     {
@@ -215,7 +215,7 @@ class TemplateController extends AbstractController
      *
      * @param Request $request
      *
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|Eccube\Http\RedirectResponse
      */
     public function install(Request $request)
     {

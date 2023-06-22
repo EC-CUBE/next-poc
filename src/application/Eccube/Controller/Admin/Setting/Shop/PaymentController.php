@@ -267,7 +267,7 @@ class PaymentController extends AbstractController
      * @param Request $request
      * @param Payment $TargetPayment
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Eccube\Http\RedirectResponse
      */
     public function delete(Request $request, Payment $TargetPayment)
     {

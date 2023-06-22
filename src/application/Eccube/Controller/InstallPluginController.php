@@ -25,7 +25,7 @@ use Eccube\Util\CacheUtil;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Eccube\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Eccube\Http\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

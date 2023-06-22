@@ -130,7 +130,7 @@ class CartController extends AbstractController
     /**
      * @param $Carts
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|null
+     * @return Eccube\Http\RedirectResponse|null
      */
     protected function execPurchaseFlow($Carts)
     {

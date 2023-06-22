@@ -110,7 +110,7 @@ class InstallController extends AbstractController
      *
      * @Template("index.twig")
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Eccube\Http\RedirectResponse
      */
     public function index()
     {
@@ -129,7 +129,7 @@ class InstallController extends AbstractController
      * @Route("/install/step1", name="install_step1", methods={"GET", "POST"})
      * @Template("step1.twig")
      *
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|Eccube\Http\RedirectResponse
      */
     public function step1(Request $request)
     {
@@ -245,7 +245,7 @@ class InstallController extends AbstractController
      * @Route("/install/step3", name="install_step3", methods={"GET", "POST"})
      * @Template("step3.twig")
      *
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|Eccube\Http\RedirectResponse
      *
      * @throws \Doctrine\DBAL\DBALException
      * @throws \Exception
@@ -317,7 +317,7 @@ class InstallController extends AbstractController
      * @Route("/install/step4", name="install_step4", methods={"GET", "POST"})
      * @Template("step4.twig")
      *
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|Eccube\Http\RedirectResponse
      *
      * @throws \Exception
      */
@@ -366,7 +366,7 @@ class InstallController extends AbstractController
      * @Route("/install/step5", name="install_step5", methods={"GET", "POST"})
      * @Template("step5.twig")
      *
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|Eccube\Http\RedirectResponse
      *
      * @throws \Exception
      */

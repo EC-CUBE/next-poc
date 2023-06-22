@@ -806,7 +806,7 @@ class ShoppingController extends AbstractShoppingController
      *
      * @param PaymentMethodInterface $paymentMethod
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Eccube\Http\Response
+     * @return Eccube\Http\RedirectResponse|\Eccube\Http\Response
      */
     protected function executeApply(PaymentMethodInterface $paymentMethod)
     {
@@ -846,7 +846,7 @@ class ShoppingController extends AbstractShoppingController
      *
      * @param PaymentMethodInterface $paymentMethod
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Eccube\Http\Response|null
+     * @return Eccube\Http\RedirectResponse|\Eccube\Http\Response|null
      */
     protected function executeCheckout(PaymentMethodInterface $paymentMethod)
     {
