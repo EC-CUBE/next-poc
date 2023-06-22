@@ -2,6 +2,6 @@
 
 namespace Eccube\ORM\Exception;
 
-class NoResultException extends \Exception
+class NoResultException extends ORMException
 {
 }
