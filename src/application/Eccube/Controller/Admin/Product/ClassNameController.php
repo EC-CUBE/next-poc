@@ -22,7 +22,7 @@ use Eccube\Form\Type\Admin\ClassNameType;
 use Eccube\Repository\ClassNameRepository;
 use Eccube\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Eccube\Http\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

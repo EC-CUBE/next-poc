@@ -25,7 +25,7 @@ use Eccube\Routing\Router;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Eccube\Http\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SitemapController extends AbstractController

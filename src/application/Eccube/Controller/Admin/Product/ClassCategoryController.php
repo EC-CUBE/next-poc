@@ -23,7 +23,7 @@ use Eccube\Repository\ClassNameRepository;
 use Eccube\Repository\ProductClassRepository;
 use Eccube\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Eccube\Http\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 

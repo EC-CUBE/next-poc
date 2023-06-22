@@ -47,7 +47,7 @@ use Eccube\Validator\Validator;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Eccube\Http\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class OrderController extends AbstractController
