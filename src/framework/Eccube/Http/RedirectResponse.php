@@ -16,19 +16,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse as Adaptee;
 
 class RedirectResponse extends Response
 {
-    private Adaptee $adaptee;
-
     public function __construct(string $url, int $status = 302, array $headers = [])
     {
         parent::__construct();
-        $this->adaptee = new Adaptee($url, $status, $headers);
-    }
-
-    /**
-     * @return Adaptee
-     */
-    public function getAdaptee(): Adaptee
-    {
-        return $this->adaptee;
+        $this->setAdaptee(new Adaptee($url, $status, $headers));
     }
 }

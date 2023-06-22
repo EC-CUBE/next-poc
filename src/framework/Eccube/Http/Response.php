@@ -86,8 +86,13 @@ class Response
 
     public function __construct(?string $content = '', int $status = 200, array $headers = [])
     {
-        $this->adaptee = new Adaptee($content, $status, $headers);
-        $this->headers = new ResponseHeader($this->adaptee->headers);
+        $this->setAdaptee(new Adaptee($content, $status, $headers));
+    }
+
+    protected function setAdaptee(Adaptee $adaptee)
+    {
+        $this->adaptee = $adaptee;
+        $this->headers = new ResponseHeader($adaptee->headers);
     }
 
     public function setContent(?string $content): self

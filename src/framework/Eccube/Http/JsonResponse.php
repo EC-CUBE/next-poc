@@ -18,19 +18,9 @@ class JsonResponse extends Response
 {
     public const DEFAULT_ENCODING_OPTIONS = Adaptee::DEFAULT_ENCODING_OPTIONS;
 
-    private Adaptee $adaptee;
-
     public function __construct($data = null, int $status = 200, array $headers = [], bool $json = false)
     {
         parent::__construct();
-        $this->adaptee = new Adaptee($data, $status, $headers, $json);
-    }
-
-    /**
-     * @return Adaptee
-     */
-    public function getAdaptee(): Adaptee
-    {
-        return $this->adaptee;
+        $this->setAdaptee(new Adaptee($data, $status, $headers, $json));
     }
 }

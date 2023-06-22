@@ -16,25 +16,15 @@ use Symfony\Component\HttpFoundation\StreamedResponse as Adaptee;
 
 class StreamedResponse extends Response
 {
-    private Adaptee $adaptee;
-
     public function __construct(callable $callback = null, int $status = 200, array $headers = [])
     {
         parent::__construct();
-        $this->adaptee = new Adaptee($callback, $status, $headers);
+        $this->setAdaptee(new Adaptee($callback, $status, $headers));
     }
 
     public function setCallback(callable $callback): self
     {
-        $this->adaptee->setCallback($callback);
+        $this->getAdaptee()->setCallback($callback);
         return $this;
-    }
-
-    /**
-     * @return Adaptee
-     */
-    public function getAdaptee(): Adaptee
-    {
-        return $this->adaptee;
     }
 }
