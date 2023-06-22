@@ -12,7 +12,6 @@
 
 namespace Eccube\Http;
 
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 class ResponseHeader
@@ -34,6 +33,6 @@ class ResponseHeader
 
     public function setCookie(Cookie $cookie)
     {
-        $this->adaptee->setCookie($cookie);
+        $this->adaptee->setCookie($cookie->getAdaptee());
     }
 }
