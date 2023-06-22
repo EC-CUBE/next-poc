@@ -256,7 +256,7 @@ class TaxRuleRepository extends AbstractRepository
      *
      * @param int|\Eccube\Entity\TaxRule $TaxRule 税規約
      *
-     * @throws ORMException
+     * @throws NoResultException
      */
     public function delete($TaxRule)
     {
@@ -264,7 +264,7 @@ class TaxRuleRepository extends AbstractRepository
             $TaxRule = $this->find($TaxRule);
         }
         if (!$TaxRule) {
-            throw new ORMException();
+            throw new NoResultException();
         }
         $em = $this->getEntityManager();
         $em->remove($TaxRule);
