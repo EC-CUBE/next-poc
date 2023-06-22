@@ -14,32 +14,32 @@ class Query
     /**
      * Hydrates an object graph. This is the default behavior.
      */
-    public const HYDRATE_OBJECT = 1;
+    public const HYDRATE_OBJECT = DoctrineQuery::HYDRATE_OBJECT;
 
     /**
      * Hydrates an array graph.
      */
-    public const HYDRATE_ARRAY = 2;
+    public const HYDRATE_ARRAY = DoctrineQuery::HYDRATE_ARRAY;
 
     /**
      * Hydrates a flat, rectangular result set with scalar values.
      */
-    public const HYDRATE_SCALAR = 3;
+    public const HYDRATE_SCALAR = DoctrineQuery::HYDRATE_SCALAR;
 
     /**
      * Hydrates a single scalar value.
      */
-    public const HYDRATE_SINGLE_SCALAR = 4;
+    public const HYDRATE_SINGLE_SCALAR = DoctrineQuery::HYDRATE_SINGLE_SCALAR;
 
     /**
      * Very simple object hydrator (optimized for performance).
      */
-    public const HYDRATE_SIMPLEOBJECT = 5;
+    public const HYDRATE_SIMPLEOBJECT = DoctrineQuery::HYDRATE_SIMPLEOBJECT;
 
     /**
      * Hydrates scalar column value.
      */
-    public const HYDRATE_SCALAR_COLUMN = 6;
+    public const HYDRATE_SCALAR_COLUMN = DoctrineQuery::HYDRATE_SCALAR_COLUMN;
 
     private DoctrineQuery $query;
 
