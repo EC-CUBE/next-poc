@@ -21,9 +21,27 @@ class Request
 
     private RequestStack $requestStack;
 
+    public InputBag $query;
+
     public function __construct(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
         $this->adaptee = $requestStack->getMainRequest();
+        $this->query = new InputBag($this->adaptee->query);
+    }
+
+    public function get(string $key, $default = null): mixed
+    {
+        return $this->adaptee->get($key, $default);
+    }
+
+    public function getMethod(): string
+    {
+        return $this->adaptee->getMethod();
+    }
+
+    public function isXmlHttpRequest(): bool
+    {
+        return $this->adaptee->isXmlHttpRequest();
     }
 }
