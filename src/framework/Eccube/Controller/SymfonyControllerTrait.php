@@ -13,11 +13,11 @@
 namespace Eccube\Controller;
 
 use Eccube\Form\FormView;
+use Eccube\Http\BinaryFileResponse;
 use Eccube\Http\JsonResponse;
 use Eccube\Http\RedirectResponse;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
