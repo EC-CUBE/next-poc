@@ -14,14 +14,11 @@ class QueryBuilderSubscriber implements EventSubscriberInterface
 {
     public function items(ItemsEvent $event): void
     {
+        if ($event->target instanceof Query) {
+            $event->target = $this->convertQuery($event->target);
+        }
         if ($event->target instanceof QueryBuilder) {
-            $query = $event->target->getQuery();
-            if ($query instanceof Query) {
-                $ref = new \ReflectionClass(Query::class);
-                $query = $ref->getProperty('query')->getValue($query);
-            }
-            // change target into query
-            $event->target = $query;
+            $event->target = $this->convertQuery($event->target->getQuery());
         }
     }
 
@@ -30,5 +27,11 @@ class QueryBuilderSubscriber implements EventSubscriberInterface
         return [
             'knp_pager.items' => ['items', 10/*make sure to transform before any further modifications*/],
         ];
+    }
+
+    private function convertQuery(Query $query)
+    {
+        $ref = new \ReflectionClass(Query::class);
+        return $ref->getProperty('query')->getValue($query);
     }
 }
