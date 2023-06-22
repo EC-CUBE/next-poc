@@ -16,6 +16,7 @@ namespace Eccube\Repository;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Page;
+use Eccube\ORM\Exception\NoResultException;
 use Eccube\ORM\Exception\ORMException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -97,6 +98,7 @@ class PageRepository extends AbstractRepository
      *
      * @return Page
      *
+     * @throws NoResultException
      * @throws ORMException
      */
     public function getByUrl($url)

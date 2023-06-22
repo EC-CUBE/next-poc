@@ -26,7 +26,7 @@ use Eccube\Event\EventArgs;
 use Eccube\Exception\PluginApiException;
 use Eccube\Form\Type\Admin\ChangePasswordType;
 use Eccube\Form\Type\Admin\LoginType;
-use Eccube\ORM\Exception\ORMException;
+use Eccube\ORM\Exception\NoResultException;
 use Eccube\Repository\CustomerRepository;
 use Eccube\Repository\Master\OrderStatusRepository;
 use Eccube\Repository\MemberRepository;
@@ -450,7 +450,7 @@ class AdminController extends AbstractController
         $result = [];
         try {
             $result = $q->getSingleResult();
-        } catch (ORMException $e) {
+        } catch (NoResultException $e) {
             // 結果がない場合は空の配列を返す.
         }
 
@@ -489,7 +489,7 @@ class AdminController extends AbstractController
         $result = [];
         try {
             $result = $q->getSingleResult();
-        } catch (ORMException $e) {
+        } catch (NoResultException $e) {
             // 結果がない場合は空の配列を返す.
         }
 

@@ -19,6 +19,7 @@ use Eccube\Entity\BaseInfo;
 use Eccube\Entity\Customer;
 use Eccube\Entity\Master\RoundingType;
 use Eccube\Entity\TaxRule;
+use Eccube\ORM\Exception\NoResultException;
 use Eccube\ORM\Exception\ORMException;
 use Eccube\Security\SecurityContext;
 
@@ -73,7 +74,7 @@ class TaxRuleRepository extends AbstractRepository
         try {
             $CurrentRule = $this->getByRule();
             $RoundingType = $CurrentRule->getRoundingType();
-        } catch (ORMException $e) {
+        } catch (NoResultException $e) {
             // quiet
         }
         $TaxRule = new TaxRule();
@@ -93,6 +94,7 @@ class TaxRuleRepository extends AbstractRepository
      *
      * @return \Eccube\Entity\TaxRule                 税設定情報
      *
+     * @throws NoResultException
      * @throws ORMException
      */
     public function getByRule($Product = null, $ProductClass = null, $Pref = null, $Country = null)
@@ -228,7 +230,7 @@ class TaxRuleRepository extends AbstractRepository
 
             return $TaxRules[0];
         } else {
-            throw new ORMException();
+            throw new NoResultException();
         }
     }
 

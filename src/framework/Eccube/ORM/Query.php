@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Eccube\ORM;
 
+use Doctrine\ORM\NoResultException as DoctrineNoResultException;
 use Doctrine\ORM\Query as DoctrineQuery;
+use Eccube\ORM\Exception\NoResultException;
 use Eccube\ORM\Exception\ORMException;
 
 class Query
@@ -69,11 +71,14 @@ class Query
 
     /**
      * @throws ORMException
+     * @throws NoResultException
      */
     public function getSingleResult($hydrationMode = null)
     {
         try {
             return $this->query->getSingleResult($hydrationMode);
+        } catch (DoctrineNoResultException $e) {
+            throw new NoResultException($e);
         } catch (\Exception $e) {
             throw new ORMException($e);
         }
@@ -81,11 +86,14 @@ class Query
 
     /**
      * @throws ORMException
+     * @throws NoResultException
      */
     public function getSingleScalarResult()
     {
         try {
             return $this->getSingleResult(self::HYDRATE_SINGLE_SCALAR);
+        } catch (DoctrineNoResultException $e) {
+            throw new NoResultException($e);
         } catch (\Exception $e) {
             throw new ORMException($e);
         }

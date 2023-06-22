@@ -18,7 +18,6 @@ use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Layout;
 use Eccube\Entity\Master\ProductStatus;
 use Eccube\Form\Type\Admin\LayoutType;
-use Eccube\ORM\Exception\ORMException;
 use Eccube\Repository\BlockPositionRepository;
 use Eccube\Repository\BlockRepository;
 use Eccube\Repository\LayoutRepository;
@@ -201,9 +200,8 @@ class LayoutController extends AbstractController
             // プレビューモード
             if ($this->isPreview) {
                 // プレビューする画面を取得
-                try {
-                    $Page = $this->pageRepository->find($previewPageId);
-                } catch (ORMException $e) {
+                $Page = $this->pageRepository->find($previewPageId);
+                if (!$Page) {
                     throw new NotFoundHttpException();
                 }
 

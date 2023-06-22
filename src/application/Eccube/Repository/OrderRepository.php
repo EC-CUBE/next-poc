@@ -13,6 +13,7 @@
 
 namespace Eccube\Repository;
 
+use Eccube\ORM\Exception\NoResultException;
 use Eccube\ORM\Exception\ORMException;
 use Eccube\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
@@ -434,6 +435,7 @@ class OrderRepository extends AbstractRepository
      * @return int
      *
      * @throws ORMException
+     * @throws NoResultException
      */
     public function countByOrderStatus($OrderStatusOrId)
     {
@@ -463,7 +465,7 @@ class OrderRepository extends AbstractRepository
                 ->groupBy('o.Customer')
                 ->getQuery()
                 ->getSingleResult();
-        } catch (ORMException $e) {
+        } catch (NoResultException $e) {
             // 受注データが存在しなければ初期化
             $Customer->setFirstBuyDate(null);
             $Customer->setLastBuyDate(null);

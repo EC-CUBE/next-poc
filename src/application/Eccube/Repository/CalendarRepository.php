@@ -16,7 +16,7 @@ namespace Eccube\Repository;
 use Carbon\Carbon;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Entity\Calendar;
-use Eccube\ORM\Exception\ORMException;
+use Eccube\ORM\Exception\NoResultException;
 
 /**
  * CalendarRepository
@@ -101,7 +101,7 @@ class CalendarRepository extends AbstractRepository
             $Calendar = $this->find($Calendar);
         }
         if (!$Calendar) {
-            throw new ORMException();
+            throw new NoResultException();
         }
         $em = $this->getEntityManager();
         $em->remove($Calendar);

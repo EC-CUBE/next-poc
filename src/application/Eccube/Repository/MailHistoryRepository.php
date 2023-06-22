@@ -15,6 +15,7 @@ namespace Eccube\Repository;
 
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Entity\MailHistory;
+use Eccube\ORM\Exception\NoResultException;
 use Eccube\ORM\Exception\ORMException;
 
 /**
@@ -38,7 +39,7 @@ class MailHistoryRepository extends AbstractRepository
     /**
      * @param \Eccube\Entity\Customer
      * @param integer $id
-     * @throws ORMException
+     * @throws NoResultException|ORMException
      */
     public function getByCustomerAndId(\Eccube\Entity\Customer $Customer, $id)
     {

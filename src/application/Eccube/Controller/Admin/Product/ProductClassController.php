@@ -21,7 +21,7 @@ use Eccube\Entity\Product;
 use Eccube\Entity\ProductClass;
 use Eccube\Entity\ProductStock;
 use Eccube\Form\Type\Admin\ProductClassMatrixType;
-use Eccube\ORM\Exception\ORMException;
+use Eccube\ORM\Exception\NoResultException;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\ClassCategoryRepository;
 use Eccube\Repository\ProductClassRepository;
@@ -458,7 +458,7 @@ class ProductClassController extends AbstractController
 
         try {
             return $qb->getQuery()->getSingleResult();
-        } catch (ORMException $e) {
+        } catch (NoResultException $e) {
             return null;
         }
     }
