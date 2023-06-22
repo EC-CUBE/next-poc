@@ -16,7 +16,6 @@ namespace Eccube\Service;
 use Detection\MobileDetect;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\Cart;
 use Eccube\Entity\CartItem;
 use Eccube\Entity\Customer;
@@ -27,6 +26,7 @@ use Eccube\Entity\Order;
 use Eccube\Entity\OrderItem;
 use Eccube\Entity\Shipping;
 use Eccube\EventListener\SecurityListener;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\DeliveryRepository;
 use Eccube\Repository\Master\DeviceTypeRepository;
 use Eccube\Repository\Master\OrderItemTypeRepository;
@@ -113,16 +113,13 @@ class OrderHelper
      */
     protected $mobileDetector;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     protected SecurityContext $securityContext;
 
     public function __construct(
         ContainerInterface $container,
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         OrderRepository $orderRepository,
         OrderItemTypeRepository $orderItemTypeRepository,
         OrderStatusRepository $orderStatusRepository,

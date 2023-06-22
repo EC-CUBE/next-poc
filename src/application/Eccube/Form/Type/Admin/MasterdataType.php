@@ -13,15 +13,12 @@
 
 namespace Eccube\Form\Type\Admin;
 
-use Doctrine\Common\Persistence\Mapping\Driver\MappingDriver;
-use Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\ClassMetadata;
 use Eccube\Entity\Master\CustomerOrderStatus;
 use Eccube\Entity\Master\OrderStatus;
 use Eccube\Entity\Master\OrderStatusColor;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\Type\AbstractType;
+use Eccube\ORM\EntityManager;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -30,17 +27,14 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
  */
 class MasterdataType extends AbstractType
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * MasterdataType constructor.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }
@@ -50,36 +44,18 @@ class MasterdataType extends AbstractType
      */
     public function buildForm(FormBuilder $builder, array $options)
     {
+        $tableNames = $this->entityManager->getTableNames();
+
+        // マスタデータのテーブル(mtb_*)のみ対象
+        $tableNames = array_filter($tableNames, fn ($table) => \str_starts_with($table, 'mtb_'));
+
+        // OrderStatus/OrderStatusColorは対象外 @see https://github.com/EC-CUBE/ec-cube/pull/4844
+        $excludes = [OrderStatus::class, OrderStatusColor::class, CustomerOrderStatus::class];
+        $tableNames = array_filter($tableNames, fn ($class) => !in_array($class, $excludes), \ARRAY_FILTER_USE_KEY);
+
         $masterdata = [];
-
-        /** @var MappingDriverChain $driverChain */
-        $driverChain = $this->entityManager->getConfiguration()->getMetadataDriverImpl()->getDriver();
-        /** @var MappingDriver[] $drivers */
-        $drivers = $driverChain->getDrivers();
-
-        foreach ($drivers as $namespace => $driver) {
-            if ($namespace == 'Eccube\Entity') {
-                $classNames = $driver->getAllClassNames();
-                foreach ($classNames as $className) {
-                    /** @var ClassMetadata $meta */
-                    $meta = $this->entityManager->getMetadataFactory()->getMetadataFor($className);
-
-                    // OrderStatus/OrderStatusColorは対象外
-                    // @see https://github.com/EC-CUBE/ec-cube/pull/4844
-                    if (in_array($meta->getName(), [OrderStatus::class, OrderStatusColor::class, CustomerOrderStatus::class])) {
-                        continue;
-                    }
-
-                    if (strpos($meta->rootEntityName, 'Master') !== false
-                        && $meta->hasField('id')
-                        && $meta->hasField('name')
-                        && $meta->hasField('sort_no')
-                    ) {
-                        $metadataName = str_replace('\\', '-', $meta->getName());
-                        $masterdata[$metadataName] = $meta->getTableName();
-                    }
-                }
-            }
+        foreach ($tableNames as $class => $table) {
+            $masterdata[str_replace('\\', '-', $class)] = $table;
         }
 
         $builder
@@ -91,7 +67,7 @@ class MasterdataType extends AbstractType
                     new Assert\NotBlank(),
                 ],
             ])
-            ;
+        ;
     }
 
     /**

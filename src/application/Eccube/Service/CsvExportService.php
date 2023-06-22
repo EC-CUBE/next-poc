@@ -14,7 +14,6 @@
 namespace Eccube\Service;
 
 use Doctrine\Common\Util\ClassUtils;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Csv;
@@ -23,6 +22,7 @@ use Eccube\Form\FormFactory;
 use Eccube\Form\Type\Admin\SearchCustomerType;
 use Eccube\Form\Type\Admin\SearchOrderType;
 use Eccube\Form\Type\Admin\SearchProductType;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\CsvRepository;
 use Eccube\Repository\CustomerRepository;
 use Eccube\Repository\Master\CsvTypeRepository;
@@ -50,10 +50,7 @@ class CsvExportService
      */
     protected $convertEncodingCallBack;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var QueryBuilder;
@@ -116,7 +113,7 @@ class CsvExportService
     /**
      * CsvExportService constructor.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      * @param CsvRepository $csvRepository
      * @param CsvTypeRepository $csvTypeRepository
      * @param OrderRepository $orderRepository
@@ -128,7 +125,7 @@ class CsvExportService
      * @param PaginatorInterface $paginator
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         CsvRepository $csvRepository,
         CsvTypeRepository $csvTypeRepository,
         OrderRepository $orderRepository,
@@ -200,17 +197,14 @@ class CsvExportService
     }
 
     /**
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      */
-    public function setEntityManager(EntityManagerInterface $entityManager)
+    public function setEntityManager(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * @return EntityManagerInterface
-     */
-    public function getEntityManager()
+    public function getEntityManager(): EntityManager
     {
         return $this->entityManager;
     }

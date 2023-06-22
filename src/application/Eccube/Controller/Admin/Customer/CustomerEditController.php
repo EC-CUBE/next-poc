@@ -64,7 +64,7 @@ class CustomerEditController extends AbstractController
      */
     public function index(Request $request, PaginatorInterface $paginator, UserPasswordHasher $hasher, $id = null)
     {
-        $this->entityManager->getFilters()->enable('incomplete_order_status_hidden');
+        $this->entityManager->enableFilter('incomplete_order_status_hidden');
         // 編集
         if ($id) {
             /** @var Customer $Customer */

@@ -400,7 +400,6 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @param \Doctrine\ORM\EntityManagerInterface $em
      * @param array $excludes
      *
      * @return Request|null

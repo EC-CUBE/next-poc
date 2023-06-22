@@ -13,10 +13,10 @@
 
 namespace Eccube\Service\Composer;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\BaseInfo;
 use Eccube\Exception\PluginException;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\BaseInfoRepository;
 
 /**
@@ -31,10 +31,7 @@ class ComposerProcessService implements ComposerServiceInterface
      */
     protected $eccubeConfig;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var ComposerApiService
@@ -49,10 +46,10 @@ class ComposerProcessService implements ComposerServiceInterface
      * ComposerProcessService constructor.
      *
      * @param EccubeConfig $eccubeConfig
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      * @param ComposerApiService $composerApiService
      */
-    public function __construct(EccubeConfig $eccubeConfig, EntityManagerInterface $entityManager, ComposerApiService $composerApiService, BaseInfoRepository $baseInfoRepository)
+    public function __construct(EccubeConfig $eccubeConfig, EntityManager $entityManager, ComposerApiService $composerApiService, BaseInfoRepository $baseInfoRepository)
     {
         $this->eccubeConfig = $eccubeConfig;
         $this->entityManager = $entityManager;

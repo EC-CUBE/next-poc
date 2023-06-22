@@ -285,7 +285,7 @@ class CustomerController extends AbstractController
 
         // sql loggerを無効にする.
         $em = $this->entityManager;
-        $em->getConfiguration()->setSQLLogger(null);
+        $em->disableSqlLogger();
 
         $response = new StreamedResponse();
         $response->setCallback(function () use ($request) {

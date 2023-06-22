@@ -13,7 +13,6 @@
 
 namespace Eccube\Form\Type\Admin;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\BaseInfo;
 use Eccube\Entity\Master\OrderItemType as OrderItemTypeMaster;
@@ -28,6 +27,7 @@ use Eccube\Form\FormEvent;
 use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\PriceType;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\Master\OrderItemTypeRepository;
 use Eccube\Repository\OrderItemRepository;
@@ -43,10 +43,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class OrderItemType extends AbstractType
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var EccubeConfig
@@ -86,7 +83,7 @@ class OrderItemType extends AbstractType
     /**
      * OrderItemType constructor.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      * @param EccubeConfig $eccubeConfig
      * @param BaseInfoRepository $baseInfoRepository
      * @param ProductClassRepository $productClassRepository
@@ -98,7 +95,7 @@ class OrderItemType extends AbstractType
      * @throws \Exception
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         EccubeConfig $eccubeConfig,
         BaseInfoRepository $baseInfoRepository,
         ProductClassRepository $productClassRepository,

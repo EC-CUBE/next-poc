@@ -106,7 +106,7 @@ class ProductController extends AbstractController
     {
         // Doctrine SQLFilter
         if ($this->BaseInfo->isOptionNostockHidden()) {
-            $this->entityManager->getFilters()->enable('option_nostock_hidden');
+            $this->entityManager->enableFilter('option_nostock_hidden');
         }
 
         // handleRequestは空のqueryの場合は無視するため

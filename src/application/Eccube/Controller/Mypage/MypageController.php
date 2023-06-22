@@ -147,9 +147,7 @@ class MypageController extends AbstractController
         $Customer = $this->getUser();
 
         // 購入処理中/決済処理中ステータスの受注を非表示にする.
-        $this->entityManager
-            ->getFilters()
-            ->enable('incomplete_order_status_hidden');
+        $this->entityManager->enableFilter('incomplete_order_status_hidden');
 
         // paginator
         $qb = $this->orderRepository->getQueryBuilderByCustomer($Customer);
@@ -182,8 +180,7 @@ class MypageController extends AbstractController
      */
     public function history(Request $request, $order_no)
     {
-        $this->entityManager->getFilters()
-            ->enable('incomplete_order_status_hidden');
+        $this->entityManager->enableFilter('incomplete_order_status_hidden');
         $Order = $this->orderRepository->findOneBy(
             [
                 'order_no' => $order_no,

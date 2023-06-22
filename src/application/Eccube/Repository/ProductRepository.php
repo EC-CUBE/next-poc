@@ -201,7 +201,7 @@ class ProductRepository extends AbstractRepository
         } elseif (!empty($searchData['orderby']) && $searchData['orderby']->getId() == $config['eccube_product_order_newer']) {
             // 在庫切れ商品非表示の設定が有効時対応
             // @see https://github.com/EC-CUBE/ec-cube/issues/1998
-            if ($this->getEntityManager()->getFilters()->isEnabled('option_nostock_hidden') == true) {
+            if ($this->getEntityManager()->filterIsEnabled('option_nostock_hidden')) {
                 $qb->innerJoin('p.ProductClasses', 'pc');
                 $qb->andWhere('pc.visible = true');
             }

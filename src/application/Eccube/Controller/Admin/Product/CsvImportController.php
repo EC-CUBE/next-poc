@@ -219,8 +219,8 @@ class CsvImportController extends AbstractCsvImportController
                     $headerByKey = array_flip(array_map($getId, $headers));
                     $deleteImages = [];
 
-                    $this->entityManager->getConfiguration()->setSQLLogger(null);
-                    $this->entityManager->getConnection()->beginTransaction();
+                    $this->entityManager->disableSqlLogger();
+                    $this->entityManager->beginTransaction();
                     // CSVファイルの登録処理
                     foreach ($data as $row) {
                         $line = $this->convertLineNo($data->key() + 1);
@@ -651,7 +651,7 @@ class CsvImportController extends AbstractCsvImportController
                         $this->entityManager->persist($Product);
                     }
                     $this->entityManager->flush();
-                    $this->entityManager->getConnection()->commit();
+                    $this->entityManager->commit();
 
                     // 画像ファイルの削除(commit後に削除させる)
                     foreach ($deleteImages as $images) {
@@ -729,8 +729,8 @@ class CsvImportController extends AbstractCsvImportController
 
                         return $this->renderWithError($form, $headers, false);
                     }
-                    $this->entityManager->getConfiguration()->setSQLLogger(null);
-                    $this->entityManager->getConnection()->beginTransaction();
+                    $this->entityManager->disableSqlLogger();
+                    $this->entityManager->beginTransaction();
                     // CSVファイルの登録処理
                     foreach ($data as $row) {
                         /** @var $Category Category */
@@ -830,7 +830,7 @@ class CsvImportController extends AbstractCsvImportController
                         $this->categoryRepository->save($Category);
                     }
 
-                    $this->entityManager->getConnection()->commit();
+                    $this->entityManager->commit();
                     log_info('カテゴリCSV登録完了');
                     $message = 'admin.common.csv_upload_complete';
                     $this->session->getFlashBag()->add('eccube.admin.success', $message);
@@ -882,7 +882,7 @@ class CsvImportController extends AbstractCsvImportController
     {
         if ($this->hasErrors()) {
             if ($rollback) {
-                $this->entityManager->getConnection()->rollback();
+                $this->entityManager->rollBack();
             }
         }
 

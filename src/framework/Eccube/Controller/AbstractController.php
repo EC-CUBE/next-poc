@@ -13,11 +13,11 @@
 
 namespace Eccube\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Eccube\Common\Constant;
 use Eccube\Common\EccubeConfig;
 use Eccube\Form\FormFactory;
+use Eccube\ORM\EntityManager;
 use Eccube\Routing\Exception\RoutingException;
 use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
@@ -48,10 +48,7 @@ class AbstractController implements ServiceSubscriberInterface
      */
     protected $eccubeConfig;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var TranslatorInterface
@@ -83,10 +80,10 @@ class AbstractController implements ServiceSubscriberInterface
     }
 
     /**
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      * @required
      */
-    public function setEntityManager(EntityManagerInterface $entityManager)
+    public function setEntityManager(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }

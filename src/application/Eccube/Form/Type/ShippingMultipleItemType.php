@@ -13,12 +13,12 @@
 
 namespace Eccube\Form\Type;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Customer;
 use Eccube\Entity\CustomerAddress;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\FormEvent;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\Master\PrefRepository;
 use Eccube\Security\SecurityContext;
 use Eccube\Service\OrderHelper;
@@ -44,10 +44,7 @@ class ShippingMultipleItemType extends AbstractType
      */
     protected $prefRepository;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var OrderHelper
@@ -66,7 +63,7 @@ class ShippingMultipleItemType extends AbstractType
         EccubeConfig $eccubeConfig,
         SessionInterface $session,
         PrefRepository $prefRepository,
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         OrderHelper $orderHelper,
         SecurityContext $securityContext
     ) {

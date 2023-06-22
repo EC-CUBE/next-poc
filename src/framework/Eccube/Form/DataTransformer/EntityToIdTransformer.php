@@ -14,28 +14,19 @@
 namespace Eccube\Form\DataTransformer;
 
 use Doctrine\Persistence\ObjectManager;
+use Eccube\ORM\EntityManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class EntityToIdTransformer implements DataTransformerInterface
 {
-    /**
-     * @var ObjectManager
-     */
-    private $om;
+    private ObjectManager|EntityManager $entityManager;
 
-    /**
-     * @var string
-     */
-    private $className;
+    private string $className;
 
-    /**
-     * @param ObjectManager $om
-     * @param string $className
-     */
-    public function __construct(ObjectManager $om, $className)
+    public function __construct(ObjectManager|EntityManager $entityManager, string $className)
     {
-        $this->om = $om;
+        $this->entityManager = $entityManager;
         $this->className = $className;
     }
 
@@ -54,7 +45,7 @@ class EntityToIdTransformer implements DataTransformerInterface
             return null;
         }
 
-        $entity = $this->om
+        $entity = $this->entityManager
             ->getRepository($this->className)
             ->find($id)
         ;

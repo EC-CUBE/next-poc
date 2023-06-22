@@ -13,7 +13,6 @@
 
 namespace Eccube\Form\Type\Admin;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\ClassCategory;
 use Eccube\Entity\ProductClass;
@@ -27,6 +26,7 @@ use Eccube\Form\Type\Master\DeliveryDurationType;
 use Eccube\Form\Type\Master\SaleTypeType;
 use Eccube\Form\Type\PriceType;
 use Eccube\OptionsResolver\OptionsResolver;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\ConstraintViolationList;
@@ -39,10 +39,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ProductClassEditType extends AbstractType
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var Validator
@@ -62,12 +59,12 @@ class ProductClassEditType extends AbstractType
     /**
      * ProductClassEditType constructor.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      * @param Validator $validator
      * @param BaseInfoRepository $baseInfoRepository
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         Validator $validator,
         BaseInfoRepository $baseInfoRepository,
         EccubeConfig $eccubeConfig

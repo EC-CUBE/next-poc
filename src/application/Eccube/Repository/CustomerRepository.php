@@ -13,7 +13,6 @@
 
 namespace Eccube\Repository;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Common\EccubeConfig;
@@ -21,8 +20,7 @@ use Eccube\Doctrine\Query\Queries;
 use Eccube\Entity\Customer;
 use Eccube\Entity\Master\CustomerStatus;
 use Eccube\Entity\Master\OrderStatus;
-use Eccube\Entity\Master\Pref;
-use Eccube\Entity\Master\Sex;
+use Eccube\ORM\EntityManager;
 use Eccube\Util\StringUtil;
 
 /**
@@ -38,10 +36,7 @@ class CustomerRepository extends AbstractRepository
      */
     protected $queries;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var OrderRepository
@@ -62,14 +57,14 @@ class CustomerRepository extends AbstractRepository
      *
      * @param RegistryInterface $registry
      * @param Queries $queries
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      * @param OrderRepository $orderRepository
      * @param EccubeConfig $eccubeConfig
      */
     public function __construct(
         RegistryInterface $registry,
         Queries $queries,
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         OrderRepository $orderRepository,
         EccubeConfig $eccubeConfig
     ) {

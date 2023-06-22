@@ -13,12 +13,12 @@
 
 namespace Eccube\Service\PurchaseFlow\Processor;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Entity\ItemHolderInterface;
 use Eccube\Entity\Master\OrderItemType;
 use Eccube\Entity\Master\TaxDisplayType;
 use Eccube\Entity\Master\TaxType;
 use Eccube\Entity\Order;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\TaxRuleRepository;
 use Eccube\Service\PurchaseFlow\ItemHolderPreprocessor;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
@@ -26,10 +26,7 @@ use Eccube\Service\TaxRuleService;
 
 class TaxProcessor implements ItemHolderPreprocessor
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var TaxRuleRepository
@@ -48,7 +45,7 @@ class TaxProcessor implements ItemHolderPreprocessor
      * @param TaxRuleService $taxRuleService
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         TaxRuleRepository $taxRuleRepository,
         TaxRuleService $taxRuleService
     ) {

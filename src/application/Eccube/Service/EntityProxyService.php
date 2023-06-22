@@ -14,8 +14,8 @@
 namespace Eccube\Service;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Annotation\EntityExtension;
+use Eccube\ORM\EntityManager;
 use PhpCsFixer\Tokenizer\CT;
 use PhpCsFixer\Tokenizer\Token;
 use PhpCsFixer\Tokenizer\Tokens;
@@ -26,10 +26,7 @@ use Symfony\Component\Finder\Finder;
 
 class EntityProxyService
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var ContainerInterface
@@ -39,11 +36,11 @@ class EntityProxyService
     /**
      * EntityProxyService constructor.
      *
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      * @param ContainerInterface $container
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         ContainerInterface $container
     ) {
         $this->entityManager = $entityManager;

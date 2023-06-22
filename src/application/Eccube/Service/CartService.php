@@ -13,13 +13,12 @@
 
 namespace Eccube\Service;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\UnitOfWork;
 use Eccube\Entity\Cart;
 use Eccube\Entity\CartItem;
 use Eccube\Entity\Customer;
 use Eccube\Entity\ItemHolderInterface;
 use Eccube\Entity\ProductClass;
+use Eccube\ORM\EntityManager;
 use Eccube\Repository\CartRepository;
 use Eccube\Repository\OrderRepository;
 use Eccube\Repository\ProductClassRepository;
@@ -41,10 +40,7 @@ class CartService
      */
     protected $session;
 
-    /**
-     * @var \Doctrine\ORM\EntityManagerInterface
-     */
-    protected $entityManager;
+    protected EntityManager $entityManager;
 
     /**
      * @var ItemHolderInterface
@@ -85,7 +81,7 @@ class CartService
      */
     public function __construct(
         SessionInterface $session,
-        EntityManagerInterface $entityManager,
+        EntityManager $entityManager,
         ProductClassRepository $productClassRepository,
         CartRepository $cartRepository,
         CartItemComparator $cartItemComparator,
@@ -432,7 +428,7 @@ class CartService
         $Carts = $this->getCarts();
         if (!empty($Carts)) {
             $removed = $this->getCart();
-            if ($removed && UnitOfWork::STATE_MANAGED === $this->entityManager->getUnitOfWork()->getEntityState($removed)) {
+            if ($removed && $this->entityManager->isStateManaged($removed)) {
                 $this->entityManager->remove($removed);
                 $this->entityManager->flush();
 

@@ -13,12 +13,12 @@
 
 namespace Eccube\Form\Type\Admin;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\FormError;
 use Eccube\Form\FormEvent;
 use Eccube\Form\Type\AbstractType;
+use Eccube\ORM\EntityManager;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -33,16 +33,15 @@ class OrderPdfType extends AbstractType
     /** @var EccubeConfig */
     private $eccubeConfig;
 
-    /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManager $entityManager;
 
     /**
      * OrderPdfType constructor.
      *
      * @param EccubeConfig $eccubeConfig
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      */
-    public function __construct(EccubeConfig $eccubeConfig, EntityManagerInterface $entityManager)
+    public function __construct(EccubeConfig $eccubeConfig, EntityManager $entityManager)
     {
         $this->eccubeConfig = $eccubeConfig;
         $this->entityManager = $entityManager;
