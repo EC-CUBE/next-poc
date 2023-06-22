@@ -474,7 +474,7 @@ class OrderController extends AbstractController
      * @param Request $request
      * @param Shipping $Shipping
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function updateOrderStatus(Request $request, Shipping $Shipping)
     {

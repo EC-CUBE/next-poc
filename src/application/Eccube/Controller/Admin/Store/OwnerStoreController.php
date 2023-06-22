@@ -250,7 +250,7 @@ class OwnerStoreController extends AbstractController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function apiInstall(Request $request)
     {
@@ -282,7 +282,7 @@ class OwnerStoreController extends AbstractController
      *
      * @param Plugin $Plugin
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function apiUninstall(Plugin $Plugin)
     {
@@ -332,7 +332,7 @@ class OwnerStoreController extends AbstractController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function apiUpgrade(Request $request)
     {
@@ -362,7 +362,7 @@ class OwnerStoreController extends AbstractController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function apiSchemaUpdate(Request $request)
     {
@@ -413,7 +413,7 @@ class OwnerStoreController extends AbstractController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function apiUpdate(Request $request)
     {

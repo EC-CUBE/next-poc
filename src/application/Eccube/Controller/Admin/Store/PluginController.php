@@ -38,7 +38,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Eccube\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -354,7 +354,7 @@ class PluginController extends AbstractController
      * @param Plugin $Plugin
      * @param CacheUtil $cacheUtil
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse|RedirectResponse
+     * @return Eccube\Http\JsonResponse|RedirectResponse
      */
     public function disable(Request $request, Plugin $Plugin, CacheUtil $cacheUtil)
     {

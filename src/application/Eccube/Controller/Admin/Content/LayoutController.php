@@ -27,7 +27,7 @@ use Eccube\Repository\PageRepository;
 use Eccube\Repository\ProductRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Util\CacheUtil;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Eccube\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;

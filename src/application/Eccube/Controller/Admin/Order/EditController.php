@@ -503,7 +503,7 @@ class EditController extends AbstractController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function searchCustomerById(Request $request)
     {

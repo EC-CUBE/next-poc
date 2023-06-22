@@ -1627,7 +1627,7 @@ class CsvImportController extends AbstractCsvImportController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function splitCsv(Request $request)
     {
@@ -1694,7 +1694,7 @@ class CsvImportController extends AbstractCsvImportController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function importCsv(Request $request, SecurityContext $securityContext)
     {
@@ -1735,7 +1735,7 @@ class CsvImportController extends AbstractCsvImportController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function cleanupSplitCsv(Request $request)
     {
