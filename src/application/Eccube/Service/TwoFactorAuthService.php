@@ -19,7 +19,7 @@ use RobThree\Auth\TwoFactorAuth;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Eccube\Http\Cookie;
 use Eccube\Http\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Eccube\Http\RequestStack;
 
 class TwoFactorAuthService
 {
