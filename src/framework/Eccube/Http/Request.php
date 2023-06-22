@@ -44,4 +44,12 @@ class Request
     {
         return $this->adaptee->isXmlHttpRequest();
     }
+
+    /**
+     * @return Adaptee
+     */
+    public function getAdaptee(): Adaptee
+    {
+        return $this->adaptee;
+    }
 }
