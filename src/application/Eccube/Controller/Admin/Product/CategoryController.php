@@ -300,7 +300,7 @@ class CategoryController extends AbstractController
 
         // sql loggerを無効にする.
         $em = $this->entityManager;
-        $em->resetSqlLogger();
+        $em->disableSqlLogger();
 
         $response = new StreamedResponse();
         $response->setCallback(function () use ($request) {

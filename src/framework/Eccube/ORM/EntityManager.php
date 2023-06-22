@@ -209,7 +209,7 @@ class EntityManager
         $this->entityManager->getFilters()->enable($filter);
     }
 
-    public function resetSqlLogger()
+    public function disableSqlLogger()
     {
         $this->entityManager->getConfiguration()->setSQLLogger(null);
     }
