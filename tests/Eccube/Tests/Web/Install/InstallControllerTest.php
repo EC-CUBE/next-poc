@@ -13,7 +13,6 @@
 
 namespace Eccube\Tests\Web\Install;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Eccube\Common\Constant;
 use Eccube\Controller\Install\InstallController;
 use Eccube\Form\FormFactory;
@@ -80,7 +79,7 @@ class InstallControllerTest extends AbstractWebTestCase
         $this->controller = new InstallController($hasher, $cacheUtil);
         $this->controller->setFormFactory($formFactory);
         $this->controller->setSession($this->session);
-        $this->controller->setEntityManager(new EntityManager(static::getContainer()->get(EntityManagerInterface::class)));
+        $this->controller->setEntityManager(static::getContainer()->get(EntityManager::class));
 
         $reflectionClass = new \ReflectionClass($this->controller);
         $propContainer = $reflectionClass->getProperty('container');
