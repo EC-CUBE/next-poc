@@ -59,9 +59,9 @@ class EntityManager
         try {
             $this->entityManager->flush($entity);
         } catch (DoctrineForeignKeyConstraintViolationException $e) {
-            throw ORMException::wrapForeignKeyException($e);
+            throw new ForeignKeyConstraintViolationException($e);
         } catch (\Exception $e) {
-            throw ORMException::wrapORMException($e);
+            throw new ORMException($e);
         }
     }
 
@@ -88,7 +88,7 @@ class EntityManager
         try {
             $this->entityManager->lock($entity, $lockMode, $lockVersion);
         } catch (\Exception $e) {
-            throw ORMException::wrapORMException($e);
+            throw new ORMException($e);
         }
     }
 
@@ -105,7 +105,7 @@ class EntityManager
         try {
             return $this->entityManager->getConnection()->beginTransaction();
         } catch (\Exception $e) {
-            throw ORMException::wrapORMException($e);
+            throw new ORMException($e);
         }
     }
 
@@ -122,7 +122,7 @@ class EntityManager
         try {
             return $this->entityManager->getConnection()->rollBack();
         } catch (\Exception $e) {
-            throw ORMException::wrapORMException($e);
+            throw new ORMException($e);
         }
     }
 
@@ -193,7 +193,7 @@ class EntityManager
                 ->createNativeQuery('select '.$func.' as v', $rsm)
                 ->getSingleScalarResult();
         } catch (\Exception $e) {
-            throw ORMException::wrapORMException($e);
+            throw new ORMException($e);
         }
 
         return $prefix.$version;

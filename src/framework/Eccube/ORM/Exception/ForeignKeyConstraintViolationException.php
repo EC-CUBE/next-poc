@@ -16,4 +16,8 @@ namespace Eccube\ORM\Exception;
 
 class ForeignKeyConstraintViolationException extends ORMException
 {
+    public function __construct(\Exception $e)
+    {
+        parent::__construct($e);
+    }
 }

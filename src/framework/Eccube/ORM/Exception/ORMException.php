@@ -15,13 +15,8 @@ namespace Eccube\ORM\Exception;
 
 class ORMException extends \Exception
 {
-    public static function wrapORMException(\Exception $e): ORMException
+    public function __construct(\Exception $e)
     {
-        return new self($e->getMessage(), $e->getCode(), $e);
-    }
-
-    public static function wrapForeignKeyException(\Exception $e): ForeignKeyConstraintViolationException
-    {
-        return new ForeignKeyConstraintViolationException($e->getMessage(), $e->getCode(), $e);
+        parent::__construct($e->getMessage(), $e->getCode(), $e);
     }
 }

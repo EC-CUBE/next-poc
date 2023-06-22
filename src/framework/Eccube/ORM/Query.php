@@ -56,7 +56,7 @@ class Query
         try {
             return $this->query->getResult($hydrationMode);
         } catch (\Exception $e) {
-            throw ORMException::wrapORMException($e);
+            throw new ORMException($e);
         }
     }
 
@@ -75,7 +75,7 @@ class Query
         try {
             return $this->query->getSingleResult($hydrationMode);
         } catch (\Exception $e) {
-            throw ORMException::wrapORMException($e);
+            throw new ORMException($e);
         }
     }
 
@@ -87,7 +87,7 @@ class Query
         try {
             return $this->getSingleResult(self::HYDRATE_SINGLE_SCALAR);
         } catch (\Exception $e) {
-            throw ORMException::wrapORMException($e);
+            throw new ORMException($e);
         }
     }
 
@@ -99,7 +99,7 @@ class Query
         try {
             return $this->query->execute($parameters, $hydrationMode);
         } catch (\Exception $e) {
-            throw ORMException::wrapORMException($e);
+            throw new ORMException($e);
         }
     }
 
@@ -111,7 +111,7 @@ class Query
         try {
             return $this->query->getOneOrNullResult($hydrationMode);
         } catch (\Exception $e) {
-            throw ORMException::wrapORMException($e);
+            throw new ORMException($e);
         }
     }
 
@@ -137,7 +137,7 @@ class Query
         try {
             return $this->query->getArrayResult();
         } catch (\Exception $e) {
-            throw ORMException::wrapORMException($e);
+            throw new ORMException($e);
         }
     }
 }
