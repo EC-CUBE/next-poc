@@ -13,26 +13,24 @@
 
 namespace Eccube\Log\Processor;
 
+use Eccube\Security\SecurityContext;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class TokenProcessor
 {
-    /**
-     * @var TokenStorageInterface
-     */
-    protected $tokenStorage;
+    protected SecurityContext $securityContext;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(SecurityContext $securityContext)
     {
-        $this->tokenStorage = $tokenStorage;
+        $this->securityContext = $securityContext;
     }
 
     public function __invoke(array $records)
     {
         $records['extra']['user_id'] = 'N/A';
 
-        if (null !== $token = $this->tokenStorage->getToken()) {
-            $user = $token->getUser();
+        if ($this->securityContext->hasToken()) {
+            $user = $this->securityContext->getLoginUser();
             $records['extra']['user_id'] = is_object($user)
                 ? $user->getId()
                 : $user;

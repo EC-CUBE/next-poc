@@ -2,7 +2,6 @@ services:
   Eccube\Tests\Fixture\Generator:
     arguments:
       - '@doctrine.orm.default_entity_manager'
-      - '@Eccube\Security\Core\Encoder\PasswordEncoder'
       - '@Eccube\Repository\MemberRepository'
       - '@Eccube\Repository\CategoryRepository'
       - '@Eccube\Repository\CustomerRepository'
@@ -17,5 +16,6 @@ services:
       - '@Eccube\Repository\TaxRuleRepository'
       - '@eccube.purchase.flow.order'
       - '@session'
+      - '@Eccube\Security\Core\User\UserPasswordHasher'
       - 'ja_JP'
     lazy: true

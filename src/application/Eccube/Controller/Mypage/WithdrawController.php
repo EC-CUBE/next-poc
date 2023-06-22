@@ -21,13 +21,12 @@ use Eccube\Event\EventArgs;
 use Eccube\Repository\Master\CustomerStatusRepository;
 use Eccube\Repository\PageRepository;
 use Eccube\Routing\Annotation\Route;
+use Eccube\Security\SecurityContext;
 use Eccube\Service\CartService;
 use Eccube\Service\MailService;
 use Eccube\Service\OrderHelper;
 use Eccube\Util\StringUtil;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class WithdrawController extends AbstractController
 {
@@ -40,11 +39,6 @@ class WithdrawController extends AbstractController
      * @var CustomerStatusRepository
      */
     protected $customerStatusRepository;
-
-    /**
-     * @var TokenStorage
-     */
-    protected $tokenStorage;
 
     /**
      * @var CartService
@@ -61,12 +55,13 @@ class WithdrawController extends AbstractController
      */
     private $pageRepository;
 
+    private SecurityContext $securityContext;
+
     /**
      * WithdrawController constructor.
      *
      * @param MailService $mailService
      * @param CustomerStatusRepository $customerStatusRepository
-     * @param TokenStorageInterface $tokenStorage
      * @param CartService $cartService
      * @param OrderHelper $orderHelper
      * @param PageRepository $pageRepository
@@ -74,17 +69,17 @@ class WithdrawController extends AbstractController
     public function __construct(
         MailService $mailService,
         CustomerStatusRepository $customerStatusRepository,
-        TokenStorageInterface $tokenStorage,
         CartService $cartService,
         OrderHelper $orderHelper,
-        PageRepository $pageRepository
+        PageRepository $pageRepository,
+        SecurityContext $securityContext
     ) {
         $this->mailService = $mailService;
         $this->customerStatusRepository = $customerStatusRepository;
-        $this->tokenStorage = $tokenStorage;
         $this->cartService = $cartService;
         $this->orderHelper = $orderHelper;
         $this->pageRepository = $pageRepository;
+        $this->securityContext = $securityContext;
     }
 
     /**
@@ -155,7 +150,7 @@ class WithdrawController extends AbstractController
                     $this->orderHelper->removeSession();
 
                     // ログアウト
-                    $this->tokenStorage->setToken(null);
+                    $this->securityContext->logout();
 
                     log_info('ログアウト完了');
 
