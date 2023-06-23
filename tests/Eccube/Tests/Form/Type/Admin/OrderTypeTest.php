@@ -15,6 +15,7 @@ namespace Eccube\Tests\Form\Type\Admin;
 
 use Eccube\Form\Type\Admin\OrderType;
 use Eccube\Http\Request;
+use Eccube\Http\RequestStack;
 
 class OrderTypeTest extends \Eccube\Tests\Form\Type\AbstractTypeTestCase
 {
@@ -76,7 +77,7 @@ class OrderTypeTest extends \Eccube\Tests\Form\Type\AbstractTypeTestCase
                 'csrf_protection' => false,
             ])
             ->getForm();
-        static::getContainer()->get('request_stack')->push(new Request());
+        static::getContainer()->get(RequestStack::class)->push(new Request());
     }
 
     public function testInValidData()

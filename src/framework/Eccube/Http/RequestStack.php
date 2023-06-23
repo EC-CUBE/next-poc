@@ -26,13 +26,13 @@ class RequestStack
     public function getMainRequest(): ?Request
     {
         $request = $this->adaptee->getMainRequest();
-        return is_null($request) ? null : new Request($this->adaptee, $request);
+        return is_null($request) ? null : new Request($request);
     }
 
     public function getCurrentRequest(): ?Request
     {
         $request = $this->adaptee->getCurrentRequest();
-        return is_null($request) ? null : new Request($this->adaptee, $request);
+        return is_null($request) ? null : new Request($request);
     }
 
     public function push(Request $request): void

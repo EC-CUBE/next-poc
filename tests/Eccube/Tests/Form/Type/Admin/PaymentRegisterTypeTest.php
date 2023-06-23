@@ -15,6 +15,7 @@ namespace Eccube\Tests\Form\Type\Admin;
 
 use Eccube\Form\Type\Admin\PaymentRegisterType;
 use Eccube\Http\Request;
+use Eccube\Http\RequestStack;
 
 class PaymentRegisterTypeTest extends \Eccube\Tests\Form\Type\AbstractTypeTestCase
 {
@@ -40,7 +41,7 @@ class PaymentRegisterTypeTest extends \Eccube\Tests\Form\Type\AbstractTypeTestCa
                 'csrf_protection' => false,
             ])
             ->getForm();
-        static::getContainer()->get('request_stack')->push(new Request());
+        static::getContainer()->get(RequestStack::class)->push(new Request());
     }
 
     public function testValidData()

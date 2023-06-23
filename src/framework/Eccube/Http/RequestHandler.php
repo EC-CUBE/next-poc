@@ -37,4 +37,9 @@ class RequestHandler implements RequestHandlerInterface
     {
         return $this->adaptee->isFileUpload($data);
     }
+
+    public function getUploadFileError($data): ?int
+    {
+        return $this->adaptee->getUploadFileError($data);
+    }
 }

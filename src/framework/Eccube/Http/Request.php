@@ -13,26 +13,29 @@
 namespace Eccube\Http;
 
 use Symfony\Component\HttpFoundation\Request as Adaptee;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class Request
 {
     private Adaptee $adaptee;
 
-    private RequestStack $requestStack;
-
     public InputBag $query;
 
     public InputBag $request;
 
-    public function __construct(RequestStack $requestStack = null, Adaptee $adaptee = null)
+    public static function createFromGlobals(): self
+    {
+        return new self();
+    }
+
+    public function __construct(Adaptee $adaptee = null, \Symfony\Component\HttpFoundation\RequestStack $requestStack = null)
     {
         if ($requestStack) {
-            $this->requestStack = $requestStack;
-            $this->adaptee = is_null($adaptee) ? $requestStack->getMainRequest() : $adaptee;
-            $this->query = new InputBag($this->adaptee->query);
-            $this->request = new InputBag($this->adaptee->request);
+            $this->adaptee = $requestStack->getMainRequest();
+        } else {
+            $this->adaptee = $adaptee ?: Adaptee::createFromGlobals();
         }
+        $this->query = new InputBag($this->adaptee->query);
+        $this->request = new InputBag($this->adaptee->request);
     }
 
     public function get(string $key, $default = null): mixed

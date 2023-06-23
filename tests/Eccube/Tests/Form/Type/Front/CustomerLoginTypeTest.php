@@ -15,6 +15,7 @@ namespace Eccube\Tests\Form\Type\Front;
 
 use Eccube\Form\Type\Front\CustomerLoginType;
 use Eccube\Http\Request;
+use Eccube\Http\RequestStack;
 
 class CustomerLoginTypeTest extends \Eccube\Tests\Form\Type\AbstractTypeTestCase
 {
@@ -32,7 +33,7 @@ class CustomerLoginTypeTest extends \Eccube\Tests\Form\Type\AbstractTypeTestCase
         parent::setUp();
 
         $request = Request::createFromGlobals();
-        static::getContainer()->get('request_stack')->push($request);
+        static::getContainer()->get(RequestStack::class)->push($request);
 
         // CSRF tokenを無効にしてFormを作成
         $this->form = $this->formFactory
