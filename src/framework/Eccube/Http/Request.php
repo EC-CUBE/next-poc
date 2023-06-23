@@ -45,6 +45,11 @@ class Request
         return $this->adaptee->isXmlHttpRequest();
     }
 
+    public function getSession(): Session
+    {
+        return new Session($this->adaptee->getSession());
+    }
+
     /**
      * @return Adaptee
      */

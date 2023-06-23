@@ -39,4 +39,9 @@ class RequestStack
     {
         $this->adaptee->push($request->getAdaptee());
     }
+
+    public function getSession(): Session
+    {
+        return new Session($this->adaptee->getSession());
+    }
 }
