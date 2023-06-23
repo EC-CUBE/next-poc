@@ -37,7 +37,7 @@ use Eccube\Repository\PaymentRepository;
 use Eccube\Security\SecurityContext;
 use Eccube\Util\StringUtil;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Eccube\Http\Session;
 
 class OrderHelper
 {
@@ -69,7 +69,7 @@ class OrderHelper
     public const SESSION_CART_DIVIDE_FLAG = 'eccube.front.cart.divide';
 
     /**
-     * @var SessionInterface
+     * @var Session
      */
     protected $session;
 
@@ -128,7 +128,7 @@ class OrderHelper
         DeviceTypeRepository $deviceTypeRepository,
         PrefRepository $prefRepository,
         MobileDetect $mobileDetector,
-        SessionInterface $session,
+        Session $session,
         SecurityContext $securityContext
     ) {
         $this->container = $container;

@@ -39,7 +39,7 @@ use Eccube\Util\StringUtil;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Eccube\Http\Request;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Eccube\Http\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class InstallController extends AbstractController
@@ -505,17 +505,17 @@ class InstallController extends AbstractController
         ];
     }
 
-    protected function getSessionData(SessionInterface $session)
+    protected function getSessionData(Session $session)
     {
         return $session->get('eccube.session.install', []);
     }
 
-    protected function removeSessionData(SessionInterface $session)
+    protected function removeSessionData(Session $session)
     {
         $session->clear();
     }
 
-    protected function setSessionData(SessionInterface $session, $data = [])
+    protected function setSessionData(Session $session, $data = [])
     {
         $data = array_replace_recursive($this->getSessionData($session), $data);
         $session->set('eccube.session.install', $data);

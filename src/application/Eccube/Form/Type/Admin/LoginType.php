@@ -20,7 +20,7 @@ use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Eccube\Http\Session;
 
 class LoginType extends AbstractType
 {
@@ -30,13 +30,13 @@ class LoginType extends AbstractType
     protected $eccubeConfig;
 
     /**
-     * @var SessionInterface
+     * @var Session
      */
     protected $session;
 
     public function __construct(
         EccubeConfig $eccubeConfig,
-        SessionInterface $session
+        Session $session
     ) {
         $this->eccubeConfig = $eccubeConfig;
         $this->session = $session;

@@ -26,7 +26,7 @@ use Eccube\Security\SecurityContext;
 use Eccube\Service\Cart\CartItemAllocator;
 use Eccube\Service\Cart\CartItemComparator;
 use Eccube\Util\StringUtil;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Eccube\Http\Session;
 
 class CartService
 {
@@ -36,7 +36,7 @@ class CartService
     protected $carts;
 
     /**
-     * @var SessionInterface
+     * @var Session
      */
     protected $session;
 
@@ -80,7 +80,7 @@ class CartService
      * CartService constructor.
      */
     public function __construct(
-        SessionInterface $session,
+        Session $session,
         EntityManager $entityManager,
         ProductClassRepository $productClassRepository,
         CartRepository $cartRepository,
