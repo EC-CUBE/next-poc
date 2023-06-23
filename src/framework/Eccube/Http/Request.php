@@ -62,6 +62,16 @@ class Request
         return $this->adaptee->getClientIps();
     }
 
+    public function getSchemeAndHttpHost(): string
+    {
+        return $this->adaptee->getSchemeAndHttpHost();
+    }
+
+    public function getBasePath(): string
+    {
+        return $this->adaptee->getBasePath();
+    }
+
     /**
      * @return Adaptee
      */
