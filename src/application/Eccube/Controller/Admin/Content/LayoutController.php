@@ -13,7 +13,6 @@
 
 namespace Eccube\Controller\Admin\Content;
 
-use Doctrine\ORM\NoResultException;
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Layout;
@@ -201,9 +200,8 @@ class LayoutController extends AbstractController
             // プレビューモード
             if ($this->isPreview) {
                 // プレビューする画面を取得
-                try {
-                    $Page = $this->pageRepository->find($previewPageId);
-                } catch (NoResultException $e) {
+                $Page = $this->pageRepository->find($previewPageId);
+                if (!$Page) {
                     throw new NotFoundHttpException();
                 }
 

@@ -13,7 +13,7 @@
 
 namespace Eccube\Controller\Admin\Product;
 
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
 use Eccube\Common\Constant;
 use Eccube\Controller\Admin\AbstractCsvImportController;
 use Eccube\Controller\Annotation\Template;

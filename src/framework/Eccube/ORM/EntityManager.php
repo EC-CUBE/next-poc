@@ -13,10 +13,12 @@
 
 namespace Eccube\ORM;
 
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException as DoctrineForeignKeyConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\NativeQuery;
-use Doctrine\ORM\Query;
-use Doctrine\ORM\QueryBuilder;
+use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
+use Eccube\ORM\Exception\ORMException;
+use Eccube\ORM\Query;
+use Eccube\ORM\QueryBuilder;
 use Doctrine\ORM\UnitOfWork;
 
 class EntityManager
@@ -35,20 +37,12 @@ class EntityManager
 
     public function createQueryBuilder(): QueryBuilder
     {
-        // todo queryBuilderのアダプタが必要
-        return $this->entityManager->createQueryBuilder();
+        return new QueryBuilder($this->entityManager->createQueryBuilder());
     }
 
     public function createQuery(string $dql): Query
     {
-        // todo queryのアダプタが必要
-        return $this->entityManager->createQuery($dql);
-    }
-
-    public function createNativeQuery($sql, \Doctrine\ORM\Query\ResultSetMapping $rsm): NativeQuery
-    {
-        // todo queryのアダプタが必要
-        return $this->entityManager->createNativeQuery($sql, $rsm);
+        return new Query($this->entityManager->createQuery($dql));
     }
 
     public function remove($entity)
@@ -56,9 +50,19 @@ class EntityManager
         $this->entityManager->remove($entity);
     }
 
+    /**
+     * @throws ForeignKeyConstraintViolationException
+     * @throws ORMException
+     */
     public function flush($entity = null)
     {
-        $this->entityManager->flush($entity);
+        try {
+            $this->entityManager->flush($entity);
+        } catch (DoctrineForeignKeyConstraintViolationException $e) {
+            throw new ForeignKeyConstraintViolationException($e);
+        } catch (\Exception $e) {
+            throw new ORMException($e);
+        }
     }
 
     public function persist($entity)
@@ -76,9 +80,16 @@ class EntityManager
         $this->entityManager->clear($entityName);
     }
 
+    /**
+     * @throws ORMException
+     */
     public function lock($entity, $lockMode, $lockVersion = null)
     {
-        $this->entityManager->lock($entity, $lockMode, $lockVersion);
+        try {
+            $this->entityManager->lock($entity, $lockMode, $lockVersion);
+        } catch (\Exception $e) {
+            throw new ORMException($e);
+        }
     }
 
     public function refresh($entity, ?int $lockMode = null)
@@ -86,9 +97,16 @@ class EntityManager
         $this->entityManager->refresh($entity, $lockMode);
     }
 
+    /**
+     * @throws ORMException
+     */
     public function beginTransaction(): bool
     {
-        return $this->entityManager->getConnection()->beginTransaction();
+        try {
+            return $this->entityManager->getConnection()->beginTransaction();
+        } catch (\Exception $e) {
+            throw new ORMException($e);
+        }
     }
 
     public function commit(): bool
@@ -96,9 +114,16 @@ class EntityManager
         return $this->entityManager->getConnection()->commit();
     }
 
+    /**
+     * @throws ORMException
+     */
     public function rollBack(): bool
     {
-        return $this->entityManager->getConnection()->rollBack();
+        try {
+            return $this->entityManager->getConnection()->rollBack();
+        } catch (\Exception $e) {
+            throw new ORMException($e);
+        }
     }
 
     public function inTransaction(): bool
@@ -137,6 +162,9 @@ class EntityManager
         return $tableNames;
     }
 
+    /**
+     * @throws ORMException
+     */
     public function getDatabaseVersion(): string
     {
         $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
@@ -160,9 +188,13 @@ class EntityManager
                 $func = 'version()';
         }
 
-        $version = $this->entityManager
-            ->createNativeQuery('select '.$func.' as v', $rsm)
-            ->getSingleScalarResult();
+        try {
+            $version = $this->entityManager
+                ->createNativeQuery('select '.$func.' as v', $rsm)
+                ->getSingleScalarResult();
+        } catch (\Exception $e) {
+            throw new ORMException($e);
+        }
 
         return $prefix.$version;
     }

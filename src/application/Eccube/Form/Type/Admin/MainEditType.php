@@ -27,7 +27,7 @@ use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\ORM\EntityManager;
 use Eccube\Repository\Master\DeviceTypeRepository;
 use Eccube\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 

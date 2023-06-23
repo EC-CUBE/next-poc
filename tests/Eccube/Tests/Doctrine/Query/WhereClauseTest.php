@@ -14,7 +14,7 @@
 namespace Eccube\Tests\Doctrine\Query;
 
 use Doctrine\ORM\Query\Parameter;
-use Doctrine\ORM\QueryBuilder;
+use Eccube\ORM\QueryBuilder;
 use Eccube\Doctrine\Query\WhereClause;
 use Eccube\Tests\EccubeTestCase;
 
@@ -188,7 +188,7 @@ class WhereClauseTest extends EccubeTestCase
     private function asString(WhereClause $clause)
     {
         /** @var QueryBuilder $builder */
-        $builder = $this->entityManager->createQueryBuilder();
+        $builder = new QueryBuilder($this->entityManager->createQueryBuilder());
         $clause->build($builder);
 
         return preg_replace('/^SELECT WHERE /', '', $builder->getDQL());
@@ -197,7 +197,7 @@ class WhereClauseTest extends EccubeTestCase
     private function getParams(WhereClause $clause)
     {
         /** @var QueryBuilder $builder */
-        $builder = $this->entityManager->createQueryBuilder();
+        $builder = new QueryBuilder($this->entityManager->createQueryBuilder());
         $clause->build($builder);
 
         return $builder->getParameters()->toArray();

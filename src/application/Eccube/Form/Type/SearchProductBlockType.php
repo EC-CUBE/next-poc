@@ -16,7 +16,7 @@ namespace Eccube\Form\Type;
 use Eccube\Form\FormBuilder;
 use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\CategoryRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 
 class SearchProductBlockType extends AbstractType

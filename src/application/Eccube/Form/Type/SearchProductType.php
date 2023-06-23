@@ -21,7 +21,7 @@ use Eccube\Form\Type\Master\ProductListOrderByType;
 use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\ORM\EntityManager;
 use Eccube\Repository\CategoryRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 

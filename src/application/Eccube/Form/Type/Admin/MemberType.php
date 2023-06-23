@@ -26,7 +26,7 @@ use Eccube\Form\Type\ToggleSwitchType;
 use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\MemberRepository;
 use Eccube\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class MemberType extends AbstractType

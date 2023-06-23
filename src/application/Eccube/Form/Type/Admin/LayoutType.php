@@ -20,7 +20,7 @@ use Eccube\Form\Type\AbstractType;
 use Eccube\Form\Type\Master\DeviceTypeType;
 use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**

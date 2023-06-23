@@ -35,7 +35,7 @@ use Eccube\ORM\EntityManager;
 use Eccube\Repository\Master\OrderStatusRepository;
 use Eccube\Service\OrderStateMachine;
 use Eccube\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;

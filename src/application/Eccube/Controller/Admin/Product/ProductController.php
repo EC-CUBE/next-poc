@@ -13,7 +13,7 @@
 
 namespace Eccube\Controller\Admin\Product;
 
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
 use Eccube\Common\Constant;
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\ParamConverter;

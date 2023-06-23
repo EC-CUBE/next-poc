@@ -18,6 +18,7 @@ use Eccube\Entity\MailHistory;
 use Eccube\Entity\MailTemplate;
 use Eccube\Entity\Member;
 use Eccube\Entity\Order;
+use Eccube\ORM\Exception\NoResultException;
 use Eccube\Repository\MailHistoryRepository;
 use Eccube\Tests\EccubeTestCase;
 
@@ -94,7 +95,7 @@ class MailHistoryRepositoryTest extends EccubeTestCase
 
             $this->expected = 'mail_subject-0';
             $this->actual = $MailHistory->getMailSubject();
-        } catch (\Doctrine\ORM\NoResultException $e) {
+        } catch (NoResultException $e) {
             $this->fail($e->getMessage());
         }
         $this->verify();
@@ -105,7 +106,7 @@ class MailHistoryRepositoryTest extends EccubeTestCase
         try {
             $this->mailHistoryRepo->getByCustomerAndId($this->Customer, 99999);
             $this->fail();
-        } catch (\Doctrine\ORM\NoResultException $e) {
+        } catch (NoResultException $e) {
             $this->expected = 'No result was found for query although at least one row was expected.';
             $this->actual = $e->getMessage();
         }

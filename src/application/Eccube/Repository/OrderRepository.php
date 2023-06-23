@@ -13,8 +13,9 @@
 
 namespace Eccube\Repository;
 
-use Doctrine\ORM\NoResultException;
-use Doctrine\ORM\QueryBuilder;
+use Eccube\ORM\Exception\NoResultException;
+use Eccube\ORM\Exception\ORMException;
+use Eccube\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Doctrine\Query\Queries;
 use Eccube\Entity\Customer;
@@ -433,8 +434,8 @@ class OrderRepository extends AbstractRepository
      *
      * @return int
      *
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws ORMException
+     * @throws NoResultException
      */
     public function countByOrderStatus($OrderStatusOrId)
     {

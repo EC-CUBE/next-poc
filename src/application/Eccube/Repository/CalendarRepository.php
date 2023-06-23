@@ -14,11 +14,9 @@
 namespace Eccube\Repository;
 
 use Carbon\Carbon;
-use Doctrine\ORM\NoResultException;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Entity\Calendar;
+use Eccube\ORM\Exception\NoResultException;
 
 /**
  * CalendarRepository
@@ -96,10 +94,6 @@ class CalendarRepository extends AbstractRepository
      * delete.
      *
      * @param int|Calendar $Calendar
-     *
-     * @throws NoResultException
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function delete($Calendar)
     {

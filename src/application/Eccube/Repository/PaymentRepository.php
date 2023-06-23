@@ -13,7 +13,7 @@
 
 namespace Eccube\Repository;
 
-use Doctrine\ORM\Query;
+use Eccube\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Entity\Payment;
 

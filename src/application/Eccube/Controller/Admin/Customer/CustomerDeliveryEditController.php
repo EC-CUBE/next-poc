@@ -13,7 +13,7 @@
 
 namespace Eccube\Controller\Admin\Customer;
 
-use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Customer;

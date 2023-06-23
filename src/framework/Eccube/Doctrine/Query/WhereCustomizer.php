@@ -13,7 +13,7 @@
 
 namespace Eccube\Doctrine\Query;
 
-use Doctrine\ORM\QueryBuilder;
+use Eccube\ORM\QueryBuilder;
 
 abstract class WhereCustomizer implements QueryCustomizer
 {

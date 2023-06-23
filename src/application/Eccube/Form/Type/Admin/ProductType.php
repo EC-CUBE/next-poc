@@ -25,7 +25,7 @@ use Eccube\Form\Validator\TwigLint;
 use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Repository\CategoryRepository;
 use Eccube\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;

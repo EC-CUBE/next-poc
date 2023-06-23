@@ -30,7 +30,7 @@ use Eccube\Request\Context;
 use Eccube\Validator\Constraints\Length;
 use Eccube\Validator\Constraints\NotBlank;
 use Eccube\Validator\Constraints\Regex;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;

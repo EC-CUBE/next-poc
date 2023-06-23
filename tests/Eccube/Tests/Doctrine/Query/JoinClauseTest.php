@@ -14,7 +14,7 @@
 namespace Eccube\Tests\Doctrine\Query;
 
 use Doctrine\ORM\Query\Parameter;
-use Doctrine\ORM\QueryBuilder;
+use Eccube\ORM\QueryBuilder;
 use Eccube\Doctrine\Query\JoinClause;
 use Eccube\Doctrine\Query\OrderByClause;
 use Eccube\Doctrine\Query\WhereClause;
@@ -84,7 +84,7 @@ class JoinClauseTest extends EccubeTestCase
      */
     private function queryBuilder()
     {
-        return $this->entityManager->createQueryBuilder()
-            ->select('p')->from('Product', 'p');
+        return new QueryBuilder($this->entityManager->createQueryBuilder()
+            ->select('p')->from('Product', 'p'));
     }
 }

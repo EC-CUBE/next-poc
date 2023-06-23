@@ -142,7 +142,7 @@ class ProductRepository extends AbstractRepository
      *         orderby?:ProductListOrderBy
      *     } $searchData
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return \Eccube\ORM\QueryBuilder
      */
     public function getQueryBuilderBySearchData($searchData)
     {
@@ -243,7 +243,7 @@ class ProductRepository extends AbstractRepository
      *         sorttype?:string
      *     } $searchData
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return \Eccube\ORM\QueryBuilder
      */
     public function getQueryBuilderBySearchDataForAdmin($searchData)
     {

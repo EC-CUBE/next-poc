@@ -13,7 +13,7 @@
 
 namespace Eccube\Tests\Doctrine\Query;
 
-use Doctrine\ORM\QueryBuilder;
+use Eccube\ORM\QueryBuilder;
 use Eccube\Doctrine\Query\JoinClause;
 use Eccube\Doctrine\Query\JoinCustomizer;
 use Eccube\Tests\EccubeTestCase;
@@ -58,9 +58,9 @@ class JoinCustomizerTest extends EccubeTestCase
      */
     private function createQueryBuilder()
     {
-        return $this->entityManager->createQueryBuilder()
+        return new QueryBuilder($this->entityManager->createQueryBuilder()
             ->select('p')
-            ->from('Product', 'p');
+            ->from('Product', 'p'));
     }
 }
 

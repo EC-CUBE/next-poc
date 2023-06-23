@@ -22,7 +22,7 @@ use Eccube\Form\Type\AbstractType;
 use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Validator\Constraints\Callback;
 use Eccube\Validator\Constraints\NotBlank;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;

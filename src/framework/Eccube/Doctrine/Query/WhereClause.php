@@ -14,7 +14,7 @@
 namespace Eccube\Doctrine\Query;
 
 use Doctrine\ORM\Query\Expr;
-use Doctrine\ORM\QueryBuilder;
+use Eccube\ORM\QueryBuilder;
 
 /**
  * WHERE句を組み立てるクラス。

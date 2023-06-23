@@ -13,9 +13,9 @@
 
 namespace Eccube\Tests\Doctrine\Query;
 
-use Doctrine\ORM\QueryBuilder;
 use Eccube\Doctrine\Query\Queries;
 use Eccube\Doctrine\Query\QueryCustomizer;
+use Eccube\ORM\QueryBuilder;
 use Eccube\Tests\EccubeTestCase;
 
 class QueriesTest extends EccubeTestCase
@@ -47,8 +47,8 @@ class QueriesTest extends EccubeTestCase
      */
     private function queryBuilder()
     {
-        return $this->entityManager->createQueryBuilder()
-            ->select('p')->from('Product', 'p');
+        return new QueryBuilder($this->entityManager->createQueryBuilder()
+            ->select('p')->from('Product', 'p'));
     }
 }
 

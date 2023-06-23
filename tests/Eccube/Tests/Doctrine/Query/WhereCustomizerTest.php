@@ -13,7 +13,7 @@
 
 namespace Eccube\Tests\Doctrine\Query;
 
-use Doctrine\ORM\QueryBuilder;
+use Eccube\ORM\QueryBuilder;
 use Eccube\Doctrine\Query\WhereClause;
 use Eccube\Doctrine\Query\WhereCustomizer;
 use Eccube\Tests\EccubeTestCase;
@@ -57,9 +57,9 @@ class WhereCustomizerTest extends EccubeTestCase
      */
     private function createQueryBuilder()
     {
-        return $this->entityManager->createQueryBuilder()
+        return new QueryBuilder($this->entityManager->createQueryBuilder()
             ->select('p')
-            ->from('Product', 'p');
+            ->from('Product', 'p'));
     }
 }
 

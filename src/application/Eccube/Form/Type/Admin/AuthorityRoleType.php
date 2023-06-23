@@ -19,7 +19,7 @@ use Eccube\Form\FormEvent;
 use Eccube\Form\Type\AbstractType;
 use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Validator\Constraints\Regex;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Eccube\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AuthorityRoleType extends AbstractType

@@ -13,7 +13,7 @@
 
 namespace Eccube\Repository;
 
-use Doctrine\ORM\QueryBuilder;
+use Eccube\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Entity\Shipping;
 use Eccube\Util\StringUtil;

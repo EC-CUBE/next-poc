@@ -14,7 +14,7 @@
 namespace Eccube\Repository\Master;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query;
+use Eccube\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Entity\Master\OrderStatus;
 use Eccube\Repository\AbstractRepository;
