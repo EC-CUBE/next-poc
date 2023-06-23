@@ -23,12 +23,15 @@ class Request
 
     public InputBag $query;
 
+    public InputBag $request;
+
     public function __construct(RequestStack $requestStack = null, Adaptee $adaptee = null)
     {
         if ($requestStack) {
             $this->requestStack = $requestStack;
             $this->adaptee = is_null($adaptee) ? $requestStack->getMainRequest() : $adaptee;
             $this->query = new InputBag($this->adaptee->query);
+            $this->request = new InputBag($this->adaptee->request);
         }
     }
 

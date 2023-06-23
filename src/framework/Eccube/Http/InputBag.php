@@ -26,4 +26,19 @@ class InputBag
     {
         return $this->adaptee->get($key, $default);
     }
+
+    public function set(string $key, mixed $value): void
+    {
+        $this->adaptee->set($key, $value);
+    }
+
+    public function has(string $key): bool
+    {
+        return $this->adaptee->has($key);
+    }
+
+    public function all(): array
+    {
+        return $this->adaptee->all();
+    }
 }
