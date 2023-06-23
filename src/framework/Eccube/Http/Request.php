@@ -22,6 +22,12 @@ class Request
 
     public InputBag $request;
 
+    public FileBag $files;
+
+    public ServerBag $server;
+
+    public HeaderBag $headers;
+
     public static function createFromGlobals(): self
     {
         return new self();
@@ -36,6 +42,9 @@ class Request
         }
         $this->query = new InputBag($this->adaptee->query);
         $this->request = new InputBag($this->adaptee->request);
+        $this->files = new FileBag($this->adaptee->files);
+        $this->server = new ServerBag($this->adaptee->server);
+        $this->headers = new HeaderBag($this->adaptee->headers);
     }
 
     public function get(string $key, $default = null): mixed
@@ -76,6 +85,11 @@ class Request
     public function getBasePath(): string
     {
         return $this->adaptee->getBasePath();
+    }
+
+    public function setMethod(string $method): void
+    {
+        $this->adaptee->setMethod($method);
     }
 
     /**
