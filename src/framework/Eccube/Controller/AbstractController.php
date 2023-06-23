@@ -17,16 +17,14 @@ use Doctrine\Persistence\ManagerRegistry;
 use Eccube\Common\Constant;
 use Eccube\Common\EccubeConfig;
 use Eccube\Form\FormFactory;
+use Eccube\Http\RequestStack;
+use Eccube\Http\Session;
 use Eccube\ORM\EntityManager;
 use Eccube\Routing\Exception\RoutingException;
 use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
@@ -98,10 +96,10 @@ class AbstractController implements ServiceSubscriberInterface
     }
 
     /**
-     * @param SessionInterface $session
+     * @param Session $session
      * @required
      */
-    public function setSession(SessionInterface $session)
+    public function setSession(Session $session)
     {
         $this->session = $session;
     }
@@ -291,7 +289,7 @@ class AbstractController implements ServiceSubscriberInterface
             'request_stack' => '?'.RequestStack::class,
             'http_kernel' => '?'.HttpKernelInterface::class,
             'serializer' => '?'.SerializerInterface::class,
-            'session' => '?'.SessionInterface::class,
+            'session' => '?'.Session::class,
             'security.authorization_checker' => '?'.AuthorizationCheckerInterface::class,
             'twig' => '?'.Environment::class,
             'doctrine' => '?'.ManagerRegistry::class, // to be removed in 6.0

@@ -12,13 +12,13 @@
 
 namespace Eccube\Http;
 
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface as Adaptee;
 
 class Session
 {
-    private SessionInterface $adaptee;
+    private Adaptee $adaptee;
 
-    public function __construct(SessionInterface $adaptee)
+    public function __construct(Adaptee $adaptee)
     {
         $this->adaptee = $adaptee;
     }
@@ -46,5 +46,10 @@ class Session
     public function clear(): void
     {
         $this->adaptee->clear();
+    }
+
+    public function getFlashBag(): FlashBag
+    {
+        return new FlashBag($this->adaptee->getFlashBag());
     }
 }
