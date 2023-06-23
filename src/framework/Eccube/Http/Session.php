@@ -38,6 +38,11 @@ class Session
         return $this->adaptee->has($name);
     }
 
+    public function remove(string $name): mixed
+    {
+        return $this->adaptee->remove($name);
+    }
+
     public function clear(): void
     {
         $this->adaptee->clear();
