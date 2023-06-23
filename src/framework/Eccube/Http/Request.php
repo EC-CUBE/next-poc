@@ -23,11 +23,13 @@ class Request
 
     public InputBag $query;
 
-    public function __construct(RequestStack $requestStack, Adaptee $adaptee = null)
+    public function __construct(RequestStack $requestStack = null, Adaptee $adaptee = null)
     {
-        $this->requestStack = $requestStack;
-        $this->adaptee = is_null($adaptee) ? $requestStack->getMainRequest() : $adaptee;
-        $this->query = new InputBag($this->adaptee->query);
+        if ($requestStack) {
+            $this->requestStack = $requestStack;
+            $this->adaptee = is_null($adaptee) ? $requestStack->getMainRequest() : $adaptee;
+            $this->query = new InputBag($this->adaptee->query);
+        }
     }
 
     public function get(string $key, $default = null): mixed
@@ -48,6 +50,16 @@ class Request
     public function getSession(): Session
     {
         return new Session($this->adaptee->getSession());
+    }
+
+    public function getClientIp(): ?string
+    {
+        return $this->adaptee->getClientIp();
+    }
+
+    public function getClientIps(): array
+    {
+        return $this->adaptee->getClientIps();
     }
 
     /**
