@@ -47,7 +47,7 @@ trait SymfonyControllerTrait
         $path['_controller'] = $controller;
         $subRequest = $request->duplicate($query, null, $path);
 
-        return $this->container->get('http_kernel')->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+        return $this->container->get('http_kernel')->handle($subRequest->getAdaptee(), HttpKernelInterface::SUB_REQUEST);
     }
 
     protected function isCsrfTokenValid(string $id, ?string $token): bool

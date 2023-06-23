@@ -92,6 +92,11 @@ class Request
         $this->adaptee->setMethod($method);
     }
 
+    public function duplicate(array $query = null, array $request = null, array $attributes = null, array $cookies = null, array $files = null, array $server = null): self
+    {
+        return new Request($this->adaptee->duplicate($query, $request, $attributes, $cookies, $files, $server));
+    }
+
     /**
      * @return Adaptee
      */
