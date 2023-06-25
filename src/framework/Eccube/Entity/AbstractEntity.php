@@ -18,6 +18,7 @@ use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\NoopWordInflector;
 use Doctrine\ORM\Mapping\Driver\AttributeReader;
 use Doctrine\ORM\Proxy\Proxy;
+use Eccube\ORM\ArrayCollection;
 use Eccube\ORM\Mapping as ORM;
 use Eccube\Util\StringUtil;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -253,5 +254,10 @@ abstract class AbstractEntity implements \ArrayAccess
         }
 
         return $Result;
+    }
+
+    public function wrapCollection(Collection $collection)
+    {
+        return new ArrayCollection($collection);
     }
 }

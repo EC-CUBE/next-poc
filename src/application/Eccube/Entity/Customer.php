@@ -247,8 +247,8 @@ if (!class_exists('\Eccube\Entity\Customer')) {
          */
         public function __construct()
         {
-            $this->CustomerFavoriteProducts = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->CustomerAddresses = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->CustomerFavoriteProducts = new \Eccube\ORM\ArrayCollection();
+            $this->CustomerAddresses = new \Eccube\ORM\ArrayCollection();
             $this->Orders = new \Doctrine\Common\Collections\ArrayCollection();
 
             $this->setBuyTimes(0);
@@ -901,7 +901,7 @@ if (!class_exists('\Eccube\Entity\Customer')) {
          */
         public function getCustomerFavoriteProducts()
         {
-            return $this->CustomerFavoriteProducts;
+            return $this->wrapCollection($this->CustomerFavoriteProducts);
         }
 
         /**
@@ -937,7 +937,7 @@ if (!class_exists('\Eccube\Entity\Customer')) {
          */
         public function getCustomerAddresses()
         {
-            return $this->CustomerAddresses;
+            return $this->wrapCollection($this->CustomerAddresses);
         }
 
         /**
