@@ -13,7 +13,7 @@
 
 namespace Eccube\Form\Type\Shopping;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Eccube\ORM\Collections\ArrayCollection;
 use Eccube\Entity\Delivery;
 use Eccube\Entity\Order;
 use Eccube\Entity\Payment;

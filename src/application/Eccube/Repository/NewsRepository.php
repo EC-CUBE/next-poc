@@ -13,7 +13,6 @@
 
 namespace Eccube\Repository;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Entity\News;
@@ -70,7 +69,7 @@ class NewsRepository extends AbstractRepository
     }
 
     /**
-     * @return News[]|ArrayCollection
+     * @return News[]
      */
     public function getList()
     {

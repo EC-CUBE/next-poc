@@ -13,7 +13,7 @@
 
 namespace Eccube\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Eccube\ORM\Collections\ArrayCollection;
 use Eccube\ORM\Mapping as ORM;
 use Eccube\Entity\Master\RoundingType;
 use Eccube\Entity\Master\TaxType;

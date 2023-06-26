@@ -13,7 +13,7 @@
 
 namespace Eccube\Service\PurchaseFlow\Processor;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Eccube\ORM\Collections\ArrayCollection;
 use Eccube\Entity\Delivery;
 use Eccube\Entity\ItemHolderInterface;
 use Eccube\Entity\Master\SaleType;

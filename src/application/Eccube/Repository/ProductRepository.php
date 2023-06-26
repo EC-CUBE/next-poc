@@ -13,7 +13,6 @@
 
 namespace Eccube\Repository;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Common\EccubeConfig;
 use Eccube\Doctrine\Query\Queries;
@@ -100,7 +99,7 @@ class ProductRepository extends AbstractRepository
      * @param array $ids Product in ids
      * @param string $indexBy The index for the from.
      *
-     * @return ArrayCollection|array
+     * @return array
      */
     public function findProductsWithSortedClassCategories(array $ids, $indexBy = null)
     {

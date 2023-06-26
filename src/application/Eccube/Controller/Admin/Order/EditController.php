@@ -13,7 +13,7 @@
 
 namespace Eccube\Controller\Admin\Order;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Eccube\ORM\Collections\ArrayCollection;
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Master\CustomerStatus;

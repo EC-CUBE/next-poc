@@ -13,7 +13,7 @@
 
 namespace Eccube\Controller\Admin\Setting\Shop;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Eccube\ORM\Collections\ArrayCollection;
 use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
