@@ -13,7 +13,7 @@
 
 namespace Eccube\Service;
 
-use Doctrine\Common\Util\ClassUtils;
+use Eccube\Util\ClassUtils;
 use Eccube\ORM\QueryBuilder;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Csv;
