@@ -28,6 +28,8 @@ class Request
 
     public HeaderBag $headers;
 
+    public ParameterBag $attributes;
+
     public static function createFromGlobals(): self
     {
         return new self();
@@ -45,6 +47,7 @@ class Request
         $this->files = new FileBag($this->adaptee->files);
         $this->server = new ServerBag($this->adaptee->server);
         $this->headers = new HeaderBag($this->adaptee->headers);
+        $this->attributes = new ParameterBag($this->adaptee->attributes);
     }
 
     public function get(string $key, $default = null): mixed
