@@ -30,8 +30,8 @@ use Eccube\Util\CacheUtil;
 use Eccube\Http\JsonResponse;
 use Eccube\Http\RedirectResponse;
 use Eccube\Http\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
 use Twig\Environment as Twig;
 
 class LayoutController extends AbstractController

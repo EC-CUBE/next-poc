@@ -28,7 +28,7 @@ use Eccube\Security\Core\User\UserPasswordHasher;
 use Eccube\Util\StringUtil;
 use Knp\Component\Pager\PaginatorInterface;
 use Eccube\Http\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
 
 class CustomerEditController extends AbstractController
 {

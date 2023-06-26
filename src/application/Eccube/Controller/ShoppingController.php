@@ -41,7 +41,7 @@ use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Eccube\Http\Request;
 use Eccube\Http\Response;
-use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
+use Eccube\Http\Exception\TooManyRequestsHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 
 class ShoppingController extends AbstractShoppingController

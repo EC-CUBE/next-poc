@@ -29,8 +29,8 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Eccube\Http\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
+use Eccube\Http\Exception\UnsupportedMediaTypeHttpException;
 
 class FileController extends AbstractController
 {

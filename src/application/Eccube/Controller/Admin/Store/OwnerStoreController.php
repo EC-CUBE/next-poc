@@ -31,7 +31,7 @@ use Eccube\Util\CacheUtil;
 use Eccube\Util\FormUtil;
 use Knp\Component\Pager\PaginatorInterface;
 use Eccube\Http\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
 
 /**
  * @Route("/%eccube_admin_route%/store/plugin/api")

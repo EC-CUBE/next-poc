@@ -26,9 +26,9 @@ use Eccube\Service\Payment\Method\Cash;
 use Symfony\Component\Filesystem\Filesystem;
 use Eccube\Http\Request;
 use Eccube\Http\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
+use Eccube\Http\Exception\UnsupportedMediaTypeHttpException;
 
 /**
  * Class PaymentController

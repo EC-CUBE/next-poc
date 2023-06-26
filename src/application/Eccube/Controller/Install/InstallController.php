@@ -40,7 +40,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Eccube\Http\Request;
 use Eccube\Http\Session;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
 
 class InstallController extends AbstractController
 {

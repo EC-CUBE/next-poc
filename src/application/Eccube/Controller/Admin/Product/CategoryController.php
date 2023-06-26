@@ -27,8 +27,8 @@ use Eccube\Util\CacheUtil;
 use Eccube\Http\Request;
 use Eccube\Http\Response;
 use Eccube\Http\StreamedResponse;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
 
 class CategoryController extends AbstractController
 {

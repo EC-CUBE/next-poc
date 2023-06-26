@@ -25,7 +25,7 @@ use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
 use Symfony\Component\Filesystem\Filesystem;
 use Eccube\Http\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\BadRequestHttpException;
 use Twig\Environment;
 
 /**

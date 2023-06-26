@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Eccube\Common\EccubeConfig;
 use Eccube\Request\Context;
 use Eccube\EventListener\IpAddrListener;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Eccube\Http\Exception\AccessDeniedHttpException;
 
 class IpAddrListenerTest extends AbstractWebTestCase
 {

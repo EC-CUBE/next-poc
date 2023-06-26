@@ -22,7 +22,7 @@ use Faker\Factory as Faker;
 use GuzzleHttp\Client as HttpClient;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Eccube\Http\Exception\HttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**

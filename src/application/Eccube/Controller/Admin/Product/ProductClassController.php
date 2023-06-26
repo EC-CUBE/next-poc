@@ -30,7 +30,7 @@ use Eccube\Repository\TaxRuleRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Util\CacheUtil;
 use Eccube\Http\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
 
 class ProductClassController extends AbstractController
 {

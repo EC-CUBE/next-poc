@@ -27,8 +27,8 @@ use Symfony\Component\Filesystem\Filesystem;
 use Eccube\Http\JsonResponse;
 use Eccube\Http\RedirectResponse;
 use Eccube\Http\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class InstallPluginController extends InstallController

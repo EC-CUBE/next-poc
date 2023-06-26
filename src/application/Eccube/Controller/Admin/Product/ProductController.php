@@ -53,9 +53,9 @@ use Eccube\Http\RedirectResponse;
 use Eccube\Http\Request;
 use Eccube\Http\Response;
 use Eccube\Http\StreamedResponse;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
+use Eccube\Http\Exception\UnsupportedMediaTypeHttpException;
 
 class ProductController extends AbstractController
 {
