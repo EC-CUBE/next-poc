@@ -13,7 +13,7 @@
 
 namespace Eccube\Service\PurchaseFlow;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Eccube\ORM\Collections\ArrayCollection;
 use Eccube\Entity\ItemHolderInterface;
 use Eccube\Entity\ItemInterface;
 use Eccube\Entity\Order;

@@ -13,7 +13,7 @@
 
 namespace Eccube\Service\PurchaseFlow;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Eccube\ORM\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Eccube\Entity\ItemInterface;
 use Eccube\Entity\Master\OrderItemType;
@@ -27,7 +27,7 @@ class ItemCollection extends ArrayCollection
     {
         $this->type = is_null($type) ? Order::class : $type;
 
-        if ($Items instanceof Collection) {
+        if ($Items instanceof Collection || $Items instanceof ArrayCollection) {
             $Items = $Items->toArray();
         }
         parent::__construct($Items);
@@ -41,34 +41,34 @@ class ItemCollection extends ArrayCollection
     // 明細種別ごとに返すメソッド作る
     public function getProductClasses()
     {
-        return $this->filter(
+        return new self($this->filter(
             function (ItemInterface $OrderItem) {
                 return $OrderItem->isProduct();
-            });
+            })->toArray(), $this->type);
     }
 
     public function getDeliveryFees()
     {
-        return $this->filter(
+        return new self($this->filter(
             function (ItemInterface $OrderItem) {
                 return $OrderItem->isDeliveryFee();
-            });
+            })->toArray(), $this->type);
     }
 
     public function getCharges()
     {
-        return $this->filter(
+        return new self($this->filter(
             function (ItemInterface $OrderItem) {
                 return $OrderItem->isCharge();
-            });
+            })->toArray(), $this->type);
     }
 
     public function getDiscounts()
     {
-        return $this->filter(
+        return new self($this->filter(
             function (ItemInterface $OrderItem) {
                 return $OrderItem->isDiscount() || $OrderItem->isPoint();
-            });
+            })->toArray(), $this->type);
     }
 
     /**

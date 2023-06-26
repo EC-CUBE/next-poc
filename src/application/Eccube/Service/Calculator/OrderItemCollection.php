@@ -17,7 +17,7 @@ use Eccube\Entity\ItemInterface;
 use Eccube\Entity\Master\OrderItemType;
 use Eccube\Entity\Order;
 
-class OrderItemCollection extends \Doctrine\Common\Collections\ArrayCollection
+class OrderItemCollection extends \Eccube\ORM\Collections\ArrayCollection
 {
     protected $type;
 
@@ -36,34 +36,34 @@ class OrderItemCollection extends \Doctrine\Common\Collections\ArrayCollection
     // 明細種別ごとに返すメソッド作る
     public function getProductClasses()
     {
-        return $this->filter(
+        return new self($this->filter(
             function (ItemInterface $OrderItem) {
                 return $OrderItem->isProduct();
-            });
+            })->toArray(), $this->type);
     }
 
     public function getDeliveryFees()
     {
-        return $this->filter(
+        return new self($this->filter(
             function (ItemInterface $OrderItem) {
                 return $OrderItem->isDeliveryFee();
-            });
+            })->toArray(), $this->type);
     }
 
     public function getCharges()
     {
-        return $this->filter(
+        return new self($this->filter(
             function (ItemInterface $OrderItem) {
                 return $OrderItem->isCharge();
-            });
+            })->toArray(), $this->type);
     }
 
     public function getDiscounts()
     {
-        return $this->filter(
+        return new self($this->filter(
             function (ItemInterface $OrderItem) {
                 return $OrderItem->isDiscount() || $OrderItem->isPoint();
-            });
+            })->toArray(), $this->type);
     }
 
     /**
