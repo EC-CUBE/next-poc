@@ -13,7 +13,6 @@
 
 namespace Eccube\Service;
 
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\MappingException as ORMMappingException;
@@ -838,15 +837,17 @@ class PluginService
      */
     public function findDependentPlugin($pluginCode, $enableOnly = false)
     {
-        $criteria = Criteria::create()
-            ->where(Criteria::expr()->neq('code', $pluginCode));
+        $qb = $this->pluginRepository->createQueryBuilder('p')
+            ->where('p.code <> :plugin_code')
+            ->setParameter('plugin_code', $pluginCode);
         if ($enableOnly) {
-            $criteria->andWhere(Criteria::expr()->eq('enabled', Constant::ENABLED));
+            $qb->andWhere('p.enabled = :enabled')
+                ->setParameter('enabled', Constant::ENABLED);
         }
         /**
          * @var Plugin[]
          */
-        $plugins = $this->pluginRepository->matching($criteria);
+        $plugins = $qb->getQuery()->getResult();
         $dependents = [];
         foreach ($plugins as $plugin) {
             $dir = $this->eccubeConfig['plugin_realdir'].'/'.$plugin->getCode();

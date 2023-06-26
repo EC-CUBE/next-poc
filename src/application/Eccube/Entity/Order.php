@@ -14,7 +14,6 @@
 namespace Eccube\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Criteria;
 use Eccube\ORM\Mapping as ORM;
 use Eccube\Entity\Master\RoundingType;
 use Eccube\Entity\Master\TaxType;
@@ -1504,10 +1503,20 @@ if (!class_exists('\Eccube\Entity\Order')) {
          */
         public function getShippings()
         {
-            $criteria = Criteria::create()
-                ->orderBy(['name01' => Criteria::ASC, 'name02' => Criteria::ASC, 'id' => Criteria::ASC]);
+            $Shippings = $this->Shippings->toArray();
 
-            return $this->Shippings->matching($criteria);
+            usort($Shippings, function ($a, $b) {
+                if ($a->getName01() === $b->getName01() && $a->getName02() === $b->getName02()) {
+                    return ($a->getId() < $b->getId()) ? -1 : 1;
+                }
+                if ($a->getName01() === $b->getName01()) {
+                    return ($a->getName02() < $b->getName02()) ? -1 : 1;
+                }
+
+                return ($a->getName01() < $b->getName01()) ? -1 : 1;
+            });
+
+            return new ArrayCollection($Shippings);
         }
 
         /**

@@ -14,7 +14,6 @@
 namespace Eccube\Repository;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Criteria;
 use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Entity\News;
@@ -79,11 +78,6 @@ class NewsRepository extends AbstractRepository
         $Results = $this->findBy(['visible' => true], ['publish_date' => 'DESC', 'id' => 'DESC']);
 
         // 公開日時前のNewsをフィルター
-        $criteria = Criteria::create();
-        $criteria->where(Criteria::expr()->lte('publish_date', new \DateTime()));
-
-        $News = new ArrayCollection($Results);
-
-        return $News->matching($criteria);
+        return array_filter($Results, fn ($News) => $News->getPublishDate() <= new \DateTime());
     }
 }
