@@ -1506,14 +1506,10 @@ if (!class_exists('\Eccube\Entity\Order')) {
             $Shippings = $this->Shippings->toArray();
 
             usort($Shippings, function ($a, $b) {
-                if ($a->getName01() === $b->getName01() && $a->getName02() === $b->getName02()) {
-                    return ($a->getId() < $b->getId()) ? -1 : 1;
-                }
-                if ($a->getName01() === $b->getName01()) {
-                    return ($a->getName02() < $b->getName02()) ? -1 : 1;
-                }
-
-                return ($a->getName01() < $b->getName01()) ? -1 : 1;
+                // order by name01 asc, name02 asc, id asc
+                return $a->getName01() <=> $b->getName01()
+                    ?: $a->getName02() <=> $b->getName02()
+                    ?: $a->getId() <=> $b->getId();
             });
 
             return new ArrayCollection($Shippings);
