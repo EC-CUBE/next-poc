@@ -90,6 +90,11 @@ class Request
         return $this->adaptee->getBasePath();
     }
 
+    public function getBaseUrl(): string
+    {
+        return $this->adaptee->getBaseUrl();
+    }
+
     public function setMethod(string $method): void
     {
         $this->adaptee->setMethod($method);
@@ -98,6 +103,16 @@ class Request
     public function duplicate(array $query = null, array $request = null, array $attributes = null, array $cookies = null, array $files = null, array $server = null): self
     {
         return new Request($this->adaptee->duplicate($query, $request, $attributes, $cookies, $files, $server));
+    }
+
+    public function isSecure(): bool
+    {
+        return $this->adaptee->isSecure();
+    }
+
+    public function getHost(): string
+    {
+        return $this->adaptee->getHost();
     }
 
     /**
