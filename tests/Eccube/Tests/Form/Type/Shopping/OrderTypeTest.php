@@ -13,7 +13,7 @@
 
 namespace Eccube\Tests\Form\Type\Shopping;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Eccube\ORM\Collections\ArrayCollection;
 use Eccube\Entity\Payment;
 use Eccube\Form\Type\Shopping\OrderType;
 use Eccube\Tests\Form\Type\AbstractTypeTestCase;

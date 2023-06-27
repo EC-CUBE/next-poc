@@ -18,6 +18,7 @@ use Eccube\Entity\Master\OrderStatus;
 use Eccube\Entity\Order;
 use Eccube\Entity\Payment;
 use Eccube\Entity\Shipping;
+use Eccube\ORM\Collections\ArrayCollection;
 use Eccube\Repository\OrderRepository;
 use Eccube\Tests\EccubeTestCase;
 
@@ -87,7 +88,7 @@ class OrderRepositoryTest extends EccubeTestCase
 
     public function testGetShippings()
     {
-        $this->assertInstanceOf('\Doctrine\Common\Collections\Collection', $this->Order->getShippings());
+        $this->assertInstanceOf(ArrayCollection::class, $this->Order->getShippings());
         $this->assertEquals(1, $this->Order->getShippings()->count());
     }
 

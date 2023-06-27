@@ -196,6 +196,7 @@ class ShippingController extends AbstractController
                     }
 
                     // 削除されたお届け先の削除
+                    $Order->removeShipping($OriginShipping);
                     $this->entityManager->remove($OriginShipping);
                 } else {
                     // お届け先は削除されていない場合
