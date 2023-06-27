@@ -625,9 +625,9 @@ if (!class_exists('\Eccube\Entity\Order')) {
                 ->setDeliveryFeeTotal(0)
                 ->setOrderStatus($orderStatus);
 
-            $this->OrderItems = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->Shippings = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->MailHistories = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->OrderItems = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->Shippings = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->MailHistories = new \Eccube\ORM\Collections\ArrayCollection();
         }
 
         /**

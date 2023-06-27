@@ -198,8 +198,8 @@ if (!class_exists('\Eccube\Entity\Category')) {
          */
         public function __construct()
         {
-            $this->ProductCategories = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->Children = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->ProductCategories = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->Children = new \Eccube\ORM\Collections\ArrayCollection();
         }
 
         /**

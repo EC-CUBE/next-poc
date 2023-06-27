@@ -16,7 +16,7 @@ namespace Eccube\ORM\Collections;
 use Doctrine\Common\Collections\ArrayCollection as DoctrineArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-class ArrayCollection implements \ArrayAccess, \Countable, \IteratorAggregate
+class ArrayCollection implements Collection
 {
     private Collection $collection;
 

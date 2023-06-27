@@ -141,7 +141,7 @@ if (!class_exists('\Eccube\Entity\Page')) {
          */
         public function __construct()
         {
-            $this->PageLayouts = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->PageLayouts = new \Eccube\ORM\Collections\ArrayCollection();
         }
 
         /**

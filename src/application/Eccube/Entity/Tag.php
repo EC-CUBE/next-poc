@@ -66,7 +66,7 @@ if (!class_exists('\Eccube\Entity\Tag')) {
          */
         public function __construct()
         {
-            $this->ProductTag = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->ProductTag = new \Eccube\ORM\Collections\ArrayCollection();
         }
 
         /**
