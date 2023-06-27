@@ -14,7 +14,7 @@
 namespace Eccube\Repository;
 
 use Carbon\Carbon;
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\Entity\Calendar;
 use Eccube\ORM\Exception\NoResultException;
 
@@ -29,7 +29,7 @@ class CalendarRepository extends AbstractRepository
     /**
      * CalendarRepository constructor.
      */
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Calendar::class);
     }

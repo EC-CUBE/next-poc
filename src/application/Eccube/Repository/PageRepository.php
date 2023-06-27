@@ -13,7 +13,7 @@
 
 namespace Eccube\Repository;
 
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Page;
 use Eccube\ORM\Exception\NoResultException;
@@ -54,11 +54,11 @@ class PageRepository extends AbstractRepository
     /**
      * PageRepository constructor.
      *
-     * @param RegistryInterface $registry
+     * @param ManagerRegistry $registry
      * @param EccubeConfig $eccubeConfig
      * @param ContainerInterface $container
      */
-    public function __construct(RegistryInterface $registry, EccubeConfig $eccubeConfig, ContainerInterface $container)
+    public function __construct(ManagerRegistry $registry, EccubeConfig $eccubeConfig, ContainerInterface $container)
     {
         parent::__construct($registry, Page::class);
         $this->eccubeConfig = $eccubeConfig;

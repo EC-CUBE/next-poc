@@ -13,7 +13,7 @@
 
 namespace Eccube\Repository\Master;
 
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\Entity\Master\DeviceType;
 use Eccube\Repository\AbstractRepository;
 
@@ -25,7 +25,7 @@ use Eccube\Repository\AbstractRepository;
  */
 class DeviceTypeRepository extends AbstractRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, DeviceType::class);
     }

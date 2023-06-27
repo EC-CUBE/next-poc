@@ -14,7 +14,7 @@
 namespace Eccube\Repository;
 
 use Eccube\ORM\QueryBuilder;
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\Entity\CustomerFavoriteProduct;
 
 /**
@@ -25,7 +25,7 @@ use Eccube\Entity\CustomerFavoriteProduct;
  */
 class CustomerFavoriteProductRepository extends AbstractRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CustomerFavoriteProduct::class);
     }
