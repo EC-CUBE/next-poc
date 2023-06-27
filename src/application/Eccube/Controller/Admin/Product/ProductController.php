@@ -13,7 +13,6 @@
 
 namespace Eccube\Controller\Admin\Product;
 
-use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
 use Eccube\Common\Constant;
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\ParamConverter;
@@ -32,6 +31,15 @@ use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\ProductType;
 use Eccube\Form\Type\Admin\SearchProductType;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
+use Eccube\Http\Exception\UnsupportedMediaTypeHttpException;
+use Eccube\Http\File\File;
+use Eccube\Http\RedirectResponse;
+use Eccube\Http\Request;
+use Eccube\Http\Response;
+use Eccube\Http\StreamedResponse;
+use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\CategoryRepository;
 use Eccube\Repository\Master\PageMaxRepository;
@@ -48,14 +56,6 @@ use Eccube\Util\CacheUtil;
 use Eccube\Util\FormUtil;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\File\File;
-use Eccube\Http\RedirectResponse;
-use Eccube\Http\Request;
-use Eccube\Http\Response;
-use Eccube\Http\StreamedResponse;
-use Eccube\Http\Exception\BadRequestHttpException;
-use Eccube\Http\Exception\NotFoundHttpException;
-use Eccube\Http\Exception\UnsupportedMediaTypeHttpException;
 
 class ProductController extends AbstractController
 {
@@ -601,7 +601,7 @@ class ProductController extends AbstractController
                     $this->entityManager->persist($ProductImage);
 
                     // 移動
-                    $file = new File($this->eccubeConfig['eccube_temp_image_dir'].'/'.$add_image);
+                    $file = File::create($this->eccubeConfig['eccube_temp_image_dir'].'/'.$add_image);
                     $file->move($this->eccubeConfig['eccube_save_image_dir']);
                 }
 

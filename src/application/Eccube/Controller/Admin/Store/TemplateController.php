@@ -18,6 +18,8 @@ use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Master\DeviceType;
 use Eccube\Form\FormError;
 use Eccube\Form\Type\Admin\TemplateType;
+use Eccube\Http\BinaryFileResponse;
+use Eccube\Http\Request;
 use Eccube\Repository\Master\DeviceTypeRepository;
 use Eccube\Repository\TemplateRepository;
 use Eccube\Routing\Annotation\Route;
@@ -25,9 +27,6 @@ use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Eccube\Http\BinaryFileResponse;
-use Eccube\Http\Request;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class TemplateController extends AbstractController
@@ -162,10 +161,7 @@ class TemplateController extends AbstractController
             $fs->remove($tarGzFile);
         });
 
-        $response = new BinaryFileResponse($tarGzFile);
-        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $downloadFileName);
-
-        return $response;
+        return $this->file($tarGzFile);
     }
 
     /**

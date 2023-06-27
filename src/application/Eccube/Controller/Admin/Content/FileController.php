@@ -15,22 +15,21 @@ namespace Eccube\Controller\Admin\Content;
 
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
+use Eccube\Form\Type\FileType;
+use Eccube\Http\BinaryFileResponse;
+use Eccube\Http\Exception\NotFoundHttpException;
+use Eccube\Http\Exception\UnsupportedMediaTypeHttpException;
+use Eccube\Http\File\FileException;
+use Eccube\Http\File\UploadedFile;
+use Eccube\Http\Request;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Util\FilesystemUtil;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Eccube\Http\BinaryFileResponse;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Eccube\Http\Request;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Eccube\Http\Exception\NotFoundHttpException;
-use Eccube\Http\Exception\UnsupportedMediaTypeHttpException;
 
 class FileController extends AbstractController
 {
@@ -247,7 +246,7 @@ class FileController extends AbstractController
 
                 $str = preg_replace($patterns, '', $pathParts['basename']);
                 if (strlen($str) === 0) {
-                    return (new BinaryFileResponse($file))->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+                    return $this->file($file);
                 } else {
                     return new BinaryFileResponse($file, 200, [
                         'Content-Type' => 'aplication/octet-stream;',

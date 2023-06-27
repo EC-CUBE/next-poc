@@ -23,6 +23,10 @@ use Eccube\Exception\PluginException;
 use Eccube\Form\Type\Admin\AuthenticationType;
 use Eccube\Form\Type\Admin\PluginLocalInstallType;
 use Eccube\Form\Type\Admin\PluginManagementType;
+use Eccube\Http\File\UploadedFile;
+use Eccube\Http\JsonResponse;
+use Eccube\Http\RedirectResponse;
+use Eccube\Http\Request;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\PluginRepository;
 use Eccube\Routing\Annotation\Route;
@@ -37,10 +41,6 @@ use Eccube\Util\StringUtil;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Eccube\Http\JsonResponse;
-use Eccube\Http\RedirectResponse;
-use Eccube\Http\Request;
 
 class PluginController extends AbstractController
 {
