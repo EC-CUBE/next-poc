@@ -31,9 +31,9 @@ use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Eccube\Service\CartService;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
-use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Eccube\Http\Request;
 use Eccube\Http\Exception\NotFoundHttpException;
+use Eccube\Pager\Pagination;
 use Eccube\Pager\Paginator;
 
 class ProductController extends AbstractController
@@ -152,7 +152,7 @@ class ProductController extends AbstractController
         $query = $qb->getQuery()
             ->useResultCache(true, $this->eccubeConfig['eccube_result_cache_lifetime_short']);
 
-        /** @var SlidingPagination $pagination */
+        /** @var Pagination $pagination */
         $pagination = $paginator->paginate(
             $query,
             !empty($searchData['pageno']) ? $searchData['pageno'] : 1,

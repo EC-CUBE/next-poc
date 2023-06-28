@@ -46,6 +46,7 @@ use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseException;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Eccube\Service\TaxRuleService;
+use Eccube\Pager\Pagination;
 use Eccube\Pager\Paginator;
 use Eccube\Http\Request;
 use Eccube\Http\Exception\BadRequestHttpException;
@@ -449,7 +450,7 @@ class EditController extends AbstractController
             );
             $this->eventDispatcher->dispatch($event, EccubeEvents::ADMIN_ORDER_EDIT_SEARCH_CUSTOMER_SEARCH);
 
-            /** @var \Knp\Component\Pager\Pagination\SlidingPagination $pagination */
+            /** @var Pagination $pagination */
             $pagination = $paginator->paginate(
                 $qb,
                 $page_no,
@@ -608,7 +609,7 @@ class EditController extends AbstractController
             );
             $this->eventDispatcher->dispatch($event, EccubeEvents::ADMIN_ORDER_EDIT_SEARCH_PRODUCT_SEARCH);
 
-            /** @var \Knp\Component\Pager\Pagination\SlidingPagination $pagination */
+            /** @var Pagination $pagination */
             $pagination = $paginator->paginate(
                 $qb,
                 $page_no,

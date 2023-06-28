@@ -22,7 +22,7 @@ use Eccube\Repository\PageRepository;
 use Eccube\Repository\ProductRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Routing\Router;
-use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Eccube\Pager\Pagination;
 use Eccube\Pager\Paginator;
 use Eccube\Http\Request;
 use Eccube\Http\Response;
@@ -94,7 +94,7 @@ class SitemapController extends AbstractController
         // フロントの商品一覧の条件で商品情報を取得
         $ProductListOrder = $this->productListOrderByRepository->find($this->eccubeConfig['eccube_product_order_newer']);
         $productQueryBuilder = $this->productRepository->getQueryBuilderBySearchData(['orderby' => $ProductListOrder]);
-        /** @var SlidingPagination $pagination */
+        /** @var Pagination $pagination */
         $pagination = $paginator->paginate(
             $productQueryBuilder,
             1,
