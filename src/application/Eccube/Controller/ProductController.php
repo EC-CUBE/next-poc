@@ -32,9 +32,9 @@ use Eccube\Service\CartService;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
-use Knp\Component\Pager\PaginatorInterface;
 use Eccube\Http\Request;
 use Eccube\Http\Exception\NotFoundHttpException;
+use Eccube\Pager\Paginator;
 
 class ProductController extends AbstractController
 {
@@ -102,7 +102,7 @@ class ProductController extends AbstractController
      * @Route("/products/list", name="product_list", methods={"GET"})
      * @Template("Product/list.twig")
      */
-    public function index(Request $request, PaginatorInterface $paginator)
+    public function index(Request $request, Paginator $paginator)
     {
         // Doctrine SQLFilter
         if ($this->BaseInfo->isOptionNostockHidden()) {

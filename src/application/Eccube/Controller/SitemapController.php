@@ -23,7 +23,7 @@ use Eccube\Repository\ProductRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Routing\Router;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
-use Knp\Component\Pager\PaginatorInterface;
+use Eccube\Pager\Paginator;
 use Eccube\Http\Request;
 use Eccube\Http\Response;
 use Eccube\Http\Exception\NotFoundHttpException;
@@ -77,7 +77,7 @@ class SitemapController extends AbstractController
      *
      * @Route("/sitemap.xml", name="sitemap_xml", methods={"GET"})
      */
-    public function index(PaginatorInterface $paginator)
+    public function index(Paginator $paginator)
     {
         $pageQueryBuilder = $this->pageRepository->createQueryBuilder('p');
         $Page = $pageQueryBuilder->select('p')
@@ -136,7 +136,7 @@ class SitemapController extends AbstractController
      *
      * @return Response
      */
-    public function product(Request $request, PaginatorInterface $paginator)
+    public function product(Request $request, Paginator $paginator)
     {
         // Doctrine SQLFilter
         if ($this->BaseInfo->isOptionNostockHidden()) {

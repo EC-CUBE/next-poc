@@ -22,7 +22,7 @@ use Eccube\Form\Type\Admin\NewsType;
 use Eccube\Repository\NewsRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Util\CacheUtil;
-use Knp\Component\Pager\PaginatorInterface;
+use Eccube\Pager\Paginator;
 use Eccube\Http\Request;
 use Eccube\Http\Exception\NotFoundHttpException;
 
@@ -52,11 +52,11 @@ class NewsController extends AbstractController
      *
      * @param Request $request
      * @param int $page_no
-     * @param PaginatorInterface $paginator
+     * @param Paginator $paginator
      *
      * @return array
      */
-    public function index(Request $request, PaginatorInterface $paginator, $page_no = 1)
+    public function index(Request $request, Paginator $paginator, $page_no = 1)
     {
         $qb = $this->newsRepository->getQueryBuilderAll();
 

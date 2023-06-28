@@ -44,7 +44,7 @@ use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Eccube\Util\FormUtil;
 use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\Validator;
-use Knp\Component\Pager\PaginatorInterface;
+use Eccube\Pager\Paginator;
 use Eccube\Http\RedirectResponse;
 use Eccube\Http\Request;
 use Eccube\Http\Response;
@@ -193,7 +193,7 @@ class OrderController extends AbstractController
      * @Route("/%eccube_admin_route%/order/page/{page_no}", requirements={"page_no" = "\d+"}, name="admin_order_page", methods={"GET", "POST"})
      * @Template("@admin/Order/index.twig")
      */
-    public function index(Request $request, PaginatorInterface $paginator, $page_no = null)
+    public function index(Request $request, Paginator $paginator, $page_no = null)
     {
         $builder = $this->formFactory
             ->createBuilder(SearchOrderType::class);
