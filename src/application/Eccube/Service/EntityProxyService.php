@@ -44,7 +44,7 @@ class EntityProxyService
         EccubeConfig $eccubeConfig
     ) {
         $this->entityManager = $entityManager;
-        $this->container = $eccubeConfig;
+        $this->eccubeConfig = $eccubeConfig;
     }
 
     /**
