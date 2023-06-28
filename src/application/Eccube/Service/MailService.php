@@ -23,21 +23,21 @@ use Eccube\Entity\OrderItem;
 use Eccube\Entity\Shipping;
 use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
+use Eccube\Mailer\Exception\TransportException;
+use Eccube\Mailer\Mailer;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\MailHistoryRepository;
 use Eccube\Repository\MailTemplateRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\Mime\Email;
+use Eccube\Mime\Address;
+use Eccube\Mime\Email;
 
 class MailService
 {
     /**
-     * @var MailerInterface
+     * @var Mailer
      */
     protected $mailer;
 
@@ -77,7 +77,7 @@ class MailService
     /**
      * MailService constructor.
      *
-     * @param MailerInterface $mailer
+     * @param Mailer $mailer
      * @param MailTemplateRepository $mailTemplateRepository
      * @param MailHistoryRepository $mailHistoryRepository
      * @param BaseInfoRepository $baseInfoRepository
@@ -87,7 +87,7 @@ class MailService
      * @param ContainerInterface $container
      */
     public function __construct(
-        MailerInterface $mailer,
+        Mailer $mailer,
         MailTemplateRepository $mailTemplateRepository,
         MailHistoryRepository $mailHistoryRepository,
         BaseInfoRepository $baseInfoRepository,
@@ -162,7 +162,7 @@ class MailService
         try {
             $this->mailer->send($message);
             log_info('仮会員登録メール送信完了');
-        } catch (TransportExceptionInterface $e) {
+        } catch (TransportException $e) {
             log_critical($e->getMessage());
         }
     }
@@ -219,7 +219,7 @@ class MailService
         try {
             $this->mailer->send($message);
             log_info('会員登録完了メール送信完了');
-        } catch (TransportExceptionInterface $e) {
+        } catch (TransportException $e) {
             log_critical($e->getMessage());
         }
     }
@@ -278,7 +278,7 @@ class MailService
         try {
             $this->mailer->send($message);
             log_info('退会手続き完了メール送信完了');
-        } catch (TransportExceptionInterface $e) {
+        } catch (TransportException $e) {
             log_critical($e->getMessage());
         }
 
@@ -337,7 +337,7 @@ class MailService
         try {
             $this->mailer->send($message);
             log_info('お問い合わせ受付メール送信完了');
-        } catch (TransportExceptionInterface $e) {
+        } catch (TransportException $e) {
             log_critical($e->getMessage());
         }
 
@@ -395,7 +395,7 @@ class MailService
 
         try {
             $this->mailer->send($message);
-        } catch (TransportExceptionInterface $e) {
+        } catch (TransportException $e) {
             log_critical($e->getMessage());
         }
 
@@ -476,7 +476,7 @@ class MailService
             $this->mailer->send($message);
 
             log_info('仮会員登録再送メール送信完了');
-        } catch (TransportExceptionInterface $e) {
+        } catch (TransportException $e) {
             log_critical($e->getMessage());
         }
 
@@ -521,7 +521,7 @@ class MailService
         try {
             $this->mailer->send($message);
             log_info('受注管理通知メール送信完了');
-        } catch (TransportExceptionInterface $e) {
+        } catch (TransportException $e) {
             log_critical($e->getMessage());
         }
 
@@ -586,7 +586,7 @@ class MailService
         try {
             $this->mailer->send($message);
             log_info('パスワード再発行メール送信完了');
-        } catch (TransportExceptionInterface $e) {
+        } catch (TransportException $e) {
             log_critical($e->getMessage());
         }
 
@@ -648,7 +648,7 @@ class MailService
         try {
             $this->mailer->send($message);
             log_info('パスワード変更完了メール送信完了');
-        } catch (TransportExceptionInterface $e) {
+        } catch (TransportException $e) {
             log_critical($e->getMessage());
         }
 
@@ -694,7 +694,7 @@ class MailService
 
         try {
             $this->mailer->send($message);
-        } catch (TransportExceptionInterface $e) {
+        } catch (TransportException $e) {
             log_critical($e->getMessage());
         }
 
