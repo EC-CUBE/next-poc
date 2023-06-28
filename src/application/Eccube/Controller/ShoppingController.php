@@ -67,11 +67,6 @@ class ShoppingController extends AbstractShoppingController
     protected $orderRepository;
 
     /**
-     * @var ContainerInterface
-     */
-    protected $serviceContainer;
-
-    /**
      * @var TradeLawRepository
      */
     protected TradeLawRepository $tradeLawRepository;
@@ -89,7 +84,6 @@ class ShoppingController extends AbstractShoppingController
         MailService $mailService,
         OrderRepository $orderRepository,
         OrderHelper $orderHelper,
-        ContainerInterface $serviceContainer,
         TradeLawRepository $tradeLawRepository,
         RateLimiterFactory $shoppingConfirmIpLimiter,
         RateLimiterFactory $shoppingConfirmCustomerLimiter,
@@ -100,7 +94,6 @@ class ShoppingController extends AbstractShoppingController
         $this->mailService = $mailService;
         $this->orderRepository = $orderRepository;
         $this->orderHelper = $orderHelper;
-        $this->serviceContainer = $serviceContainer;
         $this->tradeLawRepository = $tradeLawRepository;
         $this->shoppingConfirmIpLimiter = $shoppingConfirmIpLimiter;
         $this->shoppingConfirmCustomerLimiter = $shoppingConfirmCustomerLimiter;
@@ -278,7 +271,7 @@ class ShoppingController extends AbstractShoppingController
      * @Route("/shopping/confirm", name="shopping_confirm", methods={"POST"})
      * @Template("Shopping/confirm.twig")
      */
-    public function confirm(Request $request)
+    public function confirm(Request $request, ContainerInterface $container)
     {
         // ログイン状態のチェック.
         if ($this->orderHelper->isLoginRequired()) {
@@ -327,7 +320,7 @@ class ShoppingController extends AbstractShoppingController
             }
 
             log_info('[注文確認] PaymentMethod::verifyを実行します.', [$Order->getPayment()->getMethodClass()]);
-            $paymentMethod = $this->createPaymentMethod($Order, $form);
+            $paymentMethod = $this->createPaymentMethod($Order, $form, $container);
             $PaymentResult = $paymentMethod->verify();
 
             if ($PaymentResult) {
@@ -386,7 +379,7 @@ class ShoppingController extends AbstractShoppingController
      * @Route("/shopping/checkout", name="shopping_checkout", methods={"POST"})
      * @Template("Shopping/confirm.twig")
      */
-    public function checkout(Request $request)
+    public function checkout(Request $request, ContainerInterface $container)
     {
         // ログイン状態のチェック.
         if ($this->orderHelper->isLoginRequired()) {
@@ -444,7 +437,7 @@ class ShoppingController extends AbstractShoppingController
                 }
 
                 log_info('[注文処理] PaymentMethodを取得します.', [$Order->getPayment()->getMethodClass()]);
-                $paymentMethod = $this->createPaymentMethod($Order, $form);
+                $paymentMethod = $this->createPaymentMethod($Order, $form, $container);
 
                 /*
                  * 決済実行(前処理)
@@ -792,9 +785,9 @@ class ShoppingController extends AbstractShoppingController
      *
      * @return PaymentMethodInterface
      */
-    private function createPaymentMethod(Order $Order, Form $form)
+    private function createPaymentMethod(Order $Order, Form $form, ContainerInterface $container)
     {
-        $PaymentMethod = $this->serviceContainer->get($Order->getPayment()->getMethodClass());
+        $PaymentMethod = $container->get($Order->getPayment()->getMethodClass());
         $PaymentMethod->setOrder($Order);
         $PaymentMethod->setFormType($form);
 
