@@ -31,10 +31,10 @@ use Eccube\Routing\Generator\UrlGeneratorInterface;
 use Eccube\Service\CsvExportService;
 use Eccube\Service\MailService;
 use Eccube\Util\FormUtil;
-use Knp\Component\Pager\PaginatorInterface;
 use Eccube\Http\Request;
 use Eccube\Http\StreamedResponse;
 use Eccube\Http\Exception\NotFoundHttpException;
+use Eccube\Pager\Paginator;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CustomerController extends AbstractController
@@ -90,7 +90,7 @@ class CustomerController extends AbstractController
      * @Route("/%eccube_admin_route%/customer/page/{page_no}", requirements={"page_no" = "\d+"}, name="admin_customer_page", methods={"GET", "POST"})
      * @Template("@admin/Customer/index.twig")
      */
-    public function index(Request $request, PaginatorInterface $paginator, $page_no = null)
+    public function index(Request $request, Paginator $paginator, $page_no = null)
     {
         $session = $this->session;
         $builder = $this->formFactory->createBuilder(SearchCustomerType::class);

@@ -26,7 +26,7 @@ use Eccube\Repository\OrderRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Security\Core\User\UserPasswordHasher;
 use Eccube\Util\StringUtil;
-use Knp\Component\Pager\PaginatorInterface;
+use Eccube\Pager\Paginator;
 use Eccube\Http\Request;
 use Eccube\Http\Exception\NotFoundHttpException;
 
@@ -62,7 +62,7 @@ class CustomerEditController extends AbstractController
      * @Route("/%eccube_admin_route%/customer/{id}/edit", requirements={"id" = "\d+"}, name="admin_customer_edit", methods={"GET", "POST"})
      * @Template("@admin/Customer/edit.twig")
      */
-    public function index(Request $request, PaginatorInterface $paginator, UserPasswordHasher $hasher, $id = null)
+    public function index(Request $request, Paginator $paginator, UserPasswordHasher $hasher, $id = null)
     {
         $this->entityManager->enableFilter('incomplete_order_status_hidden');
         // 編集

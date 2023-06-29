@@ -20,7 +20,7 @@ use Eccube\Repository\LoginHistoryRepository;
 use Eccube\Repository\Master\PageMaxRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Util\FormUtil;
-use Knp\Component\Pager\PaginatorInterface;
+use Eccube\Pager\Paginator;
 use Eccube\Http\Request;
 
 /**
@@ -61,7 +61,7 @@ class LoginHistoryController extends AbstractController
      *
      * @return \Eccube\Http\Response|array
      */
-    public function index(Request $request, PaginatorInterface $paginator, $page_no = null)
+    public function index(Request $request, Paginator $paginator, $page_no = null)
     {
         $session = $request->getSession();
         $pageNo = $page_no;

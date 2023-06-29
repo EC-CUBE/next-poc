@@ -40,6 +40,7 @@ use Eccube\Http\Request;
 use Eccube\Http\Response;
 use Eccube\Http\StreamedResponse;
 use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
+use Eccube\Pager\Paginator;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\CategoryRepository;
 use Eccube\Repository\Master\PageMaxRepository;
@@ -54,7 +55,6 @@ use Eccube\Routing\Router;
 use Eccube\Service\CsvExportService;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\FormUtil;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 class ProductController extends AbstractController
@@ -152,7 +152,7 @@ class ProductController extends AbstractController
      * @Route("/%eccube_admin_route%/product/page/{page_no}", requirements={"page_no" = "\d+"}, name="admin_product_page", methods={"GET", "POST"})
      * @Template("@admin/Product/index.twig")
      */
-    public function index(Request $request, PaginatorInterface $paginator, $page_no = null)
+    public function index(Request $request, Paginator $paginator, $page_no = null)
     {
         $builder = $this->formFactory
             ->createBuilder(SearchProductType::class);

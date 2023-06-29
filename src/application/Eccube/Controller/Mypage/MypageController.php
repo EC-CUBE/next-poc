@@ -32,7 +32,7 @@ use Eccube\Security\Http\Authentication\AuthenticationUtils;
 use Eccube\Service\CartService;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
-use Knp\Component\Pager\PaginatorInterface;
+use Eccube\Pager\Paginator;
 use Eccube\Http\Request;
 use Eccube\Http\Exception\BadRequestHttpException;
 use Eccube\Http\Exception\NotFoundHttpException;
@@ -142,7 +142,7 @@ class MypageController extends AbstractController
      * @Route("/mypage/", name="mypage", methods={"GET"})
      * @Template("Mypage/index.twig")
      */
-    public function index(Request $request, PaginatorInterface $paginator)
+    public function index(Request $request, Paginator $paginator)
     {
         $Customer = $this->getUser();
 
@@ -312,7 +312,7 @@ class MypageController extends AbstractController
      * @Route("/mypage/favorite", name="mypage_favorite", methods={"GET"})
      * @Template("Mypage/favorite.twig")
      */
-    public function favorite(Request $request, PaginatorInterface $paginator)
+    public function favorite(Request $request, Paginator $paginator)
     {
         if (!$this->BaseInfo->isOptionFavoriteProduct()) {
             throw new NotFoundHttpException();

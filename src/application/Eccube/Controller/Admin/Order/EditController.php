@@ -46,7 +46,8 @@ use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseException;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Eccube\Service\TaxRuleService;
-use Knp\Component\Pager\PaginatorInterface;
+use Eccube\Pager\Pagination;
+use Eccube\Pager\Paginator;
 use Eccube\Http\Request;
 use Eccube\Http\Exception\BadRequestHttpException;
 use Eccube\Http\Exception\NotFoundHttpException;
@@ -410,7 +411,7 @@ class EditController extends AbstractController
      *
      * @return array
      */
-    public function searchCustomerHtml(Request $request, PaginatorInterface $paginator, $page_no = null)
+    public function searchCustomerHtml(Request $request, Paginator $paginator, $page_no = null)
     {
         if ($request->isXmlHttpRequest() && $this->isTokenValid()) {
             log_debug('search customer start.');
@@ -449,7 +450,7 @@ class EditController extends AbstractController
             );
             $this->eventDispatcher->dispatch($event, EccubeEvents::ADMIN_ORDER_EDIT_SEARCH_CUSTOMER_SEARCH);
 
-            /** @var \Knp\Component\Pager\Pagination\SlidingPagination $pagination */
+            /** @var Pagination $pagination */
             $pagination = $paginator->paginate(
                 $qb,
                 $page_no,
@@ -566,7 +567,7 @@ class EditController extends AbstractController
      * @Route("/%eccube_admin_route%/order/search/product/page/{page_no}", requirements={"page_no" = "\d+"}, name="admin_order_search_product_page", methods={"GET", "POST"})
      * @Template("@admin/Order/search_product.twig")
      */
-    public function searchProduct(Request $request, PaginatorInterface $paginator, $page_no = null)
+    public function searchProduct(Request $request, Paginator $paginator, $page_no = null)
     {
         if ($request->isXmlHttpRequest() && $this->isTokenValid()) {
             log_debug('search product start.');
@@ -608,7 +609,7 @@ class EditController extends AbstractController
             );
             $this->eventDispatcher->dispatch($event, EccubeEvents::ADMIN_ORDER_EDIT_SEARCH_PRODUCT_SEARCH);
 
-            /** @var \Knp\Component\Pager\Pagination\SlidingPagination $pagination */
+            /** @var Pagination $pagination */
             $pagination = $paginator->paginate(
                 $qb,
                 $page_no,
