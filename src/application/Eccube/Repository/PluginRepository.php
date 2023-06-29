@@ -13,7 +13,7 @@
 
 namespace Eccube\Repository;
 
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\Entity\Plugin;
 
 /**
@@ -24,7 +24,7 @@ use Eccube\Entity\Plugin;
  */
 class PluginRepository extends AbstractRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Plugin::class);
     }

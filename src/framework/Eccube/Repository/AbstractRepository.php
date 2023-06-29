@@ -17,10 +17,16 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\DBALException;
 use Eccube\Entity\AbstractEntity;
 use Eccube\ORM\EntityManager;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\ORM\QueryBuilder;
 
 abstract class AbstractRepository extends ServiceEntityRepository
 {
+    public function __construct(ManagerRegistry $registry, string $entityClass)
+    {
+        parent::__construct($registry->getRegistry(), $entityClass);
+    }
+
     /**
      * @var array
      */

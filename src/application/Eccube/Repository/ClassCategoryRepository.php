@@ -14,7 +14,7 @@
 namespace Eccube\Repository;
 
 use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\Entity\ClassCategory;
 
 /**
@@ -28,10 +28,10 @@ class ClassCategoryRepository extends AbstractRepository
     /**
      * ClassCategoryRepository constructor.
      *
-     * @param RegistryInterface $registry
+     * @param ManagerRegistry $registry
      */
     public function __construct(
-        RegistryInterface $registry
+        ManagerRegistry $registry
     ) {
         parent::__construct($registry, ClassCategory::class);
     }

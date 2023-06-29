@@ -14,7 +14,7 @@
 namespace Eccube\Repository;
 
 use Eccube\ORM\Query;
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\Entity\Payment;
 
 /**
@@ -28,9 +28,9 @@ class PaymentRepository extends AbstractRepository
     /**
      * PaymentRepository constructor.
      *
-     * @param RegistryInterface $registry
+     * @param ManagerRegistry $registry
      */
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Payment::class);
     }

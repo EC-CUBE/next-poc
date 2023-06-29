@@ -13,7 +13,7 @@
 
 namespace Eccube\Repository;
 
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\Doctrine\Query\Queries;
 use Eccube\Entity\LoginHistory;
 use Eccube\Util\StringUtil;
@@ -35,7 +35,7 @@ class LoginHistoryRepository extends AbstractRepository
      * LoginHistoryRepository constructor.
      */
     public function __construct(
-        RegistryInterface $registry,
+        ManagerRegistry $registry,
         Queries $queries
     ) {
         parent::__construct($registry, LoginHistory::class);

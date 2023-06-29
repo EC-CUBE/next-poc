@@ -16,7 +16,7 @@ namespace Eccube\Repository;
 use Eccube\ORM\Exception\NoResultException;
 use Eccube\ORM\Exception\ORMException;
 use Eccube\ORM\QueryBuilder;
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\Doctrine\Query\Queries;
 use Eccube\Entity\Customer;
 use Eccube\Entity\Master\OrderStatus;
@@ -46,10 +46,10 @@ class OrderRepository extends AbstractRepository
     /**
      * OrderRepository constructor.
      *
-     * @param RegistryInterface $registry
+     * @param ManagerRegistry $registry
      * @param Queries $queries
      */
-    public function __construct(RegistryInterface $registry, Queries $queries)
+    public function __construct(ManagerRegistry $registry, Queries $queries)
     {
         parent::__construct($registry, Order::class);
         $this->queries = $queries;

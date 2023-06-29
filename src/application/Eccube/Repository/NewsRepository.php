@@ -14,7 +14,7 @@
 namespace Eccube\Repository;
 
 use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\Entity\News;
 
 /**
@@ -25,7 +25,7 @@ use Eccube\Entity\News;
  */
 class NewsRepository extends AbstractRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, News::class);
     }

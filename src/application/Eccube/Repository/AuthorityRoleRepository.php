@@ -13,8 +13,8 @@
 
 namespace Eccube\Repository;
 
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
 use Eccube\Entity\AuthorityRole;
+use Eccube\ORM\ManagerRegistry;
 
 /**
  * AuthorityRoleRepository
@@ -24,7 +24,7 @@ use Eccube\Entity\AuthorityRole;
  */
 class AuthorityRoleRepository extends AbstractRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, AuthorityRole::class);
     }

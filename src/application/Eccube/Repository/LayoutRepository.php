@@ -13,7 +13,7 @@
 
 namespace Eccube\Repository;
 
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\Entity\Layout;
 use Eccube\ORM\Exception\NoResultException;
 
@@ -25,7 +25,7 @@ use Eccube\ORM\Exception\NoResultException;
  */
 class LayoutRepository extends AbstractRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Layout::class);
     }

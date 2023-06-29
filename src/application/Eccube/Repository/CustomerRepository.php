@@ -14,7 +14,7 @@
 namespace Eccube\Repository;
 
 use Eccube\ORM\QueryBuilder;
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\Common\EccubeConfig;
 use Eccube\Doctrine\Query\Queries;
 use Eccube\Entity\Customer;
@@ -55,14 +55,14 @@ class CustomerRepository extends AbstractRepository
     /**
      * CustomerRepository constructor.
      *
-     * @param RegistryInterface $registry
+     * @param ManagerRegistry $registry
      * @param Queries $queries
      * @param EntityManager $entityManager
      * @param OrderRepository $orderRepository
      * @param EccubeConfig $eccubeConfig
      */
     public function __construct(
-        RegistryInterface $registry,
+        ManagerRegistry $registry,
         Queries $queries,
         EntityManager $entityManager,
         OrderRepository $orderRepository,

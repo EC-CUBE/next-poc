@@ -13,7 +13,7 @@
 
 namespace Eccube\Repository\Master;
 
-use Doctrine\Persistence\ManagerRegistry as RegistryInterface;
+use Eccube\ORM\ManagerRegistry;
 use Eccube\Entity\Master\Work;
 use Eccube\Repository\AbstractRepository;
 
@@ -25,7 +25,7 @@ use Eccube\Repository\AbstractRepository;
  */
 class WorkRepository extends AbstractRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Work::class);
     }
