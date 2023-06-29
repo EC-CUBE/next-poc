@@ -15,20 +15,20 @@ namespace Eccube\Controller;
 
 use Eccube\Controller\Install\InstallController;
 use Eccube\Entity\Plugin;
+use Eccube\EventDispatcher\EventDispatcher;
 use Eccube\Exception\PluginException;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
+use Eccube\Http\JsonResponse;
+use Eccube\Http\RedirectResponse;
+use Eccube\Http\Request;
 use Eccube\Repository\PluginRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Service\Composer\ComposerApiService;
 use Eccube\Service\PluginService;
 use Eccube\Service\SystemService;
 use Eccube\Util\CacheUtil;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Eccube\Http\JsonResponse;
-use Eccube\Http\RedirectResponse;
-use Eccube\Http\Request;
-use Eccube\Http\Exception\BadRequestHttpException;
-use Eccube\Http\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class InstallPluginController extends InstallController
@@ -39,14 +39,10 @@ class InstallPluginController extends InstallController
     /** @var PluginRepository */
     protected $pluginReposigoty;
 
-    /** @var EventDispatcherInterface */
-    protected $eventDispatcher;
-
-    public function __construct(CacheUtil $cacheUtil, PluginRepository $pluginRespository, EventDispatcherInterface $eventDispatcher)
+    public function __construct(CacheUtil $cacheUtil, PluginRepository $pluginRespository)
     {
         $this->cacheUtil = $cacheUtil;
         $this->pluginReposigoty = $pluginRespository;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -85,7 +81,7 @@ class InstallPluginController extends InstallController
      * @param SystemService $systemService
      * @param PluginService $pluginService
      * @param string $code
-     * @param EventDispatcherInterface $dispatcher
+     * @param EventDispatcher $dispatcher
      *
      * @return JsonResponse
      *
@@ -93,7 +89,7 @@ class InstallPluginController extends InstallController
      * @throws NotFoundHttpException
      * @throws PluginException
      */
-    public function pluginEnable(Request $request, SystemService $systemService, PluginService $pluginService, $code, EventDispatcherInterface $dispatcher)
+    public function pluginEnable(Request $request, SystemService $systemService, PluginService $pluginService, $code, EventDispatcher $dispatcher)
     {
         if (!$request->isXmlHttpRequest()) {
             throw new BadRequestHttpException();
@@ -187,7 +183,7 @@ class InstallPluginController extends InstallController
      *
      * @Route("/install/plugin/check_api", name="install_plugin_check_api", methods={"PUT"})
      */
-    public function checkWebApiRequirements(Request $request, ComposerApiService $composerApiService, EventDispatcherInterface $dispatcher)
+    public function checkWebApiRequirements(Request $request, ComposerApiService $composerApiService, EventDispatcher $dispatcher)
     {
         if (!$request->isXmlHttpRequest()) {
             throw new BadRequestHttpException();
