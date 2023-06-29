@@ -245,3 +245,7 @@ services:
 
     Eccube\Http\RequestHandler:
         decorates: 'form.type_extension.form.request_handler'
+
+    Eccube\EventDispatcher\EventDispatcherDecorator:
+        decorates: event_dispatcher
+        decoration_priority: -10 # debug時にTraceableEventDispatcherをラップできるようにpriorityを下げる
