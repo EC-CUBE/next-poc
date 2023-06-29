@@ -30,8 +30,8 @@ use Eccube\Service\CartService;
 use Eccube\Service\MailService;
 use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\Validator;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception as HttpException;
+use Eccube\Http\Request;
+use Eccube\Http\Exception as HttpException;
 
 class EntryController extends AbstractController
 {

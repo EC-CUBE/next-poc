@@ -22,7 +22,7 @@ use Eccube\Validator\Validator;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Eccube\Http\RequestStack;
 
 class SecurityType extends AbstractType
 {

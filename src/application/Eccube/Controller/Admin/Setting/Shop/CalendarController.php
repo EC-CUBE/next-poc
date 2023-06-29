@@ -19,7 +19,7 @@ use Eccube\Entity\Calendar;
 use Eccube\Form\Type\Admin\CalendarType;
 use Eccube\Repository\CalendarRepository;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 /**
  * Class CalendarController

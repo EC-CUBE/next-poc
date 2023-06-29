@@ -21,7 +21,7 @@ use Eccube\Form\Type\Admin\ShopMasterType;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Util\CacheUtil;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 use Twig\Environment;
 
 /**
@@ -57,7 +57,7 @@ class ShopController extends AbstractController
      *
      * @param Request $request
      *
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|Eccube\Http\RedirectResponse
      */
     public function index(Request $request, CacheUtil $cacheUtil)
     {

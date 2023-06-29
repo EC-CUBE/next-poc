@@ -13,12 +13,12 @@
 namespace Eccube\Controller;
 
 use Eccube\Form\FormView;
+use Eccube\Http\BinaryFileResponse;
+use Eccube\Http\JsonResponse;
+use Eccube\Http\RedirectResponse;
+use Eccube\Http\Response;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
@@ -41,13 +41,13 @@ trait SymfonyControllerTrait
         return $this->container->get($id);
     }
 
-    protected function forward(string $controller, array $path = [], array $query = []): Response
+    protected function forward(string $controller, array $path = [], array $query = []): \Symfony\Component\HttpFoundation\Response
     {
         $request = $this->container->get('request_stack')->getCurrentRequest();
         $path['_controller'] = $controller;
         $subRequest = $request->duplicate($query, null, $path);
 
-        return $this->container->get('http_kernel')->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+        return $this->container->get('http_kernel')->handle($subRequest->getAdaptee(), HttpKernelInterface::SUB_REQUEST);
     }
 
     protected function isCsrfTokenValid(string $id, ?string $token): bool

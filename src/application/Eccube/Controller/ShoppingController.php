@@ -39,9 +39,9 @@ use Eccube\Service\Payment\PaymentMethodInterface;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
+use Eccube\Http\Request;
+use Eccube\Http\Response;
+use Eccube\Http\Exception\TooManyRequestsHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 
 class ShoppingController extends AbstractShoppingController
@@ -806,7 +806,7 @@ class ShoppingController extends AbstractShoppingController
      *
      * @param PaymentMethodInterface $paymentMethod
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return Eccube\Http\RedirectResponse|\Eccube\Http\Response
      */
     protected function executeApply(PaymentMethodInterface $paymentMethod)
     {
@@ -846,7 +846,7 @@ class ShoppingController extends AbstractShoppingController
      *
      * @param PaymentMethodInterface $paymentMethod
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response|null
+     * @return Eccube\Http\RedirectResponse|\Eccube\Http\Response|null
      */
     protected function executeCheckout(PaymentMethodInterface $paymentMethod)
     {

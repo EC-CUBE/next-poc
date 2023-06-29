@@ -24,11 +24,11 @@ use Eccube\Repository\CategoryRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Service\CsvExportService;
 use Eccube\Util\CacheUtil;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\Request;
+use Eccube\Http\Response;
+use Eccube\Http\StreamedResponse;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
 
 class CategoryController extends AbstractController
 {

@@ -23,7 +23,7 @@ use Eccube\Repository\Master\CsvTypeRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 /**
  * Class CsvController

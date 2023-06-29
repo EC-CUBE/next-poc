@@ -13,7 +13,7 @@
 
 namespace Eccube\Service\Payment;
 
-use Symfony\Component\HttpFoundation\Response;
+use Eccube\Http\Response;
 
 /**
  * 決済結果のクラス.

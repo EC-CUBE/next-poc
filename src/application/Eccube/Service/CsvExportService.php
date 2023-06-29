@@ -31,7 +31,7 @@ use Eccube\Repository\ProductRepository;
 use Eccube\Repository\ShippingRepository;
 use Eccube\Util\FormUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class CsvExportService
 {

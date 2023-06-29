@@ -15,11 +15,11 @@ namespace Eccube\EventListener;
 
 use Eccube\Common\EccubeConfig;
 use Eccube\Entity\Customer;
+use Eccube\Http\Exception\TooManyRequestsHttpException;
 use Eccube\Request\Context;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
-use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 

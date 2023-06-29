@@ -13,7 +13,6 @@
 
 namespace Eccube\Controller\Admin\Product;
 
-use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
 use Eccube\Common\Constant;
 use Eccube\Controller\Admin\AbstractCsvImportController;
 use Eccube\Controller\Annotation\Template;
@@ -27,6 +26,12 @@ use Eccube\Entity\ProductStock;
 use Eccube\Entity\ProductTag;
 use Eccube\Form\Form;
 use Eccube\Form\Type\Admin\CsvImportType;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
+use Eccube\Http\File\UploadedFile;
+use Eccube\Http\Request;
+use Eccube\Http\StreamedResponse;
+use Eccube\ORM\Exception\ForeignKeyConstraintViolationException;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\CategoryRepository;
 use Eccube\Repository\ClassCategoryRepository;
@@ -48,11 +53,6 @@ use Eccube\Validator\Constraints\GreaterThanOrEqual;
 use Eccube\Validator\Validator;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CsvImportController extends AbstractCsvImportController
 {
@@ -1627,7 +1627,7 @@ class CsvImportController extends AbstractCsvImportController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function splitCsv(Request $request)
     {
@@ -1694,7 +1694,7 @@ class CsvImportController extends AbstractCsvImportController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function importCsv(Request $request, SecurityContext $securityContext)
     {
@@ -1712,7 +1712,7 @@ class CsvImportController extends AbstractCsvImportController
         }
 
         $path = $this->eccubeConfig['eccube_csv_temp_realdir'].'/'.$filename;
-        $request->files->set('admin_csv_import', ['import_file' => new UploadedFile(
+        $request->files->set('admin_csv_import', ['import_file' => UploadedFile::create(
             $path,
             'import.csv',
             'text/csv',
@@ -1735,7 +1735,7 @@ class CsvImportController extends AbstractCsvImportController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function cleanupSplitCsv(Request $request)
     {

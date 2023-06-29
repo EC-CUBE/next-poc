@@ -45,10 +45,10 @@ use Eccube\Util\FormUtil;
 use Eccube\Validator\Constraints as Assert;
 use Eccube\Validator\Validator;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Eccube\Http\RedirectResponse;
+use Eccube\Http\Request;
+use Eccube\Http\Response;
+use Eccube\Http\StreamedResponse;
 
 class OrderController extends AbstractController
 {
@@ -474,7 +474,7 @@ class OrderController extends AbstractController
      * @param Request $request
      * @param Shipping $Shipping
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function updateOrderStatus(Request $request, Shipping $Shipping)
     {

@@ -19,8 +19,8 @@ use Eccube\Event\EventArgs;
 use Eccube\Repository\Master\DeviceTypeRepository;
 use Eccube\Repository\PageRepository;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\Request;
+use Eccube\Http\Exception\NotFoundHttpException;
 
 class UserDataController extends AbstractController
 {

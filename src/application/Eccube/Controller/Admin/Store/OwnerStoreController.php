@@ -30,8 +30,8 @@ use Eccube\Service\SystemService;
 use Eccube\Util\CacheUtil;
 use Eccube\Util\FormUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\Request;
+use Eccube\Http\Exception\NotFoundHttpException;
 
 /**
  * @Route("/%eccube_admin_route%/store/plugin/api")
@@ -250,7 +250,7 @@ class OwnerStoreController extends AbstractController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function apiInstall(Request $request)
     {
@@ -282,7 +282,7 @@ class OwnerStoreController extends AbstractController
      *
      * @param Plugin $Plugin
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function apiUninstall(Plugin $Plugin)
     {
@@ -332,7 +332,7 @@ class OwnerStoreController extends AbstractController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function apiUpgrade(Request $request)
     {
@@ -362,7 +362,7 @@ class OwnerStoreController extends AbstractController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function apiSchemaUpdate(Request $request)
     {
@@ -413,7 +413,7 @@ class OwnerStoreController extends AbstractController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function apiUpdate(Request $request)
     {

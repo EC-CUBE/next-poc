@@ -24,11 +24,11 @@ use Eccube\Service\SystemService;
 use Eccube\Util\CacheUtil;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\JsonResponse;
+use Eccube\Http\RedirectResponse;
+use Eccube\Http\Request;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class InstallPluginController extends InstallController

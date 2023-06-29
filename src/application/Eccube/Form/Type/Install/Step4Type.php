@@ -20,7 +20,7 @@ use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Eccube\Http\RequestStack;
 use Symfony\Component\Validator\Context\ExecutionContext;
 
 class Step4Type extends AbstractType

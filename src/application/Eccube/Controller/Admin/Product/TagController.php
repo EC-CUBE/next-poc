@@ -22,8 +22,8 @@ use Eccube\Form\Form;
 use Eccube\Form\Type\Admin\ProductTag;
 use Eccube\Repository\TagRepository;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Eccube\Http\Request;
+use Eccube\Http\Response;
 
 class TagController extends AbstractController
 {
@@ -43,7 +43,7 @@ class TagController extends AbstractController
      *
      * @param Request $request
      *
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|Eccube\Http\RedirectResponse
      */
     public function index(Request $request)
     {

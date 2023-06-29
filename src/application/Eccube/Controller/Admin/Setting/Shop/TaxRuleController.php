@@ -23,7 +23,7 @@ use Eccube\Form\Type\Admin\TaxRuleType;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\TaxRuleRepository;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 /**
  * Class TaxRuleController

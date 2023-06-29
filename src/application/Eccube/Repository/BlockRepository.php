@@ -60,7 +60,7 @@ class BlockRepository extends AbstractRepository
      *
      * @param  \Eccube\Entity\Master\DeviceType $DeviceType
      *
-     * @return \Symfony\Component\HttpFoundation\Request|null
+     * @return array|null
      */
     public function getList($DeviceType)
     {

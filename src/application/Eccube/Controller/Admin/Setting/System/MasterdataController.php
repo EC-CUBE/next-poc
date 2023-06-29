@@ -21,7 +21,7 @@ use Eccube\Event\EventArgs;
 use Eccube\Form\Type\Admin\MasterdataEditType;
 use Eccube\Form\Type\Admin\MasterdataType;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class MasterdataController extends AbstractController
 {

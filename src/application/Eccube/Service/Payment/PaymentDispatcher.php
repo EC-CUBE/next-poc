@@ -13,7 +13,7 @@
 
 namespace Eccube\Service\Payment;
 
-use Symfony\Component\HttpFoundation\Response;
+use Eccube\Http\Response;
 
 /**
  * 他のコントローラに処理を移譲するための情報を設定するクラス.

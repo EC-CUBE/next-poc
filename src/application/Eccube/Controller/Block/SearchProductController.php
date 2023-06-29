@@ -19,8 +19,8 @@ use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Form\Type\SearchProductBlockType;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Eccube\Http\Request;
+use Eccube\Http\RequestStack;
 
 class SearchProductController extends AbstractController
 {

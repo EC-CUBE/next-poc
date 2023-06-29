@@ -22,10 +22,10 @@ use Eccube\Repository\ClassCategoryRepository;
 use Eccube\Repository\ClassNameRepository;
 use Eccube\Repository\ProductClassRepository;
 use Eccube\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\Request;
+use Eccube\Http\Response;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
 
 class ClassCategoryController extends AbstractController
 {

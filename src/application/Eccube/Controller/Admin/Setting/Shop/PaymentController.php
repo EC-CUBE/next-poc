@@ -24,11 +24,11 @@ use Eccube\Repository\PaymentRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Service\Payment\Method\Cash;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\UnsupportedMediaTypeHttpException;
+use Eccube\Http\Request;
+use Eccube\Http\Response;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
+use Eccube\Http\Exception\UnsupportedMediaTypeHttpException;
 
 /**
  * Class PaymentController
@@ -267,7 +267,7 @@ class PaymentController extends AbstractController
      * @param Request $request
      * @param Payment $TargetPayment
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Eccube\Http\RedirectResponse
      */
     public function delete(Request $request, Payment $TargetPayment)
     {

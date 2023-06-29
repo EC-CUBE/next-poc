@@ -32,7 +32,7 @@ use Eccube\Service\OrderHelper;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class ShippingMultipleController extends AbstractShoppingController
 {

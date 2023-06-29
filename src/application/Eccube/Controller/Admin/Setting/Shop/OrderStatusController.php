@@ -21,7 +21,7 @@ use Eccube\Repository\Master\OrderStatusColorRepository;
 use Eccube\Repository\Master\OrderStatusRepository;
 use Eccube\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class OrderStatusController extends AbstractController
 {

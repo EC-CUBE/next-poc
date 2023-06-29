@@ -23,8 +23,8 @@ use Eccube\Repository\NewsRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Util\CacheUtil;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\Request;
+use Eccube\Http\Exception\NotFoundHttpException;
 
 class NewsController extends AbstractController
 {
@@ -89,7 +89,7 @@ class NewsController extends AbstractController
      * @param Request $request
      * @param null $id
      *
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|Eccube\Http\RedirectResponse
      */
     public function edit(Request $request, CacheUtil $cacheUtil, $id = null)
     {
@@ -155,7 +155,7 @@ class NewsController extends AbstractController
      * @param Request $request
      * @param News $News
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Eccube\Http\RedirectResponse
      */
     public function delete(Request $request, News $News, CacheUtil $cacheUtil)
     {

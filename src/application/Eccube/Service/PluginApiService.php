@@ -19,7 +19,7 @@ use Eccube\Entity\Plugin;
 use Eccube\Exception\PluginApiException;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\PluginRepository;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Eccube\Http\RequestStack;
 
 class PluginApiService
 {

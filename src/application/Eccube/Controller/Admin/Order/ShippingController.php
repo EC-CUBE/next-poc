@@ -34,9 +34,9 @@ use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Eccube\Service\TaxRuleService;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Eccube\Http\JsonResponse;
+use Eccube\Http\Request;
+use Eccube\Http\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class ShippingController extends AbstractController

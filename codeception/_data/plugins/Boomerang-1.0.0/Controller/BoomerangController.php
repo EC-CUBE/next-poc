@@ -15,10 +15,10 @@ namespace Plugin\Boomerang\Controller;
 
 use Eccube\Controller\AbstractController;
 use Eccube\Entity\Cart;
+use Eccube\Http\JsonResponse;
 use Eccube\Repository\CartRepository;
-use Plugin\Boomerang\Entity\Bar;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Eccube\Routing\Annotation\Route;
+use Plugin\Boomerang\Entity\Bar;
 
 class BoomerangController extends AbstractController
 {

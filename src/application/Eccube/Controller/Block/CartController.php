@@ -17,7 +17,7 @@ use Eccube\Controller\AbstractController;
 use Eccube\Entity\Cart;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Service\CartService;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class CartController extends AbstractController
 {

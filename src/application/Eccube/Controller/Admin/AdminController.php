@@ -36,7 +36,7 @@ use Eccube\Security\Core\User\UserPasswordHasher;
 use Eccube\Security\Http\Authentication\AuthenticationUtils;
 use Eccube\Security\SecurityContext;
 use Eccube\Service\PluginApiService;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class AdminController extends AbstractController
 {
@@ -261,7 +261,7 @@ class AdminController extends AbstractController
      *
      * @Route("/%eccube_admin_route%/sale_chart", name="admin_homepage_sale", methods={"GET"})
      *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @return Eccube\Http\JsonResponse
      */
     public function sale(Request $request)
     {
@@ -304,7 +304,7 @@ class AdminController extends AbstractController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|array
+     * @return Eccube\Http\RedirectResponse|array
      */
     public function changePassword(Request $request, UserPasswordHasher $hasher)
     {
@@ -359,7 +359,7 @@ class AdminController extends AbstractController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Eccube\Http\Response
      */
     public function searchNonStockProducts(Request $request)
     {
@@ -381,7 +381,7 @@ class AdminController extends AbstractController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Eccube\Http\Response
      */
     public function searchCustomer(Request $request)
     {

@@ -22,7 +22,7 @@ use Eccube\Form\Type\Front\EntryType;
 use Eccube\Repository\CustomerRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Security\Core\User\UserPasswordHasher;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class ChangeController extends AbstractController
 {

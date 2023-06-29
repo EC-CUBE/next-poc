@@ -19,7 +19,7 @@ use Eccube\Service\CartService;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseException;
 use Eccube\Service\PurchaseFlow\PurchaseProcessor;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\BadRequestHttpException;
 
 class PreOrderIdValidator implements PurchaseProcessor
 {

@@ -27,11 +27,11 @@ use Eccube\Repository\PageRepository;
 use Eccube\Repository\ProductRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Util\CacheUtil;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\JsonResponse;
+use Eccube\Http\RedirectResponse;
+use Eccube\Http\Request;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
 use Twig\Environment as Twig;
 
 class LayoutController extends AbstractController

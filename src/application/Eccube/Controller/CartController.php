@@ -26,7 +26,7 @@ use Eccube\Service\OrderHelper;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Eccube\Service\PurchaseFlow\PurchaseFlowResult;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class CartController extends AbstractController
 {
@@ -130,7 +130,7 @@ class CartController extends AbstractController
     /**
      * @param $Carts
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|null
+     * @return Eccube\Http\RedirectResponse|null
      */
     protected function execPurchaseFlow($Carts)
     {

@@ -17,13 +17,13 @@ use Eccube\Common\Constant;
 use Eccube\Controller\Install\InstallController;
 use Eccube\Form\FormFactory;
 use Eccube\Form\FormView;
+use Eccube\Http\RedirectResponse;
+use Eccube\Http\Request;
+use Eccube\Http\Session;
 use Eccube\ORM\EntityManager;
 use Eccube\Security\Core\User\UserPasswordHasher;
 use Eccube\Tests\Web\AbstractWebTestCase;
 use Eccube\Util\CacheUtil;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 
 /**
@@ -75,7 +75,7 @@ class InstallControllerTest extends AbstractWebTestCase
         $hasher = static::getContainer()->get(UserPasswordHasher::class);
         $cacheUtil = static::getContainer()->get(CacheUtil::class);
 
-        $this->session = new Session(new MockArraySessionStorage());
+        $this->session = new Session(new \Symfony\Component\HttpFoundation\Session\Session(new MockArraySessionStorage()));
         $this->controller = new InstallController($hasher, $cacheUtil);
         $this->controller->setFormFactory($formFactory);
         $this->controller->setSession($this->session);

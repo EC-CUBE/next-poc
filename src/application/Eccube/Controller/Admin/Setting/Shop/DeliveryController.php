@@ -33,9 +33,9 @@ use Eccube\Repository\Master\SaleTypeRepository;
 use Eccube\Repository\PaymentOptionRepository;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Twig\Extension\EccubeExtension;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Eccube\Http\Request;
+use Eccube\Http\Exception\BadRequestHttpException;
+use Eccube\Http\Exception\NotFoundHttpException;
 
 /**
  * Class DeliveryController

@@ -17,8 +17,8 @@ use Eccube\Common\Constant;
 use Eccube\Controller\Annotation\Template;
 use Eccube\Routing\Annotation\Route;
 use Eccube\Service\SystemService;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Eccube\Http\Request;
+use Eccube\Http\Response;
 
 class SystemController
 {

@@ -17,11 +17,11 @@ use Eccube\Common\EccubeConfig;
 use Eccube\Form\FormBuilder;
 use Eccube\Form\FormError;
 use Eccube\Form\Type\AbstractType;
+use Eccube\Form\Type\FileType;
 use Eccube\Form\Type\PriceType;
 use Eccube\OptionsResolver\OptionsResolver;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 

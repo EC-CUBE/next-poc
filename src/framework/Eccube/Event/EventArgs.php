@@ -13,8 +13,8 @@
 
 namespace Eccube\Event;
 
+use Eccube\Http\Request;
 use Symfony\Component\EventDispatcher\GenericEvent;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class EventArgs extends GenericEvent

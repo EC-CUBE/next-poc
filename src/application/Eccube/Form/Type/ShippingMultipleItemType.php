@@ -25,7 +25,7 @@ use Eccube\Service\OrderHelper;
 use Eccube\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Eccube\Http\Session;
 
 class ShippingMultipleItemType extends AbstractType
 {
@@ -35,7 +35,7 @@ class ShippingMultipleItemType extends AbstractType
     protected $eccubeConfig;
 
     /**
-     * @var SessionInterface
+     * @var Session
      */
     protected $session;
 
@@ -57,11 +57,11 @@ class ShippingMultipleItemType extends AbstractType
      * ShippingMultipleItemType constructor.
      *
      * @param EccubeConfig $eccubeConfig
-     * @param SessionInterface $session
+     * @param Session $session
      */
     public function __construct(
         EccubeConfig $eccubeConfig,
-        SessionInterface $session,
+        Session $session,
         PrefRepository $prefRepository,
         EntityManager $entityManager,
         OrderHelper $orderHelper,

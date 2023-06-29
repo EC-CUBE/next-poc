@@ -19,7 +19,7 @@ use Eccube\Routing\Annotation\Route;
 use Eccube\Service\SystemService;
 use Eccube\Util\CacheUtil;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\HttpFoundation\Request;
+use Eccube\Http\Request;
 
 class CacheController extends AbstractController
 {

@@ -17,7 +17,7 @@ use Eccube\Entity\ItemHolderInterface;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
 use Eccube\Service\PurchaseFlow\PurchaseFlowResult;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Eccube\Http\RedirectResponse;
 
 class AbstractShoppingController extends AbstractController
 {
