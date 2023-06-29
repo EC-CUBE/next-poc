@@ -27,7 +27,7 @@ use Eccube\Util\CacheUtil;
 use Eccube\Util\StringUtil;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\HttpKernel\KernelEvents;
+use Eccube\KernelEvents;
 
 class TemplateController extends AbstractController
 {

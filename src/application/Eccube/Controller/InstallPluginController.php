@@ -29,7 +29,7 @@ use Eccube\Service\PluginService;
 use Eccube\Service\SystemService;
 use Eccube\Util\CacheUtil;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpKernel\KernelEvents;
+use Eccube\KernelEvents;
 
 class InstallPluginController extends InstallController
 {

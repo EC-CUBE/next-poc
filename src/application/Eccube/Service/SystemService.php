@@ -19,7 +19,7 @@ use Eccube\Util\StringUtil;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\DataCollector\MemoryDataCollector;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
+use Eccube\KernelEvents;
 use function explode;
 use function file_exists;
 use function file_get_contents;
