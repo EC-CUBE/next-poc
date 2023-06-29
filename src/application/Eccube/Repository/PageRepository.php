@@ -56,7 +56,7 @@ class PageRepository extends AbstractRepository
      * @param ManagerRegistry $registry
      * @param EccubeConfig $eccubeConfig
      */
-    public function __construct(RegistryInterface $registry, EccubeConfig $eccubeConfig)
+    public function __construct(ManagerRegistry $registry, EccubeConfig $eccubeConfig)
     {
         parent::__construct($registry, Page::class);
         $this->eccubeConfig = $eccubeConfig;
