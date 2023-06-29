@@ -14,7 +14,6 @@ namespace Eccube\EventDispatcher;
 
 use Psr\EventDispatcher\StoppableEventInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EventDispatcherDecorator extends EventDispatcher
 {

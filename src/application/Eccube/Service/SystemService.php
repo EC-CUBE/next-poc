@@ -13,10 +13,10 @@
 
 namespace Eccube\Service;
 
+use Eccube\EventDispatcher\EventSubscriberInterface;
 use Eccube\ORM\EntityManager;
 use Eccube\Util\StringUtil;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\DataCollector\MemoryDataCollector;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
