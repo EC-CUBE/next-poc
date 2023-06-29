@@ -247,9 +247,9 @@ if (!class_exists('\Eccube\Entity\Customer')) {
          */
         public function __construct()
         {
-            $this->CustomerFavoriteProducts = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->CustomerAddresses = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->Orders = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->CustomerFavoriteProducts = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->CustomerAddresses = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->Orders = new \Eccube\ORM\Collections\ArrayCollection();
 
             $this->setBuyTimes(0);
             $this->setBuyTotal(0);

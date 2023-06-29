@@ -14,7 +14,6 @@
 namespace Eccube\Service;
 
 use Detection\MobileDetect;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Eccube\Entity\Cart;
 use Eccube\Entity\CartItem;
@@ -369,7 +368,7 @@ class OrderHelper
     }
 
     /**
-     * @param Collection|ArrayCollection|CartItem[] $CartItems
+     * @param CartItem[] $CartItems
      *
      * @return OrderItem[]
      */

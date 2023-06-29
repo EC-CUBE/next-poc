@@ -128,9 +128,9 @@ if (!class_exists('\Eccube\Entity\Delivery')) {
          */
         public function __construct()
         {
-            $this->PaymentOptions = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->DeliveryFees = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->DeliveryTimes = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->PaymentOptions = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->DeliveryFees = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->DeliveryTimes = new \Eccube\ORM\Collections\ArrayCollection();
         }
 
         /**

@@ -13,8 +13,7 @@
 
 namespace Eccube\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Criteria;
+use Eccube\ORM\Collections\ArrayCollection;
 use Eccube\ORM\Mapping as ORM;
 use Eccube\Entity\Master\RoundingType;
 use Eccube\Entity\Master\TaxType;
@@ -626,9 +625,9 @@ if (!class_exists('\Eccube\Entity\Order')) {
                 ->setDeliveryFeeTotal(0)
                 ->setOrderStatus($orderStatus);
 
-            $this->OrderItems = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->Shippings = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->MailHistories = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->OrderItems = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->Shippings = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->MailHistories = new \Eccube\ORM\Collections\ArrayCollection();
         }
 
         /**
@@ -1504,10 +1503,16 @@ if (!class_exists('\Eccube\Entity\Order')) {
          */
         public function getShippings()
         {
-            $criteria = Criteria::create()
-                ->orderBy(['name01' => Criteria::ASC, 'name02' => Criteria::ASC, 'id' => Criteria::ASC]);
+            $Shippings = $this->Shippings->toArray();
 
-            return $this->Shippings->matching($criteria);
+            usort($Shippings, function ($a, $b) {
+                // order by name01 asc, name02 asc, id asc
+                return $a->getName01() <=> $b->getName01()
+                    ?: $a->getName02() <=> $b->getName02()
+                    ?: $a->getId() <=> $b->getId();
+            });
+
+            return new ArrayCollection($Shippings);
         }
 
         /**

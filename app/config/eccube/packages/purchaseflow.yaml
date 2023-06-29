@@ -13,7 +13,7 @@ services:
             - [setItemHolderPostValidators, ['@eccube.purchase.flow.cart.holder_post_validators']]
 
     eccube.purchase.flow.cart.item_validators:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\DeliverySettingValidator' # 配送設定のチェック
@@ -24,19 +24,19 @@ services:
                 - '@Eccube\Service\PurchaseFlow\Processor\ClassCategoryValidator' # 商品規格の公開状態チェック
 
     eccube.purchase.flow.cart.holder_validators:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\EmptyItemsValidator'  # 空明細の削除処理
 
     eccube.purchase.flow.cart.item_preprocessors:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
 
     eccube.purchase.flow.cart.holder_preprocessors:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
 
     eccube.purchase.flow.cart.holder_post_validators:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\PaymentValidator' # 使用できない支払い方法が含まれていないかどうか
@@ -56,7 +56,7 @@ services:
             - [setPurchaseProcessors, ['@eccube.purchase.flow.shopping.purchase']]
 
     eccube.purchase.flow.shopping.item_validators:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\DeliverySettingValidator'
@@ -65,7 +65,7 @@ services:
                 - '@Eccube\Service\PurchaseFlow\Processor\ClassCategoryValidator'
 
     eccube.purchase.flow.shopping.holder_validators:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\StockMultipleValidator'
@@ -73,7 +73,7 @@ services:
                 - '@Eccube\Service\PurchaseFlow\Processor\EmptyItemsValidator'  # 空明細の削除処理
 
     eccube.purchase.flow.shopping.holder_preprocessors:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\TaxProcessor'  # 税額の計算(商品明細に対して税額計算)
@@ -84,13 +84,13 @@ services:
                 - '@Eccube\Service\PurchaseFlow\Processor\TaxProcessor'  # 税額の計算(送料明細・手数料明細に対して税額を計算)
 
     eccube.purchase.flow.shopping.discount_processors:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\PointProcessor' # ポイント明細の追加
 
     eccube.purchase.flow.shopping.holder_post_validators:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\PointRateProcessor' # 明細にポイント付与率を設定する
@@ -103,7 +103,7 @@ services:
                 - '@Eccube\Service\PurchaseFlow\Processor\TaxRateChangeValidator' # 税率の変更検知
 
     eccube.purchase.flow.shopping.purchase:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\PreOrderIdValidator'
@@ -126,29 +126,29 @@ services:
             - [setPurchaseProcessors, ['@eccube.purchase.flow.order.purchase']]
 
     eccube.purchase.flow.order.item_validators:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
 
     eccube.purchase.flow.order.holder_validators:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\StockDiffProcessor'
                 - '@Eccube\Service\PurchaseFlow\Processor\PointDiffProcessor'
 
     eccube.purchase.flow.order.holder_preprocessors:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\TaxProcessor'
 
     eccube.purchase.flow.order.discount_processors:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\PointProcessor' # ポイント明細の追加
 
     eccube.purchase.flow.order.holder_post_validators:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\AddPointProcessor'  # 加算ポイントの計算
@@ -157,7 +157,7 @@ services:
 
 
     eccube.purchase.flow.order.purchase:
-        class: Doctrine\Common\Collections\ArrayCollection
+        class: Eccube\ORM\Collections\ArrayCollection
         arguments:
             - #
                 - '@Eccube\Service\PurchaseFlow\Processor\StockDiffProcessor'

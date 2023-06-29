@@ -13,7 +13,7 @@
 
 namespace Eccube\Controller\Admin\Order;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Eccube\ORM\Collections\ArrayCollection;
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Order;
@@ -196,6 +196,7 @@ class ShippingController extends AbstractController
                     }
 
                     // 削除されたお届け先の削除
+                    $Order->removeShipping($OriginShipping);
                     $this->entityManager->remove($OriginShipping);
                 } else {
                     // お届け先は削除されていない場合

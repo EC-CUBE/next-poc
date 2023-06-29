@@ -13,7 +13,6 @@
 
 namespace Eccube\Entity;
 
-use Doctrine\Common\Collections\Criteria;
 use Eccube\ORM\Mapping as ORM;
 
 if (!class_exists('\Eccube\Entity\Category')) {
@@ -122,21 +121,11 @@ if (!class_exists('\Eccube\Entity\Category')) {
         /**
          * カテゴリに紐づく商品があるかどうかを調べる.
          *
-         * ProductCategoriesはExtra Lazyのため, lengthやcountで評価した際にはCOUNTのSQLが発行されるが,
-         * COUNT自体が重いので, LIMIT 1で取得し存在チェックを行う.
-         *
-         * @see http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/reference/working-with-associations.html#filtering-collections
-         *
          * @return bool
          */
         public function hasProductCategories()
         {
-            $criteria = Criteria::create()
-            ->orderBy(['category_id' => Criteria::ASC])
-            ->setFirstResult(0)
-            ->setMaxResults(1);
-
-            return $this->ProductCategories->matching($criteria)->count() > 0;
+            return count($this->ProductCategories);
         }
 
         /**
@@ -209,8 +198,8 @@ if (!class_exists('\Eccube\Entity\Category')) {
          */
         public function __construct()
         {
-            $this->ProductCategories = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->Children = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->ProductCategories = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->Children = new \Eccube\ORM\Collections\ArrayCollection();
         }
 
         /**

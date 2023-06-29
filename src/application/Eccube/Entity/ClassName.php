@@ -91,7 +91,7 @@ if (!class_exists('\Eccube\Entity\ClassName')) {
          */
         public function __construct()
         {
-            $this->ClassCategories = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->ClassCategories = new \Eccube\ORM\Collections\ArrayCollection();
         }
 
         /**

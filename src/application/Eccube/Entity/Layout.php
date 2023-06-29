@@ -261,8 +261,8 @@ if (!class_exists('\Eccube\Entity\Layout')) {
          */
         public function __construct()
         {
-            $this->BlockPositions = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->PageLayouts = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->BlockPositions = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->PageLayouts = new \Eccube\ORM\Collections\ArrayCollection();
         }
 
         /**

@@ -176,6 +176,7 @@ class ShippingControllerTest extends AbstractEditControllerTestCase
         $this->assertTrue($this->client->getResponse()->isRedirect($this->generateUrl('admin_shipping_edit', ['id' => $Order->getId()])));
 
         // 出荷先が1個で登録されていることを確認
+        $this->entityManager->clear();
         $expectedOrder = $this->entityManager->find(Order::class, $OrderId);
         $this->assertEquals(1, $expectedOrder->getShippings()->count());
     }

@@ -94,7 +94,7 @@ if (!class_exists('\Eccube\Entity\Block')) {
          */
         public function __construct()
         {
-            $this->BlockPositions = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->BlockPositions = new \Eccube\ORM\Collections\ArrayCollection();
         }
 
         /**

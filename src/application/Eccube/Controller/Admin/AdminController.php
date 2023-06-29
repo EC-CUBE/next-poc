@@ -14,7 +14,6 @@
 namespace Eccube\Controller\Admin;
 
 use Carbon\Carbon;
-use Doctrine\Common\Collections\Criteria;
 use Eccube\Controller\AbstractController;
 use Eccube\Controller\Annotation\Template;
 use Eccube\Entity\Master\CustomerStatus;
@@ -181,11 +180,12 @@ class AdminController extends AbstractController
         $Orders = $this->getOrderEachStatus($excludes);
 
         // 受注ステータスの一覧.
-        $Criteria = new Criteria();
-        $Criteria
-            ->where($Criteria::expr()->notIn('id', $excludes))
-            ->orderBy(['sort_no' => 'ASC']);
-        $OrderStatuses = $this->orderStatusRepository->matching($Criteria);
+        $OrderStatuses = $this->orderStatusRepository->createQueryBuilder('o')
+            ->where('o.id NOT IN(:excludes)')
+            ->setParameter('excludes', $excludes)
+            ->orderBy('o.sort_no', 'ASC')
+            ->getQuery()
+            ->getResult();
 
         /**
          * 売り上げ状況

@@ -126,7 +126,7 @@ if (!class_exists('\Eccube\Entity\Payment')) {
          */
         public function __construct()
         {
-            $this->PaymentOptions = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->PaymentOptions = new \Eccube\ORM\Collections\ArrayCollection();
         }
 
         /**

@@ -548,11 +548,11 @@ if (!class_exists('\Eccube\Entity\Product')) {
          */
         public function __construct()
         {
-            $this->ProductCategories = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->ProductClasses = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->ProductImage = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->ProductTag = new \Doctrine\Common\Collections\ArrayCollection();
-            $this->CustomerFavoriteProducts = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->ProductCategories = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->ProductClasses = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->ProductImage = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->ProductTag = new \Eccube\ORM\Collections\ArrayCollection();
+            $this->CustomerFavoriteProducts = new \Eccube\ORM\Collections\ArrayCollection();
         }
 
         public function __clone()

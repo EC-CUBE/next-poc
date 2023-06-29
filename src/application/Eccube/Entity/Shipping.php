@@ -227,7 +227,7 @@ if (!class_exists('\Eccube\Entity\Shipping')) {
          */
         public function __construct()
         {
-            $this->OrderItems = new \Doctrine\Common\Collections\ArrayCollection();
+            $this->OrderItems = new \Eccube\ORM\Collections\ArrayCollection();
         }
 
         /**
