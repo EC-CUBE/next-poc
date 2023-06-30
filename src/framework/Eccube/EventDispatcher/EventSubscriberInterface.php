@@ -12,7 +12,7 @@
 
 namespace Eccube\EventDispatcher;
 
-interface EventSubscriberInterface extends \Composer\EventDispatcher\EventSubscriberInterface
+interface EventSubscriberInterface extends \Symfony\Component\EventDispatcher\EventSubscriberInterface
 {
 
 }
