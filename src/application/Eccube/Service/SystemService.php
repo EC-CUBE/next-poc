@@ -13,6 +13,7 @@
 
 namespace Eccube\Service;
 
+use Eccube\EventDispatcher\Event;
 use Eccube\EventDispatcher\EventSubscriberInterface;
 use Eccube\ORM\EntityManager;
 use Eccube\Util\StringUtil;
@@ -141,7 +142,7 @@ class SystemService implements EventSubscriberInterface
     /**
      * KernelEvents::TERMINATE で設定されるEvent
      */
-    public function disableMaintenanceEvent(TerminateEvent $event)
+    public function disableMaintenanceEvent(Event $event)
     {
         if ($this->disableMaintenanceAfterResponse) {
             $this->switchMaintenance(false, $this->maintenanceMode);
