@@ -153,7 +153,7 @@ if (!class_exists('\Eccube\Entity\CartItem')) {
         /**
          * 手数料明細かどうか.
          *
-         * @return boolean 手数料明細の場合 true
+         * @return bool 手数料明細の場合 true
          */
         public function isCharge()
         {
@@ -183,7 +183,7 @@ if (!class_exists('\Eccube\Entity\CartItem')) {
         /**
          * ポイント明細かどうか.
          *
-         * @return boolean ポイント明細の場合 true
+         * @return bool ポイント明細の場合 true
          */
         public function isPoint()
         {
