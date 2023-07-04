@@ -13,6 +13,7 @@
 
 namespace Eccube\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Eccube\ORM\Mapping as ORM;
 use Eccube\Security\Core\User\UserInterface;
 
@@ -32,6 +33,7 @@ if (!class_exists('\Eccube\Entity\Customer')) {
     #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
     #[ORM\HasLifecycleCallbacks]
     #[ORM\Entity(repositoryClass: 'Eccube\Repository\CustomerRepository')]
+    #[ApiResource]
     class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface, \Serializable
     {
         /**
@@ -868,114 +870,114 @@ if (!class_exists('\Eccube\Entity\Customer')) {
             return $this->update_date;
         }
 
-        /**
-         * Add customerFavoriteProduct.
-         *
-         * @param \Eccube\Entity\CustomerFavoriteProduct $customerFavoriteProduct
-         *
-         * @return Customer
-         */
-        public function addCustomerFavoriteProduct(CustomerFavoriteProduct $customerFavoriteProduct)
-        {
-            $this->CustomerFavoriteProducts[] = $customerFavoriteProduct;
-
-            return $this;
-        }
-
-        /**
-         * Remove customerFavoriteProduct.
-         *
-         * @param \Eccube\Entity\CustomerFavoriteProduct $customerFavoriteProduct
-         *
-         * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-         */
-        public function removeCustomerFavoriteProduct(CustomerFavoriteProduct $customerFavoriteProduct)
-        {
-            return $this->CustomerFavoriteProducts->removeElement($customerFavoriteProduct);
-        }
-
-        /**
-         * Get customerFavoriteProducts.
-         *
-         * @return \Doctrine\Common\Collections\Collection
-         */
-        public function getCustomerFavoriteProducts()
-        {
-            return $this->CustomerFavoriteProducts;
-        }
-
-        /**
-         * Add customerAddress.
-         *
-         * @param \Eccube\Entity\CustomerAddress $customerAddress
-         *
-         * @return Customer
-         */
-        public function addCustomerAddress(CustomerAddress $customerAddress)
-        {
-            $this->CustomerAddresses[] = $customerAddress;
-
-            return $this;
-        }
-
-        /**
-         * Remove customerAddress.
-         *
-         * @param \Eccube\Entity\CustomerAddress $customerAddress
-         *
-         * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-         */
-        public function removeCustomerAddress(CustomerAddress $customerAddress)
-        {
-            return $this->CustomerAddresses->removeElement($customerAddress);
-        }
-
-        /**
-         * Get customerAddresses.
-         *
-         * @return \Doctrine\Common\Collections\Collection
-         */
-        public function getCustomerAddresses()
-        {
-            return $this->CustomerAddresses;
-        }
-
-        /**
-         * Add order.
-         *
-         * @param \Eccube\Entity\Order $order
-         *
-         * @return Customer
-         */
-        public function addOrder(Order $order)
-        {
-            $this->Orders[] = $order;
-
-            return $this;
-        }
-
-        /**
-         * Remove order.
-         *
-         * @param \Eccube\Entity\Order $order
-         *
-         * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-         */
-        public function removeOrder(Order $order)
-        {
-            return $this->Orders->removeElement($order);
-        }
-
-        /**
-         * Get orders.
-         *
-         * @return \Doctrine\Common\Collections\Collection
-         */
-        public function getOrders()
-        {
-            return $this->Orders;
-        }
-
+//        /**
+//         * Add customerFavoriteProduct.
+//         *
+//         * @param \Eccube\Entity\CustomerFavoriteProduct $customerFavoriteProduct
+//         *
+//         * @return Customer
+//         */
+//        public function addCustomerFavoriteProduct(CustomerFavoriteProduct $customerFavoriteProduct)
+//        {
+//            $this->CustomerFavoriteProducts[] = $customerFavoriteProduct;
+//
+//            return $this;
+//        }
+//
+//        /**
+//         * Remove customerFavoriteProduct.
+//         *
+//         * @param \Eccube\Entity\CustomerFavoriteProduct $customerFavoriteProduct
+//         *
+//         * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+//         */
+//        public function removeCustomerFavoriteProduct(CustomerFavoriteProduct $customerFavoriteProduct)
+//        {
+//            return $this->CustomerFavoriteProducts->removeElement($customerFavoriteProduct);
+//        }
+//
+//        /**
+//         * Get customerFavoriteProducts.
+//         *
+//         * @return \Doctrine\Common\Collections\Collection
+//         */
+//        public function getCustomerFavoriteProducts()
+//        {
+//            return $this->CustomerFavoriteProducts;
+//        }
+//
+//        /**
+//         * Add customerAddress.
+//         *
+//         * @param \Eccube\Entity\CustomerAddress $customerAddress
+//         *
+//         * @return Customer
+//         */
+//        public function addCustomerAddress(CustomerAddress $customerAddress)
+//        {
+//            $this->CustomerAddresses[] = $customerAddress;
+//
+//            return $this;
+//        }
+//
+//        /**
+//         * Remove customerAddress.
+//         *
+//         * @param \Eccube\Entity\CustomerAddress $customerAddress
+//         *
+//         * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+//         */
+//        public function removeCustomerAddress(CustomerAddress $customerAddress)
+//        {
+//            return $this->CustomerAddresses->removeElement($customerAddress);
+//        }
+//
+//        /**
+//         * Get customerAddresses.
+//         *
+//         * @return \Doctrine\Common\Collections\Collection
+//         */
+//        public function getCustomerAddresses()
+//        {
+//            return $this->CustomerAddresses;
+//        }
+//
+//        /**
+//         * Add order.
+//         *
+//         * @param \Eccube\Entity\Order $order
+//         *
+//         * @return Customer
+//         */
+//        public function addOrder(Order $order)
+//        {
+//            $this->Orders[] = $order;
+//
+//            return $this;
+//        }
+//
+//        /**
+//         * Remove order.
+//         *
+//         * @param \Eccube\Entity\Order $order
+//         *
+//         * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+//         */
+//        public function removeOrder(Order $order)
+//        {
+//            return $this->Orders->removeElement($order);
+//        }
+//
+//        /**
+//         * Get orders.
+//         *
+//         * @return \Doctrine\Common\Collections\Collection
+//         */
+//        public function getOrders()
+//        {
+//            return $this->Orders;
+//        }
+//
         /**
          * Set status.
          *
