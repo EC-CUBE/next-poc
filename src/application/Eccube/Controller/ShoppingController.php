@@ -36,9 +36,9 @@ use Eccube\Service\MailService;
 use Eccube\Service\OrderHelper;
 use Eccube\Service\Payment\PaymentDispatcher;
 use Eccube\Service\Payment\PaymentMethodInterface;
+use Eccube\Service\Payment\PaymentMethodLocator;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
-use Psr\Container\ContainerInterface;
 use Eccube\Http\Request;
 use Eccube\Http\Response;
 use Eccube\Http\Exception\TooManyRequestsHttpException;
@@ -79,7 +79,7 @@ class ShoppingController extends AbstractShoppingController
 
     protected RateLimiterFactory $shoppingCheckoutCustomerLimiter;
 
-    protected ContainerInterface $locator;
+    protected PaymentMethodLocator $locator;
 
     public function __construct(
         CartService $cartService,
@@ -91,7 +91,7 @@ class ShoppingController extends AbstractShoppingController
         RateLimiterFactory $shoppingConfirmCustomerLimiter,
         RateLimiterFactory $shoppingCheckoutIpLimiter,
         RateLimiterFactory $shoppingCheckoutCustomerLimiter,
-        ContainerInterface $locator
+        PaymentMethodLocator $locator
     ) {
         $this->cartService = $cartService;
         $this->mailService = $mailService;

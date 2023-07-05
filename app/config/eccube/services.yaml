@@ -250,7 +250,5 @@ services:
         decorates: event_dispatcher
         decoration_priority: -10 # debug時にTraceableEventDispatcherをラップできるようにpriorityを下げる
 
-    Eccube\Controller\ShoppingController:
-        arguments:
-          $locator: !tagged_locator { tag: 'eccube_payment_method' }
-        tags: [ 'controller.service_arguments' ]
+    Eccube\Service\Payment\PaymentMethodLocator:
+        arguments: [ !tagged_locator { tag: 'eccube_payment_method' } ]
