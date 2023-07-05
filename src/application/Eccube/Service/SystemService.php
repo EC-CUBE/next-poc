@@ -13,13 +13,14 @@
 
 namespace Eccube\Service;
 
+use Eccube\EventDispatcher\Event;
+use Eccube\EventDispatcher\EventSubscriberInterface;
 use Eccube\ORM\EntityManager;
 use Eccube\Util\StringUtil;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\DataCollector\MemoryDataCollector;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
+use Eccube\KernelEvents;
 use function explode;
 use function file_exists;
 use function file_get_contents;
@@ -141,7 +142,7 @@ class SystemService implements EventSubscriberInterface
     /**
      * KernelEvents::TERMINATE で設定されるEvent
      */
-    public function disableMaintenanceEvent(TerminateEvent $event)
+    public function disableMaintenanceEvent(Event $event)
     {
         if ($this->disableMaintenanceAfterResponse) {
             $this->switchMaintenance(false, $this->maintenanceMode);

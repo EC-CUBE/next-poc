@@ -25,12 +25,11 @@ use Eccube\Event\EccubeEvents;
 use Eccube\Event\EventArgs;
 use Eccube\Mailer\Exception\TransportException;
 use Eccube\Mailer\Mailer;
+use Eccube\EventDispatcher\EventDispatcher;
 use Eccube\Repository\BaseInfoRepository;
 use Eccube\Repository\MailHistoryRepository;
 use Eccube\Repository\MailTemplateRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Eccube\Mime\Address;
 use Eccube\Mime\Email;
 
@@ -81,7 +80,7 @@ class MailService
      * @param MailTemplateRepository $mailTemplateRepository
      * @param MailHistoryRepository $mailHistoryRepository
      * @param BaseInfoRepository $baseInfoRepository
-     * @param EventDispatcherInterface $eventDispatcher
+     * @param EventDispatcher $eventDispatcher
      * @param \Twig\Environment $twig
      * @param EccubeConfig $eccubeConfig
      * @param ContainerInterface $container
@@ -91,7 +90,7 @@ class MailService
         MailTemplateRepository $mailTemplateRepository,
         MailHistoryRepository $mailHistoryRepository,
         BaseInfoRepository $baseInfoRepository,
-        EventDispatcherInterface $eventDispatcher,
+        EventDispatcher $eventDispatcher,
         \Twig\Environment $twig,
         EccubeConfig $eccubeConfig,
         ContainerInterface $container
