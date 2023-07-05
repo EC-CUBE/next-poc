@@ -108,7 +108,8 @@
         "twig/extra-bundle": "^3.3",
         "twig/intl-extra": "^3.3",
         "twig/twig": "^2.15",
-        "vlucas/phpdotenv": "v5.4"
+        "vlucas/phpdotenv": "v5.4",
+        "webonyx/graphql-php": "^15.5"
     },
     "require-dev": {
         "captbaritone/mailcatcher-codeception-module": "^2.4",
