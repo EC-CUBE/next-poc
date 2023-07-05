@@ -1,0 +1,16 @@
+api_platform:
+    mapping:
+        # todo src/framework/Eccube/Entityは自動で検出されてるぽいけど一応追加
+        # todo プラグインのEntityはExtensionかCompilerPassで対応
+        paths:
+            - '%kernel.project_dir%/src/framework/Eccube/Entity'
+            - '%kernel.project_dir%/src/application/Eccube/Entity'
+            - '%kernel.project_dir%/app/Customize/Entity'
+    patch_formats:
+        json: ['application/merge-patch+json']
+    swagger:
+        versions: [3]
+    graphql:
+        collection:
+            pagination:
+                enabled: false

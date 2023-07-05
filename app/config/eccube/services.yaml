@@ -245,3 +245,18 @@ services:
 
     Eccube\Http\RequestHandler:
         decorates: 'form.type_extension.form.request_handler'
+
+    Eccube\Api\Extension\FilterExtension:
+        decorates: api_platform.doctrine.orm.query_extension.filter
+
+    Eccube\Api\Extension\FilterEagerLoadingExtension:
+        decorates: api_platform.doctrine.orm.query_extension.filter_eager_loading
+
+    Eccube\Api\Extension\EagerLoadingExtension:
+        decorates: api_platform.doctrine.orm.query_extension.eager_loading
+
+    Eccube\Api\Extension\OrderExtension:
+        decorates: api_platform.doctrine.orm.query_extension.order
+
+    Eccube\Api\Extension\PaginationExtension:
+        decorates: api_platform.doctrine.orm.query_extension.pagination

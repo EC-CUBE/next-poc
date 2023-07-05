@@ -13,6 +13,7 @@
 
 namespace Eccube\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Eccube\ORM\Mapping as ORM;
 use Eccube\Security\Core\User\UserInterface;
 
@@ -32,6 +33,7 @@ if (!class_exists('\Eccube\Entity\Customer')) {
     #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
     #[ORM\HasLifecycleCallbacks]
     #[ORM\Entity(repositoryClass: 'Eccube\Repository\CustomerRepository')]
+    #[ApiResource]
     class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface, \Serializable
     {
         /**
@@ -887,7 +889,7 @@ if (!class_exists('\Eccube\Entity\Customer')) {
          *
          * @param \Eccube\Entity\CustomerFavoriteProduct $customerFavoriteProduct
          *
-         * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+         * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
          */
         public function removeCustomerFavoriteProduct(CustomerFavoriteProduct $customerFavoriteProduct)
         {
@@ -923,7 +925,7 @@ if (!class_exists('\Eccube\Entity\Customer')) {
          *
          * @param \Eccube\Entity\CustomerAddress $customerAddress
          *
-         * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+         * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
          */
         public function removeCustomerAddress(CustomerAddress $customerAddress)
         {
@@ -959,7 +961,7 @@ if (!class_exists('\Eccube\Entity\Customer')) {
          *
          * @param \Eccube\Entity\Order $order
          *
-         * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+         * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
          */
         public function removeOrder(Order $order)
         {
