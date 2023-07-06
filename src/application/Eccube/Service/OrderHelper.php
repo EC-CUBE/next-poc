@@ -35,16 +35,10 @@ use Eccube\Repository\OrderRepository;
 use Eccube\Repository\PaymentRepository;
 use Eccube\Security\SecurityContext;
 use Eccube\Util\StringUtil;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Eccube\Http\Session;
 
 class OrderHelper
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
     /**
      * @var string 非会員情報を保持するセッションのキー
      */
@@ -117,7 +111,6 @@ class OrderHelper
     protected SecurityContext $securityContext;
 
     public function __construct(
-        ContainerInterface $container,
         EntityManager $entityManager,
         OrderRepository $orderRepository,
         OrderItemTypeRepository $orderItemTypeRepository,
@@ -130,7 +123,6 @@ class OrderHelper
         Session $session,
         SecurityContext $securityContext
     ) {
-        $this->container = $container;
         $this->orderRepository = $orderRepository;
         $this->orderStatusRepository = $orderStatusRepository;
         $this->orderItemTypeRepository = $orderItemTypeRepository;

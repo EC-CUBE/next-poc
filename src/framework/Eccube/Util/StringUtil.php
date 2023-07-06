@@ -14,6 +14,7 @@
 namespace Eccube\Util;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\DependencyInjection\Container;
 
 class StringUtil
 {
@@ -334,5 +335,10 @@ class StringUtil
         }
 
         return $env;
+    }
+
+    public static function underscore(string $id): string
+    {
+        return Container::underscore($id);
     }
 }

@@ -36,9 +36,9 @@ use Eccube\Service\MailService;
 use Eccube\Service\OrderHelper;
 use Eccube\Service\Payment\PaymentDispatcher;
 use Eccube\Service\Payment\PaymentMethodInterface;
+use Eccube\Service\Payment\PaymentMethodLocator;
 use Eccube\Service\PurchaseFlow\PurchaseContext;
 use Eccube\Service\PurchaseFlow\PurchaseFlow;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Eccube\Http\Request;
 use Eccube\Http\Response;
 use Eccube\Http\Exception\TooManyRequestsHttpException;
@@ -67,11 +67,6 @@ class ShoppingController extends AbstractShoppingController
     protected $orderRepository;
 
     /**
-     * @var ContainerInterface
-     */
-    protected $serviceContainer;
-
-    /**
      * @var TradeLawRepository
      */
     protected TradeLawRepository $tradeLawRepository;
@@ -84,28 +79,30 @@ class ShoppingController extends AbstractShoppingController
 
     protected RateLimiterFactory $shoppingCheckoutCustomerLimiter;
 
+    protected PaymentMethodLocator $locator;
+
     public function __construct(
         CartService $cartService,
         MailService $mailService,
         OrderRepository $orderRepository,
         OrderHelper $orderHelper,
-        ContainerInterface $serviceContainer,
         TradeLawRepository $tradeLawRepository,
         RateLimiterFactory $shoppingConfirmIpLimiter,
         RateLimiterFactory $shoppingConfirmCustomerLimiter,
         RateLimiterFactory $shoppingCheckoutIpLimiter,
-        RateLimiterFactory $shoppingCheckoutCustomerLimiter
+        RateLimiterFactory $shoppingCheckoutCustomerLimiter,
+        PaymentMethodLocator $locator
     ) {
         $this->cartService = $cartService;
         $this->mailService = $mailService;
         $this->orderRepository = $orderRepository;
         $this->orderHelper = $orderHelper;
-        $this->serviceContainer = $serviceContainer;
         $this->tradeLawRepository = $tradeLawRepository;
         $this->shoppingConfirmIpLimiter = $shoppingConfirmIpLimiter;
         $this->shoppingConfirmCustomerLimiter = $shoppingConfirmCustomerLimiter;
         $this->shoppingCheckoutIpLimiter = $shoppingCheckoutIpLimiter;
         $this->shoppingCheckoutCustomerLimiter = $shoppingCheckoutCustomerLimiter;
+        $this->locator = $locator;
     }
 
     /**
@@ -794,7 +791,7 @@ class ShoppingController extends AbstractShoppingController
      */
     private function createPaymentMethod(Order $Order, Form $form)
     {
-        $PaymentMethod = $this->serviceContainer->get($Order->getPayment()->getMethodClass());
+        $PaymentMethod = $this->locator->get($Order->getPayment()->getMethodClass());
         $PaymentMethod->setOrder($Order);
         $PaymentMethod->setFormType($form);
 

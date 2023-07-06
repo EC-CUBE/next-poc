@@ -16,7 +16,6 @@ namespace Eccube\Service;
 use Eccube\Common\EccubeConfig;
 use Eccube\Security\Core\User\UserPasswordHasher;
 use RobThree\Auth\TwoFactorAuth;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Eccube\Http\Cookie;
 use Eccube\Http\Request;
 use Eccube\Http\RequestStack;
@@ -32,11 +31,6 @@ class TwoFactorAuthService
      * @var string Cookieに保存する時のキー名
      */
     public const DEFAULT_COOKIE_NAME = 'eccube_2fa';
-
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
 
     /**
      * @var EccubeConfig
@@ -73,16 +67,13 @@ class TwoFactorAuthService
     /**
      * constructor.
      *
-     * @param ContainerInterface $container
      * @param EccubeConfig $eccubeConfig
      */
     public function __construct(
-        ContainerInterface $container,
         EccubeConfig $eccubeConfig,
         RequestStack $requestStack,
         UserPasswordHasher $hasher
     ) {
-        $this->container = $container;
         $this->eccubeConfig = $eccubeConfig;
         $this->requestStack = $requestStack;
         $this->request = $requestStack->getCurrentRequest();
