@@ -265,3 +265,6 @@ services:
     Eccube\Api\Extension\PaginationExtension:
         decorates: api_platform.doctrine.orm.query_extension.pagination
         arguments: ['@.inner']
+
+    Eccube\GraphQL\:
+        resource: '../../../src/application/Eccube/GraphQL/'

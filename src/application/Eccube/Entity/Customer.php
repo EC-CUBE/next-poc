@@ -14,6 +14,8 @@
 namespace Eccube\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GraphQl\Mutation;
+use Eccube\GraphQL\EntryMutation;
 use Eccube\ORM\Mapping as ORM;
 use Eccube\Security\Core\User\UserInterface;
 
@@ -33,7 +35,22 @@ if (!class_exists('\Eccube\Entity\Customer')) {
     #[ORM\DiscriminatorColumn(name: 'discriminator_type', type: 'string', length: 255)]
     #[ORM\HasLifecycleCallbacks]
     #[ORM\Entity(repositoryClass: 'Eccube\Repository\CustomerRepository')]
-    #[ApiResource]
+    #[ApiResource(
+        graphQlOperations: [
+            new Mutation(resolver: EntryMutation::class, args: [
+                'name01' => ['type' => 'String'],
+                'name02' => ['type' => 'String'],
+                'kana01' => ['type' => 'String'],
+                'kana02' => ['type' => 'String'],
+                'postal_code' => ['type' => 'String'],
+                'addr01' => ['type' => 'String'],
+                'addr02' => ['type' => 'String'],
+                'pref' => ['type' => 'String'],
+                'email' => ['type' => 'String'],
+                'plain_password' => ['type' => 'String'],
+            ], serialize: false, name: "entry")
+        ]
+    )]
     class Customer extends \Eccube\Entity\AbstractEntity implements UserInterface, \Serializable
     {
         /**
