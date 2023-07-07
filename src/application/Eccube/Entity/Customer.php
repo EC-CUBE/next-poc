@@ -13,7 +13,7 @@
 
 namespace Eccube\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Metadata\ApiResource;
 use Eccube\ORM\Mapping as ORM;
 use Eccube\Security\Core\User\UserInterface;
 

@@ -1,4 +1,5 @@
 api_platform:
+    metadata_backward_compatibility_layer: false
     mapping:
         # todo src/framework/Eccube/Entityは自動で検出されてるぽいけど一応追加
         # todo プラグインのEntityはExtensionかCompilerPassで対応
