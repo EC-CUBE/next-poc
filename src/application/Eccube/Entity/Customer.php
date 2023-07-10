@@ -18,6 +18,7 @@ use ApiPlatform\Metadata\GraphQl\Mutation;
 use Eccube\GraphQL\EntryMutation;
 use Eccube\ORM\Mapping as ORM;
 use Eccube\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 if (!class_exists('\Eccube\Entity\Customer')) {
     /**
@@ -65,12 +66,14 @@ if (!class_exists('\Eccube\Entity\Customer')) {
          * @var string
          */
         #[ORM\Column(name: 'name01', type: 'string', length: 255)]
+        #[Assert\NotBlank]
         private $name01;
 
         /**
          * @var string
          */
         #[ORM\Column(name: 'name02', type: 'string', length: 255)]
+        #[Assert\NotBlank]
         private $name02;
 
         /**
@@ -95,30 +98,36 @@ if (!class_exists('\Eccube\Entity\Customer')) {
          * @var string|null
          */
         #[ORM\Column(name: 'postal_code', type: 'string', length: 8, nullable: true)]
+        #[Assert\NotBlank]
         private $postal_code;
 
         /**
          * @var string|null
          */
         #[ORM\Column(name: 'addr01', type: 'string', length: 255, nullable: true)]
+        #[Assert\NotBlank]
         private $addr01;
 
         /**
          * @var string|null
          */
         #[ORM\Column(name: 'addr02', type: 'string', length: 255, nullable: true)]
+        #[Assert\NotBlank]
         private $addr02;
 
         /**
          * @var string
          */
         #[ORM\Column(name: 'email', type: 'string', length: 255)]
+        #[Assert\Email]
+        #[Assert\NotBlank]
         private $email;
 
         /**
          * @var string|null
          */
         #[ORM\Column(name: 'phone_number', type: 'string', length: 14, nullable: true)]
+        #[Assert\NotBlank]
         private $phone_number;
 
         /**
@@ -127,6 +136,7 @@ if (!class_exists('\Eccube\Entity\Customer')) {
         #[ORM\Column(name: 'birth', type: 'datetimetz', nullable: true)]
         private $birth;
 
+        #[Assert\NotBlank]
         private $plain_password;
 
         /**
