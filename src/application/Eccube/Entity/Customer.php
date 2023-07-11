@@ -43,12 +43,13 @@ if (!class_exists('\Eccube\Entity\Customer')) {
                 'name02' => ['type' => 'String'],
                 'kana01' => ['type' => 'String'],
                 'kana02' => ['type' => 'String'],
-                'postal_code' => ['type' => 'String'],
+                'postalCode' => ['type' => 'String'],
                 'addr01' => ['type' => 'String'],
                 'addr02' => ['type' => 'String'],
                 'pref' => ['type' => 'String'],
                 'email' => ['type' => 'String'],
-                'plain_password' => ['type' => 'String'],
+                'plainPassword' => ['type' => 'String'],
+                'phoneNumber' => ['type' => 'String'],
             ], serialize: false, name: "entry")
         ]
     )]

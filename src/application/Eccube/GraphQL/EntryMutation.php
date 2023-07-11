@@ -51,7 +51,7 @@ class EntryMutation implements MutationResolverInterface
      */
     public function __invoke($customer, array $context)
     {
-        $password = $this->passwordHasher->hashPassword($customer, $context['args']['input']['plain_password']);
+        $password = $this->passwordHasher->hashPassword($customer, $context['args']['input']['plainPassword']);
 
         $customerStatusProvisional = $this->entityManager
             ->find(CustomerStatus::class, CustomerStatus::PROVISIONAL);
