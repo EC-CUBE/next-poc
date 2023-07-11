@@ -913,7 +913,7 @@ if (!class_exists('\Eccube\Entity\Shipping')) {
         /**
          * 出荷済みの場合はtrue, 未出荷の場合はfalseを返す
          *
-         * @return boolean
+         * @return bool
          */
         public function isShipped()
         {

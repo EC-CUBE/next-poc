@@ -79,7 +79,7 @@ if (!class_exists('\Eccube\Entity\OrderItem')) {
         /**
          * 送料明細かどうか.
          *
-         * @return boolean 送料明細の場合 true
+         * @return bool 送料明細の場合 true
          */
         public function isDeliveryFee()
         {
@@ -89,7 +89,7 @@ if (!class_exists('\Eccube\Entity\OrderItem')) {
         /**
          * 手数料明細かどうか.
          *
-         * @return boolean 手数料明細の場合 true
+         * @return bool 手数料明細の場合 true
          */
         public function isCharge()
         {
@@ -99,7 +99,7 @@ if (!class_exists('\Eccube\Entity\OrderItem')) {
         /**
          * 値引き明細かどうか.
          *
-         * @return boolean 値引き明細の場合 true
+         * @return bool 値引き明細の場合 true
          */
         public function isDiscount()
         {
@@ -119,7 +119,7 @@ if (!class_exists('\Eccube\Entity\OrderItem')) {
         /**
          * ポイント明細かどうか.
          *
-         * @return boolean ポイント明細の場合 true
+         * @return bool ポイント明細の場合 true
          */
         public function isPoint()
         {

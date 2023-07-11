@@ -216,7 +216,7 @@ if (!class_exists('\Eccube\Entity\Order')) {
         /**
          * 複数配送かどうかの判定を行う.
          *
-         * @return boolean
+         * @return bool
          */
         public function isMultiple()
         {
@@ -1443,7 +1443,7 @@ if (!class_exists('\Eccube\Entity\Order')) {
          *
          * @param \Eccube\Entity\OrderItem $OrderItem
          *
-         * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+         * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
          */
         public function removeOrderItem(OrderItem $OrderItem)
         {
@@ -1489,7 +1489,7 @@ if (!class_exists('\Eccube\Entity\Order')) {
          *
          * @param \Eccube\Entity\Shipping $Shipping
          *
-         * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+         * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
          */
         public function removeShipping(Shipping $Shipping)
         {
@@ -1534,7 +1534,7 @@ if (!class_exists('\Eccube\Entity\Order')) {
          *
          * @param \Eccube\Entity\MailHistory $mailHistory
          *
-         * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+         * @return bool TRUE if this collection contained the specified element, FALSE otherwise.
          */
         public function removeMailHistory(MailHistory $mailHistory)
         {

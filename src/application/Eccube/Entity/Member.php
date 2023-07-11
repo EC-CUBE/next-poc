@@ -356,7 +356,7 @@ if (!class_exists('\Eccube\Entity\Member')) {
         /**
          * Set twoFactorAuthEnabled.
          *
-         * @param boolean $two_factor_auth_enabled
+         * @param bool $two_factor_auth_enabled
          *
          * @return Member
          */
@@ -370,7 +370,7 @@ if (!class_exists('\Eccube\Entity\Member')) {
         /**
          * Get twoFactorAuthEnabled.
          *
-         * @return boolean
+         * @return bool
          */
         public function isTwoFactorAuthEnabled()
         {

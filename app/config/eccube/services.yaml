@@ -245,3 +245,26 @@ services:
 
     Eccube\Http\RequestHandler:
         decorates: 'form.type_extension.form.request_handler'
+
+    Eccube\Api\Extension\FilterExtension:
+        decorates: 'api_platform.doctrine.orm.query_extension.filter'
+        arguments: ['@.inner']
+
+    Eccube\Api\Extension\FilterEagerLoadingExtension:
+        decorates: api_platform.doctrine.orm.query_extension.filter_eager_loading
+        arguments: ['@.inner']
+
+    Eccube\Api\Extension\EagerLoadingExtension:
+        decorates: api_platform.doctrine.orm.query_extension.eager_loading
+        arguments: ['@.inner']
+
+    Eccube\Api\Extension\OrderExtension:
+        decorates: api_platform.doctrine.orm.query_extension.order
+        arguments: ['@.inner']
+
+    Eccube\Api\Extension\PaginationExtension:
+        decorates: api_platform.doctrine.orm.query_extension.pagination
+        arguments: ['@.inner']
+
+    Eccube\GraphQL\:
+        resource: '../../../src/application/Eccube/GraphQL/'

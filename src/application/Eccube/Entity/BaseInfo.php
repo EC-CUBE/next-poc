@@ -786,7 +786,7 @@ if (!class_exists('\Eccube\Entity\BaseInfo')) {
         /**
          * Set optionProductDeliveryFee.
          *
-         * @param boolean $optionProductDeliveryFee
+         * @param bool $optionProductDeliveryFee
          *
          * @return BaseInfo
          */
@@ -800,7 +800,7 @@ if (!class_exists('\Eccube\Entity\BaseInfo')) {
         /**
          * Get optionProductDeliveryFee.
          *
-         * @return boolean
+         * @return bool
          */
         public function isOptionProductDeliveryFee()
         {

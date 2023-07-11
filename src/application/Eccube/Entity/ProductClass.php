@@ -139,7 +139,7 @@ if (!class_exists('\Eccube\Entity\ProductClass')) {
         /**
          * Get tax_rate
          *
-         * @return boolean
+         * @return bool
          */
         public function getTaxRate()
         {
@@ -366,7 +366,7 @@ if (!class_exists('\Eccube\Entity\ProductClass')) {
         /**
          * Set stockUnlimited.
          *
-         * @param boolean $stockUnlimited
+         * @param bool $stockUnlimited
          *
          * @return ProductClass
          */
@@ -380,7 +380,7 @@ if (!class_exists('\Eccube\Entity\ProductClass')) {
         /**
          * Get stockUnlimited.
          *
-         * @return boolean
+         * @return bool
          */
         public function isStockUnlimited()
         {
