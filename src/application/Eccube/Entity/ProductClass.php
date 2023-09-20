@@ -28,8 +28,8 @@ if (!class_exists('\Eccube\Entity\ProductClass')) {
     #[ORM\Entity(repositoryClass: 'Eccube\Repository\ProductClassRepository')]
     class ProductClass extends \Eccube\Entity\AbstractEntity
     {
-        private $price01_inc_tax = null;
-        private $price02_inc_tax = null;
+        private int $price01_inc_tax = 0;
+        private int $price02_inc_tax = 0;
         private $tax_rate = false;
 
         /**
